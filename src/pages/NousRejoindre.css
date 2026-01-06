@@ -1,0 +1,186 @@
+.nousrejoindre {
+    --famissio-red: #c82904;
+    --famissio-orange: #f46a07;
+    --bg: #f5f5f5;
+    --card: #fffaf7;
+    background: var(--bg);
+    color: #222;
+}
+
+.nousrejoindre .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+.nousrejoindre .introSection {
+    background: var(--famissio-red);
+    color: #fff;
+    padding: 56px 0 42px;
+}
+
+.nousrejoindre .introSection h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    font-weight: 800;
+}
+
+.nousrejoindre .introSection p {
+    margin: 12px 0 0;
+    opacity: .95;
+}
+
+.nousrejoindre .formSection {
+    padding: 34px 0 26px;
+    background: transparent;
+    /* <-- pas de gros bloc blanc */
+}
+
+.nousrejoindre .formSection h2 {
+    margin: 0 0 14px;
+    color: var(--famissio-red);
+    font-size: 1.6rem;
+}
+
+.nousrejoindre .formBox {
+    background: var(--card);
+    border: 1px solid rgba(244, 106, 7, .35);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.nousrejoindre .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.nousrejoindre .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nousrejoindre .full {
+    grid-column: 1 / -1;
+}
+
+.nousrejoindre label {
+    font-weight: 700;
+    font-size: .95rem;
+}
+
+.nousrejoindre input,
+.nousrejoindre textarea {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 12px;
+    padding: 12px;
+    font: inherit;
+    background: #fff;
+}
+
+.nousrejoindre textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.nousrejoindre .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.nousrejoindre .btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.nousrejoindre .btnPrimary {
+    background: var(--famissio-orange);
+    color: #fff;
+}
+
+.nousrejoindre .btnPrimary:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.nousrejoindre .statusOk {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #eaf7ee;
+    border: 1px solid #bfe7c7;
+}
+
+.nousrejoindre .statusErr {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fdecec;
+    border: 1px solid #f2bcbc;
+}
+
+@media (max-width: 820px) {
+    .nousrejoindre .formGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contactForm {
+    display: grid;
+    gap: 14px;
+    max-width: 520px;
+}
+
+.contactForm label {
+    display: grid;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.contactForm input,
+.contactForm textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    font: inherit;
+}
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 0;
+    background: #c82904;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.formSuccess {
+    max-width: 520px;
+    padding: 18px;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.formError {
+    color: #c82904;
+    font-weight: 600;
+}
+
+.honeypot {
+    display: none;
+}

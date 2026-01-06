@@ -1,0 +1,22 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* Le “shell” de l’app prend tout l’écran */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le contenu (pages) prend la place restante entre navbar et footer */
+.app-main {
+  flex: 1;
+  min-width: 0;
+}
