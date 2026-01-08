@@ -1,34 +1,63 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-/* --- COMPOSANTS ICONES (Pour remplacer FontAwesome) --- */
+/* =========================================
+   DÉFINITIONS DES ICÔNES (NE PAS SUPPRIMER)
+   ========================================= */
+
+// Icônes des Piliers (Prêtre, Prophète, Roi)
 function IconChurch(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-            <path d="M12 2 5 7v15h5v-5h4v5h5V7l-7-5Zm2 12h-4v-2h4v2Zm0-4h-4V8h4v2Z" />
+        <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+            <path d="M256 0c-16.5 0-30 13.5-30 30v20H120c-13.3 0-24 10.7-24 24v408c0 13.3 10.7 24 24 24h272c13.3 0 24-10.7 24-24V74c0-13.3-10.7-24-24-24h-106V30c0-16.5-13.5-30-30-30zM144 98h224v380H144V98zm112 40c-11 0-20 9-20 20v114h-64v64h64v114c0 11 9 20 20 20s20-9 20-20V336h64v-64h-64V158c0-11-9-20-20-20z" />
         </svg>
     );
 }
 function IconBullhorn(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-            <path d="M3 11v2c0 .55.45 1 1 1h2l3.5 3.5c.63.63 1.72.18 1.72-.71V14h6l4-2V8l-4-2H11V4.21c0-.89-1.08-1.34-1.72-.71L6 7H4c-.55 0-1 .45-1 1v3Zm8 1H6.41L5 10.59V13h6v-1Zm8-2.76v5.52L17.5 14H11V10h6.5L19 9.24Z" />
+        <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+            <path d="M480 208H308c-10.5 0-20.2-5.7-25.5-14.9L216 64H32c-17.7 0-32 14.3-32 32v224c0 17.7 14.3 32 32 32h184l66.5 128.5c5.3 10.2 16.5 15.5 27.5 13.2 11-2.3 19-11.8 20-23.7V272h150c17.7 0 32-14.3 32-32v-32z" />
         </svg>
     );
 }
 function IconCrown(props) {
     return (
-        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-            <path d="M5 16 3 7l5 4 4-6 4 6 5-4-2 9H5Zm0 2h14v2H5v-2Z" />
+        <svg viewBox="0 0 576 512" fill="currentColor" {...props}>
+            <path d="M576 128c0-35.3-28.7-64-64-64-26.5 0-49.3 16.3-58.6 39.4l-75.1 187.8L320 64c0-35.3-28.7-64-64-64s-64 28.7-64 64l-58.3 227.2L58.6 103.4C49.3 80.3 26.5 64 0 64C-35.3 64-64 92.7-64 128c0 23.6 12.9 44 32 55.4v264.6c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32V183.4c19.1-11.4 32-31.8 32-55.4z" />
         </svg>
     );
 }
 
+// Icônes de la Mission (Oeil, Calendrier, Pin) - C'est celles-ci qui manquaient !
+function IconEye(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+        </svg>
+    );
+}
+function IconCalendar(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+        </svg>
+    );
+}
+function IconPin(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
+        </svg>
+    );
+}
+
+/* =========================================
+   COMPOSANT PRINCIPAL
+   ========================================= */
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const touchStartX = useRef(0);
 
-    // Gestion du scroll quand le modal est ouvert
     useEffect(() => {
         if (isModalOpen) document.body.style.overflow = "hidden";
         else document.body.style.overflow = "";
@@ -36,7 +65,7 @@ export default function Home() {
     }, [isModalOpen]);
 
     const openModalAt = (index) => {
-        setCurrentSlide(index);
+        setCurrentSlide(Number(index));
         setIsModalOpen(true);
     };
 
@@ -45,11 +74,10 @@ export default function Home() {
     const goToSlide = (index) => {
         let next = index;
         if (next < 0) next = 0;
-        if (next > 2) next = 2; // On a 3 slides (0, 1, 2)
+        if (next > 2) next = 2;
         setCurrentSlide(next);
     };
 
-    // Gestion du Swipe tactile
     const handleTouchStart = (e) => {
         touchStartX.current = e.changedTouches[0].screenX;
     };
@@ -57,10 +85,10 @@ export default function Home() {
     const handleTouchEnd = (e) => {
         const touchEndX = e.changedTouches[0].screenX;
         if (touchEndX < touchStartX.current - 50) {
-            goToSlide(currentSlide + 1); // Swipe gauche -> suivant
+            goToSlide(currentSlide + 1);
         }
         if (touchEndX > touchStartX.current + 50) {
-            goToSlide(currentSlide - 1); // Swipe droite -> précédent
+            goToSlide(currentSlide - 1);
         }
     };
 
@@ -69,7 +97,6 @@ export default function Home() {
             <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600;700&display=swap');
 
-        /* --- Variables de Couleurs --- */
         .home-container {
             --famissio-red: #c82904;
             --famissio-orange: #f46a07;
@@ -81,629 +108,124 @@ export default function Home() {
             --bg-pale-orange: #fffaf7;
             --bg-mission-action: #f0f5ff;
             --bg-prayer: #e8e8e8;
-            
             font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
             line-height: 1.7;
             overflow-x: hidden;
         }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 0;
-        }
-
-        /* --- Titres --- */
-        .home-container h3, .home-container h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            text-align: left;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            color: var(--famissio-orange);
-        }
-
-        .home-container h3 {
-            font-size: 2.2rem;
-            margin-top: 40px;
-        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 60px 0; }
         
-        .priest-section h3.section-subtitle,
-        .pope-message h3.section-subtitle {
-            font-size: 1.6rem;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            font-weight: 600;
-            font-family: 'Open Sans', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: left; 
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        /* Titres */
+        .home-container h3, .home-container h4 { font-family: 'Playfair Display', serif; font-weight: 700; text-align: left; margin-bottom: 25px; line-height: 1.2; color: var(--famissio-orange); }
+        .home-container h3 { font-size: 2.2rem; margin-top: 40px; }
+        .priest-section h3.section-subtitle, .pope-message h3.section-subtitle { font-size: 1.6rem; margin-top: 20px; margin-bottom: 30px; font-weight: 600; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 1px; text-align: left; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .home-container h4 { font-size: 1.6rem; color: var(--famissio-red); margin-bottom: 10px; }
         
-        .home-container h4 {
-            font-size: 1.6rem;
-            color: var(--famissio-red);
-            margin-bottom: 10px;
-        }
+        .home-container h2 { font-family: 'Open Sans', sans-serif; font-size: 2.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--famissio-red); text-align: center; padding-bottom: 15px; position: relative; margin-bottom: 40px; }
+        .home-container h2::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 70px; height: 3px; background-color: var(--famissio-orange); border-radius: 2px; }
         
-        .home-container h2 {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 2.6rem; 
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--famissio-red);
-            text-align: center;
-            padding-bottom: 15px;
-            position: relative;
-            margin-bottom: 40px;
-        }
-        .home-container h2::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 3px;
-            background-color: var(--famissio-orange);
-            border-radius: 2px;
-        }
-
-        .full-width-banner h2,
-        .prayer-section h2 {
-            font-family: 'Playfair Display', serif;
-            text-transform: none;
-            letter-spacing: normal;
-            font-weight: 700;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .full-width-banner h2::after,
-        .prayer-section h2::after {
-             background-color: var(--famissio-orange);
-             width: 80px;
-             height: 4px;
-             bottom: -15px;
-        }
+        .full-width-banner h2, .prayer-section h2 { font-family: 'Playfair Display', serif; text-transform: none; letter-spacing: normal; font-weight: 700; margin-bottom: 0; padding-bottom: 0; }
+        .full-width-banner h2::after, .prayer-section h2::after { background-color: var(--famissio-orange); width: 80px; height: 4px; bottom: -15px; }
+        .full-width-banner h2 { font-size: clamp(2rem, 5vw, 3rem); color: var(--text-light); text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7); }
+        .full-width-banner h2::after { background-color: var(--text-light); }
+        .prayer-section h2 { font-size: 3.5rem; color: var(--famissio-red); }
         
-        .full-width-banner h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            color: var(--text-light);
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
-        }
-        .full-width-banner h2::after {
-             background-color: var(--text-light);
-        }
+        .home-container p, .home-container ul, .home-container ol, .home-container blockquote { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 1em; }
+        strong { color: var(--famissio-red); }
+        blockquote { font-style: italic; border-left: 5px solid var(--famissio-orange); padding: 20px 25px; margin: 30px 0; background-color: var(--bg-grey-light); border-radius: 8px; color: var(--text-dark); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        blockquote footer { margin-top: 10px; font-style: normal; font-weight: 600; color: var(--famissio-red); display: block; }
         
-        .prayer-section h2 {
-            font-size: 3.5rem;
-            color: var(--famissio-red);
-        }
-        
-        .home-container p, .home-container ul, .home-container ol, .home-container blockquote {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            margin-bottom: 1em;
-        }
-        
-        strong {
-            color: var(--famissio-red);
-        }
-
-        blockquote {
-            font-style: italic;
-            border-left: 5px solid var(--famissio-orange);
-            padding: 20px 25px;
-            margin: 30px 0;
-            background-color: var(--bg-grey-light);
-            border-radius: 8px;
-            color: var(--text-dark);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        blockquote footer {
-            margin-top: 10px;
-            font-style: normal;
-            font-weight: 600;
-            color: var(--famissio-red);
-            display: block;
-        }
-
-        /* --- Sections --- */
+        /* Sections */
         .section-light { background-color: var(--bg-light); }
         .section-dark { background-color: var(--bg-dark); color: var(--text-light); }
         .section-mission-action { background-color: var(--bg-mission-action); }
-
-        .text-block {
-            padding: 0 5%;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        .text-block { padding: 0 5%; max-width: 900px; margin: 0 auto; text-align: center; }
         .text-justify { text-align: left; }
         .text-justify p { text-align: justify; }
         
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            max-width: 900px;
-            margin: 50px auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* --- Notre Mission --- */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-            margin-top: 50px;
-        }
-        .feature-card {
-            background-color: var(--bg-light);
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-bottom: 5px solid var(--famissio-orange);
-        }
-        .feature-card h3 {
-            color: var(--famissio-red);
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .feature-card p {
-            color: var(--text-dark);
-            font-size: 1rem;
-            text-align: justify;
-        }
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 15px;
-            text-align: center;
-            color: var(--famissio-orange);
-        }
-        .card-icon svg { width: 100%; height: 100%; fill: var(--famissio-orange); }
-
-        /* --- Équipe Missionnaire --- */
-        .age-content {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            align-items: center;
-            margin-top: 50px;
-        }
-        .age-text {
-            width: 100%;
-            max-width: 900px;
-            text-align: left; 
-        }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 900px; margin: 50px auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        /* Feature Grid */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .feature-card { background-color: var(--bg-light); border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); padding: 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; border-bottom: 5px solid var(--famissio-orange); }
+        .feature-card h3 { color: var(--famissio-red); font-size: 1.5rem; margin-top: 0; margin-bottom: 15px; text-align: center; white-space: nowrap; }
+        .feature-card p { color: var(--text-dark); font-size: 1rem; text-align: justify; }
+        .card-icon { width: 50px; height: 50px; margin: 0 auto 15px; text-align: center; color: var(--famissio-orange); }
+        
+        /* Equipe */
+        .age-content { display: flex; flex-direction: column; gap: 40px; align-items: center; margin-top: 50px; }
+        .age-text { width: 100%; max-width: 900px; text-align: left; }
         .age-text p, .age-text blockquote { text-align: justify; }
-        .age-image {
-            width: 100%;
-            max-width: 900px;
-            text-align: center;
-        }
-        .age-image img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            object-fit: cover;
-            object-position: center top;
-            height: auto;
-            max-height: 60vh;
-        }
+        .age-image { width: 100%; max-width: 900px; text-align: center; }
+        .age-image img { width: 100%; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); object-fit: cover; object-position: center top; height: auto; max-height: 60vh; }
         
-        /* --- Mission Paroissiale --- */
-        .mission-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; 
-            margin-top: 50px;
-        }
-        .gallery-item {
-            background-color: var(--bg-light);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            text-align: center; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
-        .gallery-item h4 {
-            margin: 15px 0 20px;
-            color: var(--famissio-red);
-            font-size: 1.5rem;
-            text-align: center; 
-        }
-
-        .full-width-banner {
-            background: linear-gradient(135deg, var(--famissio-red), var(--famissio-orange));
-            padding: 50px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 40px;
-            position: relative;
-        }
-        .full-width-banner h2 {
-            position: relative;
-            z-index: 2;
-            color: var(--text-light);
-            text-shadow: none;
-        }
-
-        /* --- Père Jean-Pierre Barrière --- */
-        .profile-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .profile-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--famissio-orange);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .profile-card h2 {
-            font-family: 'Playfair Display', serif;
-            text-transform: none;
-            letter-spacing: normal;
-            font-size: 3rem;
-            margin: 0;
-        }
-
-        /* --- Piliers (Desktop) --- */
-        .priest-pillars {
-            display: grid;
-            gap: 30px;
-            margin-top: 40px;
-            max-width: 1200px;
-        }
+        /* Galerie */
+        .mission-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 50px; }
+        .gallery-item { background-color: var(--bg-light); border-radius: 15px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .gallery-item h4 { margin: 15px 0 20px; color: var(--famissio-red); font-size: 1.5rem; text-align: center; }
         
-        @media (min-width: 768px) {
-            .priest-pillars {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .priest-pillars .pillar-item:nth-child(1) {
-                grid-area: 1 / 1 / 2 / 3;
-                width: 100%;
-            }
-            .priest-pillars .pillar-item:nth-child(2) {
-                grid-area: 2 / 1 / 3 / 2;
-                width: 100%;
-            }
-             .priest-pillars .pillar-item:nth-child(3) {
-                grid-area: 2 / 2 / 3 / 3;
-            }
-        }
+        .full-width-banner { background: linear-gradient(135deg, var(--famissio-red), var(--famissio-orange)); padding: 50px 0; display: flex; justify-content: center; align-items: center; margin-top: 40px; position: relative; }
+        .full-width-banner h2 { position: relative; z-index: 2; color: var(--text-light); text-shadow: none; }
         
-        .pillar-item {
-            background-color: var(--bg-light);
-            color: #333;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .pillar-item h4 {
-            color: var(--famissio-orange);
-            font-size: 1.8rem;
-            text-align: center;
-            margin-bottom: 20px;
-            margin-top: 0;
-            font-family: 'Playfair Display', serif;
-        }
-         .pillar-item h4 .icon-wrap {
-             display: block;
-             margin-bottom: 15px;
-             width: 40px; height: 40px;
-             margin-left: auto; margin-right: auto;
-             color: var(--famissio-red);
-        }
-        .pillar-item p {
-            font-size: 1.1rem;
-            text-align: justify;
-            width: 100%;
-        }
-
-        /* --- MOBILE SYSTEM (CSS) --- */
+        .profile-card { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 50px; }
+        .profile-card img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid var(--famissio-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .profile-card h2 { font-family: 'Playfair Display', serif; text-transform: none; letter-spacing: normal; font-size: 3rem; margin: 0; }
+        
+        .priest-pillars { display: grid; gap: 30px; margin-top: 40px; max-width: 1200px; }
+        @media (min-width: 768px) { .priest-pillars { grid-template-columns: repeat(2, 1fr); } .priest-pillars .pillar-item:nth-child(1) { grid-area: 1 / 1 / 2 / 3; width: 100%; } .priest-pillars .pillar-item:nth-child(2) { grid-area: 2 / 1 / 3 / 2; width: 100%; } .priest-pillars .pillar-item:nth-child(3) { grid-area: 2 / 2 / 3 / 3; } }
+        .pillar-item { background-color: var(--bg-light); color: #333; padding: 30px; border-radius: 10px; text-align: left; box-shadow: 0 5px 20px rgba(0,0,0,0.1); height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .pillar-item h4 { color: var(--famissio-orange); font-size: 1.8rem; text-align: center; margin-bottom: 20px; margin-top: 0; font-family: 'Playfair Display', serif; }
+        .pillar-item h4 .icon-wrap { display: block; margin-bottom: 15px; width: 40px; height: 40px; margin-left: auto; margin-right: auto; color: var(--famissio-red); }
+        .pillar-item p { font-size: 1.1rem; text-align: justify; width: 100%; }
+        
         .mobile-pillars-nav { display: none; }
-        .pillars-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 99999;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
+        .pillars-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 99999; align-items: center; justify-content: center; flex-direction: column; }
         .pillars-modal.active { display: flex; }
         
-        .carousel-container {
-            width: 95%;
-            max-width: 500px;
-            overflow: hidden;
-            position: relative;
-        }
+        .carousel-container { width: 95%; max-width: 500px; overflow: hidden; position: relative; }
+        .carousel-track { display: flex; transition: transform 0.3s ease-out; width: 100%; }
+        .carousel-slide { min-width: 100%; box-sizing: border-box; padding: 10px; }
         
-        .carousel-track {
-            display: flex;
-            transition: transform 0.3s ease-out;
-            width: 100%;
-        }
+        .mobile-card { background-color: var(--bg-light); padding: 20px 15px; border-radius: 12px; text-align: center; box-shadow: 0 0 25px rgba(244, 106, 7, 0.4); max-height: 85vh; overflow-y: auto; }
+        .mobile-card h4 { color: var(--famissio-orange); font-size: 1.4rem; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; line-height: 1.1; }
+        .mobile-card h4 svg { width: 30px; height: 30px; color: var(--famissio-red); }
+        .mobile-card p { text-align: justify; font-size: 0.9rem; line-height: 1.45; color: var(--text-dark); margin: 0; }
         
-        .carousel-slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 10px;
-        }
+        .carousel-dots { display: flex; gap: 12px; margin-top: 15px; }
+        .dot { width: 12px; height: 12px; background-color: rgba(255,255,255,0.4); border-radius: 50%; transition: background-color 0.3s; cursor: pointer; }
+        .dot.active { background-color: var(--famissio-orange); transform: scale(1.2); }
+        .close-modal-btn { position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.2); border: 1px solid white; border-radius: 50%; width: 40px; height: 40px; color: white; font-size: 1.5rem; cursor: pointer; z-index: 100000; display: flex; align-items: center; justify-content: center; }
         
-        /* --- STYLE MOBILE CARD (ZOOM OUT) --- */
-        .mobile-card {
-            background-color: var(--bg-light);
-            padding: 20px 15px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(244, 106, 7, 0.4);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        
-        .mobile-card h4 {
-            color: var(--famissio-orange);
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            line-height: 1.1;
-        }
-        .mobile-card h4 svg {
-            width: 30px; height: 30px;
-            color: var(--famissio-red);
-        }
-        
-        .mobile-card p {
-            text-align: justify;
-            font-size: 0.9rem;
-            line-height: 1.45;
-            color: var(--text-dark);
-            margin: 0;
-        }
-
-        .carousel-dots {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        .dot {
-            width: 12px;
-            height: 12px;
-            background-color: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-        .dot.active {
-            background-color: var(--famissio-orange);
-            transform: scale(1.2);
-        }
-        
-        .close-modal-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 100000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* --- Pape François --- */
-        .pope-message {
-            background-color: var(--bg-grey-light);
-            padding: 60px 0;
-        }
-        .pope-points {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px;
-            max-width: 1100px;
-            margin: 40px auto 0 auto;
-        }
+        .pope-message { background-color: var(--bg-grey-light); padding: 60px 0; }
+        .pope-points { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1100px; margin: 40px auto 0 auto; }
         .pope-points .point-item:last-child { grid-column: 1 / -1; }
-        .pope-points .point-item {
-            background-color: var(--bg-light);
-            padding: 20px;
-            border-left: 5px solid var(--famissio-orange);
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .pope-points .point-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        .pope-points .point-item h4 {
-            color: var(--famissio-red);
-            margin-top: 0;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            text-align: left; 
-            margin-bottom: 10px;
-        }
-        .pope-points .point-item p {
-            margin: 0;
-            margin-top: 5px; 
-            font-style: normal;
-            text-align: justify;
-            font-size: 0.95rem;
-        }
+        .pope-points .point-item { background-color: var(--bg-light); padding: 20px; border-left: 5px solid var(--famissio-orange); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .pope-points .point-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .pope-points .point-item h4 { color: var(--famissio-red); margin-top: 0; font-size: 1.2rem; text-transform: uppercase; text-align: left; margin-bottom: 10px; }
+        .pope-points .point-item p { margin: 0; margin-top: 5px; font-style: normal; text-align: justify; font-size: 0.95rem; }
         
-        h3.pope-question {
-            font-size: 1.6rem;
-            color: var(--famissio-red);
-            font-weight: 700;
-            text-align: center;
-            font-family: 'Open Sans', sans-serif;
-            text-transform: uppercase;
-        }
-        .pope-final-text {
-            font-style: normal;
-            text-align: justify;
-            padding: 0;
-            max-width: none;
-            margin: 20px auto 0 auto;
-            font-size: 1.1rem;
-        }
-        .pope-final-text footer {
-            margin-top: 15px;
-            font-style: normal;
-            font-weight: 600;
-            color: var(--famissio-red);
-            display: block;
-            text-align: right;
-        }
+        h3.pope-question { font-size: 1.6rem; color: var(--famissio-red); font-weight: 700; text-align: center; font-family: 'Open Sans', sans-serif; text-transform: uppercase; }
+        .pope-final-text { font-style: normal; text-align: justify; padding: 0; max-width: none; margin: 20px auto 0 auto; font-size: 1.1rem; }
+        .pope-final-text footer { margin-top: 15px; font-style: normal; font-weight: 600; color: var(--famissio-red); display: block; text-align: right; }
+        
+        .prayer-section { text-align: center; padding: 30px 0; background-color: var(--bg-prayer); color: var(--text-dark); }
+        .prayer-logo { width: 120px; height: 120px; object-fit: contain; border-radius: 50%; border: 6px solid var(--famissio-orange); background-color: var(--bg-light); margin: 0 auto 30px auto; display: block; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .prayer-section .prayer-text { color: var(--text-dark); max-width: 600px; margin: 20px auto 20px auto; font-size: 1.2rem; }
+        .prayer-button { display: inline-block; background-color: var(--famissio-red); color: var(--text-light); padding: 18px 40px; border-radius: 50px; text-decoration: none; font-size: 1.3rem; font-weight: 600; margin-top: 20px; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .prayer-button:hover { background-color: var(--famissio-orange); }
 
-        /* --- Prière --- */
-        .prayer-section {
-            text-align: center;
-            padding: 30px 0; 
-            background-color: var(--bg-prayer);
-            color: var(--text-dark);
-        }
-        .prayer-logo {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            border-radius: 50%;
-            border: 6px solid var(--famissio-orange);
-            background-color: var(--bg-light);
-            margin: 0 auto 30px auto;
-            display: block;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        .prayer-section .prayer-text {
-            color: var(--text-dark);
-            max-width: 600px; 
-            margin: 20px auto 20px auto; 
-            font-size: 1.2rem;
-        }
-        .prayer-button {
-            display: inline-block;
-            background-color: var(--famissio-red);
-            color: var(--text-light);
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        .prayer-button:hover {
-            background-color: var(--famissio-orange);
-        }
-
-        /* --- Responsive Design (MOBILE) --- */
+        /* Responsive Design */
         @media (max-width: 767px) { 
             .priest-pillars { display: none; }
-            .mobile-pillars-nav {
-                display: flex;
-                justify-content: center;
-                gap: 15px; 
-                margin-top: 30px;
-                margin-bottom: 20px;
-            }
-            .mobile-icon-btn {
-                width: 75px;
-                height: 75px;
-                background-color: var(--bg-light);
-                border-radius: 50%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                cursor: pointer;
-                border: 2px solid var(--famissio-orange);
-                transition: transform 0.2s;
-                -webkit-tap-highlight-color: transparent;
-            }
-            .mobile-icon-btn:active {
-                transform: scale(0.95);
-                background-color: #ffe6db;
-            }
-            .mobile-icon-btn svg {
-                width: 26px; height: 26px;
-                color: var(--famissio-red);
-                margin-bottom: 2px;
-            }
-            .mobile-icon-btn span {
-                font-size: 0.65rem;
-                font-weight: 700;
-                color: var(--famissio-orange);
-                text-transform: uppercase;
-            }
-            .pope-points { 
-                display: flex;
-                flex-direction: column; 
-            }
+            .mobile-pillars-nav { display: flex; justify-content: center; gap: 15px; margin-top: 30px; margin-bottom: 20px; }
+            .mobile-icon-btn { width: 75px; height: 75px; background-color: var(--bg-light); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; border: 2px solid var(--famissio-orange); transition: transform 0.2s; -webkit-tap-highlight-color: transparent; }
+            .mobile-icon-btn:active { transform: scale(0.95); background-color: #ffe6db; }
+            .mobile-icon-btn svg { width: 26px; height: 26px; color: var(--famissio-red); margin-bottom: 2px; }
+            .mobile-icon-btn span { font-size: 0.65rem; font-weight: 700; color: var(--famissio-orange); text-transform: uppercase; }
+            .pope-points { display: flex; flex-direction: column; }
             .pope-points .point-item { width: auto; }
             .feature-card h3 { white-space: normal; }
         }
@@ -774,7 +296,6 @@ export default function Home() {
                         <h2>L'Équipe Missionnaire</h2>
                         <div className="age-content">
                             <div className="age-image">
-                                {/* Image Dropbox #14 */}
                                 <img src="https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/trrrrrrrzzzzzzzf-2-fi36539933x520.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=2ap6gdal&raw=1" alt="L'équipe missionnaire Famissio" />
                             </div>
                             <div className="age-text">
@@ -809,32 +330,26 @@ export default function Home() {
                         <h2>Une Mission Paroissiale en Action</h2>
                         <div className="mission-gallery">
                             <div className="gallery-item">
-                                {/* Image 11 */}
                                 <img src="https://www.dropbox.com/scl/fi/v0k8ckicnyaobc6wdixtc/IMG_20211104_171612-fi32460644x451.jpg?rlkey=gecdftgaorgur3jacznz51b3e&st=zgarxktq&raw=1" alt="Temps de prière" />
                                 <h4>Temps de prière</h4>
                             </div>
                             <div className="gallery-item">
-                                {/* Image 5 */}
                                 <img src="https://www.dropbox.com/scl/fi/8xnpcrh3tvxzxf7kyvp6d/DSC06168-1-fi34268804x450.JPG?rlkey=d8pslpo7wwh33oifo30cdhb02&st=ouy3d7kh&raw=1" alt="Évangélisation" />
                                 <h4>Évangélisation</h4>
                             </div>
                             <div className="gallery-item">
-                                {/* Image 8 */}
                                 <img src="https://www.dropbox.com/scl/fi/84oq9lffpxessyjqaykze/DSC07017-fi34268812x450.JPG?rlkey=31tzir638dtkj7irj1wdfww99&st=1uj7gy0m&raw=1" alt="Veillées" />
                                 <h4>Veillée</h4>
                             </div>
                             <div className="gallery-item">
-                                {/* Image 6 */}
                                 <img src="https://www.dropbox.com/scl/fi/ektuggc9viiayu4m4zx8v/DSC06370-fi34268813x450.JPG?rlkey=wwh0cdmldc29bnw3ihw3jswqy&st=5od3xnu2&raw=1" alt="Bénédiction des cimetières" />
                                 <h4>Bénédiction des cimetières</h4>
                             </div>
                             <div className="gallery-item">
-                                {/* Image 12 */}
                                 <img src="https://www.dropbox.com/scl/fi/m15to2bnadh2tm5bj1cly/IMGP2714-fi34268817x452.JPG?rlkey=391cu3b0i72m9pnnd2nf9cgh1&st=fzqn01ne&raw=1" alt="Journée intergénérationnelle" />
                                 <h4>Journée des familles</h4>
                             </div>
                             <div className="gallery-item">
-                                {/* Image 7 */}
                                 <img src="https://www.dropbox.com/scl/fi/kxal2e1m5ada6yekul9ez/DSC06804-fi34268819x450.JPG?rlkey=99vuv31asqw7f2j909rbzaf6t&st=r0t2rz4j&raw=1" alt="Journée diocésaine" />
                                 <h4>Envoi en mission</h4>
                             </div>
@@ -855,7 +370,6 @@ export default function Home() {
                 <section className="section-light priest-section">
                     <div className="container">
                         <div className="profile-card">
-                            {/* Image 9 */}
                             <img src="https://www.dropbox.com/scl/fi/dsno7gyihzu9cgldd8r8m/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg?rlkey=4bgn6q71xyk271zuo9hz04qkd&st=xljafer4&raw=1" alt="Père Jean-Pierre Barrière" />
                             <h2>Père Jean-Pierre Barrière</h2>
                             <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: '1.3rem', fontWeight: 600, fontStyle: 'italic', color: 'var(--famissio-orange)', marginTop: 0, marginBottom: 0, textAlign: 'center' }}>Aumônier de Famissio</p>
@@ -925,7 +439,6 @@ export default function Home() {
                 <section className="pope-message">
                     <div className="container">
                         <div className="profile-card">
-                            {/* Image 13 */}
                             <img src="https://www.dropbox.com/scl/fi/iqxyup7a7ovqdx1scs9ey/pape_10_0-fi27235959x470.jpg?rlkey=efa3ype4bq4pdw4ot4sttzj3f&st=328t36t5&raw=1" alt="Pape François" />
                             <h2>Pape François</h2>
                         </div>
@@ -987,7 +500,6 @@ export default function Home() {
 
                 <section className="prayer-section" style={{ backgroundColor: 'var(--bg-prayer)' }}>
                     <div className="container">
-                        {/* Image 10 */}
                         <img src="https://www.dropbox.com/scl/fi/ozdvwu2oguqbfpnqb13md/image-fi36533979x60.png?rlkey=dhv7afow6nxnv2ni0qx5hkssm&st=5a3ep07c&raw=1" alt="Logo Prière Famissio" className="prayer-logo" />
                         <h2>Prière du Famissionnaire</h2>
 
