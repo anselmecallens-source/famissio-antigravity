@@ -1,32 +1,84 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-/* --- ICONES SVG --- */
-function IconChurch(props) { return (<svg viewBox="0 0 512 512" fill="currentColor" {...props}><path d="M256 0c-16.5 0-30 13.5-30 30v20H120c-13.3 0-24 10.7-24 24v408c0 13.3 10.7 24 24 24h272c13.3 0 24-10.7 24-24V74c0-13.3-10.7-24-24-24h-106V30c0-16.5-13.5-30-30-30zM144 98h224v380H144V98zm112 40c-11 0-20 9-20 20v114h-64v64h64v114c0 11 9 20 20 20s20-9 20-20V336h64v-64h-64V158c0-11-9-20-20-20z" /></svg>); }
-function IconBullhorn(props) { return (<svg viewBox="0 0 512 512" fill="currentColor" {...props}><path d="M480 208H308c-10.5 0-20.2-5.7-25.5-14.9L216 64H32c-17.7 0-32 14.3-32 32v224c0 17.7 14.3 32 32 32h184l66.5 128.5c5.3 10.2 16.5 15.5 27.5 13.2 11-2.3 19-11.8 20-23.7V272h150c17.7 0 32-14.3 32-32v-32z" /></svg>); }
-function IconCrown(props) { return (<svg viewBox="0 0 576 512" fill="currentColor" {...props}><path d="M576 128c0-35.3-28.7-64-64-64-26.5 0-49.3 16.3-58.6 39.4l-75.1 187.8L320 64c0-35.3-28.7-64-64-64s-64 28.7-64 64l-58.3 227.2L58.6 103.4C49.3 80.3 26.5 64 0 64C-35.3 64-64 92.7-64 128c0 23.6 12.9 44 32 55.4v264.6c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32V183.4c19.1-11.4 32-31.8 32-55.4z" /></svg>); }
-function IconEye(props) { return (<svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" /></svg>); }
-function IconCalendar(props) { return (<svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" /></svg>); }
-function IconPin(props) { return (<svg viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" /></svg>); }
+/* =========================================
+   ICÔNES SVG INTÉGRÉES (Plus de bugs d'affichage)
+   ========================================= */
+function IconChurch(props) {
+    return (
+        <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+            <path d="M256 0c-16.5 0-30 13.5-30 30v20H120c-13.3 0-24 10.7-24 24v408c0 13.3 10.7 24 24 24h272c13.3 0 24-10.7 24-24V74c0-13.3-10.7-24-24-24h-106V30c0-16.5-13.5-30-30-30zM144 98h224v380H144V98zm112 40c-11 0-20 9-20 20v114h-64v64h64v114c0 11 9 20 20 20s20-9 20-20V336h64v-64h-64V158c0-11-9-20-20-20z" />
+        </svg>
+    );
+}
+function IconBullhorn(props) {
+    return (
+        <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+            <path d="M480 208H308c-10.5 0-20.2-5.7-25.5-14.9L216 64H32c-17.7 0-32 14.3-32 32v224c0 17.7 14.3 32 32 32h184l66.5 128.5c5.3 10.2 16.5 15.5 27.5 13.2 11-2.3 19-11.8 20-23.7V272h150c17.7 0 32-14.3 32-32v-32z" />
+        </svg>
+    );
+}
+function IconCrown(props) {
+    return (
+        <svg viewBox="0 0 576 512" fill="currentColor" {...props}>
+            <path d="M576 128c0-35.3-28.7-64-64-64-26.5 0-49.3 16.3-58.6 39.4l-75.1 187.8L320 64c0-35.3-28.7-64-64-64s-64 28.7-64 64l-58.3 227.2L58.6 103.4C49.3 80.3 26.5 64 0 64C-35.3 64-64 92.7-64 128c0 23.6 12.9 44 32 55.4v264.6c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32V183.4c19.1-11.4 32-31.8 32-55.4z" />
+        </svg>
+    );
+}
+function IconEye(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+        </svg>
+    );
+}
+function IconCalendar(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+        </svg>
+    );
+}
+function IconPin(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
+        </svg>
+    );
+}
 
+/* =========================================
+   COMPOSANT PRINCIPAL
+   ========================================= */
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const touchStartX = useRef(0);
 
+    // Bloque le scroll quand le modal mobile est ouvert
     useEffect(() => {
         if (isModalOpen) document.body.style.overflow = "hidden";
         else document.body.style.overflow = "";
         return () => { document.body.style.overflow = ""; };
     }, [isModalOpen]);
 
-    const openModalAt = (index) => { setCurrentSlide(Number(index)); setIsModalOpen(true); };
+    const openModalAt = (index) => {
+        setCurrentSlide(Number(index));
+        setIsModalOpen(true);
+    };
+
     const closeModal = () => setIsModalOpen(false);
+
     const goToSlide = (index) => {
         let next = index;
-        if (next < 0) next = 0; if (next > 2) next = 2;
+        if (next < 0) next = 0;
+        if (next > 2) next = 2;
         setCurrentSlide(next);
     };
-    const handleTouchStart = (e) => { touchStartX.current = e.changedTouches[0].screenX; };
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.changedTouches[0].screenX;
+    };
+
     const handleTouchEnd = (e) => {
         const touchEndX = e.changedTouches[0].screenX;
         if (touchEndX < touchStartX.current - 50) goToSlide(currentSlide + 1);
@@ -35,10 +87,11 @@ export default function Home() {
 
     return (
         <>
+            {/* CSS ISOLÉ ET MODERNE POUR L'ACCUEIL */}
             <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600;700&display=swap');
 
-        .home-container {
+        .home-wrapper {
             --famissio-red: #c82904;
             --famissio-orange: #f46a07;
             --text-dark: #333333;
@@ -50,115 +103,301 @@ export default function Home() {
             
             font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
-            line-height: 1.6; /* Interligne réduit */
+            line-height: 1.6;
             width: 100%;
             overflow-x: hidden;
         }
 
-        /* Conteneur interne : c'est lui qui centre le texte, mais la section va au bord */
-        .container { 
-            width: 90%; 
-            max-width: 1300px; /* Un peu plus large */
-            margin: 0 auto; 
-            padding: 40px 0; /* Padding réduit (était 60px) */
-        }
-        
-        /* -- TYPOGRAPHIE RÉDUITE (Dézoom) -- */
-        .home-container h2 { 
-            font-family: 'Open Sans', sans-serif; 
-            font-size: 2rem; /* Réduit (était 2.6) */
-            font-weight: 700; 
-            text-transform: uppercase; 
-            color: var(--famissio-red); 
-            text-align: center; 
-            padding-bottom: 10px; 
-            position: relative; 
-            margin-bottom: 30px; 
-        }
-        .home-container h2::after { 
-            content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); 
-            width: 60px; height: 3px; background-color: var(--famissio-orange); border-radius: 2px; 
+        /* Conteneur Standard : Centre le contenu sur une largeur raisonnable */
+        .container {
+            width: 90%;
+            max-width: 1100px; /* Largeur idéale pour la lecture */
+            margin: 0 auto;
+            padding: 50px 0;
         }
 
-        .home-container h3 { 
-            font-family: 'Playfair Display', serif; font-weight: 700; 
-            font-size: 1.6rem; /* Réduit (était 2.2) */
-            color: var(--famissio-orange); margin-top: 30px; margin-bottom: 15px; 
+        /* --- TYPOGRAPHIE HARMONISÉE --- */
+        /* Titres H2 : Grands mais pas géants */
+        .home-wrapper h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--famissio-red);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
         }
-        
-        .home-container h4 { 
-            font-size: 1.3rem; /* Réduit */
-            color: var(--famissio-red); margin-bottom: 8px; 
-        }
-        
-        .home-container p, .home-container li, .home-container blockquote { 
-            font-size: 0.95rem; /* Texte plus petit (Dézoom) */
-            color: var(--text-dark); margin-bottom: 0.8em; 
+        .home-wrapper h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--famissio-orange);
         }
 
-        /* -- SECTIONS PLEINE LARGEUR -- */
+        /* Titres H3 : Élégants avec Playfair Display */
+        .home-wrapper h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--famissio-orange);
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Texte courant : Lisible sans zoom */
+        .home-wrapper p, .home-wrapper li {
+            font-size: 1rem; /* ~16px, le standard du web */
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+
+        /* --- SECTIONS PLEINE LARGEUR --- */
         .section-light { background-color: var(--bg-light); width: 100%; }
         .section-dark { background-color: var(--bg-dark); color: var(--text-light); width: 100%; }
         .section-mission-action { background-color: #f0f5ff; width: 100%; }
-        .pope-message { background-color: var(--bg-grey-light); padding: 40px 0; width: 100%; }
-        .prayer-section { background-color: var(--bg-prayer); padding: 30px 0; text-align: center; width: 100%; }
+        .pope-message { background-color: var(--bg-grey-light); width: 100%; padding: 60px 0; }
+        .prayer-section { background-color: var(--bg-prayer); width: 100%; padding: 40px 0; text-align: center; }
 
-        /* Autres styles */
-        blockquote { font-style: italic; border-left: 4px solid var(--famissio-orange); padding: 15px 20px; margin: 20px 0; background-color: var(--bg-grey-light); border-radius: 6px; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 900px; margin: 40px auto; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-        .feature-card { background-color: var(--bg-light); border-radius: 10px; padding: 25px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-bottom: 4px solid var(--famissio-orange); }
-        .card-icon { width: 40px; height: 40px; margin: 0 auto 10px; color: var(--famissio-orange); }
-        
-        .age-content { display: flex; flex-direction: column; gap: 30px; align-items: center; margin-top: 30px; }
-        .age-image img { width: 100%; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-height: 500px; object-fit: cover; }
-        
-        .mission-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
-        .gallery-item { background-color: var(--bg-light); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
-        .gallery-item img { width: 100%; height: 180px; object-fit: cover; }
-        .gallery-item h4 { margin: 10px 0; font-size: 1.1rem; color: var(--famissio-red); }
+        /* Texte centré limité en largeur pour ne pas faire "trop étiré" */
+        .text-block {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        /* Pour le texte justifié dans les blocs centrés */
+        .text-block.text-justify p { text-align: justify; }
 
-        .full-width-banner { background: linear-gradient(135deg, var(--famissio-red), var(--famissio-orange)); padding: 40px 0; display: flex; justify-content: center; width: 100%; margin-top: 30px; }
-        .full-width-banner h2 { font-size: 2.2rem; color: var(--text-light); margin: 0; padding: 0; text-shadow: none; }
+        /* --- VIDÉOS ET IMAGES --- */
+        /* Vidéo : Taille maîtrisée, pas trop haute */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 800px; /* Largeur max raisonnable */
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        /* Images responsives */
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- GRILLES (Cartes, Galerie, Piliers) --- */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 4px solid var(--famissio-orange);
+        }
+        .card-icon { width: 50px; height: 50px; margin: 0 auto 15px; color: var(--famissio-orange); }
+
+        .mission-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .gallery-item h4 {
+            font-size: 1.1rem;
+            color: var(--famissio-red);
+            text-align: center;
+            margin: 10px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- BANNIÈRE ROUGE --- */
+        .full-width-banner {
+            background: linear-gradient(135deg, var(--famissio-red), var(--famissio-orange));
+            padding: 60px 0;
+            text-align: center;
+            width: 100%;
+            margin-top: 40px;
+        }
+        .full-width-banner h2 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            font-size: 2.5rem;
+            margin: 0;
+            padding: 0;
+            text-transform: none; /* Garde la casse normale pour l'élégance */
+        }
         .full-width-banner h2::after { display: none; }
 
-        .profile-card img { width: 130px; height: 130px; border-radius: 50%; border: 4px solid var(--famissio-orange); margin-bottom: 15px; }
-        .profile-card h2 { font-size: 2.2rem; margin: 0; }
+        /* --- SECTION PRÊTRE --- */
+        .profile-card { text-align: center; margin-bottom: 40px; }
+        .profile-card img {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--famissio-orange);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .profile-card h2 {
+            font-family: 'Playfair Display', serif;
+            text-transform: none;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .priest-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur desktop */
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .pillar-item {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .pillar-item h4 {
+            color: var(--famissio-orange);
+            font-size: 1.4rem;
+            text-align: center;
+            margin-top: 0;
+        }
+        .icon-wrap {
+            display: block; width: 40px; height: 40px; margin: 0 auto 10px; color: var(--famissio-red);
+        }
+
+        /* --- SECTION PAPE --- */
+        /* Mise en page : Image à gauche, texte à droite (si possible) ou centré */
+        .pope-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .point-item {
+            background: #fff;
+            padding: 20px;
+            border-left: 4px solid var(--famissio-orange);
+            border-radius: 6px;
+        }
+        .point-item h4 {
+            font-size: 1.1rem;
+            color: var(--famissio-red);
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .point-item p { margin: 0; font-size: 0.95rem; }
         
-        .priest-pillars { display: grid; gap: 20px; margin-top: 30px; }
-        @media (min-width: 768px) { .priest-pillars { grid-template-columns: repeat(2, 1fr); } .priest-pillars .pillar-item:nth-child(1) { grid-area: 1 / 1 / 2 / 3; } .priest-pillars .pillar-item:nth-child(2) { grid-area: 2 / 1 / 3 / 2; } .priest-pillars .pillar-item:nth-child(3) { grid-area: 2 / 2 / 3 / 3; } }
-        .pillar-item { background: var(--bg-light); padding: 25px; border-radius: 10px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; align-items: center; }
-        
-        .pope-points { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .pope-points .point-item { background: var(--bg-light); padding: 15px; border-left: 4px solid var(--famissio-orange); border-radius: 6px; }
+        /* Centrer le dernier élément s'il est impair */
         .pope-points .point-item:last-child { grid-column: 1 / -1; }
-        
-        .prayer-logo { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--famissio-orange); background: #fff; margin: 0 auto 20px; display: block; }
-        .prayer-button { display: inline-block; background: var(--famissio-red); color: #fff; padding: 15px 30px; border-radius: 50px; font-weight: 700; margin-top: 15px; text-decoration: none; }
 
-        /* Mobile specific */
+        .pope-question {
+            text-align: center;
+            color: var(--famissio-red);
+            font-size: 1.6rem;
+            margin-top: 50px;
+            text-transform: uppercase;
+        }
+        .pope-final-text {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        /* --- PRIÈRE --- */
+        .prayer-logo {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--famissio-orange);
+            background: #fff;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .prayer-button {
+            display: inline-block;
+            background: var(--famissio-red);
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .prayer-button:hover { background: var(--famissio-orange); transform: scale(1.05); }
+
+        /* --- MOBILE ONLY --- */
         .mobile-pillars-nav { display: none; }
-        .pillars-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center; }
-        .pillars-modal.active { display: flex; }
-        .close-modal-btn { position: absolute; top: 20px; right: 20px; color: #fff; background: transparent; border: 1px solid #fff; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; }
-        .carousel-container { width: 90%; max-width: 400px; overflow: hidden; }
-        .mobile-card { background: #fff; padding: 20px; border-radius: 10px; text-align: center; }
-        .carousel-dots { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
-        .dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; }
-        .dot.active { background: var(--famissio-orange); transform: scale(1.2); }
+        .pillars-modal { display: none; }
 
-        @media (max-width: 767px) {
-            .priest-pillars { display: none; }
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: 30px 0; }
+            
+            /* Sur mobile, les colonnes passent en ligne */
+            .feature-grid, .mission-gallery, .priest-pillars, .pope-points {
+                grid-template-columns: 1fr;
+            }
+            .pope-points .point-item:last-child { grid-column: auto; }
+            
+            /* Gestion des Piliers en Mobile (Carrousel) */
+            .priest-pillars { display: none; } /* On cache la version desktop */
             .mobile-pillars-nav { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
-            .mobile-icon-btn { width: 60px; height: 60px; background: #fff; border: 2px solid var(--famissio-orange); border-radius: 50%; display: flex; flex-direction: column; alignItems: center; justify-content: center; color: var(--famissio-orange); font-size: 0.7rem; font-weight: 700; }
-            .mobile-icon-btn svg { width: 24px; height: 24px; fill: var(--famissio-red); margin-bottom: 2px; }
-            .pope-points { display: flex; flex-direction: column; }
+            
+            .mobile-icon-btn {
+                width: 70px; height: 70px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid var(--famissio-orange);
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                color: var(--famissio-orange);
+                font-weight: 700; font-size: 0.7rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+            .mobile-icon-btn svg { width: 24px; height: 24px; color: var(--famissio-red); margin-bottom: 2px; }
+
+            /* Modal Mobile */
+            .pillars-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; }
+            .pillars-modal.active { display: flex; }
+            .carousel-container { width: 90%; max-width: 400px; }
+            .mobile-card { background: #fff; padding: 20px; border-radius: 12px; text-align: center; }
+            .close-modal-btn { position: absolute; top: 20px; right: 20px; background: transparent; border: 1px solid #fff; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; }
+            .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+            .dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+            .dot.active { background: var(--famissio-orange); transform: scale(1.2); }
         }
       `}</style>
 
-            <div className="home-container">
+            <div className="home-wrapper">
+
+                {/* --- SECTION 1 : GENÈSE --- */}
                 <section className="section-light">
                     <div className="container">
                         <h2>La genèse de Famissio</h2>
@@ -168,11 +407,12 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* --- SECTION 2 : QUI SOMMES-NOUS --- */}
                 <section className="section-dark">
                     <div className="container">
                         <h2 style={{ color: '#fff' }}>Qui sommes-nous ?</h2>
                         <div className="text-block">
-                            <p style={{ color: 'var(--text-light)' }}>Nous sommes des familles missionnaires venues de toute la France, accompagnées de consacrés, qui se rassemblent chaque année pendant une semaine autour de La Toussaint, pour entourer un curé et ses paroissiens, en vue de faire avec eux de la mission.</p>
+                            <p style={{ color: 'var(--text-light)', fontSize: '1.1rem' }}>Nous sommes des familles missionnaires venues de toute la France, accompagnées de consacrés, qui se rassemblent chaque année pendant une semaine autour de La Toussaint, pour entourer un curé et ses paroissiens, en vue de faire avec eux de la mission.</p>
                         </div>
 
                         <div className="video-wrapper">
@@ -181,6 +421,7 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* --- SECTION 3 : NOTRE MISSION --- */}
                 <section className="section-light">
                     <div className="container">
                         <h2>Notre Mission</h2>
@@ -204,24 +445,31 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* --- SECTION 4 : ÉQUIPE --- */}
                 <section className="section-light">
                     <div className="container">
                         <h2>L'Équipe Missionnaire</h2>
-                        <div className="age-content">
-                            <div className="age-image">
-                                <img src="https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/trrrrrrrzzzzzzzf-2-fi36539933x520.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=2ap6gdal&raw=1" alt="L'équipe missionnaire Famissio" />
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '40px' }}>
+                            {/* Image centrée et maîtrisée */}
+                            <div style={{ maxWidth: '800px', width: '100%' }}>
+                                <img
+                                    src="https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/trrrrrrrzzzzzzzf-2-fi36539933x520.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=2ap6gdal&raw=1"
+                                    alt="L'équipe missionnaire Famissio"
+                                    style={{ borderRadius: '10px', width: '100%' }}
+                                />
                             </div>
-                            <div className="age-text">
+
+                            <div className="text-block" style={{ textAlign: 'left' }}>
                                 <h3>À combien arrivons-nous ?</h3>
                                 <p>Nous arrivons entre <strong>30 à 40 disciples missionnaires</strong> autour du curé de la paroisse qui nous accueille. Une communauté dynamique prête à servir !</p>
 
                                 <h3>Missionnaires à partir de quel âge ?</h3>
                                 <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !! </p>
 
-                                <blockquote>
+                                <blockquote style={{ marginTop: '30px' }}>
                                     "Aujourd’hui, ce n’est pas seulement par-delà les océans qu’il faut propager la bonne parole, mais aussi dans nos villes et villages. Comme nous avons besoin de grands missionnaires ! Mais qui peut réveiller l’ardeur d’une chrétienté endormie ? Les grands missionnaires que nous désirons tant je crois que ce sont les enfants..."
                                     <footer>— Pierre-Alexandre Ludwig</footer>
-                                    <p style={{ marginTop: '15px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '15px' }}>
+                                    <p style={{ marginTop: '15px', borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '15px', fontSize: '0.9rem' }}>
                                         «Les enfants sont transparents, ils ne calculent pas. À un monsieur qui expliquait ne pas croire, Raphaël, âgé de 12 ans, n’a cessé de répéter, inquiet : “Mais vous savez quand même que Dieu vous aime?»
                                     </p>
                                 </blockquote>
@@ -230,6 +478,7 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* --- SECTION 5 : ACTION & GALERIE --- */}
                 <section className="section-mission-action">
                     <div className="container">
                         <h2>Une Mission Paroissiale en Action</h2>
@@ -260,23 +509,25 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <h3 style={{ marginTop: '40px', textAlign: 'center' }}>Le programme d'une mission</h3>
+                        <h3 style={{ textAlign: 'center', marginTop: '50px' }}>Le programme d'une mission</h3>
                         <div className="video-wrapper">
                             <iframe src="https://www.youtube.com/embed/ZnW9oGHpAyQ" title="Programme d'une mission" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                     </div>
                 </section>
 
+                {/* --- BANNIÈRE --- */}
                 <div className="full-width-banner">
                     <h2>La mission nous presse !</h2>
                 </div>
 
-                <section className="section-light priest-section">
+                {/* --- SECTION 6 : PRÊTRE --- */}
+                <section className="section-light">
                     <div className="container">
                         <div className="profile-card">
                             <img src="https://www.dropbox.com/scl/fi/dsno7gyihzu9cgldd8r8m/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg?rlkey=4bgn6q71xyk271zuo9hz04qkd&st=xljafer4&raw=1" alt="Père Jean-Pierre Barrière" />
                             <h2>Père Jean-Pierre Barrière</h2>
-                            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: '1.1rem', fontWeight: 600, fontStyle: 'italic', color: 'var(--famissio-orange)', textAlign: 'center' }}>Aumônier de Famissio</p>
+                            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: '1.2rem', fontWeight: 600, fontStyle: 'italic', color: 'var(--famissio-orange)', textAlign: 'center' }}>Aumônier de Famissio</p>
                         </div>
 
                         <h3 className="section-subtitle" style={{ textAlign: 'left' }}>L'APPEL DU CHRIST ET LA VOCATION À L'ÉVANGÉLISATION</h3>
@@ -285,7 +536,7 @@ export default function Home() {
                             <p>Mais regardons d'un peu plus près ce que cela signifie:</p>
                         </div>
 
-                        {/* MENU MOBILE */}
+                        {/* NAV MOBILE (Icônes) */}
                         <div className="mobile-pillars-nav">
                             <div className="mobile-icon-btn" onClick={() => openModalAt(0)}>
                                 <IconChurch /> <span>Prêtre</span>
@@ -298,24 +549,25 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* GRILLE DESKTOP */}
+                        {/* GRILLE DESKTOP (3 colonnes) */}
                         <div className="priest-pillars">
                             <div className="pillar-item">
-                                <h4><span className="icon-wrap"><IconChurch style={{ width: 30, height: 30, display: 'block', margin: '0 auto 10px', color: 'var(--famissio-red)' }} /></span> Je suis Prêtre</h4>
+                                <h4><span className="icon-wrap"><IconChurch /></span> Je suis Prêtre</h4>
                                 <p>Seul Jésus est le "grand prêtre par Excellence"... Mais par notre baptême nous rendons vivant le sacerdoce du Christ pour celles et ceux qui nous entourent.</p>
                             </div>
                             <div className="pillar-item">
-                                <h4><span className="icon-wrap"><IconBullhorn style={{ width: 30, height: 30, display: 'block', margin: '0 auto 10px', color: 'var(--famissio-red)' }} /></span> Je suis Prophète</h4>
+                                <h4><span className="icon-wrap"><IconBullhorn /></span> Je suis Prophète</h4>
                                 <p>Le prophète est, étymologiquement, le "porte-parole" de Dieu. Comme je participe à cette dignité, je suis, moi aussi, un prophète... Nous annonçons la Bonne nouvelle.</p>
                             </div>
                             <div className="pillar-item">
-                                <h4><span className="icon-wrap"><IconCrown style={{ width: 30, height: 30, display: 'block', margin: '0 auto 10px', color: 'var(--famissio-red)' }} /></span> Je suis Roi</h4>
+                                <h4><span className="icon-wrap"><IconCrown /></span> Je suis Roi</h4>
                                 <p>Attention à cette fonction car être roi pour un baptisé, c'est être au service... Soyons inventifs, créatifs dans le service du frère.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
+                {/* --- SECTION 7 : PAPE --- */}
                 <section className="pope-message">
                     <div className="container">
                         <div className="profile-card">
@@ -323,7 +575,7 @@ export default function Home() {
                             <h2>Pape François</h2>
                         </div>
 
-                        <h3 className="section-subtitle">7 POINTS CLÉS POUR LA MISSION SELON LE PAPE FRANÇIS</h3>
+                        <h3 className="section-subtitle">7 POINTS CLÉS POUR LA MISSION SELON LE PAPE FRANÇOIS</h3>
 
                         <div className="pope-points">
                             <div className="point-item">
@@ -356,15 +608,16 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <h3 style={{ fontSize: '1.4rem', color: 'var(--famissio-red)', textAlign: 'center', marginTop: '40px', fontWeight: 700, textTransform: 'uppercase' }}>Que puis-je faire en tant que jeune pour mon église ?</h3>
+                        <h3 className="pope-question">Que puis-je faire en tant que jeune pour mon église ?</h3>
 
-                        <p style={{ textAlign: 'justify', marginTop: '20px' }}>
+                        <p className="pope-final-text">
                             Chers jeunes, je veux de la pagaille dans les diocèses ! Je veux que vous alliez à l’extérieur ! Je veux que l’Église sorte dans les rues !<br /><br />
                             N'oubliez pas, mettez la pagaille !
                         </p>
                     </div>
                 </section>
 
+                {/* --- SECTION 8 : PRIÈRE --- */}
                 <section className="prayer-section">
                     <div className="container">
                         <img src="https://www.dropbox.com/scl/fi/ozdvwu2oguqbfpnqb13md/image-fi36533979x60.png?rlkey=dhv7afow6nxnv2ni0qx5hkssm&st=5a3ep07c&raw=1" alt="Logo Prière Famissio" className="prayer-logo" />
@@ -376,7 +629,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* MODAL MOBILE */}
+                {/* --- MODAL MOBILE (Caché sur Desktop) --- */}
                 <div className={`pillars-modal ${isModalOpen ? 'active' : ''}`}>
                     <button className="close-modal-btn" onClick={closeModal}>×</button>
                     <div className="carousel-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
