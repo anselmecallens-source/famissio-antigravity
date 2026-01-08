@@ -9,21 +9,26 @@ import Temoignages from "./pages/Temoignages.jsx";
 import NousRejoindre from "./pages/NousRejoindre.jsx";
 import Priere from "./pages/Priere.jsx";
 
-export default function App() {
+// ... tes imports ...
+
+function App() {
   return (
-    <>
+    <Router>
       <Navbar />
-      <main style={{ padding: 24 }}>
+      {/* AJOUTE CETTE DIV ICI POUR ENCADRER TOUTES LES PAGES */}
+      <div className="main-container">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/formation" element={<Formation />} />
           <Route path="/temoignages" element={<Temoignages />} />
-          <Route path="/nous-rejoindre" element={<NousRejoindre />} />
-          <Route path="/priere-famissionnaire" element={<Priere />} />
+          <Route path="/contact" element={<NousRejoindre />} />
+          {/* ... autres routes ... */}
         </Routes>
-      </main>
+      </div>
       <Footer />
-    </>
+    </Router>
   );
 }
+
+export default App;
