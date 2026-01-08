@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // PAS de BrowserRouter ici
+import { Routes, Route } from 'react-router-dom'; // J'ai retiré 'BrowserRouter as Router'
 
 /* --- IMPORTS DES COMPOSANTS --- */
 import Navbar from './components/Navbar';
