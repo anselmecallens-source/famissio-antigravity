@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-/* =========================================
-   DÉFINITIONS DES ICÔNES (NE PAS SUPPRIMER)
-   ========================================= */
-
-// Icônes des Piliers (Prêtre, Prophète, Roi)
+/* --- ICONES SVG (Définitions nécessaires) --- */
 function IconChurch(props) {
     return (
         <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
@@ -26,8 +22,6 @@ function IconCrown(props) {
         </svg>
     );
 }
-
-// Icônes de la Mission (Oeil, Calendrier, Pin) - C'est celles-ci qui manquaient !
 function IconEye(props) {
     return (
         <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -50,9 +44,6 @@ function IconPin(props) {
     );
 }
 
-/* =========================================
-   COMPOSANT PRINCIPAL
-   ========================================= */
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -115,7 +106,6 @@ export default function Home() {
         }
         .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 60px 0; }
         
-        /* Titres */
         .home-container h3, .home-container h4 { font-family: 'Playfair Display', serif; font-weight: 700; text-align: left; margin-bottom: 25px; line-height: 1.2; color: var(--famissio-orange); }
         .home-container h3 { font-size: 2.2rem; margin-top: 40px; }
         .priest-section h3.section-subtitle, .pope-message h3.section-subtitle { font-size: 1.6rem; margin-top: 20px; margin-bottom: 30px; font-weight: 600; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 1px; text-align: left; max-width: 900px; margin-left: auto; margin-right: auto; }
@@ -135,7 +125,6 @@ export default function Home() {
         blockquote { font-style: italic; border-left: 5px solid var(--famissio-orange); padding: 20px 25px; margin: 30px 0; background-color: var(--bg-grey-light); border-radius: 8px; color: var(--text-dark); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         blockquote footer { margin-top: 10px; font-style: normal; font-weight: 600; color: var(--famissio-red); display: block; }
         
-        /* Sections */
         .section-light { background-color: var(--bg-light); }
         .section-dark { background-color: var(--bg-dark); color: var(--text-light); }
         .section-mission-action { background-color: var(--bg-mission-action); }
@@ -143,24 +132,32 @@ export default function Home() {
         .text-justify { text-align: left; }
         .text-justify p { text-align: justify; }
         
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 900px; margin: 50px auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        /* VIDEO PLEINE LARGEUR */
+        .video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            overflow: hidden; 
+            width: 100%; /* Force 100% de largeur */
+            max-width: 100%; /* Supprime la limite de 900px */
+            margin: 50px auto; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+        }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
-        /* Feature Grid */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
         .feature-card { background-color: var(--bg-light); border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); padding: 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; border-bottom: 5px solid var(--famissio-orange); }
         .feature-card h3 { color: var(--famissio-red); font-size: 1.5rem; margin-top: 0; margin-bottom: 15px; text-align: center; white-space: nowrap; }
         .feature-card p { color: var(--text-dark); font-size: 1rem; text-align: justify; }
         .card-icon { width: 50px; height: 50px; margin: 0 auto 15px; text-align: center; color: var(--famissio-orange); }
         
-        /* Equipe */
         .age-content { display: flex; flex-direction: column; gap: 40px; align-items: center; margin-top: 50px; }
         .age-text { width: 100%; max-width: 900px; text-align: left; }
         .age-text p, .age-text blockquote { text-align: justify; }
         .age-image { width: 100%; max-width: 900px; text-align: center; }
         .age-image img { width: 100%; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); object-fit: cover; object-position: center top; height: auto; max-height: 60vh; }
         
-        /* Galerie */
         .mission-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 50px; }
         .gallery-item { background-color: var(--bg-light); border-radius: 15px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
@@ -217,7 +214,6 @@ export default function Home() {
         .prayer-button { display: inline-block; background-color: var(--famissio-red); color: var(--text-light); padding: 18px 40px; border-radius: 50px; text-decoration: none; font-size: 1.3rem; font-weight: 600; margin-top: 20px; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
         .prayer-button:hover { background-color: var(--famissio-orange); }
 
-        /* Responsive Design */
         @media (max-width: 767px) { 
             .priest-pillars { display: none; }
             .mobile-pillars-nav { display: flex; justify-content: center; gap: 15px; margin-top: 30px; margin-bottom: 20px; }

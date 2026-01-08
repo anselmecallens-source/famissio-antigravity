@@ -5,14 +5,14 @@
   padding: 0;
 }
 
-/* C'est ICI que la magie du "Dézoom" opère */
+/* LE SECRET DU DÉZOOM 75% */
 html {
-  /* Garde la barre de scroll pour éviter les sauts */
   overflow-y: scroll;
+  /* Garde la barre pour éviter les sauts */
 
-  /* On réduit la taille de base de 16px à 14px. 
-     Comme ton site utilise des "rem", tout va réduire de ~12% */
-  font-size: 14px;
+  /* 16px (standard) x 0.75 = 12px */
+  /* Cela va réduire tout le site uniformément */
+  font-size: 12px;
 }
 
 body {
@@ -23,12 +23,11 @@ body {
   overflow-x: hidden;
 }
 
-/* LE CADRE PRINCIPAL */
+/* CADRE PRINCIPAL ÉLARGI */
+/* Comme on dézoome, on peut afficher plus large (1600px au lieu de 1200px) */
 .main-container {
-  /* On élargit un peu la zone (avant 1200px) pour que le contenu respire */
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  /* Centré */
   padding: 0 20px;
   min-height: 80vh;
 }
