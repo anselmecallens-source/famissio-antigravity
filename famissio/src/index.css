@@ -1,73 +1,46 @@
-html {
-  overflow-y: scroll;
-}
-
-/* 2. RESET GLOBAL : Force tout le texte à une taille standard */
-body {
+/* RESET GLOBAL */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background-color: #fff;
-  color: #333;
 }
 
-/* 3. LE CADRE PRINCIPAL */
+/* C'est ICI que la magie du "Dézoom" opère */
+html {
+  /* Garde la barre de scroll pour éviter les sauts */
+  overflow-y: scroll;
+
+  /* On réduit la taille de base de 16px à 14px. 
+     Comme ton site utilise des "rem", tout va réduire de ~12% */
+  font-size: 14px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+/* LE CADRE PRINCIPAL */
 .main-container {
-  max-width: 1200px;
-  /* Largeur max standard */
+  /* On élargit un peu la zone (avant 1200px) pour que le contenu respire */
+  max-width: 1400px;
   margin: 0 auto;
   /* Centré */
-  padding: 20px;
-  /* Espace sur les côtés */
+  padding: 0 20px;
   min-height: 80vh;
 }
 
-/* 4. LA MÉTHODE FORTE POUR L'ACCUEIL */
-/* On écrase les styles de Home.jsx qui font le "Zoom" */
-
-/* Réduit les titres énormes de l'accueil */
-.home h2,
-h2 {
-  font-size: 1.8rem !important;
-  /* Force la taille à ~29px au lieu de 42px */
-  margin-bottom: 20px !important;
-  padding-bottom: 10px !important;
-  line-height: 1.2 !important;
-}
-
-.home h3,
-h3 {
-  font-size: 1.4rem !important;
-  margin-top: 30px !important;
-}
-
-/* Réduit le texte des paragraphes pour voir plus de contenu */
-.home p,
-p {
-  font-size: 1rem !important;
-  /* 16px standard */
-  line-height: 1.5 !important;
-  text-align: justify;
-}
-
-/* Annule le double-padding qui décale l'accueil */
-.home .container {
-  width: 100% !important;
-  max-width: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Harmonie des boutons */
-button,
-.btn--primary {
-  font-size: 1rem !important;
-  padding: 10px 20px !important;
-}
-
-/* Images responsives */
+/* Styles par défaut */
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
