@@ -1,11 +1,9 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // J'ai retiré 'BrowserRouter as Router'
+import { Routes, Route } from 'react-router-dom';
 
-/* --- IMPORTS DES COMPOSANTS --- */
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-/* --- IMPORTS DES PAGES --- */
 import Home from './pages/Home';
 import Missions from './pages/Missions';
 import Formation from './pages/Formation';
@@ -17,16 +15,17 @@ function App() {
     <>
       <Navbar />
 
-      {/* Conteneur principal */}
-      <div className="main-container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/missions" element={<Missions />} />
-          <Route path="/formation" element={<Formation />} />
-          <Route path="/temoignages" element={<Temoignages />} />
-          <Route path="/contact" element={<NousRejoindre />} />
-        </Routes>
-      </div>
+      {/* On retire la div globale ici pour laisser l'Accueil prendre toute la largeur */}
+      <Routes>
+        {/* L'Accueil est libre (Pleine largeur) */}
+        <Route path="/" element={<Home />} />
+
+        {/* Les autres pages sont "rangées" dans le conteneur centré */}
+        <Route path="/missions" element={<div className="main-container"><Missions /></div>} />
+        <Route path="/formation" element={<div className="main-container"><Formation /></div>} />
+        <Route path="/temoignages" element={<div className="main-container"><Temoignages /></div>} />
+        <Route path="/contact" element={<div className="main-container"><NousRejoindre /></div>} />
+      </Routes>
 
       <Footer />
     </>
