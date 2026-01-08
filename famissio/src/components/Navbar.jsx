@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { assets } from '../config/assets';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  // CSS intégré directement
   const styles = `
     :root { --primary: #dd4b1a; --dark: #333; --white: #fff; }
     .navbar { background: var(--white); height: 80px; display: flex; justify-content: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     .navbar-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; padding: 0 20px; }
-    .navbar-logo img { height: 50px; cursor: pointer; }
+    .navbar-logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); text-decoration: none; display: flex; align-items: center; }
     .nav-menu { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; align-items: center; }
     .nav-links { color: var(--dark); text-decoration: none; padding: 0.5rem 1rem; font-weight: 500; border-bottom: 3px solid transparent; transition: 0.3s; }
     .nav-links:hover, .nav-links.activated { color: var(--primary); border-bottom: 3px solid var(--primary); }
@@ -35,8 +33,9 @@ const Navbar = () => {
       <style>{styles}</style>
       <nav className="navbar">
         <div className="navbar-container">
+          {/* Logo texte temporaire */}
           <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
-            <img src={assets.logo} alt="Famissio" />
+            FAMISSIO
           </NavLink>
 
           <div className="menu-icon" onClick={toggleMenu}>
