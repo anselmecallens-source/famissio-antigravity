@@ -1,55 +1,50 @@
-import { useEffect, useState } from 'react';
-import '../styles.css'; // On remonte d'un dossier pour trouver styles.css dans src
+import { useEffect } from 'react';
+import '../styles.css';
 
-// --- TES IMAGES ---
+/* --- IMAGES EXACTES DU HTML --- */
 const IMGS = {
     heroBlob: "https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp",
     histoire: "https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1",
     prayerLogo: "https://www.dropbox.com/scl/fi/kh7mhfrgqasyw1unjhzbb/Logo-Famissio-1.png?rlkey=4a5umup7f9b66oxtgvr8deas9&st=z51lydtw&raw=1",
-    logoNav: "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1",
-    teamSticky: "https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/trrrrrrrzzzzzzzf-2-fi36539933x520.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=62csb5r5&raw=1",
-    priest: "https://www.dropbox.com/scl/fi/dsno7gyihzu9cgldd8r8m/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg?rlkey=4bgn6q71xyk271zuo9hz04qkd&st=k3910ahp&raw=1",
-    pope: "https://www.dropbox.com/scl/fi/iqxyup7a7ovqdx1scs9ey/pape_10_0-fi27235959x470.jpg?rlkey=efa3ype4bq4pdw4ot4sttzj3f&st=sne4a9g8&raw=1",
+    teamSticky: "https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg",
+    priest: "https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg",
+    pope: "https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg",
     gal: {
-        priere: "https://www.dropbox.com/scl/fi/v0k8ckicnyaobc6wdixtc/IMG_20211104_171612-fi32460644x451.jpg?rlkey=gecdftgaorgur3jacznz51b3e&st=1q704czi&raw=1",
-        evang: "https://www.dropbox.com/scl/fi/8xnpcrh3tvxzxf7kyvp6d/DSC06168-1-fi34268804x450.JPG?rlkey=d8pslpo7wwh33oifo30cdhb02&st=g5ud794o&raw=1",
-        veillee: "https://www.dropbox.com/scl/fi/84oq9lffpxessyjqaykze/DSC07017-fi34268812x450.JPG?rlkey=31tzir638dtkj7irj1wdfww99&st=5p3mc0ef&raw=1",
-        cimetiere: "https://www.dropbox.com/scl/fi/ektuggc9viiayu4m4zx8v/DSC06370-fi34268813x450.JPG?rlkey=wwh0cdmldc29bnw3ihw3jswqy&st=yq9mdqy7&raw=1",
-        familles: "https://www.dropbox.com/scl/fi/m15to2bnadh2tm5bj1cly/IMGP2714-fi34268817x452.JPG?rlkey=391cu3b0i72m9pnnd2nf9cgh1&st=gnsec95z&raw=1",
-        envoi: "https://www.dropbox.com/scl/fi/kxal2e1m5ada6yekul9ez/DSC06804-fi34268819x450.JPG?rlkey=99vuv31asqw7f2j909rbzaf6t&st=dufxw8a6&raw=1"
+        priere: "https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg",
+        evang: "https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG",
+        veillee: "https://famissio-99.webself.net/file/si1759337/DSC07017-fi34268812x450.JPG",
+        cimetiere: "https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG",
+        familles: "https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG",
+        envoi: "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG"
     }
 };
 
 function Home() {
-    const [menuActive, setMenuActive] = useState(false);
 
-    // --- LOGIQUE SCRIPTS ---
+    // --- LOGIQUE DES SCRIPTS (Observateur + Antigravity) ---
     useEffect(() => {
-        // 1. Navbar Transition
-        const heroNavbar = document.querySelector('.hero-navbar');
-        const navCircle = document.querySelector('.nav-circle');
+        // 1. GESTION DE L'APPARITION DU LOGO FIXE ("Famissio" qui remonte)
         const fixedLogoLink = document.querySelector('.fixed-logo-link');
         const heroSection = document.querySelector('.hero');
+        // Note : On ne touche PAS à la Navbar ici, elle se gère toute seule avec ton Navbar.jsx
 
-        const heroObserver = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (window.innerWidth > 1200) {
                     if (entry.isIntersecting) {
-                        heroNavbar?.classList.remove('hidden');
-                        navCircle?.classList.remove('visible');
+                        // On est en haut (Hero visible) -> On cache le logo fixe
                         fixedLogoLink?.classList.remove('visible');
                     } else {
-                        heroNavbar?.classList.add('hidden');
-                        navCircle?.classList.add('visible');
+                        // On a scrollé -> On affiche le logo fixe
                         fixedLogoLink?.classList.add('visible');
                     }
                 }
             });
         }, { threshold: 0.1 });
 
-        if (heroSection) heroObserver.observe(heroSection);
+        if (heroSection) observer.observe(heroSection);
 
-        // 2. Gestion Scroll Cinématique (Antigravity)
+        [cite_start]// 2. EFFET ANTIGRAVITY (Le scroll "aimanté" entre le Hero et l'Histoire) [cite: 290]
         let isHandlingScroll = false;
 
         function smoothScrollTo(element, duration) {
@@ -61,6 +56,7 @@ function Home() {
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
+                // Fonction d'accélération (Ease) pour l'effet fluide
                 const ease = (t, b, c, d) => {
                     t /= d / 2;
                     if (t < 1) return c / 2 * t * t + b;
@@ -80,18 +76,23 @@ function Home() {
 
         const handleWheel = (e) => {
             if (window.innerWidth > 1000) {
+                // CAS 1 : On descend depuis le tout haut de page -> Aimant vers l'Histoire
                 if (window.scrollY < 50 && e.deltaY > 0 && !isHandlingScroll) {
-                    const target = document.querySelector('.section-target');
+                    const target = document.querySelector('.section-target'); // C'est la section Histoire
                     if (target) {
-                        e.preventDefault();
+                        e.preventDefault(); // On bloque le scroll normal
                         isHandlingScroll = true;
-                        smoothScrollTo(target, 1000);
+                        smoothScrollTo(target, 1000); // On lance l'animation
                     }
                 }
+
+                // CAS 2 : On remonte depuis l'Histoire -> Aimant vers le Hero
                 const historySection = document.querySelector('.section-target');
                 const heroSec = document.querySelector('.hero');
+
                 if (historySection && heroSec) {
                     const rect = historySection.getBoundingClientRect();
+                    // Si on est juste au-dessus de l'Histoire et qu'on scrolle vers le haut
                     if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0 && !isHandlingScroll) {
                         e.preventDefault();
                         isHandlingScroll = true;
@@ -101,56 +102,25 @@ function Home() {
             }
         };
 
+        // Ajout de l'écouteur avec { passive: false } obligatoire pour e.preventDefault()
         window.addEventListener('wheel', handleWheel, { passive: false });
 
+        // Nettoyage quand on quitte la page
         return () => {
-            if (heroSection) heroObserver.unobserve(heroSection);
+            if (heroSection) observer.unobserve(heroSection);
             window.removeEventListener('wheel', handleWheel);
         };
     }, []);
 
-    const toggleMenu = () => setMenuActive(!menuActive);
-
     return (
         <>
-            <a href="#hero" className={`fixed-logo-link ${menuActive ? 'hidden' : ''}`}>
+            [cite_start]{/* LOGO FIXE QUI APPARAIT AU SCROLL [cite: 25] */}
+            {/* Il est caché par défaut et géré par le script ci-dessus */}
+            <a href="#hero" className="fixed-logo-link">
                 <div className="fixed-logo-text">Famissio</div>
             </a>
 
-            <nav className="hero-navbar">
-                <div className="nav-logo-wrapper">
-                    <a href="#hero">
-                        <img src={IMGS.logoNav} alt="Famissio Logo" className="nav-logo-img" />
-                    </a>
-                </div>
-                <ul className="nav-links">
-                    {/* Les liens pointent vers les ID de la page (#) car c'est une landing page */}
-                    <li><a href="#hero">Accueil</a></li>
-                    <li><a href="#mission">Nos missions</a></li>
-                    <li><a href="#formation">Formation</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-
-            <div className={`nav-circle ${menuActive ? 'active' : ''}`}>
-                <button className="nav-toggle" onClick={toggleMenu} id="menuToggle">
-                    <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
-                </button>
-            </div>
-
-            <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={toggleMenu}></div>
-            <div className={`side-menu ${menuActive ? 'active' : ''}`} id="sideMenu">
-                <ul className="side-links">
-                    <li><a href="#hero" className="side-link" onClick={toggleMenu}>Accueil</a></li>
-                    <li><a href="#mission" className="side-link" onClick={toggleMenu}>Nos missions</a></li>
-                    <li><a href="#formation" className="side-link" onClick={toggleMenu}>Formation</a></li>
-                    <li><a href="#temoignages" className="side-link" onClick={toggleMenu}>Témoignages</a></li>
-                    <li><a href="#contact" className="side-link" onClick={toggleMenu}>Contact</a></li>
-                </ul>
-            </div>
-
-            {/* --- CONTENU DE L'ACCUEIL --- */}
+            {/* --- SECTION 1 : HERO (L'ACCUEIL) --- */}
             <div className="hero" id="hero">
                 <div className="hero-left">
                     <div className="hero-content">
@@ -168,13 +138,17 @@ function Home() {
                     <div className="image-blob">
                         <img src={IMGS.heroBlob} alt="Équipe Famissio" />
                     </div>
+                    [cite_start]{/* Stats flottantes [cite: 81] */}
                     <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
                     <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
                     <div className="float-stat"><i className="fas fa-book-open"></i> Disciples missionnaires</div>
                 </div>
+
+                {/* Indicateur de scroll (la petite barre en bas) */}
                 <div className="scroll-indicator"><div className="scroll-line"></div></div>
             </div>
 
+            {/* --- SECTION 2 : HISTOIRE (Cible de l'aimant) --- */}
             <div className="diagonal section-target" id="history">
                 <div className="section-head">
                     <div className="eyebrow">Notre Histoire</div>
@@ -189,10 +163,8 @@ function Home() {
                         <div className="accent-shape"></div>
                     </div>
                     <div className="story-text">
-                        <p>À l'origine, une famille a découvert la joie de l'évangélisation en suivant pendant deux mois des missionnaires dans l'Himalaya et le Tamil Nadu, en Inde.
-                            Au retour, elle a voulu poursuivre la mission mais cette fois-ci en restant en France et pour accompagner des curés de paroisses rurales.</p>
-                        <p>Des amis ont accepté de les rejoindre dans cette aventure pour découvrir la belle paroisse du père Jean-Pierre Barrière dans la Creuse.
-                            Cette semaine les a tous beaucoup nourris et remplis de joie puis confirmés dans cette intuition initiale.</p>
+                        <p>À l'origine, une famille a découvert la joie de l'évangélisation en suivant pendant deux mois des missionnaires dans l'Himalaya et le Tamil Nadu, en Inde. Au retour, elle a voulu poursuivre la mission mais cette fois-ci en restant en France et pour accompagner des curés de paroisses rurales.</p>
+                        <p>Des amis ont accepté de les rejoindre dans cette aventure pour découvrir la belle paroisse du père Jean-Pierre Barrière dans la Creuse. Cette semaine les a tous beaucoup nourris et remplis de joie puis confirmés dans cette intuition initiale.</p>
                         <div className="highlight-box">
                             <p><strong>Famissio est alors née.</strong> Le père Jean-Pierre en devenait l'aumônier. Monseigneur Bozo acceptait de suivre cette initiative.</p>
                         </div>
@@ -200,6 +172,7 @@ function Home() {
                 </div>
             </div>
 
+            {/* --- SECTION 3 : VIDEO --- */}
             <section className="video-section">
                 <div className="section-head">
                     <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
@@ -213,6 +186,7 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 4 : MISSIONS (Onglet "Nos missions") --- */}
             <section id="mission">
                 <div className="section-head">
                     <div className="eyebrow">Notre Mission</div>
@@ -237,6 +211,7 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 5 : FORMATION / ÉQUIPE (Onglet "Formation") --- */}
             <section className="team-section" id="formation">
                 <div className="section-head">
                     <div className="eyebrow">L'Équipe Missionnaire</div>
@@ -262,6 +237,7 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 6 : TÉMOIGNAGES / GALERIE (Onglet "Témoignages") --- */}
             <section style={{ background: '#f8f9fa' }} id="temoignages">
                 <div className="section-head">
                     <div className="eyebrow">En Action</div>
@@ -277,6 +253,8 @@ function Home() {
                         <div className="gallery-card"><img src={IMGS.gal.envoi} alt="Envoi" /><div className="gallery-label">Envoi en mission</div></div>
                     </div>
                 </div>
+
+                {/* Vidéo Programme */}
                 <div className="section-head" style={{ marginTop: '80px' }}>
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -287,11 +265,13 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- BANNIÈRE DE TRANSITION --- */}
             <div className="banner">
                 <div className="geo"></div><div className="geo"></div>
                 <h2>La mission nous presse !</h2>
             </div>
 
+            {/* --- SECTION 7 : PRÊTRE --- */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
                     <img src={IMGS.priest} alt="Père Barrière" className="priest-circle-img" />
@@ -323,6 +303,7 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 8 : PAPE FRANÇOIS --- */}
             <section className="section-cream">
                 <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                     <div className="pope-intro">
@@ -348,6 +329,7 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 9 : PRIÈRE (Onglet "Contact") --- */}
             <div className="prayer" id="contact">
                 <div className="prayer-logo">
                     <img src={IMGS.prayerLogo} alt="Logo Prière" />
@@ -359,6 +341,7 @@ function Home() {
                 </a>
             </div>
 
+            {/* --- FOOTER (Intégré pour garantir le style) --- */}
             <footer className="site-footer">
                 <ul className="footer-nav">
                     <li><a href="#hero">Accueil</a></li>
