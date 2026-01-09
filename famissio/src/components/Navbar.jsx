@@ -1,72 +1,79 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import '../styles.css'; // On utilise le CSS global qu'on a réparé
+
+// Logo du design Antigravity (rouge/orange)
+const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/'; // On est sur l'accueil ?
+  const [menuActive, setMenuActive] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Ton lien Dropbox (Source n°6 de ton document)
-  const logoUrl = "https://www.dropbox.com/scl/fi/fxq47ecx2elx7sp0fgi9q/Capture-fi27635126x148.PNG?rlkey=cy49s8dz49kl8qyayic5zs5a4&st=mk1zo502&raw=1";
+  // Gestion du scroll (uniquement pour l'effet de transparence sur l'accueil)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const styles = `
-    :root { --primary: #dd4b1a; --dark: #333; --white: #fff; }
-    .navbar { background: var(--white); height: 80px; display: flex; justify-content: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .navbar-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; padding: 0 20px; }
-    .navbar-logo img { height: 60px; width: auto; cursor: pointer; object-fit: contain; } 
-    .nav-menu { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; align-items: center; }
-    .nav-links { color: var(--dark); text-decoration: none; padding: 0.5rem 1rem; font-weight: 500; border-bottom: 3px solid transparent; transition: 0.3s; }
-    .nav-links:hover, .nav-links.activated { color: var(--primary); border-bottom: 3px solid var(--primary); }
-    .btn--primary { padding: 8px 20px; background: var(--primary); border: none; border-radius: 4px; color: #fff; cursor: pointer; font-size: 1rem; transition: 0.3s; }
-    .btn--primary:hover { background: #c23b10; transform: scale(1.05); }
-    .menu-icon, .mobile-only { display: none; }
+  const toggleMenu = () => setMenuActive(!menuActive);
+  const closeMenu = () => setMenuActive(false);
 
-    @media screen and (max-width: 960px) {
-      .nav-menu { flex-direction: column; width: 100%; position: absolute; top: 80px; left: -100%; transition: 0.5s all; background: var(--white); height: 90vh; padding-top: 2rem; border-top: 1px solid #eee; }
-      .nav-menu.active { left: 0; }
-      .menu-icon { display: block; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
-      .nav-btn { display: none; }
-      .mobile-only { display: block; width: 100%; text-align: center; margin-top: 1rem; }
-      .nav-links-mobile { background: var(--primary); color: #fff; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-size: 1.2rem; display: inline-block;}
-    }
-  `;
+  // LOGIQUE DES CLASSES CSS :
+  // - Accueil + haut de page = transparent
+  // - Accueil + scrollé = fond blanc (scrolled-home)
+  // - Autres pages = fond blanc fixe (solid-nav)
+  const navbarClass = isHome
+    ? `hero-navbar ${scrolled ? 'scrolled-home' : ''}`
+    : `hero-navbar solid-nav`;
 
   return (
     <>
-      <style>{styles}</style>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
-            {/* L'ajout de referrerPolicy aide à charger les images externes */}
-            <img src={logoUrl} alt="Famissio" referrerPolicy="no-referrer" />
-          </NavLink>
-
-          <div className="menu-icon" onClick={toggleMenu}>
-            <span>{isOpen ? '✕' : '☰'}</span>
-          </div>
-
-          <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
-            <li className="nav-item">
-              <NavLink to="/" className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")} onClick={closeMenu}>Accueil</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/missions" className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")} onClick={closeMenu}>Nos missions</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/formation" className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")} onClick={closeMenu}>Formation</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/temoignages" className={({ isActive }) => "nav-links" + (isActive ? " activated" : "")} onClick={closeMenu}>Témoignages</NavLink>
-            </li>
-            <li className="nav-item mobile-only">
-              <NavLink to="/contact" className="nav-links-mobile" onClick={closeMenu}>Nous rejoindre</NavLink>
-            </li>
-            <li className="nav-item nav-btn">
-              <NavLink to="/contact"><button className="btn--primary">Nous rejoindre</button></NavLink>
-            </li>
-          </ul>
+      {/* --- BARRE DE NAVIGATION PRINCIPALE (Desktop) --- */}
+      <nav className={navbarClass} style={{ position: 'fixed', top: 0, width: '100%', transition: 'all 0.4s ease' }}>
+        <div className="nav-logo-wrapper">
+          <Link to="/" onClick={closeMenu}>
+            <img src={LOGO_NAV} alt="Famissio Logo" className="nav-logo-img" />
+          </Link>
         </div>
+
+        <ul className="nav-links">
+          {/* Les liens utilisent Link de react-router pour ne pas recharger la page */}
+          <li><Link to="/" onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+        </ul>
       </nav>
+
+      {/* --- BOUTON MENU ROND (Mobile & Scroll) --- */}
+      {/* Il apparaît si on n'est pas sur l'accueil OU si on a scrollé */}
+      <div className={`nav-circle ${(!isHome || scrolled) ? 'visible' : ''} ${menuActive ? 'active' : ''}`}>
+        <button className="nav-toggle" onClick={toggleMenu}>
+          <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
+        </button>
+      </div>
+
+      {/* --- MENU LATÉRAL (Mobile) --- */}
+      <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={closeMenu}></div>
+      <div className={`side-menu ${menuActive ? 'active' : ''}`}>
+        <ul className="side-links">
+          <li><Link to="/" className="side-link" onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" className="side-link" onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" className="side-link" onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" className="side-link" onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" className="side-link" onClick={closeMenu}>Contact</Link></li>
+        </ul>
+      </div>
     </>
   );
 };
