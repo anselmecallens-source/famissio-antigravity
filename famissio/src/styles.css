@@ -1,5 +1,5 @@
 /* ================================================
-   FAMISSIO-HOME COMPONENT STYLES
+   FAMISSIO - HOME COMPONENT STYLES
    ================================================ */
 
 /* --- 1. BASES & VARIABLES --- */
@@ -110,14 +110,16 @@ body {
     width: 100%;
 }
 
-@media(max-width: 1500px) {
-  .nav-logo-img {
+@media (max-width: 1500px) {
+    .nav-logo-img {
         height: 8.75rem;
     }
-  .nav-links {
+
+    .nav-links {
         gap: 1.875rem;
     }
-  .nav-links a {
+
+    .nav-links a {
         font-size: 1.1rem;
     }
 }
@@ -144,7 +146,7 @@ body {
     transition: opacity 0.4s ease;
 }
 
-.fixed-logo-link:hover.fixed-logo-text {
+.fixed-logo-link:hover .fixed-logo-text {
     opacity: 0.7;
 }
 
@@ -238,28 +240,28 @@ body {
     transition: all 0.4s ease;
 }
 
-.side-menu.active.side-links li {
+.side-menu.active .side-links li {
     transform: translateX(0);
     opacity: 1;
 }
 
-.side-menu.active.side-links li:nth-child(1) {
+.side-menu.active .side-links li:nth-child(1) {
     transition-delay: 0.2s;
 }
 
-.side-menu.active.side-links li:nth-child(2) {
+.side-menu.active .side-links li:nth-child(2) {
     transition-delay: 0.3s;
 }
 
-.side-menu.active.side-links li:nth-child(3) {
+.side-menu.active .side-links li:nth-child(3) {
     transition-delay: 0.4s;
 }
 
-.side-menu.active.side-links li:nth-child(4) {
+.side-menu.active .side-links li:nth-child(4) {
     transition-delay: 0.5s;
 }
 
-.side-menu.active.side-links li:nth-child(5) {
+.side-menu.active .side-links li:nth-child(5) {
     transition-delay: 0.6s;
 }
 
@@ -396,13 +398,15 @@ body {
 }
 
 @keyframes morph {
+
     0%,
-        100% {
-            border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-}
-50% {
-    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
-  }
+    100% {
+        border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    }
+
+    50% {
+        border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+    }
 }
 
 .image-blob img {
@@ -425,10 +429,12 @@ body {
 }
 
 @keyframes float {
+
     0%,
-        100% {
-            transform: translateY(0);
-        }
+    100% {
+        transform: translateY(0);
+    }
+
     50% {
         transform: translateY(-0.9375rem);
     }
@@ -708,16 +714,18 @@ section {
 }
 
 @keyframes morphIcon {
+
     0%,
-        100% {
-            border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%;
-}
-50% {
-    border-radius: 65% 35% 40% 60% / 45% 55% 45% 55%;
-  }
+    100% {
+        border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%;
+    }
+
+    50% {
+        border-radius: 65% 35% 40% 60% / 45% 55% 45% 55%;
+    }
 }
 
-.mission-card:hover.mission-icon {
+.mission-card:hover .mission-icon {
     transform: scale(1.15) rotate(20deg) translateX(0.9375rem);
 }
 
@@ -821,10 +829,11 @@ section {
 }
 
 @keyframes spin {
-  from {
+    from {
         transform: rotate(0deg);
     }
-  to {
+
+    to {
         transform: rotate(360deg);
     }
 }
@@ -971,7 +980,7 @@ section {
     color: var(--flame);
 }
 
-.rosé - header {
+.rosé-header {
     text-align: center;
     margin-bottom: 5rem;
     max-width: 50rem;
@@ -979,7 +988,7 @@ section {
     margin-right: auto;
 }
 
-.rosé - header.title {
+.rosé-header .title {
     font-size: 3rem;
 }
 
@@ -1231,7 +1240,7 @@ section {
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
 }
 
-.expandable-card:hover.expandable-icon {
+.expandable-card:hover .expandable-icon {
     transform: scale(1.1) rotate(5deg);
 }
 
@@ -1260,7 +1269,7 @@ section {
     transition: all 0.3s ease;
 }
 
-.expandable-card.expanded.expand-indicator {
+.expandable-card.expanded .expand-indicator {
     transform: translateX(50%) rotate(180deg);
 }
 
@@ -1271,7 +1280,7 @@ section {
     background: white;
 }
 
-.expandable-card.expanded.expandable-card-content {
+.expandable-card.expanded .expandable-card-content {
     max-height: 62.5rem;
     padding: 2rem;
 }
@@ -1312,42 +1321,42 @@ section {
 }
 
 /* RESPONSIVE POUR LA NOUVELLE SECTION */
-@media(max-width: 1200px) {
-  .mission-context-wrapper {
+@media (max-width: 1200px) {
+    .mission-context-wrapper {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
 
-  .expandable-cards-grid {
+    .expandable-cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 }
 
-@media(max-width: 768px) {
-  .expandable-cards-grid {
+@media (max-width: 768px) {
+    .expandable-cards-grid {
         grid-template-columns: 1fr;
     }
 
-  .expandable-card-header {
+    .expandable-card-header {
         padding: 1.5rem;
     }
 
-  .expandable-icon {
+    .expandable-icon {
         width: 4rem;
         height: 4rem;
         font-size: 1.8rem;
     }
 
-  .expandable-card-header h3 {
+    .expandable-card-header h3 {
         font-size: 1.3rem;
     }
 
-  .context-card {
+    .context-card {
         padding: 2rem 1.5rem;
     }
 
-  .context-card h3 {
+    .context-card h3 {
         font-size: 1.5rem;
     }
 }
@@ -1390,58 +1399,58 @@ section {
 }
 
 /* RESPONSIVE */
-@media(max-width: 1200px) {
-  .hero {
+@media (max-width: 1200px) {
+    .hero {
         grid-template-columns: 1fr;
     }
 
-  .hero-left {
+    .hero-left {
         clip-path: none;
         padding: 7.5rem 5% 5rem;
     }
 
-  .hero-right {
+    .hero-right {
         display: none;
     }
 
-  .story-grid,
-  .team-layout,
-  .pope-grid,
-  .pillars-three,
-  .priest-intro-flex,
-  .mission-cards {
+    .story-grid,
+    .team-layout,
+    .pope-grid,
+    .pillars-three,
+    .priest-intro-flex,
+    .mission-cards {
         grid-template-columns: 1fr;
     }
 
-  .nav-links {
+    .nav-links {
         display: none;
     }
 
-  .fixed-logo-link {
+    .fixed-logo-link {
         position: fixed;
         top: 1.875rem;
         left: 1.875rem;
-        opacity: 1!important;
-        transform: none!important;
+        opacity: 1 !important;
+        transform: none !important;
         z-index: 1000;
     }
 
-  .nav-circle {
+    .nav-circle {
         top: 1.25rem;
         right: 1.25rem;
         width: 3.75rem;
         height: 3.75rem;
-        transform: scale(1)!important;
-        opacity: 1!important;
-        visibility: visible!important;
+        transform: scale(1) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
-  .hero-navbar {
+    .hero-navbar {
         padding: 0;
         display: none;
     }
 
-  .side-menu {
+    .side-menu {
         width: 100%;
     }
 }
