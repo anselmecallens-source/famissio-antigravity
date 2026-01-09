@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import '../styles.css';
 
-/* --- IMAGES EXACTES DU HTML --- */
+/* --- IMAGES --- */
 const IMGS = {
     heroBlob: "https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp",
     histoire: "https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1",
@@ -21,21 +21,23 @@ const IMGS = {
 
 function Home() {
 
-    // --- LOGIQUE DES SCRIPTS (Observateur + Antigravity) ---
     useEffect(() => {
-        // 1. GESTION DE L'APPARITION DU LOGO FIXE ("Famissio" qui remonte)
+        // --- 1. GESTION DE L'APPARITION DU LOGO FIXE & NAV ---
+        const heroNavbar = document.querySelector('.hero-navbar');
+        const navCircle = document.querySelector('.nav-circle');
         const fixedLogoLink = document.querySelector('.fixed-logo-link');
         const heroSection = document.querySelector('.hero');
-        // Note : On ne touche PAS à la Navbar ici, elle se gère toute seule avec ton Navbar.jsx
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (window.innerWidth > 1200) {
                     if (entry.isIntersecting) {
-                        // On est en haut (Hero visible) -> On cache le logo fixe
+                        heroNavbar?.classList.remove('hidden');
+                        navCircle?.classList.remove('visible');
                         fixedLogoLink?.classList.remove('visible');
                     } else {
-                        // On a scrollé -> On affiche le logo fixe
+                        heroNavbar?.classList.add('hidden');
+                        navCircle?.classList.add('visible');
                         fixedLogoLink?.classList.add('visible');
                     }
                 }
@@ -44,7 +46,35 @@ function Home() {
 
         if (heroSection) observer.observe(heroSection);
 
-        [cite_start]// 2. EFFET ANTIGRAVITY (Le scroll "aimanté" entre le Hero et l'Histoire) [cite: 290]
+        // --- GESTION MENU MOBILE ---
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const sideLinks = document.querySelectorAll('.side-link');
+
+        function toggleMenu() {
+            if (!sideMenu || !menuBackdrop) return;
+            sideMenu.classList.toggle('active');
+            menuBackdrop.classList.toggle('active');
+
+            const icon = menuToggle?.querySelector('i');
+            if (icon) {
+                if (sideMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        menuToggle?.addEventListener('click', toggleMenu);
+        menuBackdrop?.addEventListener('click', toggleMenu);
+        sideLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+
+        // --- 2. EFFET ANTIGRAVITY (SCROLL) ---
         let isHandlingScroll = false;
 
         function smoothScrollTo(element, duration) {
@@ -56,7 +86,6 @@ function Home() {
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
-                // Fonction d'accélération (Ease) pour l'effet fluide
                 const ease = (t, b, c, d) => {
                     t /= d / 2;
                     if (t < 1) return c / 2 * t * t + b;
@@ -76,17 +105,17 @@ function Home() {
 
         const handleWheel = (e) => {
             if (window.innerWidth > 1000) {
-                // CAS 1 : On descend depuis le tout haut de page -> Aimant vers l'Histoire
+                // Descente vers l'histoire
                 if (window.scrollY < 50 && e.deltaY > 0 && !isHandlingScroll) {
-                    const target = document.querySelector('.section-target'); // C'est la section Histoire
+                    const target = document.querySelector('.section-target');
                     if (target) {
-                        e.preventDefault(); // On bloque le scroll normal
+                        e.preventDefault();
                         isHandlingScroll = true;
-                        smoothScrollTo(target, 1000); // On lance l'animation
+                        smoothScrollTo(target, 1000);
                     }
                 }
 
-                // CAS 2 : On remonte depuis l'Histoire -> Aimant vers le Hero
+                // Remontée vers le Hero
                 const historySection = document.querySelector('.section-target');
                 const heroSec = document.querySelector('.hero');
 
@@ -102,25 +131,55 @@ function Home() {
             }
         };
 
-        // Ajout de l'écouteur avec { passive: false } obligatoire pour e.preventDefault()
         window.addEventListener('wheel', handleWheel, { passive: false });
 
-        // Nettoyage quand on quitte la page
         return () => {
             if (heroSection) observer.unobserve(heroSection);
             window.removeEventListener('wheel', handleWheel);
+            menuToggle?.removeEventListener('click', toggleMenu);
+            menuBackdrop?.removeEventListener('click', toggleMenu);
+            sideLinks.forEach(link => link.removeEventListener('click', toggleMenu));
         };
     }, []);
 
     return (
         <>
-            [cite_start]{/* LOGO FIXE QUI APPARAIT AU SCROLL [cite: 25] */}
-            {/* Il est caché par défaut et géré par le script ci-dessus */}
             <a href="#hero" className="fixed-logo-link">
                 <div className="fixed-logo-text">Famissio</div>
             </a>
 
-            {/* --- SECTION 1 : HERO (L'ACCUEIL) --- */}
+            <nav className="hero-navbar">
+                <div className="nav-logo-wrapper">
+                    <a href="#hero">
+                        <img src="https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1" alt="Famissio Logo" className="nav-logo-img" />
+                    </a>
+                </div>
+                <ul className="nav-links">
+                    <li><a href="#hero">Accueil</a></li>
+                    <li><a href="#mission">Nos missions</a></li>
+                    <li><a href="#formation">Formation</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div className="nav-circle">
+                <button className="nav-toggle" id="menuToggle">
+                    <i className="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div className="menu-backdrop" id="menuBackdrop"></div>
+            <div className="side-menu" id="sideMenu">
+                <ul className="side-links">
+                    <li><a href="#hero" className="side-link">Accueil</a></li>
+                    <li><a href="#mission" className="side-link">Nos missions</a></li>
+                    <li><a href="#formation" className="side-link">Formation</a></li>
+                    <li><a href="#temoignages" className="side-link">Témoignages</a></li>
+                    <li><a href="#contact" className="side-link">Contact</a></li>
+                </ul>
+            </div>
+
             <div className="hero" id="hero">
                 <div className="hero-left">
                     <div className="hero-content">
@@ -138,17 +197,14 @@ function Home() {
                     <div className="image-blob">
                         <img src={IMGS.heroBlob} alt="Équipe Famissio" />
                     </div>
-                    [cite_start]{/* Stats flottantes [cite: 81] */}
                     <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
                     <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
                     <div className="float-stat"><i className="fas fa-book-open"></i> Disciples missionnaires</div>
                 </div>
 
-                {/* Indicateur de scroll (la petite barre en bas) */}
                 <div className="scroll-indicator"><div className="scroll-line"></div></div>
             </div>
 
-            {/* --- SECTION 2 : HISTOIRE (Cible de l'aimant) --- */}
             <div className="diagonal section-target" id="history">
                 <div className="section-head">
                     <div className="eyebrow">Notre Histoire</div>
@@ -172,7 +228,6 @@ function Home() {
                 </div>
             </div>
 
-            {/* --- SECTION 3 : VIDEO --- */}
             <section className="video-section">
                 <div className="section-head">
                     <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
@@ -186,7 +241,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- SECTION 4 : MISSIONS (Onglet "Nos missions") --- */}
             <section id="mission">
                 <div className="section-head">
                     <div className="eyebrow">Notre Mission</div>
@@ -211,7 +265,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- SECTION 5 : FORMATION / ÉQUIPE (Onglet "Formation") --- */}
             <section className="team-section" id="formation">
                 <div className="section-head">
                     <div className="eyebrow">L'Équipe Missionnaire</div>
@@ -237,7 +290,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- SECTION 6 : TÉMOIGNAGES / GALERIE (Onglet "Témoignages") --- */}
             <section style={{ background: '#f8f9fa' }} id="temoignages">
                 <div className="section-head">
                     <div className="eyebrow">En Action</div>
@@ -254,7 +306,6 @@ function Home() {
                     </div>
                 </div>
 
-                {/* Vidéo Programme */}
                 <div className="section-head" style={{ marginTop: '80px' }}>
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -265,13 +316,11 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- BANNIÈRE DE TRANSITION --- */}
             <div className="banner">
                 <div className="geo"></div><div className="geo"></div>
                 <h2>La mission nous presse !</h2>
             </div>
 
-            {/* --- SECTION 7 : PRÊTRE --- */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
                     <img src={IMGS.priest} alt="Père Barrière" className="priest-circle-img" />
@@ -303,7 +352,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- SECTION 8 : PAPE FRANÇOIS --- */}
             <section className="section-cream">
                 <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                     <div className="pope-intro">
@@ -329,7 +377,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- SECTION 9 : PRIÈRE (Onglet "Contact") --- */}
             <div className="prayer" id="contact">
                 <div className="prayer-logo">
                     <img src={IMGS.prayerLogo} alt="Logo Prière" />
@@ -341,7 +388,6 @@ function Home() {
                 </a>
             </div>
 
-            {/* --- FOOTER (Intégré pour garantir le style) --- */}
             <footer className="site-footer">
                 <ul className="footer-nav">
                     <li><a href="#hero">Accueil</a></li>

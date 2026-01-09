@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles.css'; // Assure-toi que styles.css est bien dans le dossier src
+import '../styles.css';
 
-// Logo du design Antigravity (rouge/orange)
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
 const Navbar = () => {
   const location = useLocation();
-  const isHome = location.pathname === '/'; // On est sur l'accueil ?
+  const isHome = location.pathname === '/';
   const [menuActive, setMenuActive] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Gestion du scroll (uniquement pour l'effet de transparence sur l'accueil)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -27,17 +25,13 @@ const Navbar = () => {
   const toggleMenu = () => setMenuActive(!menuActive);
   const closeMenu = () => setMenuActive(false);
 
-  // LOGIQUE DES CLASSES CSS :
-  // - Accueil + haut de page = transparent
-  // - Accueil + scrollé = fond blanc (scrolled-home)
-  // - Autres pages = fond blanc fixe (solid-nav)
   const navbarClass = isHome
     ? `hero-navbar ${scrolled ? 'scrolled-home' : ''}`
     : `hero-navbar solid-nav`;
 
   return (
     <>
-      {/* --- BARRE DE NAVIGATION PRINCIPALE (Desktop) --- */}
+      {/* BARRE DE NAVIGATION */}
       <nav className={navbarClass} style={{ position: 'fixed', top: 0, width: '100%', transition: 'all 0.4s ease' }}>
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
@@ -46,7 +40,6 @@ const Navbar = () => {
         </div>
 
         <ul className="nav-links">
-          {/* Les liens utilisent Link de react-router pour ne pas recharger la page */}
           <li><Link to="/" onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" onClick={closeMenu}>Nos missions</Link></li>
           <li><Link to="/formation" onClick={closeMenu}>Formation</Link></li>
@@ -55,15 +48,14 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      {/* --- BOUTON MENU ROND (Mobile & Scroll) --- */}
-      {/* Il apparaît si on n'est pas sur l'accueil OU si on a scrollé */}
+      {/* BOUTON MOBILE */}
       <div className={`nav-circle ${(!isHome || scrolled) ? 'visible' : ''} ${menuActive ? 'active' : ''}`}>
         <button className="nav-toggle" onClick={toggleMenu}>
           <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
       </div>
 
-      {/* --- MENU LATÉRAL (Mobile) --- */}
+      {/* MENU MOBILE */}
       <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={closeMenu}></div>
       <div className={`side-menu ${menuActive ? 'active' : ''}`}>
         <ul className="side-links">

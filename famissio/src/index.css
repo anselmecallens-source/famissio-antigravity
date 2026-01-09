@@ -48,3 +48,32 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+/* === Base globale : rendre 67% la nouvelle taille racine === */
+:root {
+  --base-scale: 0.67;
+}
+
+html {
+  font-size: 67%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Ajustements responsives obligatoires */
+@media (max-width: 480px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 70%;
+  }
+}
