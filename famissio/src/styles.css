@@ -1,12 +1,12 @@
 /* ================================================
-   FAMISSIO - HOME COMPONENT STYLES
+   FAMISSIO-HOME COMPONENT STYLES
    ================================================ */
 
 /* --- 1. BASES & VARIABLES --- */
 * {
     margin: 0;
     padding: 0;
-    box- sizing: border - box;
+    box-sizing: border-box;
 }
 
 :root {
@@ -15,87 +15,87 @@
     --coral: #ff8b6b;
     --cream: #fff8f4;
     --charcoal: #1a1a1a;
-    --off - white - warm: #faf7f5;
+    --off-white-warm: #faf7f5;
 }
 
 /* SCROLL SNAP DOUX */
 html {
-    scroll - behavior: smooth;
-    scroll - snap - type: y proximity;
-    overflow - x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    overflow-x: hidden;
 }
 
 body {
-    font - family: 'Inter', sans - serif;
+    font-family: 'Inter', sans-serif;
     color: var(--charcoal);
-    line - height: 1.7;
-    overflow - x: hidden;
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 .hero {
-    scroll - snap - align: start;
+    scroll-snap-align: start;
 }
 
-.snap - target {
-    scroll - snap - align: start;
+.snap-target {
+    scroll-snap-align: start;
 }
 
 /* --- 2. NAVIGATION STANDARD (Hero) --- */
-.hero - navbar {
+.hero-navbar {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100 %;
+    width: 100%;
     padding: 1.25rem 3.125rem;
     display: flex;
-    justify - content: space - between;
-    align - items: center;
-    z - index: 100;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.hero - navbar.hidden {
-    transform: translateY(-100 %);
+.hero-navbar.hidden {
+    transform: translateY(-100%);
     opacity: 0;
-    pointer - events: none;
+    pointer-events: none;
 }
 
-.nav - logo - wrapper {
-    flex - shrink: 0;
-    margin - right: 1.25rem;
+.nav-logo-wrapper {
+    flex-shrink: 0;
+    margin-right: 1.25rem;
 }
 
-.nav - logo - img {
+.nav-logo-img {
     height: 11.25rem;
     width: auto;
     display: block;
 }
 
-.nav - links {
+.nav-links {
     display: flex;
     gap: 3.125rem;
-    list - style: none;
-    align - items: center;
+    list-style: none;
+    align-items: center;
 }
 
-.nav - links a {
+.nav-links a {
     color: var(--flame);
-    text - decoration: none;
-    font - weight: 800;
-    font - size: 1.4rem;
-    text - transform: uppercase;
-    letter - spacing: 1px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
-    padding - bottom: 0.3125rem;
+    padding-bottom: 0.3125rem;
     transition: color 0.3s;
-    white - space: nowrap;
+    white-space: nowrap;
 }
 
-.nav - links a:hover {
+.nav-links a:hover {
     color: var(--ember);
 }
 
-.nav - links a::after {
+.nav-links a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -106,173 +106,173 @@ body {
     transition: width 0.3s;
 }
 
-.nav - links a: hover::after {
-    width: 100 %;
+.nav-links a:hover::after {
+    width: 100%;
 }
 
-@media(max - width: 1500px) {
-  .nav - logo - img {
+@media(max-width: 1500px) {
+  .nav-logo-img {
         height: 8.75rem;
     }
-  .nav - links {
+  .nav-links {
         gap: 1.875rem;
     }
-  .nav - links a {
-        font - size: 1.1rem;
+  .nav-links a {
+        font-size: 1.1rem;
     }
 }
 
 /* --- 3. ÉLÉMENTS FIXES --- */
-.fixed - logo - link {
+.fixed-logo-link {
     position: fixed;
     top: 1.875rem;
     left: 2.5rem;
-    text - decoration: none;
-    z - index: 9999;
+    text-decoration: none;
+    z-index: 9999;
     opacity: 0;
     transform: translateY(-1.25rem);
-    transition: all 0.4s cubic - bezier(0.68, -0.55, 0.265, 1.55);
-    pointer - events: none;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
 }
 
-.fixed - logo - text {
-    font - family: 'Crimson Pro', serif;
-    font - size: 3.5rem;
-    font - weight: 700;
+.fixed-logo-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
     color: var(--flame);
-    letter - spacing: -2px;
+    letter-spacing: -2px;
     transition: opacity 0.4s ease;
 }
 
-.fixed - logo - link: hover.fixed - logo - text {
+.fixed-logo-link:hover.fixed-logo-text {
     opacity: 0.7;
 }
 
-.fixed - logo - link.visible {
+.fixed-logo-link.visible {
     opacity: 1;
     transform: translateY(0);
-    pointer - events: auto;
+    pointer-events: auto;
 }
 
-.nav - circle {
+.nav-circle {
     position: fixed;
     top: 1.875rem;
     right: 1.875rem;
     width: 6.25rem;
     height: 6.25rem;
-    z - index: 9999;
+    z-index: 9999;
     transform: scale(0);
-    transition: transform 0.4s cubic - bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.nav - circle.visible {
+.nav-circle.visible {
     transform: scale(1);
 }
 
-.nav - toggle {
-    width: 100 %;
-    height: 100 %;
+.nav-toggle {
+    width: 100%;
+    height: 100%;
     background: var(--flame);
-    border - radius: 50 %;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    font - size: 2.2rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
     color: white;
-    box - shadow: 0 0.625rem 1.875rem rgba(200, 41, 4, 0.4);
+    box-shadow: 0 0.625rem 1.875rem rgba(200, 41, 4, 0.4);
     transition: all 0.3s;
 }
 
-.nav - toggle:hover {
+.nav-toggle:hover {
     transform: rotate(90deg);
 }
 
 /* --- 4. SIDEBAR MENU --- */
-.menu - backdrop {
+.menu-backdrop {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
-    z - index: 9980;
+    z-index: 9980;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s;
 }
 
-.menu - backdrop.active {
+.menu-backdrop.active {
     opacity: 1;
     visibility: visible;
 }
 
-.side - menu {
+.side-menu {
     position: fixed;
     top: 0;
     right: 0;
     width: 28.125rem;
     height: 100vh;
     background: white;
-    z - index: 9990;
-    box - shadow: -0.625rem 0 3.125rem rgba(0, 0, 0, 0.2);
+    z-index: 9990;
+    box-shadow: -0.625rem 0 3.125rem rgba(0, 0, 0, 0.2);
     padding: 7.5rem 3.75rem;
-    transform: translateX(100 %);
-    transition: transform 0.5s cubic - bezier(0.77, 0, 0.175, 1);
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex;
-    flex - direction: column;
-    justify - content: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.side - menu.active {
+.side-menu.active {
     transform: translateX(0);
 }
 
-.side - links {
-    list - style: none;
-    text - align: right;
+.side-links {
+    list-style: none;
+    text-align: right;
 }
 
-.side - links li {
+.side-links li {
     margin: 1.5625rem 0;
     transform: translateX(3.125rem);
     opacity: 0;
     transition: all 0.4s ease;
 }
 
-.side - menu.active.side - links li {
+.side-menu.active.side-links li {
     transform: translateX(0);
     opacity: 1;
 }
 
-.side - menu.active.side - links li: nth - child(1) {
-    transition - delay: 0.2s;
+.side-menu.active.side-links li:nth-child(1) {
+    transition-delay: 0.2s;
 }
 
-.side - menu.active.side - links li: nth - child(2) {
-    transition - delay: 0.3s;
+.side-menu.active.side-links li:nth-child(2) {
+    transition-delay: 0.3s;
 }
 
-.side - menu.active.side - links li: nth - child(3) {
-    transition - delay: 0.4s;
+.side-menu.active.side-links li:nth-child(3) {
+    transition-delay: 0.4s;
 }
 
-.side - menu.active.side - links li: nth - child(4) {
-    transition - delay: 0.5s;
+.side-menu.active.side-links li:nth-child(4) {
+    transition-delay: 0.5s;
 }
 
-.side - menu.active.side - links li: nth - child(5) {
-    transition - delay: 0.6s;
+.side-menu.active.side-links li:nth-child(5) {
+    transition-delay: 0.6s;
 }
 
-.side - links a {
-    font - family: 'Playfair Display', serif;
-    font - size: 2.5rem;
+.side-links a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
     color: var(--charcoal);
-    text - decoration: none;
-    font - weight: 700;
+    text-decoration: none;
+    font-weight: 700;
     transition: color 0.3s;
 }
 
-.side - links a:hover {
+.side-links a:hover {
     color: var(--flame);
 }
 
@@ -280,52 +280,52 @@ body {
 .hero {
     height: 100vh;
     display: grid;
-    grid - template - columns: 1.3fr 1fr;
+    grid-template-columns: 1.3fr 1fr;
     position: relative;
     overflow: hidden;
     background: white;
 }
 
-.hero - left {
-    background: linear - gradient(135deg, var(--flame), var(--ember));
-    padding: 0 8 %;
+.hero-left {
+    background: linear-gradient(135deg, var(--flame), var(--ember));
+    padding: 0 8%;
     display: flex;
-    align - items: center;
-    clip - path: polygon(0 0, 100 % 0, 90 % 100 %, 0 100 %);
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
     position: relative;
-    height: 100 %;
-    z - index: 2;
+    height: 100%;
+    z-index: 2;
 }
 
-.hero - left::before {
+.hero-left::before {
     content: '';
     position: absolute;
     inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23fff' opacity='0.04'/%3E%3C/svg%3E");
 }
 
-.hero - content {
+.hero-content {
     position: relative;
-    z - index: 2;
+    z-index: 2;
     color: white;
-    width: 100 %;
-    padding - top: 6.25rem;
+    width: 100%;
+    padding-top: 6.25rem;
 }
 
 .hero h1 {
-    font - family: 'Playfair Display', serif;
-    font - size: 8.5vw;
-    font - weight: 900;
-    line - height: 0.85;
-    margin - bottom: 1.875rem;
-    letter - spacing: -3px;
+    font-family: 'Playfair Display', serif;
+    font-size: 8.5vw;
+    font-weight: 900;
+    line-height: 0.85;
+    margin-bottom: 1.875rem;
+    letter-spacing: -3px;
 }
 
 .underline {
     width: 7.5rem;
     height: 5px;
     background: white;
-    border - radius: 3px;
+    border-radius: 3px;
     margin: 1.5625rem 0 2.5rem;
     position: relative;
     overflow: hidden;
@@ -334,40 +334,40 @@ body {
 .underline::after {
     content: '';
     position: absolute;
-    width: 40 %;
-    height: 100 %;
+    width: 40%;
+    height: 100%;
     background: #d4af37;
     left: 0;
 }
 
 .hero p {
-    font - size: 1.35rem;
-    line - height: 1.6;
+    font-size: 1.35rem;
+    line-height: 1.6;
     opacity: 0.95;
-    margin - bottom: 3.125rem;
-    max - width: 53.125rem;
-    font - weight: 300;
-    text - align: left;
+    margin-bottom: 3.125rem;
+    max-width: 53.125rem;
+    font-weight: 300;
+    text-align: left;
 }
 
 .cta {
     display: flex;
-    align - items: center;
-    justify - content: space - between;
-    width: 90 %;
-    max - width: 56.25rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 56.25rem;
     color: white;
-    text - decoration: none;
-    font - weight: 700;
-    font - size: 1.1rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
     padding: 1rem 0;
-    border - bottom: 3px solid white;
-    transition: padding - left 0.3s;
+    border-bottom: 3px solid white;
+    transition: padding-left 0.3s;
 }
 
 .cta span {
     display: flex;
-    align - items: center;
+    align-items: center;
     gap: 0.75rem;
 }
 
@@ -376,114 +376,114 @@ body {
     transition: gap 0.3s;
 }
 
-.hero - right {
+.hero-right {
     position: relative;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    padding: 5 %;
-    height: 100 %;
-    margin - top: -2.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+    height: 100%;
+    margin-top: -2.5rem;
 }
 
-.image - blob {
-    width: 80 %;
-    height: 70 %;
-    border - radius: 45 % 55 % 60 % 40 % / 50% 45% 55% 50%;
+.image-blob {
+    width: 80%;
+    height: 70%;
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
     overflow: hidden;
-    box - shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.3);
-    animation: morph 10s ease -in -out infinite;
+    box-shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.3);
+    animation: morph 10s ease-in-out infinite;
 }
 
 @keyframes morph {
-    0 %,
-        100 % {
-            border- radius: 45 % 55 % 60 % 40 % / 50% 45% 55% 50%;
+    0%,
+        100% {
+            border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
 }
-50 % {
-    border- radius: 55 % 45 % 40 % 60 % / 45% 55% 45% 55%;
+50% {
+    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
   }
 }
 
-.image - blob img {
-    width: 100 %;
-    height: 100 %;
-    object - fit: cover;
+.image-blob img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.float - stat {
+.float-stat {
     position: absolute;
     background: white;
     padding: 0.9375rem 1.875rem;
-    border - radius: 1.25rem;
-    box - shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
-    font - weight: 700;
-    font - size: 0.95rem;
-    animation: float 4s ease -in -out infinite;
-    min - width: 11.25rem;
-    text - align: center;
+    border-radius: 1.25rem;
+    box-shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+    font-weight: 700;
+    font-size: 0.95rem;
+    animation: float 4s ease-in-out infinite;
+    min-width: 11.25rem;
+    text-align: center;
 }
 
 @keyframes float {
-    0 %,
-        100 % {
+    0%,
+        100% {
             transform: translateY(0);
         }
-    50 % {
+    50% {
         transform: translateY(-0.9375rem);
     }
 }
 
-.float - stat: nth - child(2) {
-    top: 18 %;
-    right: 5 %;
+.float-stat:nth-child(2) {
+    top: 18%;
+    right: 5%;
     color: var(--ember);
-    animation - delay: 0s;
+    animation-delay: 0s;
 }
 
-.float - stat: nth - child(3) {
-    bottom: 20 %;
-    right: 8 %;
+.float-stat:nth-child(3) {
+    bottom: 20%;
+    right: 8%;
     color: var(--flame);
-    animation - delay: -2s;
+    animation-delay: -2s;
 }
 
-.float - stat: nth - child(4) {
-    bottom: 25 %;
-    left: -2 %;
+.float-stat:nth-child(4) {
+    bottom: 25%;
+    left: -2%;
     color: var(--coral);
-    animation - delay: -1s;
+    animation-delay: -1s;
 }
 
 /* --- 6. SECTIONS --- */
 section {
-    padding: 7.5rem 5 %;
+    padding: 7.5rem 5%;
     position: relative;
 }
 
-.section - cream {
+.section-cream {
     background: var(--cream);
 }
 
-.section - head {
-    text - align: center;
-    margin - bottom: 5rem;
+.section-head {
+    text-align: center;
+    margin-bottom: 5rem;
 }
 
 .eyebrow {
-    font - size: 0.85rem;
-    font - weight: 800;
+    font-size: 0.85rem;
+    font-weight: 800;
     color: var(--ember);
-    text - transform: uppercase;
-    letter - spacing: 3px;
-    margin - bottom: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.9375rem;
     display: flex;
-    align - items: center;
-    justify - content: center;
+    align-items: center;
+    justify-content: center;
     gap: 0.9375rem;
 }
 
-.eyebrow:: before,
+.eyebrow::before,
 .eyebrow::after {
     content: '';
     width: 2.5rem;
@@ -492,323 +492,323 @@ section {
 }
 
 .title {
-    font - family: 'Playfair Display', serif;
-    font - size: clamp(2.5rem, 5vw, 4.5rem);
-    font - weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
     color: var(--charcoal);
-    margin - bottom: 1.25rem;
-    line - height: 1.15;
+    margin-bottom: 1.25rem;
+    line-height: 1.15;
 }
 
 .subtitle {
-    font - size: 1.2rem;
+    font-size: 1.2rem;
     color: #666;
-    max - width: 43.75rem;
+    max-width: 43.75rem;
     margin: 0 auto;
 }
 
 .diagonal {
     background: #f8f9fa;
-    clip - path: polygon(0 4 %, 100 % 0, 100 % 96 %, 0 100 %);
+    clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
     margin: 5rem 0;
-    padding: 9.375rem 5 %;
+    padding: 9.375rem 5%;
     position: relative;
-    z - index: 1;
+    z-index: 1;
 }
 
-.story - grid {
-    max - width: 87.5rem;
+.story-grid {
+    max-width: 87.5rem;
     margin: 0 auto;
     display: grid;
-    grid - template - columns: 0.9fr 1.1fr;
+    grid-template-columns: 0.9fr 1.1fr;
     gap: 5rem;
-    align - items: center;
+    align-items: center;
 }
 
-.image - wrap {
+.image-wrap {
     position: relative;
     height: 37.5rem;
 }
 
-.main - img {
+.main-img {
     position: absolute;
-    width: 90 %;
-    height: 90 %;
-    border - radius: 1.875rem;
+    width: 90%;
+    height: 90%;
+    border-radius: 1.875rem;
     overflow: hidden;
-    box - shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.2);
 }
 
-.main - img img {
-    width: 100 %;
-    height: 100 %;
-    object - fit: cover;
+.main-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.6s;
 }
 
-.main - img:hover img {
+.main-img:hover img {
     transform: scale(1.08);
 }
 
-.accent - shape {
+.accent-shape {
     position: absolute;
-    width: 45 %;
-    height: 45 %;
-    background: linear - gradient(135deg, var(--ember), var(--coral));
-    border - radius: 40 % 60 % 50 % 50 % / 60% 40% 60% 40%;
+    width: 45%;
+    height: 45%;
+    background: linear-gradient(135deg, var(--ember), var(--coral));
+    border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
     bottom: 0;
     right: 0;
     opacity: 0.12;
-    z - index: -1;
+    z-index: -1;
 }
 
-.story - text p {
-    font - size: 1.1rem;
-    line - height: 1.9;
+.story-text p {
+    font-size: 1.1rem;
+    line-height: 1.9;
     color: #444;
-    margin - bottom: 1.5625rem;
-    text - align: justify;
+    margin-bottom: 1.5625rem;
+    text-align: justify;
 }
 
-.highlight - box {
-    background: linear - gradient(135deg, var(--cream), #fff);
+.highlight-box {
+    background: linear-gradient(135deg, var(--cream), #fff);
     padding: 2.1875rem;
-    border - radius: 1.5625rem;
-    border - left: 5px solid var(--ember);
-    margin - top: 1.875rem;
-    box - shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.05);
+    border-radius: 1.5625rem;
+    border-left: 5px solid var(--ember);
+    margin-top: 1.875rem;
+    box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.05);
 }
 
 /* --- GALERIE (Mission en Action) --- */
-.gallery - wrapper {
+.gallery-wrapper {
     position: relative;
-    max - width: 98 %;
+    max-width: 98%;
     margin: 0 auto;
     padding: 0 1.25rem;
 }
 
-.gallery - track {
+.gallery-track {
     display: flex;
     gap: 1.25rem;
-    flex - wrap: wrap;
-    justify - content: center;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 1.25rem;
 }
 
-.gallery - track:: -webkit - scrollbar {
+.gallery-track::-webkit-scrollbar {
     display: none;
 }
 
-.gallery - card {
+.gallery-card {
     flex: 1 1 15.625rem;
-    max - width: 21.875rem;
+    max-width: 21.875rem;
     height: 31.25rem;
     position: relative;
     overflow: hidden;
-    border - radius: 1.25rem;
-    box - shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.2);
+    border-radius: 1.25rem;
+    box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.2);
     transition: transform 0.5s;
     background: white;
 }
 
-.gallery - card:hover {
+.gallery-card:hover {
     transform: scale(1.03);
 }
 
-.gallery - card img {
-    width: 100 %;
-    height: 100 %;
-    object - fit: cover;
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.gallery - label {
+.gallery-label {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 1.875rem 1.25rem;
-    background: linear - gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
     color: white;
-    font - size: 1.4rem;
-    font - weight: 600;
-    text - align: left;
-    font - family: 'Playfair Display', serif;
-    font - style: italic;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
 }
 
-.gallery - nav - btn {
+.gallery-nav-btn {
     display: none;
 }
 
-.video - section {
-    background: linear - gradient(135deg, #0f0f0f, #1a1a2e);
+.video-section {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a2e);
 }
 
-.video - frame {
-    max - width: 75rem;
+.video-frame {
+    max-width: 75rem;
     margin: 0 auto;
     padding: 2.5rem;
     background: rgba(255, 255, 255, 0.03);
-    border - radius: 2.5rem;
+    border-radius: 2.5rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.video - box {
+.video-box {
     position: relative;
-    padding - bottom: 56.25 %;
-    border - radius: 1.25rem;
+    padding-bottom: 56.25%;
+    border-radius: 1.25rem;
     overflow: hidden;
-    box - shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.6);
 }
 
-.video - box iframe {
+.video-box iframe {
     position: absolute;
     inset: 0;
-    width: 100 %;
-    height: 100 %;
+    width: 100%;
+    height: 100%;
 }
 
-.mission - cards {
-    max - width: 87.5rem;
+.mission-cards {
+    max-width: 87.5rem;
     margin: 0 auto;
     display: grid;
-    grid - template - columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.875rem;
 }
 
-.mission - card {
+.mission-card {
     background: white;
     padding: 3.125rem 2.5rem;
-    border - radius: 1.875rem;
-    box - shadow: 0 0.9375rem 3.125rem rgba(0, 0, 0, 0.08);
-    text - align: center;
+    border-radius: 1.875rem;
+    box-shadow: 0 0.9375rem 3.125rem rgba(0, 0, 0, 0.08);
+    text-align: center;
     transition: all 0.5s;
     position: relative;
     overflow: hidden;
 }
 
-.mission - card:hover {
+.mission-card:hover {
     transform: translateY(-0.9375rem);
-    box - shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.15);
 }
 
-.mission - icon {
+.mission-icon {
     width: 6.25rem;
     height: 6.25rem;
     margin: 0 auto 1.875rem;
-    background: linear - gradient(135deg, var(--flame), var(--ember));
-    border - radius: 35 % 65 % 60 % 40 % / 55% 45% 55% 45%;
+    background: linear-gradient(135deg, var(--flame), var(--ember));
+    border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    font - size: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
     color: white;
-    animation: morphIcon 8s ease -in -out infinite;
+    animation: morphIcon 8s ease-in-out infinite;
     transition: transform 0.4s;
 }
 
 @keyframes morphIcon {
-    0 %,
-        100 % {
-            border- radius: 35 % 65 % 60 % 40 % / 55% 45% 55% 45%;
+    0%,
+        100% {
+            border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%;
 }
-50 % {
-    border- radius: 65 % 35 % 40 % 60 % / 45% 55% 45% 55%;
+50% {
+    border-radius: 65% 35% 40% 60% / 45% 55% 45% 55%;
   }
 }
 
-.mission - card: hover.mission - icon {
+.mission-card:hover.mission-icon {
     transform: scale(1.15) rotate(20deg) translateX(0.9375rem);
 }
 
-.mission - card h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 1.8rem;
+.mission-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     color: var(--flame);
-    margin - bottom: 1.25rem;
+    margin-bottom: 1.25rem;
 }
 
-.mission - card p {
-    font - size: 1.05rem;
-    line - height: 1.8;
+.mission-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
     color: #555;
-    text - align: justify;
+    text-align: justify;
 }
 
 /* --- SECTION TEAM : IMAGE QUI DESCEND (STICKY) --- */
-.team - section {
+.team-section {
     background: white;
 }
 
-.team - layout {
-    max - width: 87.5rem;
+.team-layout {
+    max-width: 87.5rem;
     margin: 0 auto;
     display: grid;
-    grid - template - columns: 31.25rem 1fr;
+    grid-template-columns: 31.25rem 1fr;
     gap: 3.75rem;
-    align - items: start;
+    align-items: start;
 }
 
-.team - image - box {
+.team-image-box {
     position: sticky;
     top: 3.125rem;
 }
 
-.team - image {
-    width: 100 %;
+.team-image {
+    width: 100%;
     height: 37.5rem;
-    border - radius: 2.1875rem;
+    border-radius: 2.1875rem;
     overflow: hidden;
-    box - shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.2);
 }
 
-.team - image img {
-    width: 100 %;
-    height: 100 %;
-    object - fit: cover;
-    object - position: 25 % center;
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 25% center;
     transition: transform 0.6s;
 }
 
-.team - image:hover img {
+.team-image:hover img {
     transform: scale(1.08);
 }
 
-.team - content h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 1.8rem;
+.team-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     color: var(--flame);
-    margin - bottom: 1.25rem;
-    font - weight: 700;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
 }
 
-.team - content p {
-    font - size: 1.05rem;
-    line - height: 1.7;
+.team-content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
     color: #555;
-    margin - bottom: 1.5625rem;
-    text - align: justify;
+    margin-bottom: 1.5625rem;
+    text-align: justify;
 }
 
-.quote - box {
-    background: linear - gradient(135deg, var(--cream), #fff);
+.quote-box {
+    background: linear-gradient(135deg, var(--cream), #fff);
     padding: 2.5rem;
-    border - radius: 1.875rem;
+    border-radius: 1.875rem;
     margin: 1.875rem 0;
     border: 2px solid rgba(248, 106, 7, 0.1);
 }
 
-.quote - author {
-    margin - top: 1.25rem;
-    font - weight: 700;
+.quote-author {
+    margin-top: 1.25rem;
+    font-weight: 700;
     color: var(--flame);
-    text - align: right;
+    text-align: right;
 }
 
 .banner {
-    background: linear - gradient(135deg, var(--flame), var(--ember), var(--coral));
-    padding: 6.25rem 5 %;
-    text - align: center;
+    background: linear-gradient(135deg, var(--flame), var(--ember), var(--coral));
+    padding: 6.25rem 5%;
+    text-align: center;
     color: white;
     position: relative;
     overflow: hidden;
@@ -829,604 +829,604 @@ section {
     }
 }
 
-.geo: nth - child(1) {
+.geo:nth-child(1) {
     width: 18.75rem;
     height: 18.75rem;
-    border - radius: 50 %;
-    top: 10 %;
-    left: 5 %;
+    border-radius: 50%;
+    top: 10%;
+    left: 5%;
 }
 
-.geo: nth - child(2) {
+.geo:nth-child(2) {
     width: 12.5rem;
     height: 12.5rem;
-    top: 50 %;
-    right: 10 %;
-    animation - duration: 30s;
+    top: 50%;
+    right: 10%;
+    animation-duration: 30s;
 }
 
 .banner h2 {
-    font - family: 'Playfair Display', serif;
-    font - size: clamp(2.5rem, 5vw, 5rem);
-    font - weight: 900;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 900;
     position: relative;
-    z - index: 2;
+    z-index: 2;
 }
 
-.priest - dual {
-    padding: 9.375rem 10 %;
-    background: var(--off - white - warm);
+.priest-dual {
+    padding: 9.375rem 10%;
+    background: var(--off-white-warm);
 }
 
-.priest - intro - flex {
+.priest-intro-flex {
     display: flex;
     gap: 5rem;
-    max - width: 75rem;
+    max-width: 75rem;
     margin: 0 auto 6.25rem;
-    align - items: center;
+    align-items: center;
 }
 
-.priest - circle - img {
+.priest-circle-img {
     width: 13.75rem;
     height: 13.75rem;
-    border - radius: 50 %;
-    object - fit: cover;
+    border-radius: 50%;
+    object-fit: cover;
     border: 8px solid white;
-    box - shadow: 0 1.5625rem 4.375rem rgba(0, 0, 0, 0.2);
-    flex - shrink: 0;
+    box-shadow: 0 1.5625rem 4.375rem rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
 }
 
-.priest - name - zone h2 {
-    font - family: 'Playfair Display', serif;
-    font - size: 3.5rem;
+.priest-name-zone h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
     color: var(--flame);
-    margin - bottom: 0.9375rem;
+    margin-bottom: 0.9375rem;
 }
 
-.priest - name - zone p {
-    font - size: 1.4rem;
+.priest-name-zone p {
+    font-size: 1.4rem;
     color: var(--ember);
-    font - weight: 600;
-    font - style: italic;
+    font-weight: 600;
+    font-style: italic;
 }
 
-.priest - description {
-    max - width: 62.5rem;
+.priest-description {
+    max-width: 62.5rem;
     margin: 0 auto 6.25rem;
-    text - align: center;
+    text-align: center;
 }
 
-.priest - description h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 2.5rem;
-    margin - bottom: 1.875rem;
+.priest-description h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1.875rem;
 }
 
-.priest - description p {
-    font - size: 1.2rem;
-    line - height: 2;
+.priest-description p {
+    font-size: 1.2rem;
+    line-height: 2;
     color: #555;
-    text - align: justify;
+    text-align: justify;
 }
 
-.pillars - three {
+.pillars-three {
     display: grid;
-    grid - template - columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 3.125rem;
-    max - width: 81.25rem;
+    max-width: 81.25rem;
     margin: 0 auto;
 }
 
-.pillar - box {
+.pillar-box {
     background: white;
     padding: 3.75rem 2.8125rem;
-    border - top: 8px solid var(--ember);
+    border-top: 8px solid var(--ember);
     transition: all 0.4s;
 }
 
-.pillar - box:hover {
+.pillar-box:hover {
     transform: translateY(-1.25rem) scale(1.03);
-    box - shadow: 0 2.5rem 5.625rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2.5rem 5.625rem rgba(0, 0, 0, 0.15);
 }
 
-.pillar - emoji {
-    font - size: 4rem;
-    margin - bottom: 1.875rem;
+.pillar-emoji {
+    font-size: 4rem;
+    margin-bottom: 1.875rem;
     display: block;
 }
 
-.pillar - box h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 2rem;
+.pillar-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
     color: var(--flame);
-    margin - bottom: 1.5625rem;
+    margin-bottom: 1.5625rem;
 }
 
-.pillar - box p {
-    font - size: 1.05rem;
-    line - height: 2;
+.pillar-box p {
+    font-size: 1.05rem;
+    line-height: 2;
     color: #666;
-    text - align: justify;
+    text-align: justify;
 }
 
-.pope - intro {
+.pope-intro {
     display: flex;
-    align - items: center;
-    justify - content: center;
+    align-items: center;
+    justify-content: center;
     gap: 3rem;
-    margin - bottom: 5rem;
+    margin-bottom: 5rem;
 }
 
-.pope - image {
+.pope-image {
     width: 8.75rem;
     height: 8.75rem;
-    border - radius: 50 %;
-    object - fit: cover;
+    border-radius: 50%;
+    object-fit: cover;
     border: 4px solid var(--ember);
 }
 
-.pope - intro h2 {
-    font - family: 'Playfair Display', serif;
-    font - size: 2.5rem;
+.pope-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
     color: var(--flame);
 }
 
 .rosé - header {
-    text - align: center;
-    margin - bottom: 5rem;
-    max - width: 50rem;
-    margin - left: auto;
-    margin - right: auto;
+    text-align: center;
+    margin-bottom: 5rem;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .rosé - header.title {
-    font - size: 3rem;
+    font-size: 3rem;
 }
 
-.pope - grid {
+.pope-grid {
     display: grid;
-    grid - template - columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin - bottom: 5rem;
-    max - width: 75rem;
-    margin - left: auto;
-    margin - right: auto;
+    margin-bottom: 5rem;
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.pope - item {
+.pope-item {
     background: white;
     padding: 3rem;
-    border - radius: 1rem;
-    border - left: 4px solid var(--ember);
-    box - shadow: 0 0.3125rem 1.25rem rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    border-left: 4px solid var(--ember);
+    box-shadow: 0 0.3125rem 1.25rem rgba(0, 0, 0, 0.05);
     transition: all 0.3s;
 }
 
-.pope - item:hover {
+.pope-item:hover {
     transform: translateX(0.625rem);
-    box - shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
 }
 
-.pope - item h4 {
-    font - size: 1.1rem;
+.pope-item h4 {
+    font-size: 1.1rem;
     color: var(--flame);
-    margin - bottom: 1rem;
-    font - weight: 700;
-    text - transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.pope - item p {
-    font - size: 0.98rem;
-    line - height: 1.7;
+.pope-item p {
+    font-size: 0.98rem;
+    line-height: 1.7;
     color: #555;
-    text - align: justify;
+    text-align: justify;
 }
 
-.pope - message - box {
-    background: linear - gradient(135deg, var(--cream), white);
+.pope-message-box {
+    background: linear-gradient(135deg, var(--cream), white);
     padding: 5rem;
-    border - radius: 1.25rem;
-    box - shadow: 0 0.9375rem 2.5rem rgba(0, 0, 0, 0.08);
-    max - width: 75rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.9375rem 2.5rem rgba(0, 0, 0, 0.08);
+    max-width: 75rem;
     margin: 0 auto;
 }
 
-.pope - message - box h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 1.8rem;
+.pope-message-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     color: var(--flame);
-    text - align: center;
-    margin - bottom: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
-.pope - message - box p {
-    font - size: 1.05rem;
-    line - height: 1.8;
+.pope-message-box p {
+    font-size: 1.05rem;
+    line-height: 1.8;
     color: #555;
-    margin - bottom: 1rem;
-    text - align: justify;
+    margin-bottom: 1rem;
+    text-align: justify;
 }
 
 /* --- PRIERE --- */
 .prayer {
     background: #ede0d4;
-    text - align: center;
+    text-align: center;
     color: var(--charcoal);
-    padding: 3.75rem 5 %;
+    padding: 3.75rem 5%;
 }
 
-.prayer - logo {
+.prayer-logo {
     width: 10rem;
     height: 10rem;
     margin: 0 auto 2.5rem;
     background: white;
-    border - radius: 45 % 55 % 60 % 40 % / 50% 45% 55% 50%;
-    animation: morph 8s ease -in -out infinite;
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    animation: morph 8s ease-in-out infinite;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    box - shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.3);
 }
 
-.prayer - logo img {
-    width: 70 %;
-    height: 70 %;
-    object - fit: contain;
+.prayer-logo img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
     transform: scale(1.35);
 }
 
 .prayer h2 {
-    font - family: 'Playfair Display', serif;
-    font - size: clamp(2.5rem, 5vw, 4rem);
-    margin - bottom: 0.9375rem;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 0.9375rem;
     color: var(--charcoal);
-    line - height: 1.2;
+    line-height: 1.2;
 }
 
 .prayer p {
-    margin - bottom: 2.5rem;
-    font - size: 1.2rem;
-    font - weight: 400;
-    line - height: 1.4;
+    margin-bottom: 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.4;
 }
 
-.prayer - cta {
-    display: inline - flex;
-    align - items: center;
+.prayer-cta {
+    display: inline-flex;
+    align-items: center;
     gap: 0.75rem;
     color: var(--charcoal);
-    text - decoration: none;
-    font - weight: 700;
-    font - size: 1.2rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
     padding: 1.125rem 0;
-    border - bottom: 3px solid var(--charcoal);
+    border-bottom: 3px solid var(--charcoal);
     transition: gap 0.3s;
 }
 
-.prayer - cta:hover {
+.prayer-cta:hover {
     gap: 1.25rem;
 }
 
 /* --- NOUVELLE SECTION : DÉROULEMENT DE LA MISSION --- */
-.mission - detailed - section {
-    padding: 7.5rem 5 %;
-    background: linear - gradient(180deg, #fafafa 0 %, #ffffff 100 %);
+.mission-detailed-section {
+    padding: 7.5rem 5%;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
 }
 
-.mission - context - wrapper {
-    max - width: 87.5rem;
+.mission-context-wrapper {
+    max-width: 87.5rem;
     margin: 0 auto 5rem;
     display: grid;
-    grid - template - columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
 }
 
-.context - card {
+.context-card {
     background: white;
     padding: 3rem 2.5rem;
-    border - radius: 2rem;
-    box - shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.08);
+    border-radius: 2rem;
+    box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
 }
 
-.context - card::before {
+.context-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100 %;
+    width: 100%;
     height: 5px;
-    background: linear - gradient(90deg, var(--flame), var(--ember), var(--coral));
+    background: linear-gradient(90deg, var(--flame), var(--ember), var(--coral));
 }
 
-.context - card:hover {
+.context-card:hover {
     transform: translateY(-0.625rem);
-    box - shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.15);
 }
 
-.context - icon {
+.context-icon {
     width: 4.5rem;
     height: 4.5rem;
-    background: linear - gradient(135deg, var(--flame), var(--ember));
-    border - radius: 50 %;
+    background: linear-gradient(135deg, var(--flame), var(--ember));
+    border-radius: 50%;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    font - size: 2rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
     color: white;
-    margin - bottom: 1.5rem;
-    box - shadow: 0 0.5rem 1.5rem rgba(200, 41, 4, 0.3);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(200, 41, 4, 0.3);
 }
 
-.context - card h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 1.8rem;
+.context-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     color: var(--flame);
-    margin - bottom: 1.25rem;
-    font - weight: 700;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
 }
 
-.context - card p {
-    font - size: 1.05rem;
-    line - height: 1.8;
+.context-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
     color: #555;
-    margin - bottom: 1rem;
-    text - align: justify;
+    margin-bottom: 1rem;
+    text-align: justify;
 }
 
-.context - card p: last - child {
-    margin - bottom: 0;
+.context-card p:last-child {
+    margin-bottom: 0;
 }
 
 /* CARTES EXPANSIBLES */
-.expandable - cards - grid {
-    max - width: 87.5rem;
+.expandable-cards-grid {
+    max-width: 87.5rem;
     margin: 0 auto;
     display: grid;
-    grid - template - columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
-.expandable - card {
+.expandable-card {
     background: white;
-    border - radius: 1.5rem;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box - shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: all 0.4s cubic - bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid transparent;
 }
 
-.expandable - card:hover {
+.expandable-card:hover {
     transform: translateY(-0.5rem);
-    box - shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
-    border - color: var(--card - color);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+    border-color: var(--card-color);
 }
 
-.expandable - card - header {
+.expandable-card-header {
     padding: 2rem;
-    background: linear - gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 245, 0.95));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 245, 0.95));
     display: flex;
-    flex - direction: column;
-    align - items: center;
-    text - align: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     position: relative;
-    border - bottom: 3px solid var(--card - color);
+    border-bottom: 3px solid var(--card-color);
 }
 
-.expandable - icon {
+.expandable-icon {
     width: 5rem;
     height: 5rem;
-    background: var(--card - color);
-    border - radius: 50 %;
+    background: var(--card-color);
+    border-radius: 50%;
     display: flex;
-    align - items: center;
-    justify - content: center;
-    font - size: 2.2rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
     color: white;
-    margin - bottom: 1.25rem;
+    margin-bottom: 1.25rem;
     transition: all 0.4s ease;
-    box - shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
 }
 
-.expandable - card: hover.expandable - icon {
+.expandable-card:hover.expandable-icon {
     transform: scale(1.1) rotate(5deg);
 }
 
-.expandable - card - header h3 {
-    font - family: 'Playfair Display', serif;
-    font - size: 1.6rem;
+.expandable-card-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
     color: var(--charcoal);
-    margin - bottom: 0.5rem;
-    font - weight: 700;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
-.expand - indicator {
+.expand-indicator {
     position: absolute;
     bottom: 0.75rem;
-    right: 50 %;
-    transform: translateX(50 %);
+    right: 50%;
+    transform: translateX(50%);
     width: 2.5rem;
     height: 2.5rem;
-    background: var(--card - color);
-    border - radius: 50 %;
+    background: var(--card-color);
+    border-radius: 50%;
     display: flex;
-    align - items: center;
-    justify - content: center;
+    align-items: center;
+    justify-content: center;
     color: white;
-    font - size: 1rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-.expandable - card.expanded.expand - indicator {
-    transform: translateX(50 %) rotate(180deg);
+.expandable-card.expanded.expand-indicator {
+    transform: translateX(50%) rotate(180deg);
 }
 
-.expandable - card - content {
-    max - height: 0;
+.expandable-card-content {
+    max-height: 0;
     overflow: hidden;
-    transition: max - height 0.5s cubic - bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     background: white;
 }
 
-.expandable - card.expanded.expandable - card - content {
-    max - height: 62.5rem;
+.expandable-card.expanded.expandable-card-content {
+    max-height: 62.5rem;
     padding: 2rem;
 }
 
-.expandable - card - content ul {
-    list - style: none;
+.expandable-card-content ul {
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.expandable - card - content li {
+.expandable-card-content li {
     padding: 0.75rem 0 0.75rem 2rem;
     position: relative;
-    font - size: 1rem;
-    line - height: 1.7;
+    font-size: 1rem;
+    line-height: 1.7;
     color: #555;
-    border - bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
 
-.expandable - card - content li: last - child {
-    border - bottom: none;
+.expandable-card-content li:last-child {
+    border-bottom: none;
 }
 
-.expandable - card - content li::before {
+.expandable-card-content li::before {
     content: '→';
     position: absolute;
     left: 0;
     top: 0.75rem;
-    color: var(--card - color);
-    font - weight: bold;
-    font - size: 1.2rem;
+    color: var(--card-color);
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.expandable - card - content li:hover {
-    padding - left: 2.5rem;
+.expandable-card-content li:hover {
+    padding-left: 2.5rem;
     color: var(--charcoal);
 }
 
 /* RESPONSIVE POUR LA NOUVELLE SECTION */
-@media(max - width: 1200px) {
-  .mission - context - wrapper {
-        grid - template - columns: 1fr;
+@media(max-width: 1200px) {
+  .mission-context-wrapper {
+        grid-template-columns: 1fr;
         gap: 2rem;
     }
 
-  .expandable - cards - grid {
-        grid - template - columns: repeat(2, 1fr);
+  .expandable-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 }
 
-@media(max - width: 768px) {
-  .expandable - cards - grid {
-        grid - template - columns: 1fr;
+@media(max-width: 768px) {
+  .expandable-cards-grid {
+        grid-template-columns: 1fr;
     }
 
-  .expandable - card - header {
+  .expandable-card-header {
         padding: 1.5rem;
     }
 
-  .expandable - icon {
+  .expandable-icon {
         width: 4rem;
         height: 4rem;
-        font - size: 1.8rem;
+        font-size: 1.8rem;
     }
 
-  .expandable - card - header h3 {
-        font - size: 1.3rem;
+  .expandable-card-header h3 {
+        font-size: 1.3rem;
     }
 
-  .context - card {
+  .context-card {
         padding: 2rem 1.5rem;
     }
 
-  .context - card h3 {
-        font - size: 1.5rem;
+  .context-card h3 {
+        font-size: 1.5rem;
     }
 }
 
 /* FOOTER */
-.site - footer {
+.site-footer {
     background: var(--flame);
     color: white;
-    padding: 2.5rem 5 %;
-    text - align: center;
+    padding: 2.5rem 5%;
+    text-align: center;
     position: relative;
-    z - index: 10;
+    z-index: 10;
 }
 
-.footer - nav {
+.footer-nav {
     display: flex;
-    justify - content: center;
+    justify-content: center;
     gap: 2.5rem;
-    margin - bottom: 1.25rem;
-    list - style: none;
-    flex - wrap: wrap;
+    margin-bottom: 1.25rem;
+    list-style: none;
+    flex-wrap: wrap;
 }
 
-.footer - nav a {
+.footer-nav a {
     color: white;
-    text - decoration: none;
-    font - family: 'Playfair Display', serif;
-    font - size: 1.2rem;
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
     transition: color 0.3s;
 }
 
-.footer - nav a:hover {
+.footer-nav a:hover {
     color: var(--coral);
 }
 
-.footer - copy {
-    font - size: 0.9rem;
+.footer-copy {
+    font-size: 0.9rem;
     opacity: 0.5;
-    text - align: center;
+    text-align: center;
 }
 
 /* RESPONSIVE */
-@media(max - width: 1200px) {
+@media(max-width: 1200px) {
   .hero {
-        grid - template - columns: 1fr;
+        grid-template-columns: 1fr;
     }
 
-  .hero - left {
-        clip - path: none;
-        padding: 7.5rem 5 % 5rem;
+  .hero-left {
+        clip-path: none;
+        padding: 7.5rem 5% 5rem;
     }
 
-  .hero - right {
+  .hero-right {
         display: none;
     }
 
-  .story - grid,
-  .team - layout,
-  .pope - grid,
-  .pillars - three,
-  .priest - intro - flex,
-  .mission - cards {
-        grid - template - columns: 1fr;
+  .story-grid,
+  .team-layout,
+  .pope-grid,
+  .pillars-three,
+  .priest-intro-flex,
+  .mission-cards {
+        grid-template-columns: 1fr;
     }
 
-  .nav - links {
+  .nav-links {
         display: none;
     }
 
-  .fixed - logo - link {
+  .fixed-logo-link {
         position: fixed;
         top: 1.875rem;
         left: 1.875rem;
         opacity: 1!important;
         transform: none!important;
-        z - index: 1000;
+        z-index: 1000;
     }
 
-  .nav - circle {
+  .nav-circle {
         top: 1.25rem;
         right: 1.25rem;
         width: 3.75rem;
@@ -1436,12 +1436,12 @@ section {
         visibility: visible!important;
     }
 
-  .hero - navbar {
+  .hero-navbar {
         padding: 0;
         display: none;
     }
 
-  .side - menu {
-        width: 100 %;
+  .side-menu {
+        width: 100%;
     }
 }
