@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import '../styles.css';
+import './styles.css';
 
 /* --- IMAGES --- */
 const IMGS = {

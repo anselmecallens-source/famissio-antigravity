@@ -1,4 +1,4 @@
-﻿/* RESET GLOBAL */
+/* RESET GLOBAL */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +6,7 @@
 }
 
 html {
-  /* Le secret pour que tout rentre : on rÃ©duit la base de la police */
+  /* Le secret pour que tout rentre : on réduit la base de la police */
   font-size: 12px;
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
@@ -55,7 +55,7 @@ a {
 }
 
 html {
-  font-size: calc(67% * 0.67);
+  font-size: 67%;
   box-sizing: border-box;
 }
 
