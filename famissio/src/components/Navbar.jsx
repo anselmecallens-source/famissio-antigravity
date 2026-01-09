@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles.css'; // On utilise le CSS global qu'on a réparé
+import '../styles.css'; // Assure-toi que styles.css est bien dans le dossier src
 
 // Logo du design Antigravity (rouge/orange)
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
