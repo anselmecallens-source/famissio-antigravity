@@ -5,17 +5,15 @@
   padding: 0;
 }
 
-/* LE SECRET DU DÉZOOM 75% */
 html {
   overflow-y: scroll;
-  /* Garde la barre pour éviter les sauts */
-
-  /* 16px (standard) x 0.75 = 12px */
-  /* Cela va réduire tout le site uniformément */
-  font-size: 12px;
+  /* DÉSACTIVÉ TEMPORAIREMENT POUR ÉVITER DE CASSER LE NOUVEAU DESIGN */
+  /* Le nouveau design mélange px et rem, changer la base va créer des disproportion */
+  /* font-size: 12px; */
 }
 
 body {
+  /* On met une police par défaut, mais Home.jsx chargera 'Inter' et 'Playfair' par dessus */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: #333;
@@ -23,13 +21,14 @@ body {
   overflow-x: hidden;
 }
 
-/* CADRE PRINCIPAL ÉLARGI */
-/* Comme on dézoome, on peut afficher plus large (1600px au lieu de 1200px) */
+/* CADRE PRINCIPAL (Utilisé pour tes pages Missions, Contact, etc.) */
 .main-container {
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px;
   min-height: 80vh;
+  /* Pour éviter que le menu du haut ne cache le contenu sur ces pages */
+  padding-top: 100px;
 }
 
 /* Styles par défaut */
