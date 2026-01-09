@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './styles.css';
 
 /* --- IMAGES --- */
@@ -19,7 +19,107 @@ const IMGS = {
     }
 };
 
+/* --- DONNÉES DU DÉROULEMENT (NOUVEAU) --- */
+const CONTEXT_CARDS = [
+    {
+        title: "Que faire après la mission ?",
+        icon: "💡",
+        text: [
+            "Plus les paroissiens sont mobilisés dans la préparation, plus ils participent aux temps de mission, plus la communion fraternelle se vit pendant la semaine.",
+            "Plus beau, plus grand sera l'élan missionnaire au sein de la paroisse après la semaine de mission avec Famissio !"
+        ]
+    },
+    {
+        title: "Pourquoi la Mission à la Toussaint ?",
+        icon: "✝️",
+        text: [
+            "Qui n'est jamais venu à l'église pour l'enterrement d'un proche ? La Toussaint est une formidable période pour entrer en contact avec nos contemporains concernés par la question de l'au-delà.",
+            "Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur."
+        ]
+    }
+];
+
+const MISSION_DETAILS = [
+    {
+        title: "ENVOI EN MISSION",
+        icon: "🚀",
+        color: "#c82904",
+        details: [
+            "Journée de rassemblement pour les Famissionnaires.",
+            "Temps de prière, témoignages et temps fraternels.",
+            "Envoi officiel en mission."
+        ]
+    },
+    {
+        title: "FORMATION",
+        icon: "🎓",
+        color: "#f46a07",
+        details: [
+            "Formation et jeux de rôle (Dimanche après-midi).",
+            "Préparation : revisite de sa propre histoire sainte.",
+            "Entraînement en binôme au témoignage.",
+            "Formation quotidienne de 5mn par un consacré.",
+            "Relecture de mission quotidienne par tranche d'âge.",
+            "Fiches de formation disponibles sur le Blog 365j/365."
+        ]
+    },
+    {
+        title: "TEMPS DE PRIÈRE",
+        icon: "🙏",
+        color: "#ff8b6b",
+        details: [
+            "Matin : Laudes, louanges, adoration et formation.",
+            "Messe quotidienne.",
+            "Récitation du Chapelet.",
+            "Complies pour clore la journée."
+        ]
+    },
+    {
+        title: "DES TEMPS DE MISSION",
+        icon: "🤝",
+        color: "#c82904",
+        details: [
+            "Visitations : rue, marchés, porte-à-porte.",
+            "Bénédictions : cimetières, commerces, maisons, fermes.",
+            "Journée des familles & ateliers éducatifs.",
+            "Théâtre de rue, tournois de foot.",
+            "Processions, Visites EHPAD, Concerts..."
+        ]
+    },
+    {
+        title: "TEMPS FRATERNELS",
+        icon: "❤️",
+        color: "#f46a07",
+        details: [
+            "Repas partagés entre Famissionnaires et Paroissiens.",
+            "Soirée jeux pour apprendre à se connaître.",
+            "Détente et jeux de société pour les enfants.",
+            "Veillée festive de fin de mission."
+        ]
+    },
+    {
+        title: "VEILLÉES",
+        icon: "🌙",
+        color: "#ff8b6b",
+        details: [
+            "Veillée Miséricorde.",
+            "Veillée sur le thème de l'au-delà.",
+            "Veillée mariale & Ciné-débat.",
+            "Veillée pour les malades."
+        ]
+    }
+];
+
 function Home() {
+
+    // --- LOGIQUE NOUVELLE SECTION ---
+    const [expandedCards, setExpandedCards] = useState([]);
+
+    const toggleCard = (index) => {
+        setExpandedCards(prev =>
+            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+        );
+    };
 
     useEffect(() => {
         // --- 1. GESTION DE L'APPARITION DU LOGO FIXE & NAV ---
@@ -264,6 +364,55 @@ function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* --- NOUVELLE SECTION DÉTAILLÉE (AJOUTÉE ICI) --- */}
+            <section className="mission-detailed-section">
+
+                <div className="mission-context-wrapper">
+                    {CONTEXT_CARDS.map((card, index) => (
+                        <div className="context-card" key={index}>
+                            <div className="context-icon">{card.icon}</div>
+                            <h3>{card.title}</h3>
+                            {card.text.map((p, idx) => <p key={idx}>{p}</p>)}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="section-head">
+                    <span className="eyebrow">Au cœur de la mission</span>
+                    <h2 className="title">Le programme en détails</h2>
+                    <p className="subtitle">Cliquez sur les cartes pour voir le contenu</p>
+                </div>
+
+                <div className="expandable-cards-grid">
+                    {MISSION_DETAILS.map((item, index) => {
+                        const isExpanded = expandedCards.includes(index);
+                        return (
+                            <div
+                                key={index}
+                                className={`expandable-card ${isExpanded ? 'expanded' : ''}`}
+                                onClick={() => toggleCard(index)}
+                                style={{ '--card-color': item.color }}
+                            >
+                                <div className="expandable-card-header">
+                                    <div className="expandable-icon">{item.icon}</div>
+                                    <h3>{item.title}</h3>
+                                    <div className="expand-indicator">▼</div>
+                                </div>
+
+                                <div className="expandable-card-content">
+                                    <ul>
+                                        {item.details.map((detail, idx) => (
+                                            <li key={idx}>{detail}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </section>
+            {/* --- FIN NOUVELLE SECTION --- */}
 
             <section className="team-section" id="formation">
                 <div className="section-head">
