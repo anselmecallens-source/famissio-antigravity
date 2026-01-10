@@ -25,9 +25,10 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // 1. BARRE TRANSPARENTE ET ABSOLUE (Pas de barre blanche)
+  // 1. BARRE PRINCIPALE
+  // Absolute + width 100% + transparent = Flotte au-dessus de l'image sans décaler le site vers le bas
   const navStyle = isHome
-    ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 10, background: 'transparent' }
+    ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 99, background: 'transparent' }
     : { background: 'var(--flame)', position: 'relative' };
 
   // 2. TEXTE
@@ -35,15 +36,19 @@ const Navbar = () => {
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. PLACEMENT "QUASIMENT AU MAX"
+  // 3. CONTENEUR DU MENU (C'est ici que tout se joue)
   const linksContainerStyle = isHome
     ? {
+      position: 'absolute',     // SORT DU FLUX : Ignore les paddings du parent
+      right: '0',               // COLLÉ À DROITE : Va chercher le bord physique de l'écran
+      top: '0',
+      height: '100%',
+      width: '35%',             // LARGEUR SÉCURISÉE : Assez étroit pour ne jamais toucher l'orange
       display: 'flex',
-      justifyContent: 'flex-end',
-      marginLeft: 'auto',
-      width: '38%',             // 38% : C'est le MAX possible sans toucher le orange
-      paddingRight: '1.5rem',   // 1.5rem : Juste un petit espace de respiration à droite
-      gap: '1.5rem'
+      alignItems: 'center',
+      justifyContent: 'flex-end', // Aligne le texte à droite dans la boîte
+      paddingRight: '2rem',     // PETITE MARGE : Pour ne pas être littéralement collé au bord
+      gap: '1.2rem'             // Espacement
     }
     : {};
 
