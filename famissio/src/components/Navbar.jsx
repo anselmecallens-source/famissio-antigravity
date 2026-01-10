@@ -25,27 +25,25 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // 1. CORRECTION DU BUG BLANC
-  // Sur l'accueil, on met position: 'absolute' et width: '100%' pour que la barre
-  // flotte AU-DESSUS de l'image orange sans la pousser vers le bas.
+  // 1. BARRE TRANSPARENTE ET ABSOLUE (Pas de barre blanche)
   const navStyle = isHome
     ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 10, background: 'transparent' }
     : { background: 'var(--flame)', position: 'relative' };
 
-  // 2. Texte
+  // 2. TEXTE
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. PLACEMENT DU MENU
+  // 3. PLACEMENT "QUASIMENT AU MAX"
   const linksContainerStyle = isHome
     ? {
       display: 'flex',
-      justifyContent: 'flex-end', // Aligne le contenu à droite
-      marginLeft: 'auto',       // Pousse tout le bloc vers la droite
-      width: '40%',             // Limite la zone à 40% de l'écran (évite le orange à gauche)
-      paddingRight: '3rem',     // Marge interne à droite pour ne pas être rogné
-      gap: '1.5rem'             // Espacement propre entre les liens
+      justifyContent: 'flex-end',
+      marginLeft: 'auto',
+      width: '38%',             // 38% : C'est le MAX possible sans toucher le orange
+      paddingRight: '1.5rem',   // 1.5rem : Juste un petit espace de respiration à droite
+      gap: '1.5rem'
     }
     : {};
 
