@@ -32,15 +32,15 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : Taille moyenne (1rem) pour être lisible sans prendre toute la place
+  // - Accueil : Taille moyenne (1rem)
   // - Autres pages : Blanc et taille standard (1.1rem)
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
-  // - Accueil : On garde un espacement modéré (1.5rem) pour que ça respire sans dépasser
-  const linksContainerStyle = isHome ? { gap: '1.5rem' } : {};
+  // - Accueil : On augmente l'écart à 4rem comme demandé
+  const linksContainerStyle = isHome ? { gap: '4rem' } : {};
 
   return (
     <>
