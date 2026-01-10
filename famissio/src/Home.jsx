@@ -72,36 +72,79 @@ const PROGRAM_DATA = [
 function Home() {
     useEffect(() => {
         let isHandlingScroll = false;
+        let scrollAccumulator = 0; // Accumulateur pour la résistance (effet "2 scrolls")
+
         function smoothScrollTo(element, duration) {
             const targetPosition = element.getBoundingClientRect().top + window.scrollY;
             const startPosition = window.scrollY;
             const distance = targetPosition - startPosition;
             let startTime = null;
+
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
+                // Easing "easeInOutQuad" pour un effet smooth
                 const ease = (t, b, c, d) => { t /= d / 2; if (t < 1) return c / 2 * t * t + b; t--; return -c / 2 * (t * (t - 2) - 1) + b; };
                 const nextScroll = ease(timeElapsed, startPosition, distance, duration);
                 window.scrollTo(0, nextScroll);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-                else isHandlingScroll = false;
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    isHandlingScroll = false;
+                    scrollAccumulator = 0; // Reset après animation
+                }
             }
             requestAnimationFrame(animation);
         }
+
         const handleWheel = (e) => {
-            if (window.innerWidth > 1000) {
-                if (window.scrollY < 50 && e.deltaY > 0 && !isHandlingScroll) {
-                    const target = document.querySelector('.section-target');
-                    if (target) { e.preventDefault(); isHandlingScroll = true; smoothScrollTo(target, 1000); }
-                }
-                const historySection = document.querySelector('.section-target');
-                const heroSec = document.querySelector('.hero');
-                if (historySection && heroSec) {
-                    const rect = historySection.getBoundingClientRect();
-                    if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0 && !isHandlingScroll) { e.preventDefault(); isHandlingScroll = true; smoothScrollTo(heroSec, 1000); }
+            if (window.innerWidth <= 1000) return; // Désactivé sur mobile
+
+            const historySection = document.querySelector('#history');
+            const heroSec = document.querySelector('#hero');
+
+            // --- SCENARIO 1 : DESCENDRE (HERO -> HISTOIRE) ---
+            // On vérifie qu'on est TOUT en haut (scrollY < 20)
+            if (window.scrollY < 20 && e.deltaY > 0) {
+                if (!isHandlingScroll) {
+                    // On empêche le scroll natif pour accumuler l'énergie
+                    e.preventDefault();
+                    scrollAccumulator += e.deltaY;
+
+                    // SEUIL DE DÉCLENCHEMENT (environ 150 = un bon coup de molette ou deux petits)
+                    if (scrollAccumulator > 150) {
+                        isHandlingScroll = true;
+                        smoothScrollTo(historySection, 800); // 800ms = transition douce
+                    }
                 }
             }
+
+            // --- SCENARIO 2 : REMONTER (HISTOIRE -> HERO) ---
+            else if (historySection) {
+                const rect = historySection.getBoundingClientRect();
+                // On vérifie que la section Histoire est en haut de l'écran (avec une marge d'erreur)
+                // et qu'on scrolle vers le HAUT (deltaY < 0)
+                if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0) {
+                    if (!isHandlingScroll) {
+                        e.preventDefault();
+                        scrollAccumulator += e.deltaY; // deviendra négatif
+
+                        // SEUIL NÉGATIF pour remonter
+                        if (scrollAccumulator < -150) {
+                            isHandlingScroll = true;
+                            smoothScrollTo(heroSec, 800);
+                        }
+                    }
+                } else {
+                    // Si on est ailleurs dans la page, on remet le compteur à zéro
+                    scrollAccumulator = 0;
+                }
+            } else {
+                scrollAccumulator = 0;
+            }
         };
+
         window.addEventListener('wheel', handleWheel, { passive: false });
         return () => window.removeEventListener('wheel', handleWheel);
     }, []);
@@ -130,7 +173,8 @@ function Home() {
                 <div className="scroll-indicator"><div className="scroll-line"></div></div>
             </div>
 
-            <div className="diagonal section-target" id="history">
+            {/* AJOUT DU PADDING-TOP ICI pour descendre l'image et la bulle */}
+            <div className="diagonal section-target" id="history" style={{ paddingTop: '6rem' }}>
                 <div className="section-head">
                     <div className="eyebrow">Notre Histoire</div>
                     <h2 className="title">Comment tout a commencé</h2>
