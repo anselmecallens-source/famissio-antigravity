@@ -32,15 +32,18 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : Rouge (flame) et taille moyenne (1rem)
-  // - Autres pages : Blanc et taille standard (1.1rem)
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
-  // - Accueil : On ajuste l'écart à 3.5rem (le compromis idéal)
-  const linksContainerStyle = isHome ? { gap: '3.5rem' } : {};
+  // - Accueil : 
+  //   * maxWidth: '45vw' -> Force le menu à rester dans les 45% de droite (sur le blanc)
+  //   * marginLeft: 'auto' -> Pousse le tout vers la droite
+  //   * gap: '2rem' -> Espacement propre
+  const linksContainerStyle = isHome
+    ? { gap: '2rem', maxWidth: '45vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    : {};
 
   return (
     <>
@@ -60,12 +63,12 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo réduit à 8.5rem */}
+            {/* Logo réduit à 7rem partout */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
               className="nav-logo-img"
-              style={{ height: '8.5rem' }}
+              style={{ height: '7rem' }}
             />
           </Link>
         </div>
