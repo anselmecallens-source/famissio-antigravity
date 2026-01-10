@@ -25,9 +25,11 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // 1. Navbar Container
+  // 1. CORRECTION DU BUG BLANC
+  // Sur l'accueil, on met position: 'absolute' et width: '100%' pour que la barre
+  // flotte AU-DESSUS de l'image orange sans la pousser vers le bas.
   const navStyle = isHome
-    ? { position: 'relative' }
+    ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 10, background: 'transparent' }
     : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Texte
@@ -35,22 +37,15 @@ const Navbar = () => {
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. LA CORRECTION PRÉCISE
+  // 3. PLACEMENT DU MENU
   const linksContainerStyle = isHome
     ? {
-      position: 'absolute',
-      right: '0',
-      top: '0',
-      height: '100%',
-      // LARGEUR STRICTE : 32%. 
-      // C'est suffisamment étroit pour ne JAMAIS toucher l'orange à gauche,
-      // tout en restant collé à droite (zone blanche).
-      width: '32%',
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '1.3rem',
-      paddingRight: '1rem'
+      justifyContent: 'flex-end', // Aligne le contenu à droite
+      marginLeft: 'auto',       // Pousse tout le bloc vers la droite
+      width: '40%',             // Limite la zone à 40% de l'écran (évite le orange à gauche)
+      paddingRight: '3rem',     // Marge interne à droite pour ne pas être rogné
+      gap: '1.5rem'             // Espacement propre entre les liens
     }
     : {};
 
