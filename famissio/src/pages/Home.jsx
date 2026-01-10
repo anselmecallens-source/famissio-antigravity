@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../index.css';
 
 /* --- IMAGES --- */
@@ -154,9 +155,9 @@ function Home() {
                         <h1>Famissio</h1>
                         <div className="underline"></div>
                         <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
-                        <a href="#mission" className="cta">
+                        <Link to="/missions" className="cta">
                             <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="hero-right">
