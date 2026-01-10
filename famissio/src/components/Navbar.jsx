@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css'; // Import correct : on remonte dans src/
+import '../index.css';
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -12,9 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const threshold = window.innerHeight * 0.7;
-
-      if (window.scrollY > threshold) {
+      if (window.scrollY > window.innerHeight * 0.7) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -27,54 +25,51 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // 1. Style du Container (Fond Rouge sauf sur l'accueil)
-  const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
+  // 1. Container Navbar
+  const navStyle = isHome
+    ? { position: 'relative' }
+    : { background: 'var(--flame)', position: 'relative' };
 
-  // 2. Style des Liens (Texte)
-  // - Accueil : On réduit à 0.9rem pour être sûr que ça tienne dans la zone restreinte
-  // - Autres pages : Blanc et taille standard 1.1rem
+  // 2. Texte
   const linkTextStyle = isHome
-    ? { fontSize: '0.9rem', color: 'var(--flame)', fontWeight: '700' }
+    ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. Style du Conteneur des Liens (Mise en page)
-  // - Accueil : 
-  //   * maxWidth: '30vw' -> ULTRA STRICT : On interdit au menu de dépasser les 30% de droite.
-  //   * marginLeft: 'auto' -> On le colle physiquement à droite.
-  //   * gap: '1rem' -> On serre les liens pour qu'ils rentrent dans cette petite zone.
+  // 3. ZONE LARGEUR MAXIMALE (60%)
   const linksContainerStyle = isHome
-    ? { gap: '1rem', maxWidth: '30vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    ? {
+      position: 'absolute',
+      right: '0',
+      top: '0',
+      height: '100%',
+      width: '60%',            // ON PREND 60% DE L'ÉCRAN (Très large)
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '3rem',             // GAP ÉNORME (48px) pour bien étaler
+      paddingRight: '1rem'
+    }
     : {};
 
   return (
     <>
-      {/* LOGO TEXTE (GAUCHE) - Apparaît au scroll */}
-      <Link
-        to="/"
-        className={`fixed-logo-link ${scrolled ? 'visible' : ''}`}
-        onClick={closeMenu}
-      >
+      <Link to="/" className={`fixed-logo-link ${scrolled ? 'visible' : ''}`} onClick={closeMenu}>
         <div className="fixed-logo-text">Famissio</div>
       </Link>
 
-      {/* BARRE DE NAVIGATION PRINCIPALE */}
-      <nav
-        className={`hero-navbar ${scrolled ? 'hidden' : ''}`}
-        style={navStyle}
-      >
+      <nav className={`hero-navbar ${scrolled ? 'hidden' : ''}`} style={navStyle}>
+
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo maintenu à 7.5rem */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
               className="nav-logo-img"
-              style={{ height: '7.5rem' }}
+              style={{ height: '7rem' }}
             />
           </Link>
         </div>
 
-        {/* Application des styles ajustés */}
         <ul className="nav-links" style={linksContainerStyle}>
           <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
@@ -84,17 +79,12 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      {/* MENU BURGER (ROND) */}
-      <div
-        className={`nav-circle ${scrolled || window.innerWidth <= 1200 ? 'visible' : ''}`}
-        style={{ zIndex: 9999 }}
-      >
+      <div className={`nav-circle ${scrolled || window.innerWidth <= 1200 ? 'visible' : ''}`} style={{ zIndex: 9999 }}>
         <button className="nav-toggle" id="menuToggle" onClick={toggleMenu}>
           <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
       </div>
 
-      {/* SIDEBAR */}
       <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={closeMenu}></div>
       <div className={`side-menu ${menuActive ? 'active' : ''}`} id="sideMenu">
         <ul className="side-links">
