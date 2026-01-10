@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css';
+import '../index.css'; // Import correct (dossier parent)
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -32,15 +32,15 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : On FORCE une taille plus petite (0.9rem) pour ne pas toucher le orange
+  // - Accueil : Taille moyenne (1rem) pour être lisible sans prendre toute la place
   // - Autres pages : Blanc et taille standard (1.1rem)
   const linkTextStyle = isHome
-    ? { fontSize: '0.9rem', color: 'var(--flame)' } // Petit et rouge sur l'accueil
-    : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' }; // Blanc ailleurs
+    ? { fontSize: '1rem', color: 'var(--flame)' }
+    : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
-  // - Accueil : On serre très fort les liens (gap: 0.8rem)
-  const linksContainerStyle = isHome ? { gap: '0.8rem' } : {};
+  // - Accueil : On garde un espacement modéré (1.5rem) pour que ça respire sans dépasser
+  const linksContainerStyle = isHome ? { gap: '1.5rem' } : {};
 
   return (
     <>
@@ -60,7 +60,7 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo réduit à 8.5rem pour ne pas être trop imposant */}
+            {/* Logo réduit à 8.5rem */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
@@ -70,7 +70,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Application des styles compacts */}
+        {/* Application des styles ajustés */}
         <ul className="nav-links" style={linksContainerStyle}>
           <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
