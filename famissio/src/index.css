@@ -2,6 +2,10 @@
    FAMISSIO - HOME COMPONENT STYLES
    ================================================ */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* --- 1. BASES & VARIABLES --- */
 * {
   margin: 0;
