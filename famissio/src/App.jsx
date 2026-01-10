@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // Import des pages
-import Home from './Home';
+import Home from './pages/Home';
 import Missions from './pages/Missions';
 import Formation from './pages/Formation';
 import Temoignages from './pages/Temoignages';
