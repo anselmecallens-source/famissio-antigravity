@@ -12,7 +12,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Le texte "Famissio" n'apparaît que quand le Hero est passé (70% de l'écran)
       const threshold = window.innerHeight * 0.7;
 
       if (window.scrollY > threshold) {
@@ -32,18 +31,19 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : Taille 0.95rem et gras
+  // - Accueil : On réduit à 0.9rem pour être sûr que ça tienne dans la zone restreinte
   // - Autres pages : Blanc et taille standard 1.1rem
   const linkTextStyle = isHome
-    ? { fontSize: '0.95rem', color: 'var(--flame)', fontWeight: '700' }
+    ? { fontSize: '0.9rem', color: 'var(--flame)', fontWeight: '700' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
   // - Accueil : 
-  //   * maxWidth: '40vw' -> On restreint à 40% pour décaler le début du menu vers la droite (loin du orange)
-  //   * gap: '1.7rem' -> On écarte un tout petit peu plus les liens
+  //   * maxWidth: '30vw' -> ULTRA STRICT : On interdit au menu de dépasser les 30% de droite.
+  //   * marginLeft: 'auto' -> On le colle physiquement à droite.
+  //   * gap: '1rem' -> On serre les liens pour qu'ils rentrent dans cette petite zone.
   const linksContainerStyle = isHome
-    ? { gap: '1.7rem', maxWidth: '40vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    ? { gap: '1rem', maxWidth: '30vw', marginLeft: 'auto', justifyContent: 'flex-end' }
     : {};
 
   return (
@@ -64,7 +64,7 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo à taille moyenne (7.5rem) */}
+            {/* Logo maintenu à 7.5rem */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
