@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css';
+import '../index.css'; // Import correct
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -25,28 +25,28 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // 1. Container Navbar
+  // 1. Navbar Container
   const navStyle = isHome
     ? { position: 'relative' }
     : { background: 'var(--flame)', position: 'relative' };
 
-  // 2. Texte
+  // 2. Texte : Taille standard 1rem (lisible), couleur FLAME sur l'accueil
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. ZONE LARGEUR MAXIMALE (60%)
+  // 3. LE RÉGLAGE FINAL (Juste Milieu)
   const linksContainerStyle = isHome
     ? {
       position: 'absolute',
       right: '0',
       top: '0',
       height: '100%',
-      width: '60%',            // ON PREND 60% DE L'ÉCRAN (Très large)
+      width: '45%',            // STRICTEMENT 45% (La taille de la zone blanche)
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
-      gap: '3rem',             // GAP ÉNORME (48px) pour bien étaler
+      justifyContent: 'center', // Centré DANS la zone blanche
+      gap: '2rem',             // Espacement équilibré (32px)
       paddingRight: '1rem'
     }
     : {};
