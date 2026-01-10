@@ -1,27 +1,48 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
-// Import mis à jour selon ta structure (Home.jsx est maintenant à la racine)
+// Import des composants globaux
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+// Import des pages
 import Home from './Home';
-
-// On garde les autres pages (assure-toi que le dossier 'pages' existe toujours pour celles-ci)
 import Missions from './pages/Missions';
 import Formation from './pages/Formation';
 import Temoignages from './pages/Temoignages';
 import NousRejoindre from './pages/NousRejoindre';
 
+// Petit utilitaire pour remonter en haut de page à chaque changement de lien
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <>
+      {/* 1. La barre de navigation visible partout */}
+      <Navbar />
+
+      {/* Active le retour en haut de page */}
+      <ScrollToTop />
+
+      {/* 2. Le contenu des pages */}
       <Routes>
         <Route path="/" element={<Home />} />
 
-        {/* Autres routes conservées */}
-        <Route path="/missions" element={<div className="main-container"><Missions /></div>} />
-        <Route path="/formation" element={<div className="main-container"><Formation /></div>} />
-        <Route path="/temoignages" element={<div className="main-container"><Temoignages /></div>} />
-        <Route path="/contact" element={<div className="main-container"><NousRejoindre /></div>} />
+        {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}
+        <Route path="/missions" element={<div style={{ paddingTop: '120px' }}><Missions /></div>} />
+        <Route path="/formation" element={<div style={{ paddingTop: '120px' }}><Formation /></div>} />
+        <Route path="/temoignages" element={<div style={{ paddingTop: '120px' }}><Temoignages /></div>} />
+        <Route path="/contact" element={<div style={{ paddingTop: '120px' }}><NousRejoindre /></div>} />
       </Routes>
+
+      {/* 3. Le footer visible partout */}
+      <Footer />
     </>
   );
 }

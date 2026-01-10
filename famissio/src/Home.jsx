@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import './index.css'; // Assure-toi que c'est le bon import css
+import './index.css';
 
-/* --- IMAGES & CONFIGURATION --- */
+/* --- IMAGES --- */
 const IMGS = {
     heroBlob: "https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp",
     histoire: "https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1",
@@ -9,14 +9,13 @@ const IMGS = {
     teamSticky: "https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg",
     priest: "https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg",
     pope: "https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg",
-    // Images pour les cartes programmes (réutilisation des images existantes pour la démo)
     cards: [
-        "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG", // Envoi
-        "https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG", // Formation
-        "https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg", // Prière
-        "https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG", // Mission
-        "https://famissio-99.webself.net/file/si1759337/DSC07017-fi34268812x450.JPG", // Fraternel
-        "https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG"  // Veillées
+        "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG",
+        "https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG",
+        "https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg",
+        "https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG",
+        "https://famissio-99.webself.net/file/si1759337/DSC07017-fi34268812x450.JPG",
+        "https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG"
     ],
     afterHero: "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG",
     toussaint: "https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG"
@@ -95,59 +94,7 @@ const PROGRAM_DATA = [
 ];
 
 function Home() {
-
     useEffect(() => {
-        // --- 1. GESTION NAVIGATION & SCROLL ---
-        const heroNavbar = document.querySelector('.hero-navbar');
-        const navCircle = document.querySelector('.nav-circle');
-        const fixedLogoLink = document.querySelector('.fixed-logo-link');
-        const heroSection = document.querySelector('.hero');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (window.innerWidth > 1200) {
-                    if (entry.isIntersecting) {
-                        heroNavbar?.classList.remove('hidden');
-                        navCircle?.classList.remove('visible');
-                        fixedLogoLink?.classList.remove('visible');
-                    } else {
-                        heroNavbar?.classList.add('hidden');
-                        navCircle?.classList.add('visible');
-                        fixedLogoLink?.classList.add('visible');
-                    }
-                }
-            });
-        }, { threshold: 0.1 });
-
-        if (heroSection) observer.observe(heroSection);
-
-        // --- GESTION MENU MOBILE ---
-        const menuToggle = document.getElementById('menuToggle');
-        const sideMenu = document.getElementById('sideMenu');
-        const menuBackdrop = document.getElementById('menuBackdrop');
-        const sideLinks = document.querySelectorAll('.side-link');
-
-        function toggleMenu() {
-            if (!sideMenu || !menuBackdrop) return;
-            sideMenu.classList.toggle('active');
-            menuBackdrop.classList.toggle('active');
-
-            const icon = menuToggle?.querySelector('i');
-            if (icon) {
-                if (sideMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            }
-        }
-
-        menuToggle?.addEventListener('click', toggleMenu);
-        menuBackdrop?.addEventListener('click', toggleMenu);
-        sideLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
         // --- EFFET ANTIGRAVITY (SCROLL DOUX) ---
         let isHandlingScroll = false;
         function smoothScrollTo(element, duration) {
@@ -200,54 +147,13 @@ function Home() {
         };
 
         window.addEventListener('wheel', handleWheel, { passive: false });
-
         return () => {
-            if (heroSection) observer.unobserve(heroSection);
             window.removeEventListener('wheel', handleWheel);
-            menuToggle?.removeEventListener('click', toggleMenu);
-            menuBackdrop?.removeEventListener('click', toggleMenu);
-            sideLinks.forEach(link => link.removeEventListener('click', toggleMenu));
         };
     }, []);
 
     return (
         <>
-            <a href="#hero" className="fixed-logo-link">
-                <div className="fixed-logo-text">Famissio</div>
-            </a>
-
-            <nav className="hero-navbar">
-                <div className="nav-logo-wrapper">
-                    <a href="#hero">
-                        <img src="https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1" alt="Famissio Logo" className="nav-logo-img" />
-                    </a>
-                </div>
-                <ul className="nav-links">
-                    <li><a href="#hero">Accueil</a></li>
-                    <li><a href="#mission">Nos missions</a></li>
-                    <li><a href="#formation">Formation</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-
-            <div className="nav-circle">
-                <button className="nav-toggle" id="menuToggle">
-                    <i className="fas fa-bars"></i>
-                </button>
-            </div>
-
-            <div className="menu-backdrop" id="menuBackdrop"></div>
-            <div className="side-menu" id="sideMenu">
-                <ul className="side-links">
-                    <li><a href="#hero" className="side-link">Accueil</a></li>
-                    <li><a href="#mission" className="side-link">Nos missions</a></li>
-                    <li><a href="#formation" className="side-link">Formation</a></li>
-                    <li><a href="#temoignages" className="side-link">Témoignages</a></li>
-                    <li><a href="#contact" className="side-link">Contact</a></li>
-                </ul>
-            </div>
-
             <div className="hero" id="hero">
                 <div className="hero-left">
                     <div className="hero-content">
@@ -305,7 +211,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- NOUVELLE SECTION 1 : PROGRAMME EN CARTES (MAGAZINE STYLE) --- */}
             <section className="mission-program-section" id="mission">
                 <div className="section-head">
                     <span className="eyebrow">Au cœur de l'action</span>
@@ -343,7 +248,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* --- NOUVELLE SECTION 2 : APRÈS LA MISSION (HERO SPLIT) --- */}
             <section className="after-mission-hero">
                 <div className="after-mission-overlay"></div>
                 <div className="after-mission-content">
@@ -361,7 +265,6 @@ function Home() {
                 <div className="after-mission-image" style={{ backgroundImage: `url(${IMGS.afterHero})` }}></div>
             </section>
 
-            {/* --- NOUVELLE SECTION 3 : TOUSSAINT (SPLIT DESIGN) --- */}
             <section className="toussaint-section">
                 <div className="toussaint-split">
                     <div className="toussaint-image" style={{ backgroundImage: `url(${IMGS.toussaint})` }}>
@@ -477,17 +380,6 @@ function Home() {
                     Accéder à la prière <i className="fas fa-arrow-right"></i>
                 </a>
             </div>
-
-            <footer className="site-footer">
-                <ul className="footer-nav">
-                    <li><a href="#hero">Accueil</a></li>
-                    <li><a href="#mission">Nos missions</a></li>
-                    <li><a href="#formation">Formation</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div className="footer-copy">© 2024 Famissio - Tous droits réservés</div>
-            </footer>
         </>
     );
 }
