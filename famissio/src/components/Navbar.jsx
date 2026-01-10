@@ -32,19 +32,18 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : Taille quasi normale (0.95rem) et gras pour la lisibilité
-  // - Autres pages : Blanc et taille standard (1.1rem)
+  // - Accueil : Taille 0.95rem et gras
+  // - Autres pages : Blanc et taille standard 1.1rem
   const linkTextStyle = isHome
     ? { fontSize: '0.95rem', color: 'var(--flame)', fontWeight: '700' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
   // - Accueil : 
-  //   * maxWidth: '42vw' -> On utilise 42% de la largeur (la zone blanche fait ~44%)
-  //   * marginLeft: 'auto' -> Pousse tout à droite
-  //   * gap: '1.5rem' -> Espacement équilibré (ni trop serré, ni trop large)
+  //   * maxWidth: '40vw' -> On restreint à 40% pour décaler le début du menu vers la droite (loin du orange)
+  //   * gap: '1.7rem' -> On écarte un tout petit peu plus les liens
   const linksContainerStyle = isHome
-    ? { gap: '1.5rem', maxWidth: '42vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    ? { gap: '1.7rem', maxWidth: '40vw', marginLeft: 'auto', justifyContent: 'flex-end' }
     : {};
 
   return (
