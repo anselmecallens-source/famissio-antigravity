@@ -82,12 +82,12 @@ function Home() {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
 
-                // Easing très doux pour une animation lente
+                // Easing Quartic : Démarrage lent, accélération, fin douce
                 const ease = (t, b, c, d) => {
                     t /= d / 2;
-                    if (t < 1) return c / 2 * t * t * t + b;
+                    if (t < 1) return c / 2 * t * t * t * t + b;
                     t -= 2;
-                    return c / 2 * (t * t * t + 2) + b;
+                    return -c / 2 * (t * t * t * t - 2) + b;
                 };
 
                 const nextScroll = ease(timeElapsed, startPosition, distance, duration);
@@ -103,39 +103,46 @@ function Home() {
         }
 
         const handleWheel = (e) => {
-            if (window.innerWidth <= 1000 || isHandlingScroll) return;
+            if (window.innerWidth <= 1000) return;
+
+            // Si une animation est DÉJÀ en cours, on bloque TOUT scroll manuel pour éviter le tremblement
+            if (isHandlingScroll) {
+                e.preventDefault();
+                return;
+            }
 
             const historySection = document.querySelector('#history');
             const heroSec = document.querySelector('#hero');
             const scrollPos = window.scrollY;
 
             // --- SCENARIO 1 : DESCENDRE (Hero -> History) ---
-            // On détecte si on est dans la partie haute et qu'on scrolle vers le bas
             if (scrollPos < 300 && e.deltaY > 0) {
-                // On laisse le scroll se faire un peu (pas de preventDefault ici)
-                // Si on dépasse un certain seuil, on déclenche l'animation
+                // SEUIL : On attend que l'utilisateur ait scrollé un peu (50px)
                 if (scrollPos > 50) {
+                    // C'EST ICI LA CORRECTION DU TREMBLEMENT :
+                    // On coupe le scroll natif dès qu'on décide de lancer l'animation
+                    e.preventDefault();
                     isHandlingScroll = true;
-                    smoothScrollTo(historySection, 1500); // Animation lente de 1.5s
+                    smoothScrollTo(historySection, 1500);
                 }
             }
 
             // --- SCENARIO 2 : REMONTER (History -> Hero) ---
             else if (historySection && e.deltaY < 0) {
                 const rect = historySection.getBoundingClientRect();
-                // Si la section Histoire est proche du haut et qu'on remonte
                 if (rect.top < 200 && rect.top > -100) {
-                    // On laisse le scroll se faire un peu. Si on dépasse le seuil, on déclenche.
+                    // SEUIL pour remonter
                     if (rect.top > 50) {
+                        e.preventDefault(); // On coupe le scroll natif
                         isHandlingScroll = true;
-                        smoothScrollTo(heroSec, 1500); // Animation lente de 1.5s
+                        smoothScrollTo(heroSec, 1500);
                     }
                 }
             }
         };
 
-        // On retire { passive: false } car on ne bloque plus le scroll par défaut
-        window.addEventListener('wheel', handleWheel);
+        // On remet passive: false car on utilise preventDefault pour stopper le tremblement
+        window.addEventListener('wheel', handleWheel, { passive: false });
         return () => window.removeEventListener('wheel', handleWheel);
     }, []);
 
@@ -169,10 +176,11 @@ function Home() {
                     <h2 className="title">Comment tout a commencé</h2>
                     <p className="subtitle">Une aventure familiale devenue mouvement missionnaire</p>
                 </div>
-                {/* AJUSTEMENT MAJEUR : marginTop: '200px'
-                   Pour descendre franchement l'image et la bulle loin de la navbar.
+                {/* CORRECTION POSITION IMAGE :
+                    J'utilise paddingTop: '12rem' (environ 190px). 
+                    Le padding force le contenu à l'intérieur à descendre, c'est plus fiable que margin.
                 */}
-                <div className="story-grid" style={{ marginTop: '200px' }}>
+                <div className="story-grid" style={{ paddingTop: '12rem' }}>
                     <div className="image-wrap">
                         <div className="main-img">
                             <img src={IMGS.histoire} alt="Équipe" />
