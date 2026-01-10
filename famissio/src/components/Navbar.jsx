@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css';
+import './index.css';
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -12,7 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Le texte "Famissio" apparaît seulement quand on a dépassé 70% de l'écran (Hero fini)
+      // Le texte "Famissio" n'apparaît que quand le Hero est passé (70% de l'écran)
       const threshold = window.innerHeight * 0.7;
 
       if (window.scrollY > threshold) {
@@ -31,8 +31,15 @@ const Navbar = () => {
   // 1. Style du Container (Fond Rouge sauf sur l'accueil)
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
-  // 2. Style des Liens (Blanc UNIQUEMENT si on n'est pas sur l'accueil)
-  const linkStyle = isHome ? {} : { color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
+  // 2. Style des Liens (Texte)
+  // - Accueil : On laisse le CSS gérer (rouge/gris)
+  // - Autres pages : Blanc pour être lisible sur le fond rouge
+  const linkTextStyle = isHome ? {} : { color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
+
+  // 3. Style du Conteneur des Liens (Mise en page)
+  // - Accueil : On réduit fortement l'écart (gap) pour éviter que ça touche l'orange à gauche
+  // - Autres pages : On laisse l'espacement standard aéré
+  const linksContainerStyle = isHome ? { gap: '1.2rem' } : {};
 
   return (
     <>
@@ -52,7 +59,7 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo un peu plus petit (8.5rem) */}
+            {/* Logo réduit à 8.5rem */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
@@ -62,12 +69,13 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <ul className="nav-links">
-          <li><Link to="/" style={linkStyle} onClick={closeMenu}>Accueil</Link></li>
-          <li><Link to="/missions" style={linkStyle} onClick={closeMenu}>Nos missions</Link></li>
-          <li><Link to="/formation" style={linkStyle} onClick={closeMenu}>Formation</Link></li>
-          <li><Link to="/temoignages" style={linkStyle} onClick={closeMenu}>Témoignages</Link></li>
-          <li><Link to="/contact" style={linkStyle} onClick={closeMenu}>Contact</Link></li>
+        {/* On applique ici le style pour réduire la largeur sur l'accueil */}
+        <ul className="nav-links" style={linksContainerStyle}>
+          <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" style={linkTextStyle} onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" style={linkTextStyle} onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" style={linkTextStyle} onClick={closeMenu}>Contact</Link></li>
         </ul>
       </nav>
 
