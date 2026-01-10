@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css'; // Assure-toi que le chemin vers ton CSS est bon
+import './index.css';
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -12,8 +12,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // On déclenche l'effet un peu plus tôt (50px) pour fluidifier
-      if (window.scrollY > 50) {
+      // Le texte "Famissio" apparaît seulement quand on a dépassé 70% de l'écran (Hero fini)
+      const threshold = window.innerHeight * 0.7;
+
+      if (window.scrollY > threshold) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -23,46 +25,53 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fermer le menu quand on change de page
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  // Sur les autres pages que Home, on met un fond de couleur pour que le menu soit lisible
+  // 1. Style du Container (Fond Rouge sauf sur l'accueil)
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
+
+  // 2. Style des Liens (Blanc UNIQUEMENT si on n'est pas sur l'accueil)
+  const linkStyle = isHome ? {} : { color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   return (
     <>
-      {/* 1. PETIT LOGO QUI APPARAIT AU SCROLL (Haut Gauche) */}
-      {/* Il apparaît si on scroll OU si on n'est pas sur la page d'accueil */}
+      {/* LOGO TEXTE (GAUCHE) - Apparaît au scroll */}
       <Link
         to="/"
-        className={`fixed-logo-link ${scrolled || !isHome ? 'visible' : ''}`}
+        className={`fixed-logo-link ${scrolled ? 'visible' : ''}`}
         onClick={closeMenu}
       >
         <div className="fixed-logo-text">Famissio</div>
       </Link>
 
-      {/* 2. GRANDE BARRE DE NAVIGATION (Disparait au scroll) */}
+      {/* BARRE DE NAVIGATION PRINCIPALE */}
       <nav
         className={`hero-navbar ${scrolled ? 'hidden' : ''}`}
         style={navStyle}
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            <img src={LOGO_NAV} alt="Famissio Logo" className="nav-logo-img" />
+            {/* Logo un peu plus petit (8.5rem) */}
+            <img
+              src={LOGO_NAV}
+              alt="Famissio Logo"
+              className="nav-logo-img"
+              style={{ height: '8.5rem' }}
+            />
           </Link>
         </div>
 
         <ul className="nav-links">
-          <li><Link to="/">Accueil</Link></li>
-          <li><Link to="/missions">Nos missions</Link></li>
-          <li><Link to="/formation">Formation</Link></li>
-          <li><Link to="/temoignages">Témoignages</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/" style={linkStyle} onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" style={linkStyle} onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" style={linkStyle} onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" style={linkStyle} onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" style={linkStyle} onClick={closeMenu}>Contact</Link></li>
         </ul>
       </nav>
 
-      {/* 3. BOUTON ROND (MENU MOBILE / SCROLL) */}
+      {/* MENU BURGER (ROND) */}
       <div
         className={`nav-circle ${scrolled || window.innerWidth <= 1200 ? 'visible' : ''}`}
         style={{ zIndex: 9999 }}
@@ -72,7 +81,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* 4. SIDEBAR (MENU LATÉRAL) */}
+      {/* SIDEBAR */}
       <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={closeMenu}></div>
       <div className={`side-menu ${menuActive ? 'active' : ''}`} id="sideMenu">
         <ul className="side-links">

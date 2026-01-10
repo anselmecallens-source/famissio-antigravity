@@ -9,6 +9,15 @@ const IMGS = {
     teamSticky: "https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg",
     priest: "https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg",
     pope: "https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg",
+    // Images galerie
+    gal: {
+        priere: "https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg",
+        evang: "https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG",
+        veillee: "https://famissio-99.webself.net/file/si1759337/DSC07017-fi34268812x450.JPG",
+        cimetiere: "https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG",
+        familles: "https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG",
+        envoi: "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG"
+    },
     cards: [
         "https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG",
         "https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG",
@@ -26,130 +35,75 @@ const PROGRAM_DATA = [
         title: "Envoi en Mission",
         icon: "fas fa-rocket",
         img: IMGS.cards[0],
-        details: [
-            "Journée de rassemblement pour les Famissionnaires",
-            "Temps de prière et de louange",
-            "Témoignages poignants",
-            "Envoi officiel par l'évêque ou le curé"
-        ]
+        details: ["Journée de rassemblement", "Temps de prière et louange", "Témoignages poignants", "Envoi officiel"]
     },
     {
         title: "Formation",
         icon: "fas fa-graduation-cap",
         img: IMGS.cards[1],
-        details: [
-            "Jeux de rôle le dimanche après-midi",
-            "Préparation du témoignage personnel",
-            "Formation quotidienne de 5mn (Consacré)",
-            "Relecture de mission par tranche d'âge",
-            "Fiches de formation accessibles 365j/an"
-        ]
+        details: ["Jeux de rôle", "Préparation témoignage", "Formation quotidienne", "Relecture de mission", "Fiches de formation"]
     },
     {
         title: "Temps de Prière",
         icon: "fas fa-praying-hands",
         img: IMGS.cards[2],
-        details: [
-            "Laudes, louanges et adoration le matin",
-            "Messe quotidienne au cœur de la mission",
-            "Récitation du Chapelet",
-            "Complies pour clore la journée dans la paix"
-        ]
+        details: ["Laudes, louanges, adoration", "Messe quotidienne", "Chapelet", "Complies"]
     },
     {
         title: "Au Cœur de la Mission",
         icon: "fas fa-people-carry",
         img: IMGS.cards[3],
-        details: [
-            "Visitations (rue, marché, porte-à-porte)",
-            "Bénédictions (maisons, commerces, champs...)",
-            "Processions (Saints, Saint Sacrement, Flambeaux)",
-            "Activités culturelles (Théâtre, Concerts)",
-            "Solidarité (EHPAD, Handicap)"
-        ]
+        details: ["Visitations (rue, porte-à-porte)", "Bénédictions", "Processions", "Activités culturelles", "Solidarité (EHPAD)"]
     },
     {
         title: "Vie Fraternelle",
         icon: "fas fa-heart",
         img: IMGS.cards[4],
-        details: [
-            "Repas partagés Famissionnaires & Paroissiens",
-            "Soirées jeux pour briser la glace",
-            "Détente et sport pour les enfants",
-            "Grande veillée festive de clôture"
-        ]
+        details: ["Repas partagés", "Soirées jeux", "Détente et sport", "Veillée festive"]
     },
     {
         title: "Les Veillées",
         icon: "fas fa-moon",
         img: IMGS.cards[5],
-        details: [
-            "Veillée Miséricorde",
-            "Veillée sur l'Au-delà et les défunts",
-            "Veillée Mariale",
-            "Ciné-débat",
-            "Veillée de consolation pour les malades"
-        ]
+        details: ["Veillée Miséricorde", "Veillée Au-delà", "Veillée Mariale", "Ciné-débat", "Veillée de consolation"]
     }
 ];
 
 function Home() {
     useEffect(() => {
-        // --- EFFET ANTIGRAVITY (SCROLL DOUX) ---
         let isHandlingScroll = false;
         function smoothScrollTo(element, duration) {
             const targetPosition = element.getBoundingClientRect().top + window.scrollY;
             const startPosition = window.scrollY;
             const distance = targetPosition - startPosition;
             let startTime = null;
-
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
-                const ease = (t, b, c, d) => {
-                    t /= d / 2;
-                    if (t < 1) return c / 2 * t * t + b;
-                    t--;
-                    return -c / 2 * (t * (t - 2) - 1) + b;
-                };
+                const ease = (t, b, c, d) => { t /= d / 2; if (t < 1) return c / 2 * t * t + b; t--; return -c / 2 * (t * (t - 2) - 1) + b; };
                 const nextScroll = ease(timeElapsed, startPosition, distance, duration);
                 window.scrollTo(0, nextScroll);
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                } else {
-                    isHandlingScroll = false;
-                }
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+                else isHandlingScroll = false;
             }
             requestAnimationFrame(animation);
         }
-
         const handleWheel = (e) => {
             if (window.innerWidth > 1000) {
                 if (window.scrollY < 50 && e.deltaY > 0 && !isHandlingScroll) {
                     const target = document.querySelector('.section-target');
-                    if (target) {
-                        e.preventDefault();
-                        isHandlingScroll = true;
-                        smoothScrollTo(target, 1000);
-                    }
+                    if (target) { e.preventDefault(); isHandlingScroll = true; smoothScrollTo(target, 1000); }
                 }
                 const historySection = document.querySelector('.section-target');
                 const heroSec = document.querySelector('.hero');
                 if (historySection && heroSec) {
                     const rect = historySection.getBoundingClientRect();
-                    if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0 && !isHandlingScroll) {
-                        e.preventDefault();
-                        isHandlingScroll = true;
-                        smoothScrollTo(heroSec, 1000);
-                    }
+                    if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0 && !isHandlingScroll) { e.preventDefault(); isHandlingScroll = true; smoothScrollTo(heroSec, 1000); }
                 }
             }
         };
-
         window.addEventListener('wheel', handleWheel, { passive: false });
-        return () => {
-            window.removeEventListener('wheel', handleWheel);
-        };
+        return () => window.removeEventListener('wheel', handleWheel);
     }, []);
 
     return (
@@ -190,7 +144,7 @@ function Home() {
                         <div className="accent-shape"></div>
                     </div>
                     <div className="story-text">
-                        <p>À l'origine, une famille a découvert la joie de l'évangélisation en suivant pendant deux mois des missionnaires dans l'Himalaya et le Tamil Nadu, en Inde. Au retour, elle a voulu poursuivre la mission mais cette fois-ci en restant en France et pour accompagner des curés de paroisses rurales.</p>
+                        <p>À l'origine, une famille a découvert la joie de l'évangélisation en suivant pendant deux mois des missionnaires dans l'Himalaya et le Tamil Nadu, en Inde. Au retour, elle a voulu poursuivre la mission mais cette fois-ci en restant en France.</p>
                         <p>Des amis ont accepté de les rejoindre dans cette aventure pour découvrir la belle paroisse du père Jean-Pierre Barrière dans la Creuse.</p>
                         <div className="highlight-box">
                             <p><strong>Famissio est alors née.</strong> Le père Jean-Pierre en devenait l'aumônier. Monseigneur Bozo acceptait de suivre cette initiative.</p>
@@ -211,36 +165,26 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION 1: PROGRAMME (V2 CARDS) --- */}
             <section className="mission-program-section" id="mission">
                 <div className="section-head">
                     <span className="eyebrow">Au cœur de l'action</span>
-                    <h2 className="title">Une Mission Paroissiale</h2>
-                    <p className="subtitle">Découvrez les 6 piliers de notre semaine missionnaire</p>
+                    <h2 className="title">Les Piliers de la Mission</h2>
+                    <p className="subtitle">Découvrez notre démarche missionnaire</p>
                 </div>
-
                 <div className="program-grid">
                     {PROGRAM_DATA.map((card, index) => (
                         <div className="program-card" key={index}>
-                            <div className="program-card-image">
-                                <img src={card.img} alt={card.title} />
-                            </div>
+                            <div className="program-card-image"><img src={card.img} alt={card.title} /></div>
                             <div className="program-overlay"></div>
-
                             <div className="program-card-content">
-                                <div className="program-icon-wrapper">
-                                    <i className={card.icon}></i>
-                                </div>
+                                <div className="program-icon-wrapper"><i className={card.icon}></i></div>
                                 <h3>{card.title}</h3>
                             </div>
-
                             <div className="program-details">
                                 <div className="program-details-inner">
                                     <h4>{card.title}</h4>
-                                    <ul>
-                                        {card.details.map((detail, idx) => (
-                                            <li key={idx}>{detail}</li>
-                                        ))}
-                                    </ul>
+                                    <ul>{card.details.map((detail, idx) => <li key={idx}>{detail}</li>)}</ul>
                                 </div>
                             </div>
                         </div>
@@ -248,19 +192,39 @@ function Home() {
                 </div>
             </section>
 
+            {/* --- SECTION RESTAURÉE : EN ACTION (GALERIE) --- */}
+            <section style={{ background: '#f8f9fa' }} id="temoignages">
+                <div className="section-head">
+                    <div className="eyebrow">En Action</div>
+                    <h2 className="title">Une Mission Paroissiale</h2>
+                </div>
+                <div className="gallery-wrapper">
+                    <div className="gallery-track">
+                        <div className="gallery-card"><img src={IMGS.gal.priere} alt="Prière" /><div className="gallery-label">Temps de prière</div></div>
+                        <div className="gallery-card"><img src={IMGS.gal.evang} alt="Évangélisation" /><div className="gallery-label">Évangélisation</div></div>
+                        <div className="gallery-card"><img src={IMGS.gal.veillee} alt="Veillée" /><div className="gallery-label">Veillée</div></div>
+                        <div className="gallery-card"><img src={IMGS.gal.cimetiere} alt="Cimetière" /><div className="gallery-label">Bénédiction des cimetières</div></div>
+                        <div className="gallery-card"><img src={IMGS.gal.familles} alt="Familles" /><div className="gallery-label">Journée des familles</div></div>
+                        <div className="gallery-card"><img src={IMGS.gal.envoi} alt="Envoi" /><div className="gallery-label">Envoi en mission</div></div>
+                    </div>
+                </div>
+                <div className="section-head" style={{ marginTop: '80px' }}>
+                    <h2 className="title">Le Programme en Vidéo</h2>
+                </div>
+                <div className="video-frame" style={{ maxWidth: '1000px', margin: '0 auto', padding: '30px', background: 'white' }}>
+                    <div className="video-box">
+                        <iframe src="https://www.youtube.com/embed/ZnW9oGHpAyQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
+                </div>
+            </section>
+
             <section className="after-mission-hero">
                 <div className="after-mission-overlay"></div>
                 <div className="after-mission-content">
-                    <div className="after-badge">
-                        <i className="fas fa-star"></i> L'Après-Mission
-                    </div>
+                    <div className="after-badge"><i className="fas fa-star"></i> L'Après-Mission</div>
                     <h2>Que faire après<br />la mission ?</h2>
                     <div className="after-separator"></div>
-                    <p className="after-lead">
-                        Plus les paroissiens sont mobilisés dans la préparation, plus ils participent aux temps de mission, plus la communion fraternelle se vit pendant la semaine.
-                        <br /><br />
-                        <strong>Plus beau et plus grand sera l'élan missionnaire au sein de la paroisse après la semaine avec Famissio !</strong>
-                    </p>
+                    <p className="after-lead">Plus les paroissiens sont mobilisés, plus l'élan missionnaire sera grand après la semaine avec Famissio !</p>
                 </div>
                 <div className="after-mission-image" style={{ backgroundImage: `url(${IMGS.afterHero})` }}></div>
             </section>
@@ -272,31 +236,15 @@ function Home() {
                     </div>
                     <div className="toussaint-content">
                         <div className="toussaint-inner">
-                            <div className="toussaint-badge">
-                                <i className="fas fa-cross"></i> La Toussaint
-                            </div>
+                            <div className="toussaint-badge"><i className="fas fa-cross"></i> La Toussaint</div>
                             <h2>Pourquoi la Mission à cette période ?</h2>
                             <div className="toussaint-divider"></div>
-
                             <div className="toussaint-questions">
-                                <div className="question-item">
-                                    <i className="fas fa-question-circle"></i>
-                                    <p>Qui n'est jamais venu à l'église pour l'enterrement d'un proche ?</p>
-                                </div>
-                                <div className="question-item">
-                                    <i className="fas fa-heart-broken"></i>
-                                    <p>Qui n'a jamais connu la séparation avec un être aimé ?</p>
-                                </div>
-                                <div className="question-item">
-                                    <i className="fas fa-cloud"></i>
-                                    <p>Qui ne s'est jamais interrogé sur la vie après la mort ?</p>
-                                </div>
+                                <div className="question-item"><i className="fas fa-question-circle"></i><p>Qui n'est jamais venu à l'église pour l'enterrement d'un proche ?</p></div>
+                                <div className="question-item"><i className="fas fa-cloud"></i><p>Qui ne s'est jamais interrogé sur la vie après la mort ?</p></div>
                             </div>
-
                             <div className="toussaint-message">
-                                <p>
-                                    "La Toussaint est une formidable période pour entrer en contact avec nos contemporains concernés par la question de l'au-delà. Ce temps est propice à des cœurs à cœurs et des rencontres profondes."
-                                </p>
+                                <p>"La Toussaint est une formidable période pour entrer en contact avec nos contemporains concernés par la question de l'au-delà."</p>
                             </div>
                         </div>
                     </div>
@@ -310,17 +258,15 @@ function Home() {
                 </div>
                 <div className="team-layout">
                     <div className="team-image-box">
-                        <div className="team-image">
-                            <img src={IMGS.teamSticky} alt="Équipe" />
-                        </div>
+                        <div className="team-image"><img src={IMGS.teamSticky} alt="Équipe" /></div>
                     </div>
                     <div className="team-content">
                         <h3>À combien arrivons-nous ?</h3>
-                        <p>Nous arrivons entre <strong>30 à 40 disciples missionnaires</strong> autour du curé de la paroisse qui nous accueille. Une communauté dynamique prête à servir !</p>
+                        <p>Nous arrivons entre <strong>30 à 40 disciples missionnaires</strong> autour du curé de la paroisse.</p>
                         <h3>Missionnaires à partir de quel âge ?</h3>
-                        <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !!</p>
+                        <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs.</p>
                         <div className="quote-box">
-                            <p>"Aujourd'hui, ce n'est pas seulement par-delà les océans qu'il faut propager la bonne parole, mais aussi dans nos villes et villages. Comme nous avons besoin de grands missionnaires ! Les grands missionnaires que nous désirons tant je crois que ce sont les enfants."</p>
+                            <p>"Comme nous avons besoin de grands missionnaires ! Les grands missionnaires que nous désirons tant je crois que ce sont les enfants."</p>
                             <div className="quote-author">— Pierre-Alexandre Ludwig</div>
                         </div>
                     </div>
@@ -335,10 +281,7 @@ function Home() {
             <section className="priest-dual">
                 <div className="priest-intro-flex">
                     <img src={IMGS.priest} alt="Père Barrière" className="priest-circle-img" />
-                    <div className="priest-name-zone">
-                        <h2>Père Jean-Pierre Barrière</h2>
-                        <p>Aumônier de Famissio</p>
-                    </div>
+                    <div className="priest-name-zone"><h2>Père Jean-Pierre Barrière</h2><p>Aumônier de Famissio</p></div>
                 </div>
                 <div className="priest-description">
                     <h3>L'appel du Christ et la vocation à l'évangélisation</h3>
@@ -352,33 +295,24 @@ function Home() {
                         <img src={IMGS.pope} alt="Pape François" className="pope-image" />
                         <h2>Pape François</h2>
                     </div>
-                    <div className="rosé-header">
-                        <h2 className="title">7 Points Clés pour la Mission</h2>
-                    </div>
+                    <div className="rosé-header"><h2 className="title">7 Points Clés pour la Mission</h2></div>
                     <div className="pope-grid">
                         <div className="pope-item"><h4>1. Aller aux périphéries</h4><p>"Église en sortie" n'est pas une expression à la mode. Elle est un commandement du Christ.</p></div>
-                        <div className="pope-item"><h4>2. Se laisser surprendre</h4><p>La mission n'est pas un projet d'entreprise bien rodé. L'Esprit saint agit comme il le veut.</p></div>
-                        <div className="pope-item"><h4>3. Se mettre à l'écoute</h4><p>La fécondité de la mission ne tient pas à nos méthodes, mais elle est liée à ce vertige que l'on éprouve en présence des paroles de Jésus.</p></div>
-                        <div className="pope-item"><h4>4. Témoigner et non déclarer</h4><p>On est marqué par la rencontre avec une personne dont les gestes révèlent la foi.</p></div>
-                        <div className="pope-item"><h4>5. Éloge de la tendresse</h4><p>Annoncer l'Évangile ne consiste pas à assiéger les autres de discours.</p></div>
+                        <div className="pope-item"><h4>2. Se laisser surprendre</h4><p>La mission n'est pas un projet d'entreprise bien rodé.</p></div>
                         <div className="pope-item"><h4>6. Le contact humain</h4><p>La mission est un contact humain, elle est le témoignage d'hommes et de femmes.</p></div>
                     </div>
                     <div className="pope-message-box">
                         <h3>Que puis-je faire en tant que jeune pour mon église ?</h3>
-                        <p>Chers jeunes, je veux de la pagaille dans les diocèses ! Je veux que vous alliez à l'extérieur ! Je veux que l'Église sorte dans les rues !</p>
+                        <p>Chers jeunes, je veux de la pagaille dans les diocèses ! Je veux que vous alliez à l'extérieur !</p>
                     </div>
                 </div>
             </section>
 
             <div className="prayer" id="contact">
-                <div className="prayer-logo">
-                    <img src={IMGS.prayerLogo} alt="Logo Prière" />
-                </div>
+                <div className="prayer-logo"><img src={IMGS.prayerLogo} alt="Logo Prière" /></div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
-                <a href="https://famissio-99.webself.net/priere-de-famissio" target="_blank" className="prayer-cta">
-                    Accéder à la prière <i className="fas fa-arrow-right"></i>
-                </a>
+                <a href="https://famissio-99.webself.net/priere-de-famissio" target="_blank" className="prayer-cta">Accéder à la prière <i className="fas fa-arrow-right"></i></a>
             </div>
         </>
     );
