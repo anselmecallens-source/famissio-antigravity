@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
 
         {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}
-        <Route path="/missions" element={<div style={{ paddingTop: '120px' }}><Missions /></div>} />
+        <Route path="/missions" element={<Missions />} />
         <Route path="/formation" element={<div style={{ paddingTop: '120px' }}><Formation /></div>} />
         <Route path="/temoignages" element={<div style={{ paddingTop: '120px' }}><Temoignages /></div>} />
         <Route path="/contact" element={<div style={{ paddingTop: '120px' }}><NousRejoindre /></div>} />
