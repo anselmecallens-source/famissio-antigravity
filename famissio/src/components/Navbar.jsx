@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css'; // Import correct
+import '../index.css';
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -30,23 +30,26 @@ const Navbar = () => {
     ? { position: 'relative' }
     : { background: 'var(--flame)', position: 'relative' };
 
-  // 2. Texte : Taille standard 1rem (lisible), couleur FLAME sur l'accueil
+  // 2. Texte
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
-  // 3. LE RÉGLAGE FINAL (Juste Milieu)
+  // 3. LA CORRECTION PRÉCISE
   const linksContainerStyle = isHome
     ? {
       position: 'absolute',
       right: '0',
       top: '0',
       height: '100%',
-      width: '45%',            // STRICTEMENT 45% (La taille de la zone blanche)
+      // LARGEUR STRICTE : 32%. 
+      // C'est suffisamment étroit pour ne JAMAIS toucher l'orange à gauche,
+      // tout en restant collé à droite (zone blanche).
+      width: '32%',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center', // Centré DANS la zone blanche
-      gap: '2rem',             // Espacement équilibré (32px)
+      justifyContent: 'center',
+      gap: '1.3rem',
       paddingRight: '1rem'
     }
     : {};
