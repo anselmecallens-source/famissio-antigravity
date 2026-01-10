@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './index.css';
+import '../index.css';
 
 export default function Footer() {
     // Fonction pour remonter en haut de page au clic

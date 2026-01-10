@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Import des composants globaux
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // Import des pages
 import Home from './Home';
