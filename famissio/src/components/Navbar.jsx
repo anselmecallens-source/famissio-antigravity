@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css'; // Import correct (dossier parent)
+import '../index.css'; // Import correct : on remonte dans src/
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -32,17 +32,19 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
+  // - Accueil : On réduit à 0.85rem (petit) pour que ça tienne impérativement à droite
+  // - Autres pages : Blanc et taille standard (1.1rem)
   const linkTextStyle = isHome
-    ? { fontSize: '1rem', color: 'var(--flame)' }
+    ? { fontSize: '0.85rem', color: 'var(--flame)', fontWeight: '700' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
   // - Accueil : 
-  //   * maxWidth: '45vw' -> Force le menu à rester dans les 45% de droite (sur le blanc)
-  //   * marginLeft: 'auto' -> Pousse le tout vers la droite
-  //   * gap: '2rem' -> Espacement propre
+  //   * maxWidth: '38vw' -> On limite strictement à 38% de la largeur écran (pour rester dans le blanc)
+  //   * marginLeft: 'auto' -> On pousse tout à droite
+  //   * gap: '0.8rem' -> On serre les liens au maximum
   const linksContainerStyle = isHome
-    ? { gap: '2rem', maxWidth: '45vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    ? { gap: '0.8rem', maxWidth: '38vw', marginLeft: 'auto', justifyContent: 'flex-end' }
     : {};
 
   return (
@@ -63,17 +65,17 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo réduit à 7rem partout */}
+            {/* Logo encore un peu réduit (6.5rem) pour gagner de la place */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
               className="nav-logo-img"
-              style={{ height: '7rem' }}
+              style={{ height: '6.5rem' }}
             />
           </Link>
         </div>
 
-        {/* Application des styles ajustés */}
+        {/* Application des styles très compacts pour l'accueil */}
         <ul className="nav-links" style={linksContainerStyle}>
           <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
