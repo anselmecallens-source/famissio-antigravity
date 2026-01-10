@@ -32,19 +32,19 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : On réduit à 0.85rem (petit) pour que ça tienne impérativement à droite
+  // - Accueil : Taille quasi normale (0.95rem) et gras pour la lisibilité
   // - Autres pages : Blanc et taille standard (1.1rem)
   const linkTextStyle = isHome
-    ? { fontSize: '0.85rem', color: 'var(--flame)', fontWeight: '700' }
+    ? { fontSize: '0.95rem', color: 'var(--flame)', fontWeight: '700' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
 
   // 3. Style du Conteneur des Liens (Mise en page)
   // - Accueil : 
-  //   * maxWidth: '38vw' -> On limite strictement à 38% de la largeur écran (pour rester dans le blanc)
-  //   * marginLeft: 'auto' -> On pousse tout à droite
-  //   * gap: '0.8rem' -> On serre les liens au maximum
+  //   * maxWidth: '42vw' -> On utilise 42% de la largeur (la zone blanche fait ~44%)
+  //   * marginLeft: 'auto' -> Pousse tout à droite
+  //   * gap: '1.5rem' -> Espacement équilibré (ni trop serré, ni trop large)
   const linksContainerStyle = isHome
-    ? { gap: '0.8rem', maxWidth: '38vw', marginLeft: 'auto', justifyContent: 'flex-end' }
+    ? { gap: '1.5rem', maxWidth: '42vw', marginLeft: 'auto', justifyContent: 'flex-end' }
     : {};
 
   return (
@@ -65,17 +65,17 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo encore un peu réduit (6.5rem) pour gagner de la place */}
+            {/* Logo à taille moyenne (7.5rem) */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
               className="nav-logo-img"
-              style={{ height: '6.5rem' }}
+              style={{ height: '7.5rem' }}
             />
           </Link>
         </div>
 
-        {/* Application des styles très compacts pour l'accueil */}
+        {/* Application des styles ajustés */}
         <ul className="nav-links" style={linksContainerStyle}>
           <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
