@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../index.css';
+import './index.css';
 
 const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
 
@@ -32,14 +32,15 @@ const Navbar = () => {
   const navStyle = isHome ? {} : { background: 'var(--flame)', position: 'relative' };
 
   // 2. Style des Liens (Texte)
-  // - Accueil : On laisse le CSS gérer (rouge/gris)
-  // - Autres pages : Blanc pour être lisible sur le fond rouge
-  const linkTextStyle = isHome ? {} : { color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
+  // - Accueil : On FORCE une taille plus petite (0.9rem) pour ne pas toucher le orange
+  // - Autres pages : Blanc et taille standard (1.1rem)
+  const linkTextStyle = isHome
+    ? { fontSize: '0.9rem', color: 'var(--flame)' } // Petit et rouge sur l'accueil
+    : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' }; // Blanc ailleurs
 
   // 3. Style du Conteneur des Liens (Mise en page)
-  // - Accueil : On réduit fortement l'écart (gap) pour éviter que ça touche l'orange à gauche
-  // - Autres pages : On laisse l'espacement standard aéré
-  const linksContainerStyle = isHome ? { gap: '1.2rem' } : {};
+  // - Accueil : On serre très fort les liens (gap: 0.8rem)
+  const linksContainerStyle = isHome ? { gap: '0.8rem' } : {};
 
   return (
     <>
@@ -59,7 +60,7 @@ const Navbar = () => {
       >
         <div className="nav-logo-wrapper">
           <Link to="/" onClick={closeMenu}>
-            {/* Logo réduit à 8.5rem */}
+            {/* Logo réduit à 8.5rem pour ne pas être trop imposant */}
             <img
               src={LOGO_NAV}
               alt="Famissio Logo"
@@ -69,7 +70,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* On applique ici le style pour réduire la largeur sur l'accueil */}
+        {/* Application des styles compacts */}
         <ul className="nav-links" style={linksContainerStyle}>
           <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
           <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
