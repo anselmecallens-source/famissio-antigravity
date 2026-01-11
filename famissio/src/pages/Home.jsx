@@ -577,6 +577,78 @@ const Home = () => {
         }
         .prayer-cta:hover { gap: 20px; }
 
+        /* TOUSSAINT SECTION */
+        .toussaint-section {
+            background-color: var(--cream);
+            padding: var(--spacing-xl) 5%;
+            text-align: center;
+        }
+        
+        .toussaint-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--flame);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .questions-cascade {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-item {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            font-weight: 500;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInRight 0.8s forwards;
+            position: relative;
+        }
+        
+        .question-item::before {
+            content: '?';
+            display: inline-block;
+            margin-right: 15px;
+            color: var(--ember);
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .question-item:nth-child(1) { animation-delay: 0.2s; }
+        .question-item:nth-child(2) { animation-delay: 0.4s; }
+        .question-item:nth-child(3) { animation-delay: 0.6s; }
+        .question-item:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toussaint-answer {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #555;
+            padding: 40px;
+            border-top: 2px solid rgba(244, 106, 7, 0.2);
+            border-bottom: 2px solid rgba(244, 106, 7, 0.2);
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+        }
+        
         /* RESPONSIVE */
         @media (max-width: 1200px) {
             .hero { grid-template-columns: 1fr; }
@@ -686,6 +758,26 @@ const Home = () => {
                         <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
                     </div>
                 </div>
+            </section>
+
+            <section className="toussaint-section">
+                <div className="section-head">
+                    <div className="eyebrow">La Toussaint</div>
+                    <h2 className="title toussaint-title">Pourquoi la Mission à la Toussaint ?</h2>
+                </div>
+
+                <div className="questions-cascade">
+                    <div className="question-item">Qui n'est jamais venu à l'église pour l'enterrement d'un proche ou d'une connaissance</div>
+                    <div className="question-item">Qui n'a jamais connu la séparation avec un proche</div>
+                    <div className="question-item">Qui ne s'est jamais interrogé sur la vie après la mort</div>
+                    <div className="question-item">Qui regrette un pardon ou un merci à adresser à celui qui est parti trop vite</div>
+                </div>
+
+                <p className="toussaint-answer">
+                    La Toussaint est une formidable période de l'année, pour entrer en contact avec nos contemporains
+                    qui sont tous concernés par cette question de l'au-delà. Ce temps est propice à des cœurs à cœurs,
+                    à des rencontres profondes pour guider chacun vers le Seigneur.
+                </p>
             </section>
 
             <section className="team-section">
