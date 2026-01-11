@@ -5,13 +5,12 @@ const TemoignagesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedTestimony, setSelectedTestimony] = useState(null);
   const [testimonyOfDay, setTestimonyOfDay] = useState(null);
-  const [stats, setStats] = useState({ visible: false, count: 0 });
 
   const emotions = [
-    { id: 'joie', icon: Smile, label: 'Joie', color: '#f59e0b' },
-    { id: 'espoir', icon: Sparkles, label: 'Espérance', color: '#10b981' },
-    { id: 'conversion', icon: Lightbulb, label: 'Conversion', color: '#8b5cf6' },
-    { id: 'miracle', icon: Cross, label: 'Grâce', color: '#ef4444' }
+    { id: 'joie', icon: Smile, label: 'Joie', color: '#d97706', gradient: 'from-amber-600 to-orange-600' },
+    { id: 'espoir', icon: Sparkles, label: 'Espérance', color: '#ea580c', gradient: 'from-orange-600 to-red-600' },
+    { id: 'conversion', icon: Lightbulb, label: 'Conversion', color: '#dc2626', gradient: 'from-red-600 to-rose-600' },
+    { id: 'miracle', icon: Cross, label: 'Grâce', color: '#c2410c', gradient: 'from-orange-700 to-red-700' }
   ];
 
   const testimonies = [
@@ -170,24 +169,6 @@ const TemoignagesPage = () => {
     setTestimonyOfDay(todayTestimony);
   }, []);
 
-  // Animation stats
-  useEffect(() => {
-    const timer = setTimeout(() => setStats({ visible: true, count: 0 }), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (stats.visible && stats.count < testimonies.length) {
-      const timer = setTimeout(() => setStats(s => ({ ...s, count: s.count + 1 })), 50);
-      return () => clearTimeout(timer);
-    }
-  }, [stats]);
-
-  const getRandomTestimony = () => {
-    const random = testimonies[Math.floor(Math.random() * testimonies.length)];
-    setSelectedTestimony(random);
-  };
-
   const filteredTestimonies = selectedCategory === 'all'
     ? testimonies
     : testimonies.filter(t =>
@@ -195,9 +176,6 @@ const TemoignagesPage = () => {
         ? t.emotion === selectedCategory.replace('emotion-', '')
         : t.category === selectedCategory
     );
-
-  const locations = [...new Set(testimonies.map(t => t.location))];
-  const years = [...new Set(testimonies.map(t => t.year))].sort();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -213,15 +191,6 @@ const TemoignagesPage = () => {
           0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
           50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
         }
-
-        .shine {
-          animation: shine 3s ease-in-out infinite;
-        }
-
-        @keyframes shine {
-          0%, 100% { transform: translateX(-100%); }
-          50% { transform: translateX(100%); }
-        }
       `}</style>
 
       {/* HERO */}
@@ -236,92 +205,62 @@ const TemoignagesPage = () => {
             Témoignages
           </h1>
 
-          {/* STATS ANIMÉES */}
-          <div className="grid grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-            <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                {stats.count}
-              </div>
-              <div className="text-sm opacity-90">Histoires</div>
-            </div>
-            <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                {locations.length}
-              </div>
-              <div className="text-sm opacity-90">Lieux</div>
-            </div>
-            <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                {years.length}
-              </div>
-              <div className="text-sm opacity-90">Années</div>
-            </div>
-          </div>
-
-          {/* BOUTON SURPRISE */}
-          <div className="text-center">
-            <button
-              onClick={getRandomTestimony}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-orange-600 font-black text-lg rounded-full hover:scale-110 transition-all shadow-2xl"
-            >
-              <Shuffle className="w-6 h-6" />
-              TÉMOIGNAGE SURPRISE
-              <Sparkles className="w-6 h-6" />
-            </button>
-          </div>
+          <p className="text-xl text-center max-w-3xl mx-auto opacity-90 leading-relaxed">
+            Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
+          </p>
         </div>
       </div>
 
       {/* TÉMOIGNAGE DU JOUR */}
       {testimonyOfDay && (
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 py-2">
-          <div className="max-w-7xl mx-auto px-6 text-center text-white font-bold flex items-center justify-center gap-3">
-            <Sparkles className="w-5 h-5" />
-            <span>TÉMOIGNAGE DU JOUR</span>
-            <Sparkles className="w-5 h-5" />
+        <>
+          <div className="bg-gradient-to-r from-amber-500 to-orange-500 py-2">
+            <div className="max-w-7xl mx-auto px-6 text-center text-white font-bold flex items-center justify-center gap-3">
+              <Sparkles className="w-5 h-5" />
+              <span>TÉMOIGNAGE DU JOUR</span>
+              <Sparkles className="w-5 h-5" />
+            </div>
           </div>
-        </div>
-      )}
 
-      {testimonyOfDay && (
-        <div className="max-w-7xl mx-auto px-6 -mt-12 mb-16 relative z-10">
-          <div
-            className="bg-white rounded-3xl shadow-2xl overflow-hidden cursor-pointer hover:scale-105 transition-all duration-500"
-            onClick={() => setSelectedTestimony(testimonyOfDay)}
-          >
-            <div className="grid md:grid-cols-2">
-              <div className="relative h-96">
-                <img
-                  src={testimonyOfDay.image}
-                  alt={testimonyOfDay.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-6 left-6 px-4 py-2 bg-orange-500 text-white font-black rounded-full flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span className="text-sm">AUJOURD'HUI</span>
-                </div>
-              </div>
-              <div className="p-12 flex flex-col justify-center">
-                <h2 className="text-4xl font-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  {testimonyOfDay.title}
-                </h2>
-                <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-                  {testimonyOfDay.excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    {testimonyOfDay.location}
+          <div className="max-w-7xl mx-auto px-6 -mt-12 mb-16 relative z-10">
+            <div
+              className="bg-white rounded-3xl shadow-2xl overflow-hidden cursor-pointer hover:scale-105 transition-all duration-500"
+              onClick={() => setSelectedTestimony(testimonyOfDay)}
+            >
+              <div className="p-12">
+                <div className="flex flex-col md:flex-row gap-12">
+                  {/* Ajout de l'image pour le témoigage du jour */}
+                  <div className="w-full md:w-1/2 h-64 md:h-auto rounded-2xl overflow-hidden shadow-lg">
+                    <img
+                      src={testimonyOfDay.image}
+                      alt={testimonyOfDay.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {testimonyOfDay.year}
+
+                  <div className="w-full md:w-1/2 flex flex-col justify-center">
+                    <h2 className="text-4xl font-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                      {testimonyOfDay.title}
+                    </h2>
+                    <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                      {testimonyOfDay.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        {testimonyOfDay.location}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        {testimonyOfDay.year}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* NAVIGATION PAR ÉMOTION */}
@@ -373,8 +312,24 @@ const TemoignagesPage = () => {
         </div>
       </div>
 
-      {/* GRILLE ORGANIQUE */}
+      {/* GRILLE DE TÉMOIGNAGES */}
       <div className="max-w-7xl mx-auto px-6 py-16">
+        {/* Barre de recherche */}
+        <div className="mb-12 max-w-2xl mx-auto">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Rechercher un témoignage, un lieu, une année..."
+              className="w-full px-6 py-4 rounded-full border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+            />
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id).map((testimony, index) => {
             const emotionData = emotions.find(e => e.id === testimony.emotion);
@@ -397,35 +352,48 @@ const TemoignagesPage = () => {
                       alt={testimony.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    {testimony.type === 'video' && (
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                          <Play className="w-8 h-8 text-orange-500 ml-1" />
-                        </div>
-                      </div>
-                    )}
 
+                    {/* Emotion Icon Overlay */}
                     {emotionData && (
                       <div
-                        className="absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                        className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center shadow-lg text-white"
                         style={{ backgroundColor: emotionData.color }}
                       >
-                        {React.createElement(emotionData.icon, { className: "w-6 h-6 text-white" })}
+                        {React.createElement(emotionData.icon, { className: "w-5 h-5" })}
                       </div>
                     )}
                   </div>
 
                   <div className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      {emotionData && (
+                        <div
+                          className="w-8 h-8 rounded-full flex items-center justify-center text-white"
+                          style={{ backgroundColor: emotionData.color }}
+                        >
+                          {React.createElement(emotionData.icon, { className: "w-4 h-4" })}
+                        </div>
+                      )}
+                      <div className="text-xs text-gray-500 flex items-center gap-2">
+                        <span>{testimony.location}</span>
+                        <span>•</span>
+                        <span>{testimony.year}</span>
+                      </div>
+                    </div>
+
                     <h3 className="text-2xl font-black mb-3 leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                       {testimony.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-4">
                       {testimony.excerpt}
                     </p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <span>{testimony.location}</span>
-                      <span>{testimony.year}</span>
-                    </div>
+
+                    {testimony.type === 'video' && (
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-orange-50 text-orange-600 rounded-full text-xs font-bold">
+                        <Play className="w-3 h-3" />
+                        Vidéo
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -445,44 +413,62 @@ const TemoignagesPage = () => {
           </button>
 
           <div className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl my-8">
-            <div className="relative h-96">
-              <img
-                src={selectedTestimony.image}
-                alt={selectedTestimony.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-              <div className="absolute bottom-8 left-8 right-8 text-white">
-                <h2 className="text-5xl font-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  {selectedTestimony.title}
-                </h2>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    {selectedTestimony.location}
+            <div className="p-12">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-md">
+                  <img
+                    src={selectedTestimony.image}
+                    alt={selectedTestimony.title}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-6">
+                    {(() => {
+                      const emotionData = emotions.find(e => e.id === selectedTestimony.emotion);
+                      if (emotionData) {
+                        return (
+                          <div
+                            className="w-12 h-12 rounded-full flex items-center justify-center text-white"
+                            style={{ backgroundColor: emotionData.color }}
+                          >
+                            {React.createElement(emotionData.icon, { className: "w-6 h-6" })}
+                          </div>
+                        );
+                      }
+                    })()}
+                    <div>
+                      <h2 className="text-4xl font-black" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                        {selectedTestimony.title}
+                      </h2>
+                      <div className="flex items-center gap-4 text-sm text-gray-500 mt-2">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" />
+                          {selectedTestimony.location}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          {selectedTestimony.year}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    {selectedTestimony.year}
-                  </div>
+
+                  {selectedTestimony.type === 'video' ? (
+                    <div className="aspect-video mb-6">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${selectedTestimony.videoId}`}
+                        className="w-full h-full rounded-lg"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  ) : (
+                    <p className="text-xl leading-relaxed text-gray-700 whitespace-pre-line">
+                      {selectedTestimony.content}
+                    </p>
+                  )}
                 </div>
               </div>
-            </div>
-
-            <div className="p-12">
-              {selectedTestimony.type === 'video' ? (
-                <div className="aspect-video mb-6">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${selectedTestimony.videoId}`}
-                    className="w-full h-full rounded-lg"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              ) : (
-                <p className="text-xl leading-relaxed text-gray-700 whitespace-pre-line">
-                  {selectedTestimony.content}
-                </p>
-              )}
             </div>
           </div>
         </div>
