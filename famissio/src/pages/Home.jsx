@@ -210,29 +210,37 @@ function Home() {
             </section>
 
             {/* --- SECTION 1: PROGRAMME (V2 CARDS) --- */}
-            <section className="mission-program-section" id="mission">
+            <section className="section-mission-action" id="mission">
                 <div className="section-head">
                     <span className="eyebrow">Au cœur de l'action</span>
                     <h2 className="title" style={{ fontFamily: '"Playfair Display", serif' }}>Une Mission Paroissiale</h2>
                     <p className="subtitle">Découvrez notre démarche missionnaire</p>
                 </div>
-                <div className="program-grid">
-                    {PROGRAM_DATA.map((card, index) => (
-                        <div className="program-card" key={index}>
-                            <div className="program-card-image"><img src={card.img} alt={card.title} /></div>
-                            <div className="program-overlay"></div>
-                            <div className="program-card-content">
-                                <div className="program-icon-wrapper"><i className={card.icon}></i></div>
-                                <h3 style={{ fontFamily: '"Playfair Display", serif' }}>{card.title}</h3>
-                            </div>
-                            <div className="program-details">
-                                <div className="program-details-inner">
-                                    <h4 style={{ fontFamily: '"Playfair Display", serif' }}>{card.title}</h4>
-                                    <ul>{card.details.map((detail, idx) => <li key={idx}>{detail}</li>)}</ul>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                <div className="mission-gallery">
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.priere} alt="Temps de prière" />
+                        <h4>Temps de prière</h4>
+                    </div>
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.evang} alt="Évangélisation" />
+                        <h4>Évangélisation</h4>
+                    </div>
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.veillee} alt="Veillée" />
+                        <h4>Veillée</h4>
+                    </div>
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.cimetiere} alt="Bénédiction des cimetières" />
+                        <h4>Bénédiction des cimetières</h4>
+                    </div>
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.familles} alt="Journée des familles" />
+                        <h4>Journée des familles</h4>
+                    </div>
+                    <div className="gallery-item">
+                        <img src={IMGS.gal.envoi} alt="Envoi en mission" />
+                        <h4>Envoi en mission</h4>
+                    </div>
                 </div>
             </section>
 
@@ -294,10 +302,42 @@ function Home() {
                         <h2>Pape François</h2>
                     </div>
                     <div className="rosé-header"><h2 className="title">7 Points Clés pour la Mission</h2></div>
-                    <div className="pope-grid">
-                        <div className="pope-item"><h4>1. Aller aux périphéries</h4><p>"Église en sortie" n'est pas une expression à la mode. Elle est un commandement du Christ.</p></div>
-                        <div className="pope-item"><h4>2. Se laisser surprendre</h4><p>La mission n'est pas un projet d'entreprise bien rodé.</p></div>
-                        <div className="pope-item"><h4>6. Le contact humain</h4><p>La mission est un contact humain, elle est le témoignage d'hommes et de femmes.</p></div>
+                    <div className="pope-points">
+                        <div className="point-item">
+                            <h4>1. ALLER AUX PÉRIPHÉRIES</h4>
+                            <p>“Église en sortie” n’est pas une expression à la mode.
+                                Elle est un commandement du Christ. Soit l’Église est en sortie, soit elle n’est pas l’Église.
+                                Si l’Église ne sort pas, elle se corrompt, se dénature.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>2. SE LAISSER SURPRENDRE</h4>
+                            <p>La mission n’est pas un projet d’entreprise bien rodé.
+                                Ce n’est même pas un spectacle organisé. L’Esprit saint agit comme il le veut, quand il le veut et où il le veut.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>3. SE METTRE À L’ÉCOUTE</h4>
+                            <p>La fécondité de la mission ne tient pas à nos méthodes, mais elle est liée à ce vertige que l’on éprouve en présence des paroles de Jésus.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>4. TÉMOIGNER ET NON DÉCLARER</h4>
+                            <p>On n’est pas frappé si l’on rencontre quelqu’un qui circule en martelant ce qu’est le christianisme.
+                                On est marqué par la rencontre avec une personne dont les gestes révèlent la foi.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>5. ÉLOGE DE LA TENDRESSE</h4>
+                            <p>Annoncer l’Évangile ne consiste pas à assiéger les autres de discours.
+                                Lancer des vérités comme des pierres, c’est le signe que les paroles se sont transformées en idéologie.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>6. LE CONTACT HUMAIN</h4>
+                            <p>La mission est un contact humain, elle est le témoignage d’hommes et de femmes qui disent à leurs compagnons de voyage : “Je connais Jésus, je voudrais te le faire connaître”.</p>
+                        </div>
+                        <div className="point-item">
+                            <h4>7. HABITER LE TEMPS</h4>
+                            <p>Pour suivre Jésus et annoncer l’Évangile, il faut aussi “se poser”, demeurer dans les lieux et les situations où le Seigneur nous conduit.
+                                Sinon la mission peut devenir un prétexte pour faire du tourisme spirituel déguisé en apostolat.
+                                Il ne s'agit pas de faire de l’animation missionnaire comme un métier, mais de vivre avec les autres, de les suivre pas à pas, de demander à les accompagner en apprenant à cheminer à leur rythme.</p>
+                        </div>
                     </div>
                     <div className="pope-message-box">
                         <h3>Que puis-je faire en tant que jeune pour mon église ?</h3>
