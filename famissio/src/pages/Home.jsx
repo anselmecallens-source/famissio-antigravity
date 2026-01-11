@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../index.css';
 
 /* --- IMAGES --- */
 const IMGS = {
@@ -33,182 +35,132 @@ const PROGRAM_DATA = [
         title: "Envoi en Mission",
         icon: "fas fa-rocket",
         img: IMGS.cards[0],
-        color: "#c82904",
-        details: ["La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."]
+        details: ["Journée de rassemblement", "Temps de prière et louange", "Témoignages poignants", "Envoi officiel"]
     },
     {
         title: "Formation",
         icon: "fas fa-graduation-cap",
         img: IMGS.cards[1],
-        color: "#f46a07",
-        details: [
-            "Formation et jeux de rôle pour les Famissionnaires comme pour les Paroissiens le Dimanche après-midi.",
-            "Préparation d'un témoignage personnel, pendant laquelle chacun revisite, sous le regard de Dieu, sa propre histoire sainte. Il s'entraine ensuite plusieurs fois en binôme à partager son témoignage.",
-            "Une formation quotidienne de 5mn donnée chaque matin par un consacré sur un sujet nécessaire à la mission.",
-            "Un temps de relecture de mission quotidien, organisé par tranche d'âge et animé par les consacrés, permettant de revenir sur des points de formation nécessaires.",
-            "Des fiches de formation disponibles sur ce Blog à l'onglet Formation sur lesquelles chacun peut revenir 365 jours/365"
-        ]
+        details: ["Jeux de rôle", "Préparation témoignage", "Formation quotidienne", "Relecture de mission", "Fiches de formation"]
     },
     {
         title: "Temps de Prière",
         icon: "fas fa-praying-hands",
         img: IMGS.cards[2],
-        color: "#dc2626",
-        details: [
-            "Chaque journée commence par une heure de laudes, louanges, adoration et formation.",
-            "Une messe quotidienne",
-            "La récitation du Chapelet",
-            "Les Complies pour clore la journée."
-        ]
+        details: ["Laudes, louanges, adoration", "Messe quotidienne", "Chapelet", "Complies"]
     },
     {
-        title: "Des Temps de Mission",
+        title: "Au Cœur de la Mission",
         icon: "fas fa-people-carry",
         img: IMGS.cards[3],
-        color: "#ea580c",
-        details: [
-            "Visitations dans la rue",
-            "Visitations sur les marchés",
-            "Visitations de personnes indiquées par la paroisse",
-            "Porte-à-porte",
-            "Bénédictions de cimetière",
-            "Bénédictions de commerces, de maisons, de tracteurs, de fermes...",
-            "Journée des familles (activités pour les jeunes et ateliers éducatifs pour les parents)",
-            "Pièces de théâtre sur les places publiques",
-            "Tournois de foot",
-            "Procession des saints, procession du Saint Sacrement, procession mariale, procession aux flambeaux",
-            "Visite aux AHPAD, dans des structures pour personnes handicapées...",
-            "Chemins de croix dans les rues",
-            "Pélerinage",
-            "Concert polyphonique dans la rue"
-        ]
+        details: ["Visitations (rue, porte-à-porte)", "Bénédictions", "Processions", "Activités culturelles", "Solidarité (EHPAD)"]
     },
     {
-        title: "Temps Fraternels",
+        title: "Vie Fraternelle",
         icon: "fas fa-heart",
         img: IMGS.cards[4],
-        color: "#c2410c",
-        details: [
-            "Repas entre Famissionnaires et Paroissiens",
-            "Soirée jeux pour apprendre à se connaître",
-            "Temps de détente autour d'un ballon ou de jeux de société pour les enfants à l'heure du déjeuner",
-            "Veillée festive en fin de mission entre Famissionnaires et Paroissiens"
-        ]
+        details: ["Repas partagés", "Soirées jeux", "Détente et sport", "Veillée festive"]
     },
     {
-        title: "Veillées",
+        title: "Les Veillées",
         icon: "fas fa-moon",
         img: IMGS.cards[5],
-        color: "#991b1b",
-        details: [
-            "Veillée Miséricorde",
-            "Veillée sur le thème de l'au-delà et de nos défunts",
-            "Veillée mariale",
-            "Veillée ciné-débat",
-            "Veillée pour les malades et les personnes qui souffrent"
-        ]
+        details: ["Veillée Miséricorde", "Veillée Au-delà", "Veillée Mariale", "Ciné-débat", "Veillée de consolation"]
     }
 ];
 
 function Home() {
-    const [expandedCards, setExpandedCards] = useState({});
-
     useEffect(() => {
-        let isScrolling = false;
-        let targetScroll = 0;
-        let currentScroll = 0;
-        let animationId = null;
+        let isHandlingScroll = false;
 
-        function lerp(start, end, factor) {
-            return start + (end - start) * factor;
-        }
+        function smoothScrollTo(element, duration) {
+            const targetPosition = element.getBoundingClientRect().top + window.scrollY;
+            const startPosition = window.scrollY;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
 
-        function smoothScroll() {
-            if (Math.abs(targetScroll - currentScroll) < 0.5) {
-                currentScroll = targetScroll;
-                isScrolling = false;
-                window.scrollTo(0, currentScroll);
-                return;
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+
+                // Easing Quartic : Démarrage lent, accélération, fin douce
+                const ease = (t, b, c, d) => {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t * t * t + b;
+                    t -= 2;
+                    return -c / 2 * (t * t * t * t - 2) + b;
+                };
+
+                const nextScroll = ease(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, nextScroll);
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    isHandlingScroll = false;
+                }
             }
-
-            currentScroll = lerp(currentScroll, targetScroll, 0.08);
-            window.scrollTo(0, currentScroll);
-            animationId = requestAnimationFrame(smoothScroll);
+            requestAnimationFrame(animation);
         }
 
         const handleWheel = (e) => {
             if (window.innerWidth <= 1000) return;
 
-            const heroSection = document.querySelector('#hero');
+            // Si une animation est DÉJÀ en cours, on bloque TOUT scroll manuel pour éviter le tremblement
+            if (isHandlingScroll) {
+                e.preventDefault();
+                return;
+            }
+
             const historySection = document.querySelector('#history');
+            const heroSec = document.querySelector('#hero');
             const scrollPos = window.scrollY;
-            const heroHeight = heroSection?.offsetHeight || 0;
-            const historyTop = historySection?.offsetTop || 0;
 
-            const transitionStart = heroHeight * 0.3;
-            const transitionEnd = heroHeight * 0.95;
-
-            if (scrollPos >= transitionStart && scrollPos < transitionEnd && e.deltaY > 0) {
-                e.preventDefault();
-                if (!isScrolling) {
-                    isScrolling = true;
-                    targetScroll = historyTop;
-                    currentScroll = scrollPos;
-                    cancelAnimationFrame(animationId);
-                    smoothScroll();
+            // --- SCENARIO 1 : DESCENDRE (Hero -> History) ---
+            if (scrollPos < 300 && e.deltaY > 0) {
+                // SEUIL : On attend que l'utilisateur ait scrollé un peu (50px)
+                if (scrollPos > 50) {
+                    // C'EST ICI LA CORRECTION DU TREMBLEMENT :
+                    // On coupe le scroll natif dès qu'on décide de lancer l'animation
+                    e.preventDefault();
+                    isHandlingScroll = true;
+                    smoothScrollTo(historySection, 1500);
                 }
-                return;
             }
 
-            if (scrollPos > transitionStart && scrollPos <= historyTop + 200 && e.deltaY < 0) {
-                e.preventDefault();
-                if (!isScrolling) {
-                    isScrolling = true;
-                    targetScroll = 0;
-                    currentScroll = scrollPos;
-                    cancelAnimationFrame(animationId);
-                    smoothScroll();
+            // --- SCENARIO 2 : REMONTER (History -> Hero) ---
+            else if (historySection && e.deltaY < 0) {
+                const rect = historySection.getBoundingClientRect();
+                if (rect.top < 200 && rect.top > -100) {
+                    // SEUIL pour remonter
+                    if (rect.top > 50) {
+                        e.preventDefault(); // On coupe le scroll natif
+                        isHandlingScroll = true;
+                        smoothScrollTo(heroSec, 1500);
+                    }
                 }
-                return;
             }
         };
 
+        // On remet passive: false car on utilise preventDefault pour stopper le tremblement
         window.addEventListener('wheel', handleWheel, { passive: false });
-        return () => {
-            window.removeEventListener('wheel', handleWheel);
-            cancelAnimationFrame(animationId);
-        };
+        return () => window.removeEventListener('wheel', handleWheel);
     }, []);
-
-    const toggleCard = (index) => {
-        setExpandedCards(prev => ({
-            ...prev,
-            [index]: !prev[index]
-        }));
-    };
 
     return (
         <>
-            <style>{`
-                /* Ajustement position hero */
-                .hero-right-adjusted {
-                    margin-top: 100px;
-                }
-            `}</style>
-
-            {/* 1. HERO */}
             <div className="hero" id="hero">
                 <div className="hero-left">
                     <div className="hero-content">
                         <h1>Famissio</h1>
                         <div className="underline"></div>
                         <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
-                        <a href="/missions" className="cta">
+                        <Link to="/missions" className="cta">
                             <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
-                <div className="hero-right hero-right-adjusted">
+                <div className="hero-right">
                     <div className="image-blob">
                         <img src={IMGS.heroBlob} alt="Équipe Famissio" />
                     </div>
@@ -219,13 +171,16 @@ function Home() {
                 <div className="scroll-indicator"><div className="scroll-line"></div></div>
             </div>
 
-            {/* 2. HISTOIRE */}
             <div className="diagonal section-target" id="history">
                 <div className="section-head">
                     <div className="eyebrow">Notre Histoire</div>
                     <h2 className="title">Comment tout a commencé</h2>
                     <p className="subtitle">Une aventure familiale devenue mouvement missionnaire</p>
                 </div>
+                {/* CORRECTION POSITION IMAGE :
+                    J'utilise paddingTop: '12rem' (environ 190px). 
+                    Le padding force le contenu à l'intérieur à descendre, c'est plus fiable que margin.
+                */}
                 <div className="story-grid" style={{ paddingTop: '12rem' }}>
                     <div className="image-wrap">
                         <div className="main-img">
@@ -243,7 +198,6 @@ function Home() {
                 </div>
             </div>
 
-            {/* 3. VIDEO */}
             <section className="video-section">
                 <div className="section-head">
                     <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
@@ -256,47 +210,38 @@ function Home() {
                 </div>
             </section>
 
-            {/* 4. PROGRAMME */}
+            {/* --- SECTION 1: PROGRAMME (V2 CARDS) --- */}
             <section className="mission-program-section" id="mission">
                 <div className="section-head">
                     <span className="eyebrow">Au cœur de l'action</span>
-                    <h2 className="title">Une Mission Paroissiale</h2>
+                    <h2 className="title">Les Piliers de la Mission</h2>
                     <p className="subtitle">Découvrez notre démarche missionnaire</p>
                 </div>
-                <div className="expandable-cards-grid">
+                <div className="program-grid">
                     {PROGRAM_DATA.map((card, index) => (
-                        <div
-                            className={`expandable-card ${expandedCards[index] ? 'expanded' : ''}`}
-                            key={index}
-                            onClick={() => toggleCard(index)}
-                            style={{ '--card-color': card.color }}
-                        >
-                            <div className="expandable-card-header">
-                                <div className="expandable-icon">
-                                    <i className={card.icon}></i>
-                                </div>
+                        <div className="program-card" key={index}>
+                            <div className="program-card-image"><img src={card.img} alt={card.title} /></div>
+                            <div className="program-overlay"></div>
+                            <div className="program-card-content">
+                                <div className="program-icon-wrapper"><i className={card.icon}></i></div>
                                 <h3>{card.title}</h3>
-                                <div className="expand-indicator">
-                                    <i className="fas fa-chevron-down"></i>
-                                </div>
                             </div>
-                            <div className="expandable-card-content">
-                                <ul>
-                                    {card.details.map((detail, idx) => (
-                                        <li key={idx}>{detail}</li>
-                                    ))}
-                                </ul>
+                            <div className="program-details">
+                                <div className="program-details-inner">
+                                    <h4>{card.title}</h4>
+                                    <ul>{card.details.map((detail, idx) => <li key={idx}>{detail}</li>)}</ul>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* 5. TEMOIGNAGES / GALERIE */}
+            {/* --- SECTION RESTAURÉE : EN ACTION (GALERIE) --- */}
             <section style={{ background: '#f8f9fa' }} id="temoignages">
                 <div className="section-head">
                     <div className="eyebrow">En Action</div>
-                    <h2 className="title">La Mission en Images</h2>
+                    <h2 className="title">Une Mission Paroissiale</h2>
                 </div>
                 <div className="gallery-wrapper">
                     <div className="gallery-track">
@@ -318,7 +263,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* 6. APRES-MISSION */}
             <section className="after-mission-hero">
                 <div className="after-mission-overlay"></div>
                 <div className="after-mission-content">
@@ -330,7 +274,6 @@ function Home() {
                 <div className="after-mission-image" style={{ backgroundImage: `url(${IMGS.afterHero})` }}></div>
             </section>
 
-            {/* 7. TOUSSAINT */}
             <section className="toussaint-section">
                 <div className="toussaint-split">
                     <div className="toussaint-image" style={{ backgroundImage: `url(${IMGS.toussaint})` }}>
@@ -353,7 +296,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* 8. EQUIPE / FORMATION */}
             <section className="team-section" id="formation">
                 <div className="section-head">
                     <div className="eyebrow">L'Équipe Missionnaire</div>
@@ -376,13 +318,11 @@ function Home() {
                 </div>
             </section>
 
-            {/* 9. BANNIERE */}
             <div className="banner">
                 <div className="geo"></div><div className="geo"></div>
                 <h2>La mission nous presse !</h2>
             </div>
 
-            {/* 10. PRETRE */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
                     <img src={IMGS.priest} alt="Père Barrière" className="priest-circle-img" />
@@ -394,7 +334,6 @@ function Home() {
                 </div>
             </section>
 
-            {/* 11. PAPE */}
             <section className="section-cream">
                 <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                     <div className="pope-intro">
@@ -414,12 +353,11 @@ function Home() {
                 </div>
             </section>
 
-            {/* 12. PRIERE */}
             <div className="prayer" id="contact">
                 <div className="prayer-logo"><img src={IMGS.prayerLogo} alt="Logo Prière" /></div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
-                <a href="https://famissio-99.webself.net/priere-de-famissio" target="_blank" rel="noopener noreferrer" className="prayer-cta">Accéder à la prière <i className="fas fa-arrow-right"></i></a>
+                <a href="https://famissio-99.webself.net/priere-de-famissio" target="_blank" className="prayer-cta">Accéder à la prière <i className="fas fa-arrow-right"></i></a>
             </div>
         </>
     );
