@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../index.css';
+import './index.css';
 
 /* --- IMAGES --- */
 const IMGS = {
@@ -10,6 +9,7 @@ const IMGS = {
     teamSticky: "https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg",
     priest: "https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg",
     pope: "https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg",
+    // Images galerie
     gal: {
         priere: "https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg",
         evang: "https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG",
@@ -72,6 +72,7 @@ const PROGRAM_DATA = [
 function Home() {
     useEffect(() => {
         let isHandlingScroll = false;
+        let scrollAccumulator = 0; // Accumulateur pour la résistance (effet "2 scrolls")
 
         function smoothScrollTo(element, duration) {
             const targetPosition = element.getBoundingClientRect().top + window.scrollY;
@@ -82,15 +83,8 @@ function Home() {
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
                 const timeElapsed = currentTime - startTime;
-
-                // Easing Quartic : Démarrage lent, accélération, fin douce
-                const ease = (t, b, c, d) => {
-                    t /= d / 2;
-                    if (t < 1) return c / 2 * t * t * t * t + b;
-                    t -= 2;
-                    return -c / 2 * (t * t * t * t - 2) + b;
-                };
-
+                // Easing "easeInOutQuad" pour un effet smooth
+                const ease = (t, b, c, d) => { t /= d / 2; if (t < 1) return c / 2 * t * t + b; t--; return -c / 2 * (t * (t - 2) - 1) + b; };
                 const nextScroll = ease(timeElapsed, startPosition, distance, duration);
                 window.scrollTo(0, nextScroll);
 
@@ -98,51 +92,59 @@ function Home() {
                     requestAnimationFrame(animation);
                 } else {
                     isHandlingScroll = false;
+                    scrollAccumulator = 0; // Reset après animation
                 }
             }
             requestAnimationFrame(animation);
         }
 
         const handleWheel = (e) => {
-            if (window.innerWidth <= 1000) return;
-
-            // Si une animation est DÉJÀ en cours, on bloque TOUT scroll manuel pour éviter le tremblement
-            if (isHandlingScroll) {
-                e.preventDefault();
-                return;
-            }
+            if (window.innerWidth <= 1000) return; // Désactivé sur mobile
 
             const historySection = document.querySelector('#history');
             const heroSec = document.querySelector('#hero');
-            const scrollPos = window.scrollY;
 
-            // --- SCENARIO 1 : DESCENDRE (Hero -> History) ---
-            if (scrollPos < 300 && e.deltaY > 0) {
-                // SEUIL : On attend que l'utilisateur ait scrollé un peu (50px)
-                if (scrollPos > 50) {
-                    // C'EST ICI LA CORRECTION DU TREMBLEMENT :
-                    // On coupe le scroll natif dès qu'on décide de lancer l'animation
+            // --- SCENARIO 1 : DESCENDRE (HERO -> HISTOIRE) ---
+            // On vérifie qu'on est TOUT en haut (scrollY < 20)
+            if (window.scrollY < 20 && e.deltaY > 0) {
+                if (!isHandlingScroll) {
+                    // On empêche le scroll natif pour accumuler l'énergie
                     e.preventDefault();
-                    isHandlingScroll = true;
-                    smoothScrollTo(historySection, 1500);
-                }
-            }
+                    scrollAccumulator += e.deltaY;
 
-            // --- SCENARIO 2 : REMONTER (History -> Hero) ---
-            else if (historySection && e.deltaY < 0) {
-                const rect = historySection.getBoundingClientRect();
-                if (rect.top < 200 && rect.top > -100) {
-                    // SEUIL pour remonter
-                    if (rect.top > 50) {
-                        e.preventDefault(); // On coupe le scroll natif
+                    // SEUIL DE DÉCLENCHEMENT (environ 150 = un bon coup de molette ou deux petits)
+                    if (scrollAccumulator > 150) {
                         isHandlingScroll = true;
-                        smoothScrollTo(heroSec, 1500);
+                        smoothScrollTo(historySection, 800); // 800ms = transition douce
                     }
                 }
             }
+
+            // --- SCENARIO 2 : REMONTER (HISTOIRE -> HERO) ---
+            else if (historySection) {
+                const rect = historySection.getBoundingClientRect();
+                // On vérifie que la section Histoire est en haut de l'écran (avec une marge d'erreur)
+                // et qu'on scrolle vers le HAUT (deltaY < 0)
+                if (rect.top >= -50 && rect.top <= 100 && e.deltaY < 0) {
+                    if (!isHandlingScroll) {
+                        e.preventDefault();
+                        scrollAccumulator += e.deltaY; // deviendra négatif
+
+                        // SEUIL NÉGATIF pour remonter
+                        if (scrollAccumulator < -150) {
+                            isHandlingScroll = true;
+                            smoothScrollTo(heroSec, 800);
+                        }
+                    }
+                } else {
+                    // Si on est ailleurs dans la page, on remet le compteur à zéro
+                    scrollAccumulator = 0;
+                }
+            } else {
+                scrollAccumulator = 0;
+            }
         };
 
-        // On remet passive: false car on utilise preventDefault pour stopper le tremblement
         window.addEventListener('wheel', handleWheel, { passive: false });
         return () => window.removeEventListener('wheel', handleWheel);
     }, []);
@@ -155,9 +157,9 @@ function Home() {
                         <h1>Famissio</h1>
                         <div className="underline"></div>
                         <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
-                        <Link to="/missions" className="cta">
+                        <a href="#mission" className="cta">
                             <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </Link>
+                        </a>
                     </div>
                 </div>
                 <div className="hero-right">
@@ -171,17 +173,14 @@ function Home() {
                 <div className="scroll-indicator"><div className="scroll-line"></div></div>
             </div>
 
-            <div className="diagonal section-target" id="history">
+            {/* AJOUT DU PADDING-TOP ICI pour descendre l'image et la bulle */}
+            <div className="diagonal section-target" id="history" style={{ paddingTop: '6rem' }}>
                 <div className="section-head">
                     <div className="eyebrow">Notre Histoire</div>
                     <h2 className="title">Comment tout a commencé</h2>
                     <p className="subtitle">Une aventure familiale devenue mouvement missionnaire</p>
                 </div>
-                {/* CORRECTION POSITION IMAGE :
-                    J'utilise paddingTop: '12rem' (environ 190px). 
-                    Le padding force le contenu à l'intérieur à descendre, c'est plus fiable que margin.
-                */}
-                <div className="story-grid" style={{ paddingTop: '12rem' }}>
+                <div className="story-grid">
                     <div className="image-wrap">
                         <div className="main-img">
                             <img src={IMGS.histoire} alt="Équipe" />
