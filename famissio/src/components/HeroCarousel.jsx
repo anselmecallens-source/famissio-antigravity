@@ -7,9 +7,9 @@ const HeroCarousel = () => {
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
     const slides = [
-        { id: 1, type: 'formation', link: '#formations' },
+        { id: 1, type: 'formation', link: '/formation' },
         { id: 2, type: 'priere', link: '/priere-famissio' },
-        { id: 3, type: 'mission2026', link: '#mission2026' }
+        { id: 3, type: 'mission2026', link: '/missions' }
     ];
 
     useEffect(() => {
@@ -260,9 +260,9 @@ const HeroCarousel = () => {
                                                 18 Formations + FAQ Mission
                                             </div>
 
-                                            <a href={slide.link} className="slide-cta-btn">
+                                            <Link to={slide.link} className="slide-cta-btn">
                                                 Découvrir le catalogue <i className="fas fa-arrow-right"></i>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 )}
@@ -311,9 +311,9 @@ const HeroCarousel = () => {
                                                 <span className="diocese-pill">Poitiers</span>
                                             </div>
 
-                                            <a href={slide.link} className="mission-btn">
+                                            <Link to={slide.link} className="mission-btn">
                                                 Rejoindre l'aventure <i className="fas fa-arrow-right"></i>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 )}

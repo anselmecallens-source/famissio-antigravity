@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.hash === '#liste-missions') {
+      const element = document.getElementById('liste-missions');
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   const missions = [
     {
@@ -239,7 +252,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
           <div className="inline-block mb-4 px-4 py-1 bg-orange-100 text-orange-600 rounded-full text-xs font-bold tracking-widest">
             NOTRE HISTOIRE
           </div>
-          <h2 className="text-6xl font-black mb-4 year-tag text-gray-900">
+          <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
             7 MISSIONS
           </h2>
           <p className="text-xl text-gray-600">
@@ -252,8 +265,8 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
             <div
               key={mission.id}
               className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg ${mission.size === 'large' ? 'col-span-2 row-span-2' :
-                  mission.size === 'medium' ? 'col-span-2 row-span-1' :
-                    'col-span-1 row-span-1'
+                mission.size === 'medium' ? 'col-span-2 row-span-1' :
+                  'col-span-1 row-span-1'
                 } ${mission.size === 'large' ? 'h-[600px]' : mission.size === 'medium' ? 'h-[300px]' : 'h-[240px]'}`}
               onClick={() => setSelectedMission(mission)}
               style={{

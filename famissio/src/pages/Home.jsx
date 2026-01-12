@@ -1036,9 +1036,9 @@ const Home = () => {
 
                         <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
 
-                        <a href="https://famissio-99.webself.net/nomissions" className="cta">
+                        <Link to="/missions#liste-missions" className="cta">
                             <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="hero-right">
