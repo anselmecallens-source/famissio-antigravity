@@ -676,9 +676,7 @@ const Home = () => {
           position: relative;
         }
 
-        .question-item:hover {
-          color: #f46a07;
-        }
+
 
         .question-item::before {
           content: '?';
