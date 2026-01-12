@@ -618,14 +618,14 @@ const Home = () => {
         }
 
         .toussaint-inner {
-          max-width: 1600px;
+          max-width: 1400px;
           margin: 0 auto;
-          /* Adjusted min-height to fit naturally */
-          min-height: auto;
-          padding: 120px 5%;
+          min-height: 60vh;
+          padding: 80px 5%;
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 100%;
         }
 
         .toussaint-content {
@@ -1057,6 +1057,35 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* TEAM SECTION (Moved) */}
+            <section className="team-section">
+                <div className="section-head">
+                    <div className="eyebrow">L'Équipe Missionnaire</div>
+                    <h2 className="title">Missionnaires à tout âge</h2>
+                </div>
+                <div className="team-layout">
+                    <div className="team-image-box">
+                        <div className="team-image">
+                            <img src="https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg" alt="Équipe" />
+                        </div>
+                    </div>
+                    <div className="team-content">
+                        <h3>À combien arrivons-nous ?</h3>
+                        <p>Nous arrivons entre <strong>30 à 40 disciples missionnaires</strong> autour du curé de la paroisse qui nous accueille. Une communauté dynamique prête à servir !</p>
+
+                        <h3>Missionnaires à partir de quel âge ?</h3>
+                        <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !!</p>
+
+                        <div className="quote-box">
+                            <p>"Aujourd'hui, ce n'est pas seulement par-delà les océans qu'il faut propager la bonne parole, mais aussi dans nos villes et villages. Comme nous avons besoin de grands missionnaires ! Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n'est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère..."</p>
+                            <div className="quote-author">— Pierre-Alexandre Ludwig</div>
+                        </div>
+
+                        <p style={{ fontStyle: 'italic', color: '#666' }}>«Les enfants sont transparents, ils ne calculent pas. À un monsieur qui expliquait ne pas croire, Raphaël, âgé de 12 ans, n'a cessé de répéter, inquiet : "Mais vous savez quand même que Dieu vous aime?"»</p>
+                    </div>
+                </div>
+            </section>
+
             {/* LA MISSION EN PRATIQUE (Inserted) */}
             <section id="mission">
                 <div className="section-head">
@@ -1187,34 +1216,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* TEAM SECTION */}
-            <section className="team-section">
-                <div className="section-head">
-                    <div className="eyebrow">L'Équipe Missionnaire</div>
-                    <h2 className="title">Missionnaires à tout âge</h2>
-                </div>
-                <div className="team-layout">
-                    <div className="team-image-box">
-                        <div className="team-image">
-                            <img src="https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg" alt="Équipe" />
-                        </div>
-                    </div>
-                    <div className="team-content">
-                        <h3>À combien arrivons-nous ?</h3>
-                        <p>Nous arrivons entre <strong>30 à 40 disciples missionnaires</strong> autour du curé de la paroisse qui nous accueille. Une communauté dynamique prête à servir !</p>
 
-                        <h3>Missionnaires à partir de quel âge ?</h3>
-                        <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !!</p>
-
-                        <div className="quote-box">
-                            <p>"Aujourd'hui, ce n'est pas seulement par-delà les océans qu'il faut propager la bonne parole, mais aussi dans nos villes et villages. Comme nous avons besoin de grands missionnaires ! Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n'est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère..."</p>
-                            <div className="quote-author">— Pierre-Alexandre Ludwig</div>
-                        </div>
-
-                        <p style={{ fontStyle: 'italic', color: '#666' }}>«Les enfants sont transparents, ils ne calculent pas. À un monsieur qui expliquait ne pas croire, Raphaël, âgé de 12 ans, n'a cessé de répéter, inquiet : "Mais vous savez quand même que Dieu vous aime?"»</p>
-                    </div>
-                </div>
-            </section>
 
             {/* BANNER */}
             <div className="banner">
