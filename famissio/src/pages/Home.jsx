@@ -626,12 +626,12 @@ const Home = () => {
             display: inline-flex; 
             align-items: center; 
             gap: 12px; 
-            color: var(--flame); /* Lien en Rouge */
+            color: black; /* Lien en Noir */
             text-decoration: none; 
             font-weight: 700; 
             font-size: 1.2rem; 
             padding: 18px 0; 
-            border-bottom: 3px solid var(--flame); /* Soulignement Rouge */
+            border-bottom: 3px solid black; /* Soulignement Noir */
             transition: gap 0.3s;
         }
         .prayer-cta:hover { gap: 20px; }
