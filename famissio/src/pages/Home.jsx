@@ -203,8 +203,8 @@ const Home = () => {
             justify-content: center; 
             padding: 5%; 
             height: 100%;
-            /* Remonte le contenu globalement comme demandé */
-            margin-top: -40px; 
+            /* Ajustement "un poil" vers le bas pour éviter le chevauchement avec la navbar */
+            margin-top: 0; 
         }
         
         .image-blob { 
@@ -674,12 +674,10 @@ const Home = () => {
           margin-bottom: 25px;
           padding-left: 40px;
           position: relative;
-          transition: all 0.3s;
         }
 
         .question-item:hover {
           color: #f46a07;
-          transform: translateX(10px);
         }
 
         .question-item::before {
