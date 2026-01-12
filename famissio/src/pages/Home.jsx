@@ -1050,7 +1050,6 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* HERO CAROUSEL */}
             <HeroCarousel />
 
             {/* NOTRE HISTOIRE */}

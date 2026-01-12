@@ -76,11 +76,9 @@ const HeroCarousel = () => {
     };
 
     const handleSlideClick = (e) => {
-        // Ne pas déclencher si on clique sur les boutons/flèches/barres
-        if (e.target.closest('.slide-cta, .carousel-arrow, .carousel-nav')) {
+        if (e.target.closest('.slide-link, .carousel-arrow, .carousel-nav')) {
             return;
         }
-        // MODIFICATION : Bascule entre pause et lecture (toggle)
         setIsAutoPlaying(prev => !prev);
     };
 
@@ -98,15 +96,22 @@ const HeroCarousel = () => {
                 body { 
                     font-family: 'Inter', sans-serif; 
                     overflow-x: hidden;
+                    width: 100%;
+                }
+
+                .famissio-container {
+                    width: 100%;
+                    height: 100vh;
+                    overflow: hidden;
                 }
 
                 /* CAROUSEL */
                 .carousel-section {
                     position: relative;
                     width: 100%;
-                    /* MODIFICATION : Passage à 100vh pour prendre toute la hauteur */
                     height: 100vh;
-                    min-height: 600px;
+                    display: flex;
+                    flex-direction: column;
                 }
 
                 .carousel-wrapper {
@@ -127,16 +132,33 @@ const HeroCarousel = () => {
                     height: 100%;
                     position: relative;
                     cursor: pointer;
-                }
-
-                /* SLIDE FORMATION */
-                .formation-slide {
-                    background: linear-gradient(135deg, #fff8f4 0%, #faf7f5 100%);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 80px;
-                    padding-bottom: 200px;
+                }
+
+                /* --- CONTENEUR DE CONTENU GÉNÉRIQUE --- */
+                .slide-content-wrapper {
+                    position: relative;
+                    z-index: 2;
+                    text-align: center;
+                    max-width: 900px;
+                    padding: 40px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 50px;
+                }
+
+                /* --- SLIDE FORMATION --- */
+                .formation-slide {
+                    background: linear-gradient(135deg, #fff8f4 0%, #faf7f5 100%);
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     position: relative;
                     overflow: hidden;
                 }
@@ -150,20 +172,14 @@ const HeroCarousel = () => {
                     height: 600px;
                     background: radial-gradient(circle, rgba(200, 41, 4, 0.05) 0%, transparent 70%);
                     border-radius: 50%;
-                }
-
-                .formation-content {
-                    position: relative;
-                    z-index: 2;
-                    text-align: center;
-                    max-width: 900px;
+                    pointer-events: none;
                 }
 
                 .formation-icon-group {
                     display: flex;
                     gap: 30px;
                     justify-content: center;
-                    margin-bottom: 50px;
+                    margin-bottom: 40px;
                 }
 
                 .formation-icon {
@@ -179,7 +195,6 @@ const HeroCarousel = () => {
                     box-shadow: 0 10px 30px rgba(200, 41, 4, 0.2);
                     animation: floatIcon 3s ease-in-out infinite;
                 }
-
                 .formation-icon:nth-child(2) { animation-delay: -1s; }
                 .formation-icon:nth-child(3) { animation-delay: -2s; }
 
@@ -193,14 +208,14 @@ const HeroCarousel = () => {
                     font-size: clamp(2.5rem, 6vw, 4.5rem);
                     font-weight: 900;
                     color: var(--flame);
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
                     line-height: 1.1;
                 }
 
                 .formation-subtitle {
                     font-size: clamp(1.2rem, 2vw, 1.6rem);
                     color: #666;
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                     line-height: 1.6;
                 }
 
@@ -209,26 +224,19 @@ const HeroCarousel = () => {
                     border-left: 4px solid var(--ember);
                     padding: 20px 30px;
                     border-radius: 10px;
-                    margin-top: 30px;
+                    margin-bottom: 40px;
                 }
 
-                .formation-highlight p {
-                    font-size: 1.1rem;
-                    color: #555;
-                    line-height: 1.7;
-                    margin: 0;
-                }
-
-                /* SLIDE PRIÈRE */
+                /* --- SLIDE PRIÈRE --- */
                 .priere-slide {
                     background-image: url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1600&q=80');
                     background-size: cover;
                     background-position: center;
+                    width: 100%;
+                    height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 80px;
-                    padding-bottom: 200px;
                     position: relative;
                 }
 
@@ -237,14 +245,6 @@ const HeroCarousel = () => {
                     position: absolute;
                     inset: 0;
                     background: linear-gradient(135deg, rgba(26, 26, 26, 0.85), rgba(45, 27, 61, 0.75));
-                }
-
-                .priere-content {
-                    position: relative;
-                    z-index: 2;
-                    text-align: center;
-                    max-width: 800px;
-                    color: white;
                 }
 
                 .priere-icon {
@@ -267,7 +267,7 @@ const HeroCarousel = () => {
                     font-size: clamp(2.5rem, 6vw, 4.5rem);
                     font-weight: 900;
                     color: white;
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                     line-height: 1.1;
                 }
 
@@ -276,7 +276,7 @@ const HeroCarousel = () => {
                     line-height: 1.9;
                     color: rgba(255, 255, 255, 0.9);
                     font-style: italic;
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
                     padding: 0 20px;
                 }
 
@@ -286,38 +286,49 @@ const HeroCarousel = () => {
                     font-weight: 600;
                     letter-spacing: 2px;
                     text-transform: uppercase;
+                    margin-bottom: 40px;
                 }
 
-                /* SLIDE MISSION 2026 */
+                /* --- SLIDE MISSION 2026 (NOUVEAU DESIGN: FOND DÉGRADÉ + FORMES ABSTRAITES) --- */
                 .mission2026-slide {
-                    /* MODIFICATION : Remplacement du fond orange par une image photo */
-                    background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80');
-                    background-size: cover;
-                    background-position: center;
+                    /* Fond dégradé riche et chaud, différent du orange vif de base */
+                    background: linear-gradient(135deg, #e65c00 0%, #991f03 100%);
+                    width: 100%;
+                    height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    padding: 80px;
-                    padding-bottom: 200px;
                     position: relative;
                     overflow: hidden;
+                    color: white;
                 }
 
+                /* Forme abstraite 1 (Haut Gauche) */
                 .mission2026-slide::before {
                     content: '';
                     position: absolute;
-                    inset: 0;
-                    /* MODIFICATION : Overlay sombre pour la lisibilité sur la photo */
-                    background: rgba(0, 0, 0, 0.4);
+                    top: -20%;
+                    left: -10%;
+                    width: 600px;
+                    height: 600px;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Forme organique */
+                    transform: rotate(-15deg);
+                    pointer-events: none;
                 }
 
-                /* J'ai supprimé le ::after qui contenait le motif géométrique (SVG) */
-
-                .mission2026-content {
-                    position: relative;
-                    z-index: 2;
-                    text-align: center;
-                    max-width: 900px;
+                /* Forme abstraite 2 (Bas Droite) */
+                .mission2026-slide::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -30%;
+                    right: -10%;
+                    width: 800px;
+                    height: 800px;
+                    background: radial-gradient(circle, rgba(255, 200, 0, 0.15) 0%, transparent 60%);
+                    border-radius: 60% 40% 30% 70% / 50% 30% 50% 40%; /* Autre forme organique */
+                    transform: rotate(20deg);
+                    pointer-events: none;
                 }
 
                 .mission-badge {
@@ -331,7 +342,7 @@ const HeroCarousel = () => {
                     font-weight: 700;
                     letter-spacing: 2px;
                     text-transform: uppercase;
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
                     border: 2px solid rgba(255, 255, 255, 0.3);
                 }
 
@@ -341,8 +352,8 @@ const HeroCarousel = () => {
                     font-weight: 900;
                     color: white;
                     line-height: 1;
-                    margin-bottom: 20px;
-                    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                    margin-bottom: 10px;
+                    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
                 }
 
                 .mission-title {
@@ -350,9 +361,8 @@ const HeroCarousel = () => {
                     font-size: clamp(2rem, 5vw, 3.5rem);
                     font-weight: 700;
                     color: white;
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                     line-height: 1.2;
-                    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
                 }
 
                 .mission-dioceses {
@@ -360,18 +370,18 @@ const HeroCarousel = () => {
                     gap: 20px;
                     justify-content: center;
                     flex-wrap: wrap;
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                 }
 
                 .diocese-tag {
-                    background: rgba(255, 255, 255, 0.15);
-                    backdrop-filter: blur(10px);
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(5px);
                     color: white;
-                    padding: 12px 25px;
+                    padding: 10px 25px;
                     border-radius: 30px;
                     font-size: 1rem;
                     font-weight: 600;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
                 }
 
                 .mission-date {
@@ -380,55 +390,48 @@ const HeroCarousel = () => {
                     font-weight: 700;
                     color: white;
                     letter-spacing: 3px;
-                    margin-bottom: 50px;
-                    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    margin-bottom: 40px;
                 }
 
-                /* BOUTON CTA */
-                .slide-cta {
-                    position: absolute;
-                    bottom: 150px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    z-index: 10;
-                }
-
+                /* --- BOUTON CTA (INTÉGRÉ AU FLUX) --- */
                 .slide-link {
                     display: inline-flex;
                     align-items: center;
                     gap: 15px;
                     background: white;
                     color: var(--flame);
-                    padding: 20px 50px;
+                    padding: 18px 45px;
                     border-radius: 50px;
                     text-decoration: none;
                     font-weight: 700;
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     transition: all 0.4s ease;
-                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                    margin-top: 10px; 
+                    z-index: 10;
                 }
 
                 .slide-link:hover {
                     transform: translateY(-5px);
-                    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+                    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
                     gap: 25px;
                 }
 
-                /* NAVIGATION */
+                /* NAVIGATION (BARRES) */
                 .carousel-nav {
                     position: absolute;
-                    bottom: 50px;
+                    bottom: 30px;
                     left: 50%;
                     transform: translateX(-50%);
                     display: flex;
                     gap: 12px;
-                    z-index: 10;
+                    z-index: 20;
                 }
 
                 .nav-dot {
-                    width: 70px;
+                    width: 60px;
                     height: 4px;
-                    background: rgba(200, 41, 4, 0.3);
+                    background: rgba(255, 255, 255, 0.3);
                     border: none;
                     border-radius: 2px;
                     cursor: pointer;
@@ -437,23 +440,15 @@ const HeroCarousel = () => {
                     transition: all 0.3s ease;
                 }
 
-                /* Couleurs adaptées selon le slide */
-                .formation-slide + * .nav-dot {
-                    background: rgba(200, 41, 4, 0.3);
-                }
-
-                .priere-slide + * .nav-dot,
-                .mission2026-slide + * .nav-dot {
-                    background: rgba(255, 255, 255, 0.3);
-                }
+                .formation-slide + * .nav-dot { background: rgba(200, 41, 4, 0.3); }
+                .priere-slide + * .nav-dot, 
+                .mission2026-slide + * .nav-dot { background: rgba(255, 255, 255, 0.3); }
 
                 .carousel-nav .nav-dot {
                     background: var(--nav-color, rgba(255, 255, 255, 0.3));
                 }
 
-                .nav-dot:hover {
-                    opacity: 0.8;
-                }
+                .nav-dot:hover { opacity: 0.8; }
 
                 .nav-dot-fill {
                     position: absolute;
@@ -465,62 +460,54 @@ const HeroCarousel = () => {
                     transition: width 0.1s linear;
                 }
 
-                .nav-dot.active .nav-dot-fill {
-                    width: var(--progress);
-                }
+                .nav-dot.active .nav-dot-fill { width: var(--progress); }
 
+                /* FLÈCHES */
                 .carousel-arrow {
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    width: 60px;
-                    height: 60px;
-                    background: rgba(255, 255, 255, 0.9);
-                    border: none;
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(5px);
+                    border: 1px solid rgba(255,255,255,0.3);
                     border-radius: 50%;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 1.3rem;
-                    color: var(--flame);
+                    font-size: 1.1rem;
+                    color: white;
                     transition: all 0.3s ease;
-                    z-index: 10;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                    z-index: 20;
+                }
+
+                .formation-slide .carousel-arrow {
+                    background: rgba(200, 41, 4, 0.1);
+                    color: var(--flame);
+                    border-color: rgba(200, 41, 4, 0.2);
                 }
 
                 .carousel-arrow:hover {
                     background: white;
+                    color: var(--flame);
                     transform: translateY(-50%) scale(1.1);
                 }
 
-                .carousel-arrow.prev { left: 40px; }
-                .carousel-arrow.next { right: 40px; }
+                .carousel-arrow.prev { left: 20px; }
+                .carousel-arrow.next { right: 20px; }
 
                 /* RESPONSIVE */
                 @media (max-width: 768px) {
-                    .carousel-section { height: 100vh; min-height: 500px; }
-                    .formation-slide, .priere-slide, .mission2026-slide { 
-                        padding: 40px 20px;
-                        padding-bottom: 180px;
+                    .slide-content-wrapper {
+                        padding: 20px;
+                        width: 90%;
                     }
-                    .formation-icon-group { gap: 20px; }
                     .formation-icon { width: 60px; height: 60px; font-size: 1.5rem; }
-                    .mission-dioceses { flex-direction: column; gap: 10px; }
-                    .slide-cta { bottom: 130px; }
-                    .slide-link { 
-                        padding: 16px 35px; 
-                        font-size: 1rem; 
-                    }
-                    .carousel-arrow {
-                        width: 50px;
-                        height: 50px;
-                        font-size: 1.1rem;
-                    }
-                    .carousel-arrow.prev { left: 20px; }
-                    .carousel-arrow.next { right: 20px; }
-                    .nav-dot { width: 50px; }
-                    .carousel-nav { bottom: 40px; }
+                    .slide-link { padding: 15px 35px; font-size: 1rem; }
+                    .carousel-nav { bottom: 20px; }
+                    .carousel-arrow { display: none; }
                 }
             `}</style>
 
@@ -538,29 +525,21 @@ const HeroCarousel = () => {
                             >
                                 {slide.type === 'formation' && (
                                     <div className="formation-slide">
-                                        <div className="formation-content">
+                                        <div className="slide-content-wrapper">
                                             <div className="formation-icon-group">
-                                                <div className="formation-icon">
-                                                    <i className="fas fa-book-open"></i>
-                                                </div>
-                                                <div className="formation-icon">
-                                                    <i className="fas fa-hands-praying"></i>
-                                                </div>
-                                                <div className="formation-icon">
-                                                    <i className="fas fa-heart"></i>
-                                                </div>
+                                                <div className="formation-icon"><i className="fas fa-book-open"></i></div>
+                                                <div className="formation-icon"><i className="fas fa-hands-praying"></i></div>
+                                                <div className="formation-icon"><i className="fas fa-heart"></i></div>
                                             </div>
                                             <h2 className="formation-title">Se Préparer pour la Mission</h2>
                                             <p className="formation-subtitle">
-                                                Des formations essentielles pour nourrir votre foi et vous équiper pour répondre aux questions du cœur
+                                                Des formations essentielles pour nourrir votre foi et vous équiper.
                                             </p>
                                             <div className="formation-highlight">
-                                                <p><strong>18 formations</strong> pour approfondir votre foi + une <strong>FAQ complète</strong> pour répondre aux questions rencontrées en mission</p>
+                                                <p><strong>18 formations</strong> + <strong>FAQ complète</strong></p>
                                             </div>
-                                        </div>
-                                        <div className="slide-cta">
                                             <a href={slide.link} className="slide-link">
-                                                Découvrir les formations
+                                                Découvrir
                                                 <i className="fas fa-arrow-right"></i>
                                             </a>
                                         </div>
@@ -569,21 +548,18 @@ const HeroCarousel = () => {
 
                                 {slide.type === 'priere' && (
                                     <div className="priere-slide">
-                                        <div className="priere-content">
+                                        <div className="slide-content-wrapper">
                                             <div className="priere-icon">
                                                 <i className="fas fa-dove"></i>
                                             </div>
                                             <h2 className="priere-title">La Prière du Famissionnaire</h2>
                                             <p className="priere-text">
                                                 "Que l'Esprit nous insuffle l'audace et l'humilité,<br />
-                                                La foi, la joie et l'amour<br />
-                                                pour faire de nous des missionnaires."
+                                                La foi, la joie et l'amour..."
                                             </p>
                                             <div className="priere-author">Refrain de Famissio</div>
-                                        </div>
-                                        <div className="slide-cta">
                                             <a href={slide.link} className="slide-link">
-                                                Découvrir la prière
+                                                Prier maintenant
                                                 <i className="fas fa-arrow-right"></i>
                                             </a>
                                         </div>
@@ -592,7 +568,7 @@ const HeroCarousel = () => {
 
                                 {slide.type === 'mission2026' && (
                                     <div className="mission2026-slide">
-                                        <div className="mission2026-content">
+                                        <div className="slide-content-wrapper">
                                             <div className="mission-badge">Prochaine Mission</div>
                                             <div className="mission-year">2026</div>
                                             <h2 className="mission-title">Mission Paroissiale</h2>
@@ -602,10 +578,8 @@ const HeroCarousel = () => {
                                                 <div className="diocese-tag">Poitiers</div>
                                             </div>
                                             <div className="mission-date">24 — 30 OCTOBRE</div>
-                                        </div>
-                                        <div className="slide-cta">
                                             <a href={slide.link} className="slide-link">
-                                                Rejoindre la mission
+                                                Rejoindre
                                                 <i className="fas fa-arrow-right"></i>
                                             </a>
                                         </div>
@@ -615,18 +589,10 @@ const HeroCarousel = () => {
                         ))}
                     </div>
 
-                    <button
-                        className="carousel-arrow prev"
-                        onClick={prevSlide}
-                        aria-label="Slide précédent"
-                    >
+                    <button className="carousel-arrow prev" onClick={prevSlide}>
                         <i className="fas fa-chevron-left"></i>
                     </button>
-                    <button
-                        className="carousel-arrow next"
-                        onClick={nextSlide}
-                        aria-label="Slide suivant"
-                    >
+                    <button className="carousel-arrow next" onClick={nextSlide}>
                         <i className="fas fa-chevron-right"></i>
                     </button>
 
@@ -642,7 +608,6 @@ const HeroCarousel = () => {
                                 key={index}
                                 className={`nav-dot ${currentSlide === index ? 'active' : ''}`}
                                 onClick={() => goToSlide(index)}
-                                aria-label={`Aller au slide ${index + 1}`}
                                 style={{ '--progress': currentSlide === index ? `${progress}%` : '0%' }}
                             >
                                 <div className="nav-dot-fill"></div>
