@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import HeroCarousel from '../components/HeroCarousel';
 
 const Home = () => {
@@ -1348,10 +1349,10 @@ const Home = () => {
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
-                <a href="https://famissio-99.webself.net/priere-de-famissio" target="_blank" className="prayer-cta">
+                <Link to="/priere-famissio" className="prayer-cta">
                     Accéder à la prière
                     <i className="fas fa-arrow-right"></i>
-                </a>
+                </Link>
             </div>
         </div>
     );

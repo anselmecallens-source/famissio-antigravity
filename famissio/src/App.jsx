@@ -12,6 +12,7 @@ import Missions from './pages/Missions';
 import Formation from './pages/Formation';
 import Temoignages from './pages/Temoignages';
 import NousRejoindre from './pages/NousRejoindre';
+import PriereFamissio from './pages/PriereFamissio';
 
 // Petit utilitaire pour remonter en haut de page à chaque changement de lien
 function ScrollToTop() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/formation" element={<Formation />} />
         <Route path="/temoignages" element={<Temoignages />} />
         <Route path="/contact" element={<div style={{ paddingTop: '120px' }}><NousRejoindre /></div>} />
+        <Route path="/priere-famissio" element={<div style={{ paddingTop: '120px' }}><PriereFamissio /></div>} />
       </Routes>
 
       {/* 3. Le footer visible partout */}
