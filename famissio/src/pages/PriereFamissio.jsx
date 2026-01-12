@@ -66,19 +66,14 @@ export default function PriereFamissio() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
             {/* Hero Section */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-red-700 via-red-600 to-orange-600 text-white">
-                <div className="absolute inset-0 bg-black opacity-10"></div>
-                <div className="absolute inset-0" style={{
-                    backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
-                }}></div>
-
-                <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-24">
+            <div className="relative overflow-hidden pt-12 pb-6">
+                <div className="relative max-w-5xl mx-auto px-6">
                     <div className="text-center">
 
-                        <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
+                        <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight text-red-700">
                             Prière de Famissio
                         </h1>
-                        <p className="text-lg md:text-xl text-red-100 max-w-2xl mx-auto">
+                        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
                             Une prière pour inspirer la mission et la foi dans nos cœurs
                         </p>
                     </div>
