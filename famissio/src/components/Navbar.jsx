@@ -54,9 +54,7 @@ const Navbar = () => {
 
   return (
     <>
-      <Link to="/" className={`fixed-logo-link ${scrolled ? 'visible' : ''}`} onClick={closeMenu}>
-        <div className="fixed-logo-text">Famissio</div>
-      </Link>
+
 
       <nav className={`hero-navbar ${scrolled ? 'hidden' : ''}`} style={navStyle}>
 
