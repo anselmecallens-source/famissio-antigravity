@@ -18,7 +18,7 @@ const HeroCarousel = () => {
         document.head.appendChild(linkABC);
 
         const linkFonts = document.createElement("link");
-        linkFonts.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Inter:wght@300;400;500;600&display=swap";
+        linkFonts.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800;900&family=Inter:wght@300;400;500;600&display=swap";
         linkFonts.rel = "stylesheet";
         document.head.appendChild(linkFonts);
     }, []);
@@ -45,7 +45,7 @@ const HeroCarousel = () => {
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     const goToSlide = (index) => setCurrentSlide(index);
     const handleSlideClick = (e) => {
-        if (e.target.closest('.slide-link, .carousel-arrow, .carousel-nav')) return;
+        if (e.target.closest('.slide-cta-btn, .carousel-arrow, .carousel-nav, .action-btn')) return;
         setIsAutoPlaying(prev => !prev);
     };
 
@@ -55,30 +55,27 @@ const HeroCarousel = () => {
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 :root {
                     --flame: #c82904;
+                    --deep-red: #8a1c02;
                     --ember: #f46a07;
-                    --coral: #ff8b6b;
-                    --deep-purple: #240b36;
-                    --dark-bg: #1a0b2e;
                 }
                 body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
                 .famissio-container { width: 100%; height: 100vh; overflow: hidden; }
 
-                /* CAROUSEL STRUCTURE */
+                /* CAROUSEL */
                 .carousel-section { position: relative; width: 100%; height: 100vh; }
                 .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; }
                 .carousel-track { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-                
                 .carousel-slide {
                     min-width: 100%; height: 100%; position: relative; cursor: pointer;
                     display: flex; align-items: center; justify-content: center;
                 }
 
-                /* --- CONTENEUR PRINCIPAL (Gère l'espacement) --- */
+                /* --- CONTAINER PRINCIPAL --- */
                 .slide-content-wrapper {
-                    position: relative; z-index: 2; text-align: center; max-width: 1000px; width: 90%;
-                    display: flex; flex-direction: column; align-items: center;
-                    /* PADDING IMPORTANT EN BAS POUR ÉVITER LE CHEVAUCHEMENT AVEC LA NAV */
-                    padding-bottom: 100px; 
+                    position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
+                    display: flex; flex-direction: column; align-items: center; justify-content: center;
+                    /* Marge énorme en bas pour garantir que les boutons ne touchent JAMAIS les barres */
+                    padding-bottom: 120px; 
                 }
 
                 /* --- SLIDE 1: FORMATION --- */
@@ -86,179 +83,146 @@ const HeroCarousel = () => {
                     background: linear-gradient(135deg, #fff8f4 0%, #fff0e6 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
                 }
-                /* Forme décorative douce */
                 .formation-slide::before {
-                    content: ''; position: absolute; top: -30%; left: -10%; width: 80vh; height: 80vh;
-                    background: radial-gradient(circle, rgba(200, 41, 4, 0.04) 0%, transparent 70%);
+                    content: ''; position: absolute; top: -30%; right: -10%; width: 60vh; height: 60vh;
+                    background: radial-gradient(circle, rgba(200, 41, 4, 0.05) 0%, transparent 70%);
                     border-radius: 50%; pointer-events: none;
                 }
-
-                .formation-header { margin-bottom: 4vh; } /* Groupe Titre/Sous-titre */
                 
-                .formation-icon-group {
-                    display: flex; gap: 30px; justify-content: center; margin-bottom: 30px;
-                    opacity: 0.9;
-                }
-                .formation-icon { font-size: 2rem; color: var(--flame); } /* Simple et propre */
-
+                .formation-icon-group { display: flex; gap: 25px; justify-content: center; margin-bottom: 25px; color: var(--flame); font-size: 1.8rem; }
+                
                 .formation-title {
-                    font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
-                    font-weight: 800; color: var(--flame); line-height: 1.1; margin-bottom: 15px;
+                    font-family: 'Playfair Display', serif; 
+                    /* Ajusté pour tenir sur une ligne */
+                    font-size: clamp(2rem, 4.5vw, 4rem); 
+                    font-weight: 800; color: var(--flame); margin-bottom: 15px; white-space: nowrap;
                 }
                 .formation-subtitle {
-                    font-size: clamp(1.1rem, 2vw, 1.4rem); color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; font-weight: 300;
+                    font-size: clamp(1rem, 1.5vw, 1.3rem); color: #555; max-width: 700px; margin: 0 auto 30px; font-weight: 300;
                 }
-                .formation-tags {
-                    display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap;
+                
+                .slide-cta-btn {
+                    display: inline-flex; align-items: center; gap: 10px;
+                    padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem;
+                    transition: all 0.3s ease; z-index: 10;
+                    background: var(--flame); color: white; box-shadow: 0 10px 25px rgba(200, 41, 4, 0.3);
                 }
-                .tag-badge {
-                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 8px 20px;
-                    border-radius: 20px; font-weight: 600; font-size: 0.9rem;
-                }
+                .slide-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(200, 41, 4, 0.4); }
 
-                /* --- SLIDE 2: PRIÈRE (Style épuré et noble) --- */
+                /* --- SLIDE 2: PRIÈRE (Actions modifiées) --- */
                 .priere-slide {
-                    background: radial-gradient(circle at center, #3a1c52 0%, #150821 100%);
+                    background: radial-gradient(circle at center, #2e1042 0%, #150821 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
                 }
-                .priere-icon-top {
-                    font-size: 2.5rem; color: rgba(255,255,255,0.8); margin-bottom: 30px;
-                }
+                .priere-icon-top { font-size: 2.5rem; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+                
                 .priere-title {
-                    font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5rem);
-                    font-weight: 700; color: white; margin-bottom: 30px;
+                    font-family: 'Playfair Display', serif; 
+                    font-size: clamp(2rem, 4.5vw, 4rem); /* Ajusté pour une ligne */
+                    font-weight: 700; color: white; margin-bottom: 25px; white-space: nowrap;
                 }
                 .priere-quote {
                     font-family: 'Playfair Display', serif; font-style: italic;
-                    font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.6; color: rgba(255, 255, 255, 0.9);
-                    max-width: 800px; margin-bottom: 20px;
-                }
-                .priere-ref {
-                    font-size: 0.9rem; letter-spacing: 3px; color: var(--coral); text-transform: uppercase; margin-bottom: 50px;
+                    font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.6; color: rgba(255, 255, 255, 0.9);
+                    max-width: 800px; margin-bottom: 40px;
                 }
 
-                /* --- SLIDE 3: MISSION 2026 (Le fameux fond losange en CSS pur) --- */
+                /* NOUVEAU GROUPE DE BOUTONS */
+                .priere-actions {
+                    display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 10px; z-index: 10;
+                }
+                .action-btn {
+                    display: inline-flex; align-items: center; gap: 8px;
+                    padding: 12px 25px; border-radius: 30px; text-decoration: none;
+                    font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;
+                    background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3);
+                    backdrop-filter: blur(5px); cursor: pointer;
+                }
+                .action-btn:hover { background: white; color: #2e1042; transform: translateY(-3px); }
+
+                /* --- SLIDE 3: MISSION 2026 (Fond Organique / Pas de triangles) --- */
                 .mission2026-slide {
-                    background-color: #e65c00; /* Fallback */
-                    /* Motif losange créé avec des gradients CSS */
-                    background-image: 
-                        linear-gradient(135deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent 100%),
-                        linear-gradient(225deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent 100%);
-                    background-size: 60px 60px; /* Taille des losanges */
-                    
-                    /* Ajout d'un vignetage pour la profondeur */
-                    box-shadow: inset 0 0 150px rgba(0,0,0,0.3);
-                    
+                    /* Dégradé rouge profond, pas orange vif */
+                    background: linear-gradient(135deg, var(--flame), var(--deep-red));
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; color: white;
                 }
-
-                /* Container pour l'effet de superposition "2026" */
-                .mission-overlap-container {
-                    position: relative; height: 250px; width: 100%; display: flex; align-items: center; justify-content: center;
-                    margin-bottom: 20px;
+                
+                /* FORMES ORGANIQUES (CERCLES FLOUS) - PAS DE TRIANGLES */
+                .mission2026-slide::before {
+                    content: ''; position: absolute; top: -20%; left: -10%; width: 50vw; height: 50vw;
+                    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+                    border-radius: 50%; pointer-events: none;
+                }
+                .mission2026-slide::after {
+                    content: ''; position: absolute; bottom: -20%; right: -10%; width: 60vh; height: 60vh;
+                    background: radial-gradient(circle, rgba(255,200,0,0.15) 0%, transparent 70%);
+                    border-radius: 50%; pointer-events: none;
                 }
 
+                .mission-overlap-container {
+                    position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center;
+                    margin-bottom: 10px;
+                }
                 .mission-year-bg {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(12rem, 30vw, 22rem); /* Gigantesque */
-                    font-weight: 900;
-                    color: rgba(255, 255, 255, 0.15); /* Transparence subtile */
-                    position: absolute;
-                    top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    z-index: 1;
-                    user-select: none;
-                    white-space: nowrap;
+                    font-size: clamp(10rem, 25vw, 18rem);
+                    font-weight: 900; color: rgba(255, 255, 255, 0.12);
+                    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    z-index: 1; user-select: none;
                 }
-
                 .mission-main-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(2.5rem, 6vw, 4.5rem);
-                    font-weight: 700;
-                    color: white;
-                    position: relative; z-index: 2; /* Devant le 2026 */
-                    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                    margin: 0;
+                    font-size: clamp(2rem, 5vw, 4.5rem); /* Ajusté pour une ligne */
+                    font-weight: 700; color: white; position: relative; z-index: 2;
+                    text-shadow: 0 4px 20px rgba(0,0,0,0.3); white-space: nowrap;
                 }
 
                 .mission-badge {
-                    background: white; color: var(--flame); padding: 8px 25px; border-radius: 50px;
-                    font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
-                    margin-bottom: 20px; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                }
-
-                .mission-info-row {
-                    display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 10px;
-                }
-                .diocese-pill {
-                    background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4);
-                    padding: 8px 20px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.95rem;
-                }
-
-                /* --- BOUTON CTA (Design Unifié) --- */
-                .slide-link {
-                    margin-top: 50px; /* Grand espace avant le bouton pour éviter l'effet empilé */
-                    display: inline-flex; align-items: center; gap: 12px;
-                    padding: 18px 45px; border-radius: 50px;
-                    text-decoration: none; font-weight: 700; font-size: 1.1rem;
-                    transition: all 0.3s ease;
-                    z-index: 10;
+                    background: rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+                    padding: 8px 20px; border-radius: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px;
                 }
                 
-                /* Bouton pour slide clair */
-                .formation-slide .slide-link {
-                    background: var(--flame); color: white; box-shadow: 0 10px 30px rgba(200, 41, 4, 0.3);
+                .mission-btn {
+                    margin-top: 30px; background: white; color: var(--flame); padding: 15px 40px; border-radius: 50px;
+                    text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
+                    transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
                 }
-                /* Bouton pour slides foncés */
-                .priere-slide .slide-link, .mission2026-slide .slide-link {
-                    background: white; color: var(--flame); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                }
+                .mission-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
 
-                .slide-link:hover { transform: translateY(-3px); gap: 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-
-                /* --- NAVIGATION (Barres) --- */
+                /* --- NAVIGATION --- */
                 .carousel-nav {
-                    position: absolute; bottom: 40px; /* Assez haut */
-                    left: 50%; transform: translateX(-50%);
-                    display: flex; gap: 15px; z-index: 20;
+                    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20;
                 }
                 .nav-bar {
-                    width: 50px; height: 4px; border-radius: 4px; cursor: pointer; position: relative; overflow: hidden;
-                    background: rgba(0,0,0,0.1); transition: width 0.3s ease;
+                    width: 40px; height: 4px; border-radius: 4px; cursor: pointer; position: relative; overflow: hidden;
+                    background: rgba(255,255,255,0.3); transition: width 0.3s ease; border: none;
                 }
-                /* Ajustement couleur nav selon fond */
-                .priere-slide + * .nav-bar, .mission2026-slide + * .nav-bar { background: rgba(255,255,255,0.3); }
+                .formation-slide + * .nav-bar { background: rgba(0,0,0,0.1); }
                 
-                .nav-bar-fill {
-                    position: absolute; left: 0; top: 0; height: 100%; width: 0; transition: width 0.1s linear;
-                }
+                .nav-bar-fill { position: absolute; left: 0; top: 0; height: 100%; width: 0; transition: width 0.1s linear; }
                 .formation-slide + * .nav-bar .nav-bar-fill { background: var(--flame); }
                 .priere-slide + * .nav-bar .nav-bar-fill, .mission2026-slide + * .nav-bar .nav-bar-fill { background: white; }
                 
-                .nav-bar.active { width: 70px; } /* La barre active est plus longue */
+                .nav-bar.active { width: 60px; }
                 .nav-bar.active .nav-bar-fill { width: var(--progress); }
 
-                /* --- FLÈCHES --- */
                 .carousel-arrow {
                     position: absolute; top: 50%; transform: translateY(-50%);
-                    width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer;
-                    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+                    width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer;
+                    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
                     transition: all 0.3s ease; z-index: 20;
                 }
-                /* Style flèches slide clair */
-                .formation-slide .carousel-arrow { background: white; color: var(--flame); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-                /* Style flèches slide foncé */
+                .formation-slide .carousel-arrow { background: white; color: var(--flame); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
                 .priere-slide .carousel-arrow, .mission2026-slide .carousel-arrow { background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(5px); }
-
-                .carousel-arrow:hover { transform: translateY(-50%) scale(1.1); background: white; color: var(--flame); }
-                .carousel-arrow.prev { left: 30px; }
-                .carousel-arrow.next { right: 30px; }
+                .carousel-arrow:hover { transform: translateY(-50%) scale(1.1); }
+                .carousel-arrow.prev { left: 20px; }
+                .carousel-arrow.next { right: 20px; }
 
                 @media (max-width: 768px) {
-                    .slide-content-wrapper { width: 95%; padding-bottom: 120px; } /* Encore plus de marge sur mobile */
-                    .mission-year-bg { font-size: 10rem; }
-                    .formation-icon-group { gap: 20px; margin-bottom: 20px; }
-                    .formation-icon { font-size: 1.5rem; }
-                    .carousel-arrow { display: none; } /* On cache les flèches sur mobile */
+                    .slide-content-wrapper { padding-bottom: 140px; }
+                    .carousel-arrow { display: none; }
+                    .mission-year-bg { font-size: 8rem; }
+                    .formation-title, .priere-title, .mission-main-title { white-space: normal; } /* Sur mobile on autorise le retour à la ligne si besoin */
                 }
             `}</style>
 
@@ -272,26 +236,15 @@ const HeroCarousel = () => {
                                 {slide.type === 'formation' && (
                                     <div className="formation-slide">
                                         <div className="slide-content-wrapper">
-                                            {/* Groupe icônes discret */}
                                             <div className="formation-icon-group">
-                                                <i className="fas fa-book-open formation-icon"></i>
-                                                <i className="fas fa-heart formation-icon"></i>
+                                                <i className="fas fa-book-open"></i>
+                                                <i className="fas fa-heart"></i>
                                             </div>
-
-                                            {/* Groupe texte unifié */}
-                                            <div className="formation-header">
-                                                <h2 className="formation-title">Se Préparer pour la Mission</h2>
-                                                <p className="formation-subtitle">
-                                                    Des parcours conçus pour nourrir votre foi et vous donner les clés de l'évangélisation.
-                                                </p>
-                                                <div className="formation-tags">
-                                                    <span className="tag-badge">18 Formations</span>
-                                                    <span className="tag-badge">FAQ Mission</span>
-                                                </div>
-                                            </div>
-
-                                            {/* Bouton bien séparé */}
-                                            <a href={slide.link} className="slide-link">
+                                            <h2 className="formation-title">Se Préparer pour la Mission</h2>
+                                            <p className="formation-subtitle">
+                                                Des parcours conçus pour nourrir votre foi et vous donner les clés de l'évangélisation.
+                                            </p>
+                                            <a href={slide.link} className="slide-cta-btn">
                                                 Découvrir le catalogue <i className="fas fa-arrow-right"></i>
                                             </a>
                                         </div>
@@ -308,11 +261,19 @@ const HeroCarousel = () => {
                                                 "Que l'Esprit nous insuffle l'audace et l'humilité,<br />
                                                 La foi, la joie et l'amour..."
                                             </p>
-                                            <div className="priere-ref">Refrain de Famissio</div>
 
-                                            <a href={slide.link} className="slide-link">
-                                                Prier maintenant <i className="fas fa-arrow-right"></i>
-                                            </a>
+                                            {/* NOUVEAUX BOUTONS ACTIONS */}
+                                            <div className="priere-actions">
+                                                <button className="action-btn">
+                                                    <i className="fas fa-play"></i> Audio
+                                                </button>
+                                                <button className="action-btn">
+                                                    <i className="fas fa-file-lines"></i> Paroles
+                                                </button>
+                                                <button className="action-btn">
+                                                    <i className="fas fa-music"></i> Partition
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 )}
@@ -323,19 +284,12 @@ const HeroCarousel = () => {
                                         <div className="slide-content-wrapper">
                                             <div className="mission-badge">Prochaine Mission</div>
 
-                                            {/* Superposition stylée */}
                                             <div className="mission-overlap-container">
                                                 <div className="mission-year-bg">2026</div>
                                                 <h2 className="mission-main-title">Mission Paroissiale</h2>
                                             </div>
 
-                                            <div className="mission-info-row">
-                                                <span className="diocese-pill">La Rochelle</span>
-                                                <span className="diocese-pill">Angoulême</span>
-                                                <span className="diocese-pill">Poitiers</span>
-                                            </div>
-
-                                            <a href={slide.link} className="slide-link">
+                                            <a href={slide.link} className="mission-btn">
                                                 Rejoindre l'aventure <i className="fas fa-arrow-right"></i>
                                             </a>
                                         </div>
