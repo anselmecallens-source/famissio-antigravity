@@ -314,6 +314,73 @@ const Home = () => {
         .video-box { position: relative; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6); }
         .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
 
+        /* SECTION MISSION (La Mission en Pratique) */
+        .mission-cards {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .mission-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-card::before { display: none; }
+        
+        .mission-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+        
+        .mission-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--flame), var(--ember));
+            border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            animation: morphIcon 8s ease-in-out infinite;
+            transition: transform 0.4s;
+        }
+        
+        @keyframes morphIcon {
+            0%, 100% { border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%; }
+            50% { border-radius: 65% 35% 40% 60% / 45% 55% 45% 55%; }
+        }
+        
+        /* Animation Icône sur le côté */
+        .mission-card:hover .mission-icon {
+            transform: scale(1.15) rotate(20deg) translateX(15px);
+        }
+        
+        .mission-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--flame);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .mission-card p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
         /* SECTION ÉQUIPE MISSIONNAIRE */
         .team-section { background: white; }
         .team-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 500px 1fr; gap: 60px; align-items: start; }
@@ -485,7 +552,7 @@ const Home = () => {
             transition: all 0.3s;
         }
         .pope-item:hover {
-            transform: translateX(10px);
+            transform: translateY(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         .pope-item h4 {
@@ -539,7 +606,7 @@ const Home = () => {
         }
         .prayer-cta:hover { gap: 20px; }
 
-        /* --- STYLES AJOUTÉS POUR LES SECTIONS RESTAURÉES --- */
+        /* --- STYLES AJOUTÉS POUR LES SECTIONS RESTAURÉES (CLASSES RENOMMÉES en tf-) --- */
 
         /* TOUSSAINT SECTION */
         .toussaint-section {
@@ -630,20 +697,20 @@ const Home = () => {
           text-align: left;
         }
 
-        /* SECTION MISSION - Grid innovante avec images */
-        .mission-showcase {
+        /* SECTION 6 TEMPS FORTS - Grid innovante avec images (RENOMMÉ EN tf-*) */
+        .tf-showcase {
           background: white;
           padding: 120px 0;
         }
 
-        .mission-header {
+        .tf-header {
           text-align: center;
           max-width: 900px;
           margin: 0 auto 100px;
           padding: 0 5%;
         }
 
-        .mission-super {
+        .tf-super {
           font-size: 0.8rem;
           letter-spacing: 4px;
           text-transform: uppercase;
@@ -652,7 +719,7 @@ const Home = () => {
           margin-bottom: 20px;
         }
 
-        .mission-title {
+        .tf-title {
           font-family: 'Playfair Display', serif;
           font-size: clamp(3rem, 6vw, 5.5rem);
           font-weight: 900;
@@ -661,13 +728,13 @@ const Home = () => {
           margin-bottom: 30px;
         }
 
-        .mission-subtitle {
+        .tf-subtitle {
           font-size: 1.15rem;
           color: #666;
           line-height: 1.7;
         }
 
-        .mission-grid {
+        .tf-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 0;
@@ -675,7 +742,7 @@ const Home = () => {
           margin: 0 auto;
         }
 
-        .mission-card {
+        .tf-card {
           position: relative;
           aspect-ratio: 1;
           overflow: hidden;
@@ -683,14 +750,14 @@ const Home = () => {
           border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .mission-card-image {
+        .tf-card-image {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
         }
 
-        .mission-card-image img {
+        .tf-card-image img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -698,12 +765,12 @@ const Home = () => {
           filter: grayscale(30%);
         }
 
-        .mission-card:hover .mission-card-image img {
+        .tf-card:hover .tf-card-image img {
           transform: scale(1.1);
           filter: grayscale(0%);
         }
 
-        .mission-overlay {
+        .tf-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
@@ -714,11 +781,11 @@ const Home = () => {
           transition: all 0.4s;
         }
 
-        .mission-card:hover .mission-overlay {
+        .tf-card:hover .tf-overlay {
           background: linear-gradient(to top, rgba(200,41,4,0.95) 0%, rgba(200,41,4,0.7) 70%, rgba(200,41,4,0.3) 100%);
         }
 
-        .mission-number {
+        .tf-number {
           font-family: 'Playfair Display', serif;
           font-size: 5rem;
           font-weight: 900;
@@ -728,12 +795,12 @@ const Home = () => {
           transition: all 0.4s;
         }
 
-        .mission-card:hover .mission-number {
+        .tf-card:hover .tf-number {
           color: rgba(255,255,255,0.3);
           transform: translateY(-10px);
         }
 
-        .mission-card-title {
+        .tf-card-title {
           font-family: 'Playfair Display', serif;
           font-size: 1.5rem;
           font-weight: 700;
@@ -743,11 +810,11 @@ const Home = () => {
           transition: all 0.4s;
         }
 
-        .mission-card:hover .mission-card-title {
+        .tf-card:hover .tf-card-title {
           transform: translateY(-5px);
         }
 
-        .mission-preview {
+        .tf-preview {
           font-size: 0.9rem;
           color: rgba(255,255,255,0.7);
           line-height: 1.5;
@@ -757,13 +824,13 @@ const Home = () => {
           transition: all 0.4s;
         }
 
-        .mission-card:hover .mission-preview {
+        .tf-card:hover .tf-preview {
           max-height: 200px;
           opacity: 1;
         }
 
         /* Panel latéral pour détails */
-        .mission-panel {
+        .tf-panel {
           position: fixed;
           right: -600px;
           top: 0;
@@ -777,7 +844,7 @@ const Home = () => {
           padding: 80px 60px;
         }
 
-        .mission-panel.active {
+        .tf-panel.active {
           right: 0;
         }
 
@@ -915,13 +982,13 @@ const Home = () => {
             .pillars-three { grid-template-columns: 1fr; }
             .masonry { columns: 2; }
             .priest-intro-flex { flex-direction: column; text-align: center; }
-            .mission-grid { grid-template-columns: repeat(2, 1fr); }
+            .tf-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             .diagonal { clip-path: none; padding: 80px 5%; }
             .mission-cards { grid-template-columns: 1fr; }
             .masonry { columns: 1; }
-            .mission-grid { grid-template-columns: 1fr; }
+            .tf-grid { grid-template-columns: 1fr; }
             .after-number { font-size: 10rem; margin-bottom: -50px; }
         }
     `}</style>
@@ -990,6 +1057,49 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* LA MISSION EN PRATIQUE (Inserted) */}
+            <section id="mission">
+                <div className="section-head">
+                    <div className="eyebrow">Notre Mission</div>
+                    <h2 className="title">La mission en pratique</h2>
+                </div>
+                <div className="mission-cards">
+                    <div className="mission-card">
+                        <div className="mission-icon">
+                            <i className="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Que faisons-nous ?</h3>
+                        <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
+                    </div>
+                    <div className="mission-card">
+                        <div className="mission-icon">
+                            <i className="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Préparation</h3>
+                        <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
+                    </div>
+                    <div className="mission-card">
+                        <div className="mission-icon">
+                            <i className="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Où allons-nous ?</h3>
+                        <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* LE PROGRAMME (Inserted) */}
+            <section className="section-cream">
+                <div className="section-head">
+                    <h2 className="title">Le Programme</h2>
+                </div>
+                <div className="video-frame" style={{ maxWidth: '1000px', margin: '0 auto', padding: '30px', background: 'white' }}>
+                    <div className="video-box">
+                        <iframe src="https://www.youtube.com/embed/ZnW9oGHpAyQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
+                </div>
+            </section>
+
             {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) */}
             <section className="toussaint-section">
                 <div className="toussaint-inner">
@@ -1013,28 +1123,28 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* 6 TEMPS FORTS (Depuis Source B) */}
-            <section className="mission-showcase">
-                <div className="mission-header">
-                    <div className="mission-super">Une Mission Paroissiale</div>
-                    <h2 className="mission-title">6 Temps Forts</h2>
-                    <p className="mission-subtitle">Cliquez sur chaque activité pour découvrir les détails</p>
+            {/* 6 TEMPS FORTS (Depuis Source B - CLASSES RENOMMÉES) */}
+            <section className="tf-showcase">
+                <div className="tf-header">
+                    <div className="tf-super">Une Mission Paroissiale</div>
+                    <h2 className="tf-title">6 Temps Forts</h2>
+                    <p className="tf-subtitle">Cliquez sur chaque activité pour découvrir les détails</p>
                 </div>
 
-                <div className="mission-grid">
+                <div className="tf-grid">
                     {missionBlocks.map((block, index) => (
                         <div
                             key={block.id}
-                            className="mission-card"
+                            className="tf-card"
                             onClick={() => setActiveMission(block)}
                         >
-                            <div className="mission-card-image">
+                            <div className="tf-card-image">
                                 <img src={block.image} alt={block.title} />
                             </div>
-                            <div className="mission-overlay">
-                                <div className="mission-number">0{index + 1}</div>
-                                <h3 className="mission-card-title">{block.title}</h3>
-                                <div className="mission-preview">
+                            <div className="tf-overlay">
+                                <div className="tf-number">0{index + 1}</div>
+                                <h3 className="tf-card-title">{block.title}</h3>
+                                <div className="tf-preview">
                                     {block.content ? block.content.substring(0, 100) + '...' : 'Découvrez les activités →'}
                                 </div>
                             </div>
@@ -1043,7 +1153,7 @@ const Home = () => {
                 </div>
 
                 {/* Panel latéral */}
-                <div className={`mission-panel ${activeMission ? 'active' : ''}`}>
+                <div className={`tf-panel ${activeMission ? 'active' : ''}`}>
                     <button className="panel-close" onClick={() => setActiveMission(null)}>×</button>
                     {activeMission && (
                         <>
