@@ -623,6 +623,7 @@ const Home = () => {
           min-height: 60vh;
           padding: 80px 5%;
           display: flex;
+          flex-direction: column; /* Explicitly vertical */
           align-items: center;
           justify-content: center;
           width: 100%;
@@ -631,7 +632,9 @@ const Home = () => {
         .toussaint-content {
           max-width: 800px;
           margin: 0 auto;
-          text-align: center; /* Centered content */
+          text-align: center;
+          display: block; /* Ensure block layout */
+          width: 100%;
         }
 
         .toussaint-tag {
