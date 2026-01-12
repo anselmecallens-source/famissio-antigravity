@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+// Main App Component
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Import des composants globaux

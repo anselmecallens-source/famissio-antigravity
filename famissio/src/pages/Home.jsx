@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// Home Page Component
+
+
 const Home = () => {
     const [activeMission, setActiveMission] = useState(null);
     const [scrollProgress, setScrollProgress] = useState(0);
