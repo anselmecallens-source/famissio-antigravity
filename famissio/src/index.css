@@ -1809,10 +1809,7 @@ section {
   border-bottom: none;
 }
 
-.question-item:hover {
-  padding-left: 1rem;
-  background: rgba(248, 106, 7, 0.03);
-}
+
 
 .question-item i {
   font-size: 1.5rem;
