@@ -87,7 +87,7 @@ export default function PriereFamissio() {
                 <section className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100">
                     <button
                         onClick={() => toggleSection('audio')}
-                        className="w-full flex items-center justify-between p-6 hover:bg-red-50 transition-colors"
+                        className="w-full flex items-center justify-between p-6 transition-colors"
                     >
                         <div className="flex items-center gap-3">
                             <div className="p-3 bg-red-100 rounded-xl">
@@ -150,7 +150,7 @@ export default function PriereFamissio() {
                 <section className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100">
                     <button
                         onClick={() => toggleSection('paroles')}
-                        className="w-full flex items-center justify-between p-6 hover:bg-red-50 transition-colors"
+                        className="w-full flex items-center justify-between p-6 transition-colors"
                     >
                         <div className="flex items-center gap-3">
                             <div className="p-3 bg-orange-100 rounded-xl">
@@ -209,7 +209,7 @@ export default function PriereFamissio() {
                 <section className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100">
                     <button
                         onClick={() => toggleSection('partition')}
-                        className="w-full flex items-center justify-between p-6 hover:bg-red-50 transition-colors"
+                        className="w-full flex items-center justify-between p-6 transition-colors"
                     >
                         <div className="flex items-center gap-3">
                             <div className="p-3 bg-amber-100 rounded-xl">
