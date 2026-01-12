@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import HeroCarousel from '../components/HeroCarousel';
 
 const Home = () => {
@@ -1050,6 +1051,7 @@ const Home = () => {
                 </div>
             </div>
 
+            {/* HERO CAROUSEL */}
             <HeroCarousel />
 
             {/* NOTRE HISTOIRE */}
