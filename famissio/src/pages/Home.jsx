@@ -590,19 +590,47 @@ const Home = () => {
         }
 
         /* PRAYER SECTION */
-        .prayer { background: linear-gradient(135deg, var(--flame), var(--ember)); text-align: center; color: white; position: relative; overflow: hidden; padding: 60px 5%; }
+        .prayer { 
+            background: #ede0d4; 
+            text-align: center; 
+            color: var(--charcoal); /* Texte Noir/Charcoal */
+            position: relative; 
+            overflow: hidden; 
+            padding: 60px 5%; 
+        }
         .prayer-logo { 
             width: 160px; height: 160px; margin: 0 auto 40px; background: white; 
             border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
             animation: morph 8s ease-in-out infinite;
             display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); /* Ombre plus douce */
+            position: relative; overflow: hidden;
         }
         .prayer-logo img { width: 70%; height: 70%; object-fit: contain; transform: scale(1.35); }
-        .prayer h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; font-weight: 700; }
-        .prayer p { font-size: 1.3rem; opacity: 0.95; margin-bottom: 45px; }
+        .prayer h2 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 25px; 
+            font-weight: 700; 
+            color: var(--flame); /* Titre en Rouge pour le style */
+        }
+        .prayer p { 
+            font-size: 1.3rem; 
+            opacity: 1; 
+            margin-bottom: 45px; 
+            color: var(--charcoal); /* Texte en Noir */
+        }
         .prayer-cta {
-            display: inline-flex; align-items: center; gap: 12px; color: white; text-decoration: none; font-weight: 700; font-size: 1.2rem; padding: 18px 0; border-bottom: 3px solid white; transition: gap 0.3s;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 12px; 
+            color: var(--flame); /* Lien en Rouge */
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+            padding: 18px 0; 
+            border-bottom: 3px solid var(--flame); /* Soulignement Rouge */
+            transition: gap 0.3s;
         }
         .prayer-cta:hover { gap: 20px; }
 
