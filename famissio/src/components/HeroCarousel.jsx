@@ -76,11 +76,12 @@ const HeroCarousel = () => {
     };
 
     const handleSlideClick = (e) => {
-        // Ne pas arrêter si on clique sur les boutons/flèches/barres
+        // Ne pas déclencher si on clique sur les boutons/flèches/barres
         if (e.target.closest('.slide-cta, .carousel-arrow, .carousel-nav')) {
             return;
         }
-        setIsAutoPlaying(false);
+        // MODIFICATION : Bascule entre pause et lecture (toggle)
+        setIsAutoPlaying(prev => !prev);
     };
 
     return (
@@ -103,7 +104,8 @@ const HeroCarousel = () => {
                 .carousel-section {
                     position: relative;
                     width: 100%;
-                    height: 80vh;
+                    /* MODIFICATION : Passage à 100vh pour prendre toute la hauteur */
+                    height: 100vh;
                     min-height: 600px;
                 }
 
@@ -288,7 +290,7 @@ const HeroCarousel = () => {
 
                 /* SLIDE MISSION 2026 */
                 .mission2026-slide {
-                    /* NOUVEAU FOND POUR ÉVITER LE DOUBLON */
+                    /* MODIFICATION : Remplacement du fond orange par une image photo */
                     background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80');
                     background-size: cover;
                     background-position: center;
@@ -305,15 +307,11 @@ const HeroCarousel = () => {
                     content: '';
                     position: absolute;
                     inset: 0;
-                    background: linear-gradient(135deg, rgba(200, 41, 4, 0.88), rgba(244, 106, 7, 0.82));
+                    /* MODIFICATION : Overlay sombre pour la lisibilité sur la photo */
+                    background: rgba(0, 0, 0, 0.4);
                 }
 
-                .mission2026-slide::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23fff' opacity='0.05'/%3E%3C/svg%3E");
-                }
+                /* J'ai supprimé le ::after qui contenait le motif géométrique (SVG) */
 
                 .mission2026-content {
                     position: relative;
@@ -354,6 +352,7 @@ const HeroCarousel = () => {
                     color: white;
                     margin-bottom: 40px;
                     line-height: 1.2;
+                    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
                 }
 
                 .mission-dioceses {
@@ -382,6 +381,7 @@ const HeroCarousel = () => {
                     color: white;
                     letter-spacing: 3px;
                     margin-bottom: 50px;
+                    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
                 }
 
                 /* BOUTON CTA */
@@ -499,7 +499,7 @@ const HeroCarousel = () => {
 
                 /* RESPONSIVE */
                 @media (max-width: 768px) {
-                    .carousel-section { height: 70vh; min-height: 500px; }
+                    .carousel-section { height: 100vh; min-height: 500px; }
                     .formation-slide, .priere-slide, .mission2026-slide { 
                         padding: 40px 20px;
                         padding-bottom: 180px;
@@ -524,7 +524,6 @@ const HeroCarousel = () => {
                 }
             `}</style>
 
-            {/* CAROUSEL (Hero retiré) */}
             <section className="carousel-section">
                 <div className="carousel-wrapper">
                     <div
