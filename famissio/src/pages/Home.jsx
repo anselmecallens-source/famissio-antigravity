@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import HeroCarousel from '../components/HeroCarousel';
 
 const Home = () => {
     // State pour la section "6 Temps Forts"
@@ -1048,6 +1049,9 @@ const Home = () => {
                     <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
                 </div>
             </div>
+
+            {/* HERO CAROUSEL */}
+            <HeroCarousel />
 
             {/* NOTRE HISTOIRE */}
             <div className="diagonal">
