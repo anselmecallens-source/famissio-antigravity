@@ -252,14 +252,7 @@ export default function PriereFamissio() {
                 </section>
             </div>
 
-            {/* Footer */}
-            <footer className="bg-gradient-to-r from-red-900 to-orange-900 text-white py-8 mt-16">
-                <div className="max-w-5xl mx-auto px-6 text-center">
-                    <p className="text-red-100">
-                        © 2026 Association Famissio - Tous droits réservés
-                    </p>
-                </div>
-            </footer>
+
         </div>
     );
 }
