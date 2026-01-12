@@ -44,8 +44,11 @@ const HeroCarousel = () => {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     const goToSlide = (index) => setCurrentSlide(index);
+
+    // Logique Play/Pause au clic
     const handleSlideClick = (e) => {
-        if (e.target.closest('.slide-cta-btn, .carousel-arrow, .carousel-nav, .action-btn')) return;
+        // Empêche le toggle si on clique sur un lien ou un bouton interactif
+        if (e.target.closest('a, button, .carousel-nav')) return;
         setIsAutoPlaying(prev => !prev);
     };
 
@@ -74,8 +77,8 @@ const HeroCarousel = () => {
                 .slide-content-wrapper {
                     position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
                     display: flex; flex-direction: column; align-items: center; justify-content: center;
-                    /* Marge énorme en bas pour garantir que les boutons ne touchent JAMAIS les barres */
-                    padding-bottom: 120px; 
+                    /* Espace en bas pour la nav */
+                    padding-bottom: 100px; 
                 }
 
                 /* --- SLIDE 1: FORMATION --- */
@@ -83,24 +86,31 @@ const HeroCarousel = () => {
                     background: linear-gradient(135deg, #fff8f4 0%, #fff0e6 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
                 }
+                /* Forme subtile */
                 .formation-slide::before {
                     content: ''; position: absolute; top: -30%; right: -10%; width: 60vh; height: 60vh;
                     background: radial-gradient(circle, rgba(200, 41, 4, 0.05) 0%, transparent 70%);
                     border-radius: 50%; pointer-events: none;
                 }
                 
-                .formation-icon-group { display: flex; gap: 25px; justify-content: center; margin-bottom: 25px; color: var(--flame); font-size: 1.8rem; }
+                .formation-icon-group { display: flex; gap: 25px; justify-content: center; margin-bottom: 20px; color: var(--flame); font-size: 1.8rem; }
                 
                 .formation-title {
                     font-family: 'Playfair Display', serif; 
-                    /* Ajusté pour tenir sur une ligne */
                     font-size: clamp(2rem, 4.5vw, 4rem); 
                     font-weight: 800; color: var(--flame); margin-bottom: 15px; white-space: nowrap;
                 }
                 .formation-subtitle {
-                    font-size: clamp(1rem, 1.5vw, 1.3rem); color: #555; max-width: 700px; margin: 0 auto 30px; font-weight: 300;
+                    font-size: clamp(1rem, 1.5vw, 1.3rem); color: #555; max-width: 700px; margin: 0 auto 25px; font-weight: 300;
                 }
                 
+                /* BADGE RESTAURÉ */
+                .formation-highlight {
+                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 8px 20px;
+                    border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 30px;
+                    border: 1px solid rgba(200, 41, 4, 0.1);
+                }
+
                 .slide-cta-btn {
                     display: inline-flex; align-items: center; gap: 10px;
                     padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem;
@@ -109,7 +119,7 @@ const HeroCarousel = () => {
                 }
                 .slide-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(200, 41, 4, 0.4); }
 
-                /* --- SLIDE 2: PRIÈRE (Actions modifiées) --- */
+                /* --- SLIDE 2: PRIÈRE --- */
                 .priere-slide {
                     background: radial-gradient(circle at center, #2e1042 0%, #150821 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
@@ -118,36 +128,28 @@ const HeroCarousel = () => {
                 
                 .priere-title {
                     font-family: 'Playfair Display', serif; 
-                    font-size: clamp(2rem, 4.5vw, 4rem); /* Ajusté pour une ligne */
+                    font-size: clamp(2rem, 4.5vw, 4rem);
                     font-weight: 700; color: white; margin-bottom: 25px; white-space: nowrap;
                 }
                 .priere-quote {
                     font-family: 'Playfair Display', serif; font-style: italic;
                     font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.6; color: rgba(255, 255, 255, 0.9);
-                    max-width: 800px; margin-bottom: 40px;
+                    max-width: 800px; margin-bottom: 25px;
                 }
+                
+                /* INFO STATIQUE (PAS DE BOUTONS) */
+                .priere-infos {
+                    display: flex; gap: 20px; color: rgba(255,255,255,0.6); font-size: 0.9rem; 
+                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; font-weight: 500;
+                }
+                .priere-infos span { display: flex; align-items: center; gap: 8px; }
 
-                /* NOUVEAU GROUPE DE BOUTONS */
-                .priere-actions {
-                    display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 10px; z-index: 10;
-                }
-                .action-btn {
-                    display: inline-flex; align-items: center; gap: 8px;
-                    padding: 12px 25px; border-radius: 30px; text-decoration: none;
-                    font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;
-                    background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3);
-                    backdrop-filter: blur(5px); cursor: pointer;
-                }
-                .action-btn:hover { background: white; color: #2e1042; transform: translateY(-3px); }
-
-                /* --- SLIDE 3: MISSION 2026 (Fond Organique / Pas de triangles) --- */
+                /* --- SLIDE 3: MISSION 2026 --- */
                 .mission2026-slide {
-                    /* Dégradé rouge profond, pas orange vif */
                     background: linear-gradient(135deg, var(--flame), var(--deep-red));
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; color: white;
                 }
-                
-                /* FORMES ORGANIQUES (CERCLES FLOUS) - PAS DE TRIANGLES */
+                /* FORMES ORGANIQUES */
                 .mission2026-slide::before {
                     content: ''; position: absolute; top: -20%; left: -10%; width: 50vw; height: 50vw;
                     background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
@@ -161,7 +163,7 @@ const HeroCarousel = () => {
 
                 .mission-overlap-container {
                     position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center;
-                    margin-bottom: 10px;
+                    margin-bottom: 20px;
                 }
                 .mission-year-bg {
                     font-family: 'Playfair Display', serif;
@@ -172,18 +174,23 @@ const HeroCarousel = () => {
                 }
                 .mission-main-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(2rem, 5vw, 4.5rem); /* Ajusté pour une ligne */
+                    font-size: clamp(2rem, 5vw, 4.5rem);
                     font-weight: 700; color: white; position: relative; z-index: 2;
                     text-shadow: 0 4px 20px rgba(0,0,0,0.3); white-space: nowrap;
                 }
 
-                .mission-badge {
-                    background: rgba(255,255,255,0.2); backdrop-filter: blur(5px);
-                    padding: 8px 20px; border-radius: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px;
+                /* DIOCÈSES RESTAURÉS */
+                .mission-dioceses {
+                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; z-index: 2;
+                }
+                .diocese-pill {
+                    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+                    padding: 8px 20px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.9rem;
+                    backdrop-filter: blur(5px);
                 }
                 
                 .mission-btn {
-                    margin-top: 30px; background: white; color: var(--flame); padding: 15px 40px; border-radius: 50px;
+                    background: white; color: var(--flame); padding: 15px 40px; border-radius: 50px;
                     text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
                     transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
                 }
@@ -197,7 +204,8 @@ const HeroCarousel = () => {
                     width: 40px; height: 4px; border-radius: 4px; cursor: pointer; position: relative; overflow: hidden;
                     background: rgba(255,255,255,0.3); transition: width 0.3s ease; border: none;
                 }
-                .formation-slide + * .nav-bar { background: rgba(0,0,0,0.1); }
+                /* Correction visibilité barre sur fond clair */
+                .formation-slide + * .nav-bar { background: rgba(0,0,0,0.2); }
                 
                 .nav-bar-fill { position: absolute; left: 0; top: 0; height: 100%; width: 0; transition: width 0.1s linear; }
                 .formation-slide + * .nav-bar .nav-bar-fill { background: var(--flame); }
@@ -219,10 +227,11 @@ const HeroCarousel = () => {
                 .carousel-arrow.next { right: 20px; }
 
                 @media (max-width: 768px) {
-                    .slide-content-wrapper { padding-bottom: 140px; }
+                    .slide-content-wrapper { padding-bottom: 120px; }
                     .carousel-arrow { display: none; }
                     .mission-year-bg { font-size: 8rem; }
-                    .formation-title, .priere-title, .mission-main-title { white-space: normal; } /* Sur mobile on autorise le retour à la ligne si besoin */
+                    /* Autoriser le retour à la ligne sur mobile si vraiment nécessaire */
+                    .formation-title, .priere-title, .mission-main-title { white-space: normal; }
                 }
             `}</style>
 
@@ -244,6 +253,12 @@ const HeroCarousel = () => {
                                             <p className="formation-subtitle">
                                                 Des parcours conçus pour nourrir votre foi et vous donner les clés de l'évangélisation.
                                             </p>
+
+                                            {/* INFO RESTAURÉE */}
+                                            <div className="formation-highlight">
+                                                18 Formations + FAQ Mission
+                                            </div>
+
                                             <a href={slide.link} className="slide-cta-btn">
                                                 Découvrir le catalogue <i className="fas fa-arrow-right"></i>
                                             </a>
@@ -262,18 +277,18 @@ const HeroCarousel = () => {
                                                 La foi, la joie et l'amour..."
                                             </p>
 
-                                            {/* NOUVEAUX BOUTONS ACTIONS */}
-                                            <div className="priere-actions">
-                                                <button className="action-btn">
-                                                    <i className="fas fa-play"></i> Audio
-                                                </button>
-                                                <button className="action-btn">
-                                                    <i className="fas fa-file-lines"></i> Paroles
-                                                </button>
-                                                <button className="action-btn">
-                                                    <i className="fas fa-music"></i> Partition
-                                                </button>
+                                            {/* INFO STATIQUE (TEXTE UNIQUEMENT) */}
+                                            <div className="priere-infos">
+                                                <span><i className="fas fa-music"></i> Audio</span>
+                                                <span>•</span>
+                                                <span><i className="fas fa-file-lines"></i> Paroles</span>
+                                                <span>•</span>
+                                                <span><i className="fas fa-music"></i> Partition</span>
                                             </div>
+
+                                            <a href={slide.link} className="slide-cta-btn">
+                                                Prier maintenant <i className="fas fa-arrow-right"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 )}
@@ -282,11 +297,17 @@ const HeroCarousel = () => {
                                 {slide.type === 'mission2026' && (
                                     <div className="mission2026-slide">
                                         <div className="slide-content-wrapper">
-                                            <div className="mission-badge">Prochaine Mission</div>
 
                                             <div className="mission-overlap-container">
                                                 <div className="mission-year-bg">2026</div>
                                                 <h2 className="mission-main-title">Mission Paroissiale</h2>
+                                            </div>
+
+                                            {/* DIOCÈSES RESTAURÉS */}
+                                            <div className="mission-dioceses">
+                                                <span className="diocese-pill">La Rochelle</span>
+                                                <span className="diocese-pill">Angoulême</span>
+                                                <span className="diocese-pill">Poitiers</span>
                                             </div>
 
                                             <a href={slide.link} className="mission-btn">

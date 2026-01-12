@@ -1050,7 +1050,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* HERO CAROUSEL */}
+            {/* CAROUSEL AJOUTÉ */}
             <HeroCarousel />
 
             {/* NOTRE HISTOIRE */}
