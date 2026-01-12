@@ -608,10 +608,10 @@ const Home = () => {
 
         /* --- STYLES AJOUTÉS POUR LES SECTIONS RESTAURÉES (CLASSES RENOMMÉES en tf-) --- */
 
-        /* TOUSSAINT SECTION */
+        /* TOUSSAINT SECTION - DESIGN BLANC */
         .toussaint-section {
-          background: #1a1a1a;
-          color: white;
+          background: white;
+          color: var(--charcoal);
           padding: 0;
           position: relative;
           overflow: hidden;
@@ -620,26 +620,26 @@ const Home = () => {
         .toussaint-inner {
           max-width: 1400px;
           margin: 0 auto;
-          min-height: 60vh;
-          padding: 80px 5%;
+          min-height: auto;
+          padding: 100px 5%;
           display: flex;
-          flex-direction: column; /* Explicitly vertical */
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           width: 100%;
         }
 
         .toussaint-content {
-          max-width: 800px;
+          max-width: 1100px; /* Largeur augmentée */
           margin: 0 auto;
           text-align: center;
-          display: block; /* Ensure block layout */
+          display: block;
           width: 100%;
         }
 
         .toussaint-tag {
           display: inline-block;
-          background: rgba(248, 106, 7, 0.15);
+          background: rgba(248, 106, 7, 0.1);
           color: #f46a07;
           padding: 12px 30px;
           border-radius: 50px;
@@ -647,27 +647,30 @@ const Home = () => {
           font-weight: 800;
           letter-spacing: 3px;
           text-transform: uppercase;
-          margin-bottom: 50px;
+          margin-bottom: 40px;
         }
 
         .toussaint-title {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(2.5rem, 6vw, 5rem);
+          font-size: clamp(2.5rem, 6vw, 4.5rem);
           font-weight: 900;
           line-height: 1.1;
           margin-bottom: 60px;
-          color: white;
+          color: var(--charcoal); /* Texte foncé */
         }
 
         .questions-cascade {
           margin-bottom: 60px;
-          text-align: left; /* Keep questions left-aligned for readability */
+          text-align: left;
+          background: var(--off-white-warm); /* Légère distinction */
+          padding: 40px;
+          border-radius: 20px;
         }
 
         .question-item {
-          font-size: 1.3rem;
+          font-size: 1.25rem;
           line-height: 1.6;
-          color: rgba(255,255,255,0.6);
+          color: #555; /* Texte foncé */
           margin-bottom: 25px;
           padding-left: 40px;
           position: relative;
@@ -675,7 +678,7 @@ const Home = () => {
         }
 
         .question-item:hover {
-          color: rgba(255,255,255,0.95);
+          color: #f46a07;
           transform: translateX(10px);
         }
 
@@ -684,7 +687,7 @@ const Home = () => {
           position: absolute;
           left: 0;
           font-family: 'Playfair Display', serif;
-          font-size: 2rem;
+          font-size: 1.8rem;
           color: #f46a07;
           font-weight: 700;
         }
@@ -692,11 +695,11 @@ const Home = () => {
         .toussaint-answer {
           font-size: 1.35rem;
           line-height: 1.9;
-          color: rgba(255,255,255,0.85);
+          color: #333; /* Texte foncé */
           border-left: 4px solid #f46a07;
           padding-left: 40px;
-          margin-top: 80px;
-          font-weight: 300;
+          margin-top: 60px;
+          font-weight: 400;
           text-align: left;
         }
 
