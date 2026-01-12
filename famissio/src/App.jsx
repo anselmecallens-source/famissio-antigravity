@@ -41,7 +41,7 @@ function App() {
         <Route path="/formation" element={<Formation />} />
         <Route path="/temoignages" element={<Temoignages />} />
         <Route path="/contact" element={<div style={{ paddingTop: '120px' }}><NousRejoindre /></div>} />
-        <Route path="/priere-famissio" element={<div style={{ paddingTop: '120px' }}><PriereFamissio /></div>} />
+        <Route path="/priere-famissio" element={<PriereFamissio />} />
       </Routes>
 
       {/* 3. Le footer visible partout */}

@@ -74,9 +74,7 @@ export default function PriereFamissio() {
 
                 <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-24">
                     <div className="text-center">
-                        <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold">
-                            Association Famissio
-                        </div>
+
                         <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
                             Prière de Famissio
                         </h1>

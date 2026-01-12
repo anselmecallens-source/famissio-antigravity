@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -286,9 +287,9 @@ const HeroCarousel = () => {
                                                 <span><i className="fas fa-music"></i> Partition</span>
                                             </div>
 
-                                            <a href={slide.link} className="slide-cta-btn">
+                                            <Link to={slide.link} className="slide-cta-btn">
                                                 Prier maintenant <i className="fas fa-arrow-right"></i>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 )}
