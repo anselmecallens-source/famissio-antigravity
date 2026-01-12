@@ -3,6 +3,8 @@ import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from '
 
 export default function PriereFamissio() {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
     const [expandedSections, setExpandedSections] = useState({
         audio: true,
         paroles: true,
@@ -17,8 +19,33 @@ export default function PriereFamissio() {
             } else {
                 audioRef.current.play();
             }
-            setIsPlaying(!isPlaying);
         }
+    };
+
+    const handleTimeUpdate = () => {
+        if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+        }
+    };
+
+    const handleLoadedMetadata = () => {
+        if (audioRef.current) {
+            setDuration(audioRef.current.duration);
+        }
+    };
+
+    const handleSeek = (e) => {
+        const time = parseFloat(e.target.value);
+        if (audioRef.current) {
+            audioRef.current.currentTime = time;
+            setCurrentTime(time);
+        }
+    };
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
     };
 
     const toggleSection = (section) => {
@@ -110,6 +137,8 @@ export default function PriereFamissio() {
                                     onPlay={() => setIsPlaying(true)}
                                     onPause={() => setIsPlaying(false)}
                                     onEnded={() => setIsPlaying(false)}
+                                    onTimeUpdate={handleTimeUpdate}
+                                    onLoadedMetadata={handleLoadedMetadata}
                                     className="hidden"
                                 >
                                     <source
@@ -118,10 +147,10 @@ export default function PriereFamissio() {
                                     />
                                 </audio>
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-4 md:gap-6">
                                     <button
                                         onClick={togglePlay}
-                                        className="flex-shrink-0 w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition-all shadow-lg hover:shadow-xl"
+                                        className="flex-shrink-0 w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition-all shadow-lg hover:shadow-xl hover:scale-105"
                                     >
                                         {isPlaying ? (
                                             <Pause className="w-7 h-7" fill="currentColor" />
@@ -130,15 +159,41 @@ export default function PriereFamissio() {
                                         )}
                                     </button>
 
-                                    <div className="flex-1">
-                                        <p className="text-sm font-semibold text-red-900 mb-1">
+                                    <div className="flex-1 space-y-2">
+                                        <p className="text-sm font-semibold text-red-900">
                                             Audio - Prière de Famissio
                                         </p>
-                                        <audio
-                                            controls
-                                            className="w-full"
-                                            src="https://famissio-99.webself.net/file/si1759337/download/Audio%20-%20Pri%C3%A8re%20de%20famissio-fi36531802.mp3"
-                                        />
+
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xs font-medium text-red-700 tabular-nums w-10">
+                                                {formatTime(currentTime)}
+                                            </span>
+
+                                            <div className="relative flex-1 h-2 group">
+                                                <input
+                                                    type="range"
+                                                    min={0}
+                                                    max={duration || 0}
+                                                    value={currentTime}
+                                                    onChange={handleSeek}
+                                                    className="absolute w-full h-full opacity-0 cursor-pointer z-10"
+                                                />
+                                                <div className="absolute top-0 left-0 w-full h-full bg-red-200 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-red-600 rounded-full transition-all duration-100 ease-out"
+                                                        style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
+                                                    />
+                                                </div>
+                                                <div
+                                                    className="absolute top-1/2 -mt-2 w-4 h-4 bg-white border-2 border-red-600 rounded-full shadow-md transform scale-0 group-hover:scale-100 transition-transform duration-200 pointer-events-none"
+                                                    style={{ left: `calc(${((currentTime / (duration || 1)) * 100)}% - 8px)` }}
+                                                />
+                                            </div>
+
+                                            <span className="text-xs font-medium text-red-700 tabular-nums w-10 text-right">
+                                                {formatTime(duration)}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
