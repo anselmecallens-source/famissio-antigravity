@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeroCarousel from '../components/HeroCarousel';
 
@@ -1221,21 +1221,20 @@ const Home = () => {
             </section>
 
             {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) - FOND CRÈME MAINTENANT */}
-            {/* TOUSSAINT REIMAGINED */}
-            <section className="toussaint-reimagined">
+                        {/* SECTION TOUSSAINT - NOUVEAU DESIGN */}
+            <>
                 <style>{`
-                    .toussaint-reimagined {
+                    .toussaint-new-section {
                     position: relative;
-                    min-height: 100vh;
+                    min-height: 95vh;
                     display: flex;
                     align-items: center;
-                    padding: 120px 5%;
+                    padding: 0;
                     overflow: hidden;
-                    background: #0a0a0a;
                     }
 
-                    /* Image de fond avec effet parallax */
-                    .toussaint-background {
+                    /* Image en arrière-plan */
+                    .toussaint-bg-image {
                     position: absolute;
                     inset: 0;
                     width: 100%;
@@ -1243,122 +1242,52 @@ const Home = () => {
                     z-index: 1;
                     }
 
-                    .toussaint-background img {
+                    .toussaint-bg-image img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                     object-position: center;
-                    filter: brightness(0.4) contrast(1.1);
-                    transition: transform 0.3s ease-out;
                     }
 
-                    /* Overlay dégradé sophistiqué */
-                    .toussaint-overlay {
+                    /* Overlay gradient subtil */
+                    .toussaint-gradient-overlay {
                     position: absolute;
                     inset: 0;
-                    background: 
-                        linear-gradient(135deg, 
-                        rgba(200, 41, 4, 0.7) 0%, 
-                        rgba(248, 106, 7, 0.5) 40%, 
-                        rgba(0, 0, 0, 0.8) 100%
-                        );
+                    background: linear-gradient(
+                        to right,
+                        rgba(26, 26, 26, 0.92) 0%,
+                        rgba(26, 26, 26, 0.85) 35%,
+                        rgba(26, 26, 26, 0.75) 60%,
+                        transparent 100%
+                    );
                     z-index: 2;
-                    mix-blend-mode: multiply;
                     }
 
-                    /* Particules décoratives */
-                    .toussaint-particles {
-                    position: absolute;
-                    inset: 0;
-                    z-index: 3;
-                    opacity: 0.15;
-                    }
-
-                    .particle {
-                    position: absolute;
-                    width: 4px;
-                    height: 4px;
-                    background: white;
-                    border-radius: 50%;
-                    animation: float-particle 20s infinite ease-in-out;
-                    }
-
-                    .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-                    .particle:nth-child(2) { left: 80%; top: 30%; animation-delay: 2s; }
-                    .particle:nth-child(3) { left: 40%; top: 60%; animation-delay: 4s; }
-                    .particle:nth-child(4) { left: 70%; top: 80%; animation-delay: 6s; }
-                    .particle:nth-child(5) { left: 20%; top: 70%; animation-delay: 8s; }
-
-                    @keyframes float-particle {
-                    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-                    25% { transform: translateY(-30px) translateX(20px); opacity: 0.6; }
-                    50% { transform: translateY(-50px) translateX(-10px); opacity: 0.3; }
-                    75% { transform: translateY(-20px) translateX(30px); opacity: 0.6; }
-                    }
-
-                    /* Container du contenu */
-                    .toussaint-content-wrapper {
+                    /* Container de contenu */
+                    .toussaint-content-container {
                     position: relative;
                     z-index: 10;
-                    max-width: 1200px;
+                    max-width: 1400px;
                     margin: 0 auto;
+                    padding: 120px 8% 120px 10%;
                     width: 100%;
                     }
 
-                    /* Carte flottante avec glassmorphism */
-                    .toussaint-glass-card {
-                    background: rgba(255, 255, 255, 0.08);
-                    backdrop-filter: blur(20px) saturate(180%);
-                    -webkit-backdrop-filter: blur(20px) saturate(180%);
-                    border-radius: 40px;
-                    padding: 80px 70px;
-                    border: 1px solid rgba(255, 255, 255, 0.15);
-                    box-shadow: 
-                        0 30px 80px rgba(0, 0, 0, 0.5),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-                    position: relative;
-                    overflow: hidden;
+                    /* Zone de texte */
+                    .toussaint-text-zone {
+                    max-width: 750px;
                     }
 
-                    /* Effet de lumière interne */
-                    .toussaint-glass-card::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(
-                        circle,
-                        rgba(248, 106, 7, 0.1) 0%,
-                        transparent 70%
-                    );
-                    animation: rotate-light 30s linear infinite;
-                    }
-
-                    @keyframes rotate-light {
-                    from { transform: rotate(0deg); }
-                    to { transform: rotate(360deg); }
-                    }
-
-                    /* Header de la carte */
-                    .toussaint-card-header {
-                    text-align: center;
-                    margin-bottom: 60px;
-                    position: relative;
-                    z-index: 1;
-                    }
-
+                    /* Eyebrow (style du site) */
                     .toussaint-eyebrow {
                     font-size: 0.85rem;
                     font-weight: 800;
-                    color: #ff8b6b;
+                    color: #f46a07;
                     text-transform: uppercase;
-                    letter-spacing: 4px;
-                    margin-bottom: 20px;
+                    letter-spacing: 3px;
+                    margin-bottom: 15px;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                     gap: 15px;
                     }
 
@@ -1367,204 +1296,171 @@ const Home = () => {
                     content: '';
                     width: 40px;
                     height: 2px;
-                    background: linear-gradient(90deg, transparent, #ff8b6b, transparent);
+                    background: #f46a07;
                     }
 
-                    .toussaint-main-title {
+                    /* Title (style du site) */
+                    .toussaint-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(3rem, 6vw, 5rem);
-                    font-weight: 900;
+                    font-size: clamp(2.5rem, 5vw, 4.5rem);
+                    font-weight: 700;
                     color: white;
-                    line-height: 1.1;
-                    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-                    position: relative;
-                    display: inline-block;
+                    margin-bottom: 50px;
+                    line-height: 1.15;
                     }
 
-                    /* Soulignement animé */
-                    .toussaint-main-title::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -15px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 120px;
-                    height: 4px;
-                    background: linear-gradient(90deg, #c82904, #f46a07, #ff8b6b);
-                    border-radius: 2px;
-                    box-shadow: 0 0 20px rgba(248, 106, 7, 0.6);
-                    }
-
-                    /* Corps du texte */
-                    .toussaint-text-content {
-                    position: relative;
-                    z-index: 1;
-                    }
-
-                    .toussaint-text-content p {
-                    font-size: 1.25rem;
+                    /* Paragraphes */
+                    .toussaint-text-zone p {
+                    font-size: 1.2rem;
                     line-height: 2;
                     color: rgba(255, 255, 255, 0.95);
                     margin-bottom: 30px;
                     text-align: justify;
-                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
                     }
 
-                    .toussaint-text-content p:first-child {
+                    .toussaint-text-zone p:first-of-type {
                     font-size: 1.35rem;
                     font-weight: 500;
-                    color: white;
+                    border-left: 4px solid #f46a07;
+                    padding-left: 25px;
                     }
 
-                    /* Icône décorative */
-                    .toussaint-icon-float {
+                    /* Accent visuel - ligne verticale décorative */
+                    .toussaint-accent-line {
                     position: absolute;
-                    top: 40px;
-                    right: 40px;
-                    width: 100px;
-                    height: 100px;
-                    background: linear-gradient(135deg, #f46a07, #ff8b6b);
-                    border-radius: 50%;
+                    right: 45%;
+                    top: 15%;
+                    bottom: 15%;
+                    width: 2px;
+                    background: linear-gradient(
+                        to bottom,
+                        transparent,
+                        rgba(248, 106, 7, 0.6) 20%,
+                        rgba(248, 106, 7, 0.6) 80%,
+                        transparent
+                    );
+                    z-index: 5;
+                    }
+
+                    /* Points décoratifs subtils */
+                    .toussaint-deco-dots {
+                    position: absolute;
+                    right: calc(45% - 8px);
+                    top: 50%;
+                    transform: translateY(-50%);
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 3rem;
-                    color: white;
-                    box-shadow: 0 20px 60px rgba(248, 106, 7, 0.4);
-                    animation: float 6s ease-in-out infinite;
-                    z-index: 1;
+                    flex-direction: column;
+                    gap: 30px;
+                    z-index: 6;
                     }
 
-                    @keyframes float {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-20px); }
-                    }
-
-                    /* Badge accentué */
-                    .toussaint-highlight {
-                    display: inline-block;
-                    background: linear-gradient(135deg, rgba(248, 106, 7, 0.3), rgba(255, 139, 107, 0.3));
-                    padding: 4px 12px;
-                    border-radius: 8px;
-                    border-left: 3px solid #f46a07;
-                    font-weight: 600;
-                    color: #fff;
+                    .toussaint-dot {
+                    width: 18px;
+                    height: 18px;
+                    background: #f46a07;
+                    border-radius: 50%;
+                    box-shadow: 0 0 20px rgba(248, 106, 7, 0.6);
                     }
 
                     /* Responsive */
                     @media (max-width: 1200px) {
-                    .toussaint-glass-card {
-                        padding: 60px 50px;
+                    .toussaint-gradient-overlay {
+                        background: linear-gradient(
+                        to bottom,
+                        rgba(26, 26, 26, 0.85) 0%,
+                        rgba(26, 26, 26, 0.90) 100%
+                        );
                     }
 
-                    .toussaint-icon-float {
-                        width: 80px;
-                        height: 80px;
-                        font-size: 2.5rem;
-                        top: 30px;
-                        right: 30px;
+                    .toussaint-accent-line,
+                    .toussaint-deco-dots {
+                        display: none;
+                    }
+
+                    .toussaint-text-zone {
+                        max-width: 100%;
                     }
                     }
 
                     @media (max-width: 768px) {
-                    .toussaint-reimagined {
+                    .toussaint-new-section {
                         min-height: auto;
+                    }
+
+                    .toussaint-content-container {
                         padding: 80px 5%;
                     }
 
-                    .toussaint-glass-card {
-                        padding: 40px 30px;
-                        border-radius: 25px;
+                    .toussaint-title {
+                        margin-bottom: 35px;
                     }
 
-                    .toussaint-card-header {
-                        margin-bottom: 40px;
-                    }
-
-                    .toussaint-main-title::after {
-                        bottom: -10px;
-                        width: 80px;
-                        height: 3px;
-                    }
-
-                    .toussaint-text-content p {
+                    .toussaint-text-zone p {
                         font-size: 1.1rem;
                         line-height: 1.8;
                     }
 
-                    .toussaint-text-content p:first-child {
+                    .toussaint-text-zone p:first-of-type {
                         font-size: 1.2rem;
+                        padding-left: 20px;
                     }
 
-                    .toussaint-icon-float {
-                        position: static;
-                        margin: 0 auto 30px;
-                        width: 70px;
-                        height: 70px;
-                        font-size: 2rem;
-                    }
-
-                    .toussaint-eyebrow {
-                        font-size: 0.75rem;
+                    .toussaint-eyebrow::before,
+                    .toussaint-eyebrow::after {
+                        width: 30px;
                     }
                     }
                 `}</style>
 
-                {/* Background image */}
-                <div className="toussaint-background">
-                    <img
-                        src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9&st=cviy7u1j&raw=1&w=1920&output=webp"
-                        alt="Mission Toussaint"
+                <section className="toussaint-new-section">
+                    {/* Image de fond */}
+                    <div className="toussaint-bg-image">
+                    <img 
+                        src="https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9&st=cviy7u1j&raw=1" 
+                        alt="Mission à la Toussaint"
                     />
-                </div>
+                    </div>
 
-                {/* Overlay */}
-                <div className="toussaint-overlay"></div>
+                    {/* Overlay gradient */}
+                    <div className="toussaint-gradient-overlay"></div>
 
-                {/* Particules décoratives */}
-                <div className="toussaint-particles">
-                    <div className="particle"></div>
-                    <div className="particle"></div>
-                    <div className="particle"></div>
-                    <div className="particle"></div>
-                    <div className="particle"></div>
-                </div>
+                    {/* Ligne décorative verticale */}
+                    <div className="toussaint-accent-line"></div>
+                    <div className="toussaint-deco-dots">
+                    <div className="toussaint-dot"></div>
+                    <div className="toussaint-dot"></div>
+                    <div className="toussaint-dot"></div>
+                    </div>
 
-                {/* Contenu principal */}
-                <div className="toussaint-content-wrapper">
-                    <div className="toussaint-glass-card">
-                        {/* Icône flottante */}
-                        <div className="toussaint-icon-float">
-                            <i className="fas fa-cross"></i>
-                        </div>
-
-                        {/* Header */}
-                        <div className="toussaint-card-header">
-                            <div className="toussaint-eyebrow">La Toussaint</div>
-                            <h2 className="toussaint-main-title">Pourquoi faire ça à la Toussaint ?</h2>
-                        </div>
+                    {/* Contenu */}
+                    <div className="toussaint-content-container">
+                    <div className="toussaint-text-zone">
+                        {/* Titres avec le style du site */}
+                        <div className="toussaint-eyebrow">La Toussaint</div>
+                        <h2 className="toussaint-title">Pourquoi faire ça à la Toussaint ?</h2>
 
                         {/* Texte */}
-                        <div className="toussaint-text-content">
-                            <p>
-                                <span className="toussaint-highlight">Partir en mission à ce moment-là</span>, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
-                            </p>
+                        <p>
+                        Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
+                        </p>
 
-                            <p>
-                                C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
-                            </p>
+                        <p>
+                        C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
+                        </p>
 
-                            <p>
-                                À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
-                            </p>
+                        <p>
+                        À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
+                        </p>
 
-                            <p>
-                                <span className="toussaint-highlight">Ce temps est propice</span> à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
-                            </p>
-                        </div>
+                        <p>
+                        Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
+                        </p>
                     </div>
-                </div>
-            </section>
+                    </div>
+                </section>
+            </>
+
 
             {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
             <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
@@ -2124,3 +2020,4 @@ const Home = () => {
 };
 
 export default Home;
+

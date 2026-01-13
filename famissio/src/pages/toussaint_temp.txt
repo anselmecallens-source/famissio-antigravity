@@ -1,0 +1,239 @@
+            {/* SECTION TOUSSAINT - NOUVEAU DESIGN */}
+            <>
+                <style>{`
+                    .toussaint-new-section {
+                    position: relative;
+                    min-height: 95vh;
+                    display: flex;
+                    align-items: center;
+                    padding: 0;
+                    overflow: hidden;
+                    }
+
+                    /* Image en arrière-plan */
+                    .toussaint-bg-image {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    }
+
+                    .toussaint-bg-image img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    }
+
+                    /* Overlay gradient subtil */
+                    .toussaint-gradient-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(
+                        to right,
+                        rgba(26, 26, 26, 0.92) 0%,
+                        rgba(26, 26, 26, 0.85) 35%,
+                        rgba(26, 26, 26, 0.75) 60%,
+                        transparent 100%
+                    );
+                    z-index: 2;
+                    }
+
+                    /* Container de contenu */
+                    .toussaint-content-container {
+                    position: relative;
+                    z-index: 10;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding: 120px 8% 120px 10%;
+                    width: 100%;
+                    }
+
+                    /* Zone de texte */
+                    .toussaint-text-zone {
+                    max-width: 750px;
+                    }
+
+                    /* Eyebrow (style du site) */
+                    .toussaint-eyebrow {
+                    font-size: 0.85rem;
+                    font-weight: 800;
+                    color: #f46a07;
+                    text-transform: uppercase;
+                    letter-spacing: 3px;
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    }
+
+                    .toussaint-eyebrow::before,
+                    .toussaint-eyebrow::after {
+                    content: '';
+                    width: 40px;
+                    height: 2px;
+                    background: #f46a07;
+                    }
+
+                    /* Title (style du site) */
+                    .toussaint-title {
+                    font-family: 'Playfair Display', serif;
+                    font-size: clamp(2.5rem, 5vw, 4.5rem);
+                    font-weight: 700;
+                    color: white;
+                    margin-bottom: 50px;
+                    line-height: 1.15;
+                    }
+
+                    /* Paragraphes */
+                    .toussaint-text-zone p {
+                    font-size: 1.2rem;
+                    line-height: 2;
+                    color: rgba(255, 255, 255, 0.95);
+                    margin-bottom: 30px;
+                    text-align: justify;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .toussaint-text-zone p:first-of-type {
+                    font-size: 1.35rem;
+                    font-weight: 500;
+                    border-left: 4px solid #f46a07;
+                    padding-left: 25px;
+                    }
+
+                    /* Accent visuel - ligne verticale décorative */
+                    .toussaint-accent-line {
+                    position: absolute;
+                    right: 45%;
+                    top: 15%;
+                    bottom: 15%;
+                    width: 2px;
+                    background: linear-gradient(
+                        to bottom,
+                        transparent,
+                        rgba(248, 106, 7, 0.6) 20%,
+                        rgba(248, 106, 7, 0.6) 80%,
+                        transparent
+                    );
+                    z-index: 5;
+                    }
+
+                    /* Points décoratifs subtils */
+                    .toussaint-deco-dots {
+                    position: absolute;
+                    right: calc(45% - 8px);
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                    z-index: 6;
+                    }
+
+                    .toussaint-dot {
+                    width: 18px;
+                    height: 18px;
+                    background: #f46a07;
+                    border-radius: 50%;
+                    box-shadow: 0 0 20px rgba(248, 106, 7, 0.6);
+                    }
+
+                    /* Responsive */
+                    @media (max-width: 1200px) {
+                    .toussaint-gradient-overlay {
+                        background: linear-gradient(
+                        to bottom,
+                        rgba(26, 26, 26, 0.85) 0%,
+                        rgba(26, 26, 26, 0.90) 100%
+                        );
+                    }
+
+                    .toussaint-accent-line,
+                    .toussaint-deco-dots {
+                        display: none;
+                    }
+
+                    .toussaint-text-zone {
+                        max-width: 100%;
+                    }
+                    }
+
+                    @media (max-width: 768px) {
+                    .toussaint-new-section {
+                        min-height: auto;
+                    }
+
+                    .toussaint-content-container {
+                        padding: 80px 5%;
+                    }
+
+                    .toussaint-title {
+                        margin-bottom: 35px;
+                    }
+
+                    .toussaint-text-zone p {
+                        font-size: 1.1rem;
+                        line-height: 1.8;
+                    }
+
+                    .toussaint-text-zone p:first-of-type {
+                        font-size: 1.2rem;
+                        padding-left: 20px;
+                    }
+
+                    .toussaint-eyebrow::before,
+                    .toussaint-eyebrow::after {
+                        width: 30px;
+                    }
+                    }
+                `}</style>
+
+                <section className="toussaint-new-section">
+                    {/* Image de fond */}
+                    <div className="toussaint-bg-image">
+                    <img 
+                        src="https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9&st=cviy7u1j&raw=1" 
+                        alt="Mission à la Toussaint"
+                    />
+                    </div>
+
+                    {/* Overlay gradient */}
+                    <div className="toussaint-gradient-overlay"></div>
+
+                    {/* Ligne décorative verticale */}
+                    <div className="toussaint-accent-line"></div>
+                    <div className="toussaint-deco-dots">
+                    <div className="toussaint-dot"></div>
+                    <div className="toussaint-dot"></div>
+                    <div className="toussaint-dot"></div>
+                    </div>
+
+                    {/* Contenu */}
+                    <div className="toussaint-content-container">
+                    <div className="toussaint-text-zone">
+                        {/* Titres avec le style du site */}
+                        <div className="toussaint-eyebrow">La Toussaint</div>
+                        <h2 className="toussaint-title">Pourquoi faire ça à la Toussaint ?</h2>
+
+                        {/* Texte */}
+                        <p>
+                        Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
+                        </p>
+
+                        <p>
+                        C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
+                        </p>
+
+                        <p>
+                        À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
+                        </p>
+
+                        <p>
+                        Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
+                        </p>
+                    </div>
+                    </div>
+                </section>
+            </>
