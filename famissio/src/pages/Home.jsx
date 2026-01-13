@@ -963,7 +963,7 @@ const Home = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 120px 5%;
+          padding: 60px 5%; /* Espace réduit en haut (était 120px) */
           background: #fafafa;
           position: relative;
         }
@@ -1199,8 +1199,8 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* LE PROGRAMME (Inserted) */}
-            <section className="section-cream">
+            {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
+            <section style={{ background: 'white' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -1211,11 +1211,11 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) */}
-            <section className="toussaint-section">
+            {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) - FOND CRÈME MAINTENANT */}
+            <section className="toussaint-section" style={{ background: 'var(--cream)' }}>
                 <div className="toussaint-inner">
                     <div className="toussaint-content">
-                        <div className="toussaint-tag">La Toussaint</div>
+                        <div className="eyebrow">La Toussaint</div>
                         <h2 className="toussaint-title">Pourquoi la Mission à la Toussaint ?</h2>
 
                         <div className="questions-cascade">
