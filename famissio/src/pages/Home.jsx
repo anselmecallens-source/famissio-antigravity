@@ -318,7 +318,7 @@ const Home = () => {
 
         /* SECTION MISSION (La Mission en Pratique) */
         .mission-cards {
-            max-width: 1400px;
+            max-width: 1150px; /* Largeur réduite pour affiner les cartes */
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -327,7 +327,7 @@ const Home = () => {
         
         .mission-card {
             background: white;
-            padding: 50px 40px;
+            padding: 80px 40px; /* Cartes plus allongées (padding vertical augmenté) */
             border-radius: 30px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.08);
             text-align: center;
@@ -1031,7 +1031,7 @@ const Home = () => {
             background-color: #f4f6f8; /* Gris clair */
             position: relative;
             z-index: 1;
-            padding-bottom: 120px; /* Espace pour que le triangle ne coupe pas le contenu */
+            padding-bottom: 220px; /* Beaucoup plus d'espace gris en bas */
         }
 
         /* 2. La section Équipe en BLANC avec le TRIANGLE VERS LE HAUT */
