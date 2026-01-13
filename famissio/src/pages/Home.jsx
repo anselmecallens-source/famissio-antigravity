@@ -1454,6 +1454,8 @@ const Home = () => {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        transition: none !important;
+                        transform: none !important;
                     }
 
                     .modal-content-section {
@@ -1600,7 +1602,7 @@ const Home = () => {
                     }
                 `}</style>
 
-                                {/* Section Header */}
+                {/* Section Header */}
                 <div className="section-head">
                     <div className="eyebrow">Une Semaine de Mission</div>
                     <h2 className="title">Les 6 Temps Forts</h2>
@@ -1610,7 +1612,7 @@ const Home = () => {
                 {/* Timeline Container */}
                 <div className="timeline-showcase">
                     <div className="timeline-line"></div>
-                    
+
                     <div className="timeline-track">
                         {missionBlocks.map((block) => (
                             <div key={block.id} className="timeline-item">
@@ -1627,7 +1629,7 @@ const Home = () => {
                                     <p className="timeline-description">
                                         {block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
-                                    <button 
+                                    <button
                                         className="timeline-expand-btn"
                                         onClick={() => setActiveMission(block)}
                                     >
@@ -1644,7 +1646,7 @@ const Home = () => {
                 </div>
 
                 {/* Modal Fullscreen */}
-                <div 
+                <div
                     className={`timeline-modal-backdrop ${activeMission ? 'active' : ''}`}
                     onClick={() => setActiveMission(null)}
                 >
@@ -1652,7 +1654,7 @@ const Home = () => {
                         <button className="modal-close-btn" onClick={() => setActiveMission(null)}>
                             ×
                         </button>
-                        
+
                         {activeMission && (
                             <>
                                 {/* Image Section */}
@@ -1663,11 +1665,11 @@ const Home = () => {
                                 {/* Content Section */}
                                 <div className="modal-content-section">
                                     <h3 className="modal-title">{activeMission.title}</h3>
-                                    
+
                                     {activeMission.content && (
                                         <p className="modal-main-text">{activeMission.content}</p>
                                     )}
-                                    
+
                                     {activeMission.items && (
                                         <ul className="modal-list">
                                             {activeMission.items.map((item, idx) => (
