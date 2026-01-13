@@ -1059,6 +1059,7 @@ const Home = () => {
             position: relative;
             z-index: 2;
             padding-top: 100px;
+            padding-bottom: 0;
         }
 
         /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
