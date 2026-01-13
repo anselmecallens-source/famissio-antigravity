@@ -1519,7 +1519,6 @@ const Home = () => {
                         line-height: 1.7;
                         color: #555;
                         border-bottom: 1px solid rgba(0,0,0,0.06);
-                        transition: all 0.3s ease;
                     }
 
                     .modal-list li:last-child {
@@ -1533,11 +1532,6 @@ const Home = () => {
                         color: var(--ember);
                         font-size: 1.3rem;
                         font-weight: bold;
-                    }
-
-                    .modal-list li:hover {
-                        padding-left: 45px;
-                        color: var(--charcoal);
                     }
 
                     /* Responsive */
