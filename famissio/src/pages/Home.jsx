@@ -1228,7 +1228,7 @@ const Home = () => {
             <section className="tf-showcase">
                 <div className="tf-header">
                     <div className="tf-super">Une Mission Paroissiale</div>
-                    <h2 className="tf-title">6 Temps Forts</h2>
+                    <h2 className="tf-title">Les 6 piliers de la semaine de mission</h2>
                     <p className="tf-subtitle">Cliquez sur chaque activité pour découvrir les détails</p>
                 </div>
 

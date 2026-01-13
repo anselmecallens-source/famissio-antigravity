@@ -181,7 +181,7 @@ const ProtectedPage = () => {
         <div className="protected-wrapper">
             <style>{styles}</style>
             <div className="secret-content">
-                <h1 className="secret-title">Qui sommes-nous ?</h1>
+                <h1 className="secret-title">Qui êtes vous ?</h1>
             </div>
         </div>
     );
