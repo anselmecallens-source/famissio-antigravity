@@ -1229,6 +1229,7 @@ const Home = () => {
                     .toussaint-clean {
                     position: relative;
                     min-height: auto;
+                    max-height: 60vh;
                     display: flex;
                     align-items: center;
                     background: #1a1a1a;
