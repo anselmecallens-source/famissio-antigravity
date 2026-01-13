@@ -1178,7 +1178,9 @@ const Home = () => {
                         <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !!</p>
 
                         <div className="quote-box">
-                            <p>"Aujourd'hui, ce n'est pas seulement par-delà les océans qu'il faut propager la bonne parole, mais aussi dans nos villes et villages. Comme nous avons besoin de grands missionnaires ! Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n'est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère..."</p>
+                            <p>Comme nous avons besoin de grands missionnaires ! Mais qui peut réveiller l’ardeur d’une chrétienté endormie ? Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n’est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère...</p>
+                            <p style={{ marginTop: '20px' }}>Je me souviens de ce monsieur très courtois avec qui nous discutions depuis un bon quart d’heure déjà de la foi sans parvenir à toucher sa pensée rationnelle. Alors qu’il n’avait encore prononcé aucune parole, le petit Henri interrompt soudainement notre discussion « de grands » pour proposer à cet homme de prier pour lui : cette simple parole l’a bouleversé, et il lui a demandé avec le plus grand sérieux de prier pour son âme !</p>
+                            <p style={{ marginTop: '20px' }}>Ou d’Athanase qui avait ému une aïeule aux larmes après l’avoir bénie d’une croix sur le front alors qu’elle venait de refuser tout échange. Donner la chance aux personnes qui ne connaissent pas Dieu de recevoir des enfants un sourire, une parole d’encouragement, une prière, c’est leur offrir le Christ. Alors chers parents, guidez vos enfants vers la mission ! Ils mèneront beaucoup d’âmes vers le Père...</p>
                             <div className="quote-author">— Pierre-Alexandre Ludwig</div>
                         </div>
 
