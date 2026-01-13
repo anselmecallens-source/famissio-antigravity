@@ -386,7 +386,13 @@ const Home = () => {
         /* SECTION ÉQUIPE MISSIONNAIRE */
         .team-section { background: white; }
         .team-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 500px 1fr; gap: 60px; align-items: start; }
-        .team-image-box { position: sticky; top: 50px; }
+        .team-image-box { 
+            position: sticky; 
+            top: 120px; /* Aligné pour éviter d'être caché par la navbar */
+            height: fit-content; /* S'assure que la boîte ne prend pas toute la hauteur */
+            align-self: start; /* Indispensable dans une grid pour que sticky fonctionne */
+            z-index: 10;
+        }
         .team-image { width: 100%; height: 600px; border-radius: 35px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.2); margin-bottom: 30px; }
         
         .team-image img { 
