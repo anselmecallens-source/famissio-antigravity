@@ -1083,7 +1083,7 @@ const Home = () => {
                 <div className="section-head">
                     <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
                     <h2 className="title" style={{ color: 'white' }}>Qui sommes-nous ?</h2>
-                    <p className="subtitle" style={{ color: 'rgba(255,255,255,0.8)' }}>Nous sommes des familles missionnaires venues de toute la France, accompagnées de consacrés</p>
+                    <p className="subtitle" style={{ color: 'rgba(255,255,255,0.8)' }}>Nous sommes des familles missionnaires venues de toute la France, accompagnées de consacrés, qui se rassemblent chaque année pendant une semaine autour de La Toussaint, pour entourer un curé et ses paroissiens, en vue de faire avec eux de la mission.</p>
                 </div>
                 <div className="video-frame">
                     <div className="video-box">
