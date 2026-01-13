@@ -388,15 +388,11 @@ const Home = () => {
         .team-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 500px 1fr; gap: 60px; align-items: start; }
         .team-image-box { 
             position: sticky; 
-            top: 150px; 
-            height: fit-content; 
-            align-self: start; 
-            z-index: 10;
+            top: 50px; 
         }
         .team-image { 
             width: 100%; 
-            height: auto;
-            max-height: 600px; 
+            height: 600px; 
             border-radius: 35px; 
             overflow: hidden; 
             box-shadow: 0 30px 80px rgba(0,0,0,0.2); 
@@ -1017,8 +1013,7 @@ const Home = () => {
         }
         
         /* RESPONSIVE ADDITIONS */
-         /* On passe à 1024px au lieu de 1200px pour garder le layout 2 colonnes (et donc le sticky) sur les petits laptops */
-         @media (max-width: 1024px) {
+         @media (max-width: 1200px) {
             .hero { grid-template-columns: 1fr; }
             .hero-left { clip-path: none; padding: 80px 5%; }
             .hero-right { display: none; }
@@ -1055,7 +1050,6 @@ const Home = () => {
             position: relative;
             z-index: 2;
             padding-top: 100px;
-            overflow: visible; /* CRUCIAL pour que sticky fonctionne */
         }
 
         /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */

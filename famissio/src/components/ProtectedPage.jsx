@@ -19,14 +19,10 @@ const ProtectedPage = () => {
         }
 
         // VÉRIFICATION DE SÉCURITÉ (Persistence)
-        // NOTE: J'ai commenté cette partie pour que vous puissiez VOIR l'écran de connexion à chaque test.
-        // Décommentez ces lignes si vous voulez que le navigateur se souvienne vraiment du visiteur.
-        /*
         const sessionAuth = localStorage.getItem('famissio_secure_access');
         if (sessionAuth === 'granted') {
             setIsAuthorized(true);
         }
-        */
     }, []);
 
     // 2. Fonction de vérification du mot de passe
