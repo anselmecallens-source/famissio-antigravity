@@ -1243,12 +1243,12 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* SECTION 6 TEMPS FORTS - TIMELINE INTERACTIVE */}
-            <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '120px 5%', position: 'relative', overflow: 'hidden' }}>
+            {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
+            <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
                 <style>{`
                     /* Timeline Container */
                     .timeline-showcase {
-                        max-width: 1400px;
+                        max-width: 1300px;
                         margin: 0 auto;
                         position: relative;
                     }
@@ -1257,7 +1257,7 @@ const Home = () => {
                     .timeline-line {
                         position: absolute;
                         left: 50%;
-                        top: 150px;
+                        top: 100px;
                         bottom: 0;
                         width: 3px;
                         background: linear-gradient(180deg, var(--ember), var(--coral), transparent);
@@ -1269,7 +1269,7 @@ const Home = () => {
                     .timeline-track {
                         display: flex;
                         flex-direction: column;
-                        gap: 100px;
+                        gap: 60px;
                         position: relative;
                         z-index: 2;
                     }
@@ -1277,7 +1277,7 @@ const Home = () => {
                     .timeline-item {
                         display: grid;
                         grid-template-columns: 1fr 1fr;
-                        gap: 80px;
+                        gap: 60px;
                         align-items: center;
                         position: relative;
                     }
@@ -1296,28 +1296,28 @@ const Home = () => {
                         left: 50%;
                         top: 50%;
                         transform: translate(-50%, -50%);
-                        width: 30px;
-                        height: 30px;
-                        background: white;
-                        border: 5px solid var(--ember);
+                        width: 24px;
+                        height: 24px;
+                        background: var(--ember);
+                        border: 4px solid white;
                         border-radius: 50%;
                         z-index: 3;
-                        box-shadow: 0 0 0 10px rgba(248, 106, 7, 0.1);
+                        box-shadow: 0 0 0 8px rgba(248, 106, 7, 0.15);
                         cursor: pointer;
                         transition: all 0.4s ease;
                     }
 
                     .timeline-dot:hover {
-                        transform: translate(-50%, -50%) scale(1.3);
-                        box-shadow: 0 0 0 20px rgba(248, 106, 7, 0.2);
+                        transform: translate(-50%, -50%) scale(1.4);
+                        box-shadow: 0 0 0 15px rgba(248, 106, 7, 0.25);
                     }
 
-                    /* Image Blob */
+                    /* Image Blob - FIXÉ */
                     .timeline-blob {
                         position: relative;
                         width: 100%;
-                        max-width: 500px;
-                        height: 400px;
+                        max-width: 450px;
+                        height: 350px;
                         margin: 0 auto;
                     }
 
@@ -1326,63 +1326,27 @@ const Home = () => {
                         height: 100%;
                         border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
                         overflow: hidden;
-                        box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+                        box-shadow: 0 25px 60px rgba(0,0,0,0.18);
                         position: relative;
-                        animation: morphBlob 12s ease-in-out infinite;
                         cursor: pointer;
-                        transition: all 0.5s ease;
-                    }
-
-                    .timeline-item:nth-child(2n) .blob-shape {
-                        animation-delay: -2s;
-                    }
-
-                    .timeline-item:nth-child(3n) .blob-shape {
-                        animation-delay: -4s;
-                    }
-
-                    @keyframes morphBlob {
-                        0%, 100% { border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; }
-                        25% { border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; }
-                        50% { border-radius: 50% 50% 50% 50% / 60% 40% 60% 40%; }
-                        75% { border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%; }
+                        transition: box-shadow 0.5s ease, transform 0.5s ease;
                     }
 
                     .blob-shape:hover {
-                        transform: scale(1.05);
-                        box-shadow: 0 40px 100px rgba(200, 41, 4, 0.3);
+                        transform: scale(1.03);
+                        box-shadow: 0 35px 80px rgba(200, 41, 4, 0.25);
                     }
 
                     .blob-shape img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        display: block;
                         transition: transform 0.6s ease;
                     }
 
                     .blob-shape:hover img {
-                        transform: scale(1.1);
-                    }
-
-                    /* Number Badge on Image */
-                    .timeline-number-badge {
-                        position: absolute;
-                        top: 20px;
-                        right: 20px;
-                        width: 70px;
-                        height: 70px;
-                        background: rgba(255, 255, 255, 0.95);
-                        backdrop-filter: blur(10px);
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-family: 'Playfair Display', serif;
-                        font-size: 2.0rem;
-                        font-weight: 900;
-                        color: var(--flame);
-                        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                        z-index: 2;
+                        transform: scale(1.08);
                     }
 
                     /* Content */
@@ -1392,7 +1356,7 @@ const Home = () => {
 
                     .timeline-title {
                         font-family: 'Playfair Display', serif;
-                        font-size: 2.5rem;
+                        font-size: 2.2rem;
                         font-weight: 900;
                         color: var(--flame);
                         margin-bottom: 20px;
@@ -1404,18 +1368,18 @@ const Home = () => {
                         content: '';
                         position: absolute;
                         left: 0;
-                        bottom: -10px;
-                        width: 80px;
-                        height: 4px;
+                        bottom: -8px;
+                        width: 70px;
+                        height: 3px;
                         background: linear-gradient(90deg, var(--ember), var(--coral));
                         border-radius: 2px;
                     }
 
                     .timeline-description {
-                        font-size: 1.15rem;
-                        line-height: 1.9;
+                        font-size: 1.1rem;
+                        line-height: 1.8;
                         color: #555;
-                        margin: 30px 0;
+                        margin: 25px 0;
                         text-align: justify;
                     }
 
@@ -1423,22 +1387,22 @@ const Home = () => {
                         display: inline-flex;
                         align-items: center;
                         gap: 12px;
-                        padding: 15px 35px;
+                        padding: 14px 32px;
                         background: linear-gradient(135deg, var(--flame), var(--ember));
                         color: white;
                         border: none;
                         border-radius: 50px;
                         font-weight: 700;
-                        font-size: 1rem;
+                        font-size: 0.95rem;
                         cursor: pointer;
                         transition: all 0.4s ease;
-                        box-shadow: 0 10px 30px rgba(200, 41, 4, 0.3);
+                        box-shadow: 0 8px 25px rgba(200, 41, 4, 0.3);
                     }
 
                     .timeline-expand-btn:hover {
-                        transform: translateY(-3px);
-                        box-shadow: 0 15px 40px rgba(200, 41, 4, 0.4);
-                        gap: 18px;
+                        transform: translateY(-2px);
+                        box-shadow: 0 12px 35px rgba(200, 41, 4, 0.4);
+                        gap: 16px;
                     }
 
                     /* Modal Fullscreen */
@@ -1483,24 +1447,13 @@ const Home = () => {
                     .modal-image-section {
                         position: relative;
                         overflow: hidden;
+                        background: var(--charcoal);
                     }
 
                     .modal-image-section img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
-                    }
-
-                    .modal-number-overlay {
-                        position: absolute;
-                        top: 30px;
-                        left: 30px;
-                        font-family: 'Playfair Display', serif;
-                        font-size: 8rem;
-                        font-weight: 900;
-                        color: white;
-                        text-shadow: 0 5px 20px rgba(0,0,0,0.5);
-                        line-height: 1;
                     }
 
                     .modal-content-section {
@@ -1589,7 +1542,7 @@ const Home = () => {
                     @media (max-width: 1200px) {
                         .timeline-item {
                             grid-template-columns: 1fr;
-                            gap: 40px;
+                            gap: 35px;
                         }
 
                         .timeline-item:nth-child(even) {
@@ -1606,6 +1559,7 @@ const Home = () => {
 
                         .timeline-blob {
                             max-width: 100%;
+                            height: 300px;
                         }
 
                         .timeline-modal {
@@ -1624,8 +1578,12 @@ const Home = () => {
                     }
 
                     @media (max-width: 768px) {
+                        .timeline-track {
+                            gap: 50px;
+                        }
+
                         .timeline-blob {
-                            height: 300px;
+                            height: 280px;
                         }
 
                         .timeline-title {
@@ -1636,17 +1594,13 @@ const Home = () => {
                             font-size: 1rem;
                         }
 
-                        .modal-number-overlay {
-                            font-size: 5rem;
-                        }
-
                         .modal-title {
                             font-size: 1.8rem;
                         }
                     }
                 `}</style>
 
-                {/* Section Header */}
+                                {/* Section Header */}
                 <div className="section-head">
                     <div className="eyebrow">Une Semaine de Mission</div>
                     <h2 className="title">Les 6 Temps Forts</h2>
@@ -1656,15 +1610,14 @@ const Home = () => {
                 {/* Timeline Container */}
                 <div className="timeline-showcase">
                     <div className="timeline-line"></div>
-
+                    
                     <div className="timeline-track">
-                        {missionBlocks.map((block, index) => (
+                        {missionBlocks.map((block) => (
                             <div key={block.id} className="timeline-item">
                                 {/* Image Blob */}
                                 <div className="timeline-blob" onClick={() => setActiveMission(block)}>
                                     <div className="blob-shape">
                                         <img src={block.image} alt={block.title} />
-                                        <div className="timeline-number-badge">0{index + 1}</div>
                                     </div>
                                 </div>
 
@@ -1674,7 +1627,7 @@ const Home = () => {
                                     <p className="timeline-description">
                                         {block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
-                                    <button
+                                    <button 
                                         className="timeline-expand-btn"
                                         onClick={() => setActiveMission(block)}
                                     >
@@ -1691,7 +1644,7 @@ const Home = () => {
                 </div>
 
                 {/* Modal Fullscreen */}
-                <div
+                <div 
                     className={`timeline-modal-backdrop ${activeMission ? 'active' : ''}`}
                     onClick={() => setActiveMission(null)}
                 >
@@ -1699,25 +1652,22 @@ const Home = () => {
                         <button className="modal-close-btn" onClick={() => setActiveMission(null)}>
                             ×
                         </button>
-
+                        
                         {activeMission && (
                             <>
                                 {/* Image Section */}
                                 <div className="modal-image-section">
                                     <img src={activeMission.image} alt={activeMission.title} />
-                                    <div className="modal-number-overlay">
-                                        0{missionBlocks.findIndex(b => b.id === activeMission.id) + 1}
-                                    </div>
                                 </div>
 
                                 {/* Content Section */}
                                 <div className="modal-content-section">
                                     <h3 className="modal-title">{activeMission.title}</h3>
-
+                                    
                                     {activeMission.content && (
                                         <p className="modal-main-text">{activeMission.content}</p>
                                     )}
-
+                                    
                                     {activeMission.items && (
                                         <ul className="modal-list">
                                             {activeMission.items.map((item, idx) => (
@@ -1730,6 +1680,7 @@ const Home = () => {
                         )}
                     </div>
                 </div>
+
             </section>
 
             {/* ET APRES CETTE SEMAINE (Depuis Source B) */}
