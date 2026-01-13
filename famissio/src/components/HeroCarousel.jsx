@@ -63,7 +63,7 @@ const HeroCarousel = () => {
                     --ember: #f46a07;
                 }
                 body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
-                .famissio-container { width: 100%; height: 100vh; overflow: hidden; }
+                .famissio-container { width: 100%; height: 100vh; overflow: hidden; margin: 0; }
 
                 /* CAROUSEL */
                 .carousel-section { position: relative; width: 100%; height: 100vh; }
