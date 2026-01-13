@@ -1016,9 +1016,9 @@ const Home = () => {
         .diagonal {
             margin-top: 0 !important; /* On colle au slider */
             padding-top: 100px !important; /* Moins de padding en haut car plus de "biais" */
-            /* Haut plat (0 0, 100% 0) et PENTE en bas (0 85% -> 100% 100%) */
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%) !important;
-            padding-bottom: 15rem !important;
+            /* Pente douce et droite : légère inclinaison en bas */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%) !important;
+            padding-bottom: 10rem !important;
         }
         
         /* RESPONSIVE ADDITIONS */
