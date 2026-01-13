@@ -1,0 +1,207 @@
+            {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN) */}
+            <>
+                <style>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+                    .toussaint-clean {
+                    position: relative;
+                    min-height: 90vh;
+                    display: flex;
+                    align-items: center;
+                    background: #1a1a1a;
+                    overflow: hidden;
+                    }
+
+                    /* L'IMAGE EN ARRIÈRE-PLAN */
+                    .toussaint-bg {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    }
+
+                    .toussaint-bg img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                    }
+
+                    /* Overlay pour contraste */
+                    .toussaint-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                        to right,
+                        rgba(0, 0, 0, 0.75) 0%,
+                        rgba(0, 0, 0, 0.5) 50%,
+                        rgba(0, 0, 0, 0.3) 100%
+                    );
+                    z-index: 2;
+                    }
+
+                    /* Container du contenu */
+                    .toussaint-wrapper {
+                    position: relative;
+                    z-index: 10;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding: 100px 8%;
+                    width: 100%;
+                    }
+
+                    .toussaint-inner {
+                    max-width: 700px;
+                    }
+
+                    /* EYEBROW - Style exact du site */
+                    .toussaint-eyebrow {
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 800;
+                    color: #f46a07;
+                    text-transform: uppercase;
+                    letter-spacing: 3px;
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    }
+
+                    .toussaint-eyebrow::before,
+                    .toussaint-eyebrow::after {
+                    content: '';
+                    width: 40px;
+                    height: 2px;
+                    background: #f46a07;
+                    }
+
+                    /* TITLE - Style exact du site */
+                    .toussaint-h2 {
+                    font-family: 'Playfair Display', serif;
+                    font-size: clamp(2.5rem, 5vw, 4.5rem);
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin-bottom: 20px;
+                    line-height: 1.15;
+                    }
+
+                    /* Texte */
+                    .toussaint-text {
+                    font-family: 'Inter', sans-serif;
+                    margin-top: 45px;
+                    }
+
+                    .toussaint-text p {
+                    font-size: 1.2rem;
+                    line-height: 1.9;
+                    color: rgba(255, 255, 255, 0.92);
+                    margin-bottom: 28px;
+                    text-align: justify;
+                    }
+
+                    .toussaint-text p:first-of-type {
+                    font-size: 1.35rem;
+                    font-weight: 500;
+                    color: #ffffff;
+                    border-left: 5px solid #f46a07;
+                    padding-left: 25px;
+                    background: rgba(248, 106, 7, 0.08);
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    padding-right: 20px;
+                    border-radius: 0 8px 8px 0;
+                    }
+
+                    /* Responsive */
+                    @media (max-width: 1024px) {
+                    .toussaint-overlay {
+                        background: rgba(0, 0, 0, 0.7);
+                    }
+                    }
+
+                    @media (max-width: 768px) {
+                    .toussaint-clean {
+                        min-height: auto;
+                    }
+
+                    .toussaint-wrapper {
+                        padding: 70px 5%;
+                    }
+
+                    .toussaint-inner {
+                        max-width: 100%;
+                    }
+
+                    .toussaint-text p {
+                        font-size: 1.1rem;
+                        line-height: 1.75;
+                    }
+
+                    .toussaint-text p:first-of-type {
+                        font-size: 1.2rem;
+                        padding: 12px 15px 12px 20px;
+                    }
+
+                    .toussaint-eyebrow {
+                        font-size: 0.75rem;
+                        letter-spacing: 2px;
+                    }
+
+                    .toussaint-eyebrow::before,
+                    .toussaint-eyebrow::after {
+                        width: 25px;
+                    }
+                    }
+                `}</style>
+
+                <section className="toussaint-clean">
+                    {/* IMAGE */}
+                    <div className="toussaint-bg">
+                    <img 
+                        src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
+                        alt="Mission Toussaint"
+                        loading="lazy"
+                    />
+                    </div>
+
+                    {/* OVERLAY */}
+                    <div className="toussaint-overlay"></div>
+
+                    {/* CONTENU */}
+                    <div className="toussaint-wrapper">
+                    <div className="toussaint-inner">
+                        
+                        <div className="toussaint-eyebrow">La Toussaint</div>
+                        
+                        <h2 className="toussaint-h2">
+                        Pourquoi faire ça à la Toussaint ?
+                        </h2>
+
+                        <div className="toussaint-text">
+                        <p>
+                            Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
+                        </p>
+
+                        <p>
+                            C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
+                        </p>
+
+                        <p>
+                            À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
+                        </p>
+
+                        <p>
+                            Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
+                        </p>
+                        </div>
+
+                    </div>
+                    </div>
+                </section>
+            </>

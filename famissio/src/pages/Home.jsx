@@ -1221,65 +1221,70 @@ const Home = () => {
             </section>
 
             {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) - FOND CRÈME MAINTENANT */}
-                        {/* SECTION TOUSSAINT - NOUVEAU DESIGN */}
+                                    {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN) */}
             <>
                 <style>{`
-                    .toussaint-new-section {
+                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+                    .toussaint-clean {
                     position: relative;
-                    min-height: 95vh;
+                    min-height: 90vh;
                     display: flex;
                     align-items: center;
-                    padding: 0;
+                    background: #1a1a1a;
                     overflow: hidden;
                     }
 
-                    /* Image en arrière-plan */
-                    .toussaint-bg-image {
+                    /* L'IMAGE EN ARRIÈRE-PLAN */
+                    .toussaint-bg {
                     position: absolute;
-                    inset: 0;
+                    top: 0;
+                    left: 0;
                     width: 100%;
                     height: 100%;
                     z-index: 1;
                     }
 
-                    .toussaint-bg-image img {
+                    .toussaint-bg img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    object-position: center;
+                    display: block;
                     }
 
-                    /* Overlay gradient subtil */
-                    .toussaint-gradient-overlay {
+                    /* Overlay pour contraste */
+                    .toussaint-overlay {
                     position: absolute;
-                    inset: 0;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
                     background: linear-gradient(
                         to right,
-                        rgba(26, 26, 26, 0.92) 0%,
-                        rgba(26, 26, 26, 0.85) 35%,
-                        rgba(26, 26, 26, 0.75) 60%,
-                        transparent 100%
+                        rgba(0, 0, 0, 0.75) 0%,
+                        rgba(0, 0, 0, 0.5) 50%,
+                        rgba(0, 0, 0, 0.3) 100%
                     );
                     z-index: 2;
                     }
 
-                    /* Container de contenu */
-                    .toussaint-content-container {
+                    /* Container du contenu */
+                    .toussaint-wrapper {
                     position: relative;
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                    padding: 120px 8% 120px 10%;
+                    padding: 100px 8%;
                     width: 100%;
                     }
 
-                    /* Zone de texte */
-                    .toussaint-text-zone {
-                    max-width: 750px;
+                    .toussaint-inner {
+                    max-width: 700px;
                     }
 
-                    /* Eyebrow (style du site) */
+                    /* EYEBROW - Style exact du site */
                     .toussaint-eyebrow {
+                    font-family: 'Inter', sans-serif;
                     font-size: 0.85rem;
                     font-weight: 800;
                     color: #f46a07;
@@ -1299,170 +1304,134 @@ const Home = () => {
                     background: #f46a07;
                     }
 
-                    /* Title (style du site) */
-                    .toussaint-title {
+                    /* TITLE - Style exact du site */
+                    .toussaint-h2 {
                     font-family: 'Playfair Display', serif;
                     font-size: clamp(2.5rem, 5vw, 4.5rem);
                     font-weight: 700;
-                    color: white;
-                    margin-bottom: 50px;
+                    color: #ffffff;
+                    margin-bottom: 20px;
                     line-height: 1.15;
                     }
 
-                    /* Paragraphes */
-                    .toussaint-text-zone p {
-                    font-size: 1.2rem;
-                    line-height: 2;
-                    color: rgba(255, 255, 255, 0.95);
-                    margin-bottom: 30px;
-                    text-align: justify;
-                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                    /* Texte */
+                    .toussaint-text {
+                    font-family: 'Inter', sans-serif;
+                    margin-top: 45px;
                     }
 
-                    .toussaint-text-zone p:first-of-type {
+                    .toussaint-text p {
+                    font-size: 1.2rem;
+                    line-height: 1.9;
+                    color: rgba(255, 255, 255, 0.92);
+                    margin-bottom: 28px;
+                    text-align: justify;
+                    }
+
+                    .toussaint-text p:first-of-type {
                     font-size: 1.35rem;
                     font-weight: 500;
-                    border-left: 4px solid #f46a07;
+                    color: #ffffff;
+                    border-left: 5px solid #f46a07;
                     padding-left: 25px;
-                    }
-
-                    /* Accent visuel - ligne verticale décorative */
-                    .toussaint-accent-line {
-                    position: absolute;
-                    right: 45%;
-                    top: 15%;
-                    bottom: 15%;
-                    width: 2px;
-                    background: linear-gradient(
-                        to bottom,
-                        transparent,
-                        rgba(248, 106, 7, 0.6) 20%,
-                        rgba(248, 106, 7, 0.6) 80%,
-                        transparent
-                    );
-                    z-index: 5;
-                    }
-
-                    /* Points décoratifs subtils */
-                    .toussaint-deco-dots {
-                    position: absolute;
-                    right: calc(45% - 8px);
-                    top: 50%;
-                    transform: translateY(-50%);
-                    display: flex;
-                    flex-direction: column;
-                    gap: 30px;
-                    z-index: 6;
-                    }
-
-                    .toussaint-dot {
-                    width: 18px;
-                    height: 18px;
-                    background: #f46a07;
-                    border-radius: 50%;
-                    box-shadow: 0 0 20px rgba(248, 106, 7, 0.6);
+                    background: rgba(248, 106, 7, 0.08);
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    padding-right: 20px;
+                    border-radius: 0 8px 8px 0;
                     }
 
                     /* Responsive */
-                    @media (max-width: 1200px) {
-                    .toussaint-gradient-overlay {
-                        background: linear-gradient(
-                        to bottom,
-                        rgba(26, 26, 26, 0.85) 0%,
-                        rgba(26, 26, 26, 0.90) 100%
-                        );
-                    }
-
-                    .toussaint-accent-line,
-                    .toussaint-deco-dots {
-                        display: none;
-                    }
-
-                    .toussaint-text-zone {
-                        max-width: 100%;
+                    @media (max-width: 1024px) {
+                    .toussaint-overlay {
+                        background: rgba(0, 0, 0, 0.7);
                     }
                     }
 
                     @media (max-width: 768px) {
-                    .toussaint-new-section {
+                    .toussaint-clean {
                         min-height: auto;
                     }
 
-                    .toussaint-content-container {
-                        padding: 80px 5%;
+                    .toussaint-wrapper {
+                        padding: 70px 5%;
                     }
 
-                    .toussaint-title {
-                        margin-bottom: 35px;
+                    .toussaint-inner {
+                        max-width: 100%;
                     }
 
-                    .toussaint-text-zone p {
+                    .toussaint-text p {
                         font-size: 1.1rem;
-                        line-height: 1.8;
+                        line-height: 1.75;
                     }
 
-                    .toussaint-text-zone p:first-of-type {
+                    .toussaint-text p:first-of-type {
                         font-size: 1.2rem;
-                        padding-left: 20px;
+                        padding: 12px 15px 12px 20px;
+                    }
+
+                    .toussaint-eyebrow {
+                        font-size: 0.75rem;
+                        letter-spacing: 2px;
                     }
 
                     .toussaint-eyebrow::before,
                     .toussaint-eyebrow::after {
-                        width: 30px;
+                        width: 25px;
                     }
                     }
                 `}</style>
 
-                <section className="toussaint-new-section">
-                    {/* Image de fond */}
-                    <div className="toussaint-bg-image">
+                <section className="toussaint-clean">
+                    {/* IMAGE */}
+                    <div className="toussaint-bg">
                     <img 
-                        src="https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9&st=cviy7u1j&raw=1" 
-                        alt="Mission à la Toussaint"
+                        src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
+                        alt="Mission Toussaint"
+                        loading="lazy"
                     />
                     </div>
 
-                    {/* Overlay gradient */}
-                    <div className="toussaint-gradient-overlay"></div>
+                    {/* OVERLAY */}
+                    <div className="toussaint-overlay"></div>
 
-                    {/* Ligne décorative verticale */}
-                    <div className="toussaint-accent-line"></div>
-                    <div className="toussaint-deco-dots">
-                    <div className="toussaint-dot"></div>
-                    <div className="toussaint-dot"></div>
-                    <div className="toussaint-dot"></div>
-                    </div>
-
-                    {/* Contenu */}
-                    <div className="toussaint-content-container">
-                    <div className="toussaint-text-zone">
-                        {/* Titres avec le style du site */}
+                    {/* CONTENU */}
+                    <div className="toussaint-wrapper">
+                    <div className="toussaint-inner">
+                        
                         <div className="toussaint-eyebrow">La Toussaint</div>
-                        <h2 className="toussaint-title">Pourquoi faire ça à la Toussaint ?</h2>
+                        
+                        <h2 className="toussaint-h2">
+                        Pourquoi faire ça à la Toussaint ?
+                        </h2>
 
-                        {/* Texte */}
+                        <div className="toussaint-text">
                         <p>
-                        Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
+                            Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
                         </p>
 
                         <p>
-                        C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
+                            C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
                         </p>
 
                         <p>
-                        À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
+                            À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
                         </p>
 
                         <p>
-                        Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
+                            Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
                         </p>
+                        </div>
+
                     </div>
                     </div>
                 </section>
             </>
 
 
-            {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
+
+{/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
             <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
                 <style>{`
                     /* Timeline Container */
@@ -2020,4 +1989,5 @@ const Home = () => {
 };
 
 export default Home;
+
 
