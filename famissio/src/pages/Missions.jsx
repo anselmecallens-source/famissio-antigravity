@@ -231,9 +231,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
         <div className="relative max-w-7xl mx-auto px-6 py-24">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="inline-block mb-4 px-4 py-1 bg-orange-500 rounded-full text-xs font-bold tracking-widest">
-                PROCHAINE MISSION
-              </div>
+              PROCHAINE MISSION !
               <h2 className="text-7xl sm:text-8xl font-black mb-6 year-tag leading-none">
                 2026
               </h2>
@@ -250,13 +248,12 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
               </p>
             </div>
 
-            <div className="relative flex justify-center">
-              <img
-                src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1"
-                alt="Carte Mission 2026"
-                className="w-full max-w-lg mx-auto h-auto object-contain bg-transparent hover:scale-105 transition-transform duration-500"
-              />
-            </div>
+            <img
+              src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1&v=2"
+              alt="Carte Mission 2026"
+              className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain hover:scale-105 transition-transform duration-500"
+              style={{ background: 'transparent', boxShadow: 'none' }}
+            />
           </div>
         </div>
       </div>
