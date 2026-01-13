@@ -393,7 +393,15 @@ const Home = () => {
             align-self: start; /* Indispensable dans une grid pour que sticky fonctionne */
             z-index: 10;
         }
-        .team-image { width: 100%; height: 600px; border-radius: 35px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.2); margin-bottom: 30px; }
+        .team-image { 
+            width: 100%; 
+            height: 550px; /* Un peu moins haut pour laisser du "jeu" au sticky */
+            max-height: 80vh; 
+            border-radius: 35px; 
+            overflow: hidden; 
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2); 
+            margin-bottom: 30px; 
+        }
         
         .team-image img { 
             width: 100%; height: 100%; object-fit: cover; 
@@ -1044,8 +1052,9 @@ const Home = () => {
         .team-section-white {
             background-color: white;
             position: relative;
-            z-index: 2; /* Pour passer par dessus */
+            z-index: 2;
             padding-top: 100px;
+            overflow: visible; /* CRUCIAL pour que sticky fonctionne */
         }
 
         /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
