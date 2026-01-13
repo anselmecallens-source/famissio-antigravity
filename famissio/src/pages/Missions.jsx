@@ -231,15 +231,12 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
               </p>
             </div>
 
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl opacity-20 blur-2xl"></div>
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="https://www.dropbox.com/scl/fi/fpibs3f87k6l6dkb7xnvr/Carte-mission-2026.png?rlkey=uidr46j9kvnwlnblreeqj4q4y&st=4asqakyt&raw=1"
-                  alt="Carte Mission 2026"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
+            <div className="relative flex justify-center">
+              <img
+                src="https://www.dropbox.com/scl/fi/fpibs3f87k6l6dkb7xnvr/Carte-mission-2026.png?rlkey=uidr46j9kvnwlnblreeqj4q4y&st=4asqakyt&raw=1"
+                alt="Carte Mission 2026"
+                className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+              />
             </div>
           </div>
         </div>
