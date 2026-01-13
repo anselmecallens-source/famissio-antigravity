@@ -963,7 +963,7 @@ const Home = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 60px 5%; /* Espace réduit en haut (était 120px) */
+          padding: 0 5% 120px 5%; /* Plus d'espace en haut */
           background: #fafafa;
           position: relative;
         }
@@ -1010,6 +1010,15 @@ const Home = () => {
           color: #f46a07;
           position: relative;
           display: inline-block;
+        }
+
+        /* OVERRIDE pour la section "Notre Histoire" (Comment tout a commencé) */
+        .diagonal {
+            margin-top: 0 !important; /* On colle au slider */
+            padding-top: 100px !important; /* Moins de padding en haut car plus de "biais" */
+            /* Haut plat (0 0, 100% 0) et Triangle en bas (50% 100%) */
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 50% 100%, 0 95%) !important;
+            padding-bottom: 15rem !important; /* Plus d'espace en bas pour le triangle */
         }
         
         /* RESPONSIVE ADDITIONS */
@@ -1200,7 +1209,7 @@ const Home = () => {
             </section>
 
             {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
-            <section style={{ background: 'white' }}>
+            <section style={{ background: 'white', padding: '60px 5%' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -1216,7 +1225,7 @@ const Home = () => {
                 <div className="toussaint-inner">
                     <div className="toussaint-content">
                         <div className="eyebrow">La Toussaint</div>
-                        <h2 className="toussaint-title">Pourquoi la Mission à la Toussaint ?</h2>
+                        <h2 className="toussaint-title">Pourquoi faire ça à la Toussaint ?</h2>
 
                         <div className="questions-cascade">
                             <div className="question-item">Qui n'est jamais venu à l'église pour l'enterrement d'un proche ou d'une connaissance</div>
