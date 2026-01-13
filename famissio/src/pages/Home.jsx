@@ -1307,7 +1307,7 @@ const Home = () => {
                         transition: all 0.4s ease;
                     }
 
-                    .timeline-dot:hover {
+                    .timeline-item:hover .timeline-dot {
                         transform: translate(-50%, -50%) scale(1.4);
                         box-shadow: 0 0 0 15px rgba(248, 106, 7, 0.25);
                     }
@@ -1333,7 +1333,7 @@ const Home = () => {
                     }
 
                     .blob-shape:hover {
-                        transform: scale(1.03);
+                        transform: none;
                         box-shadow: 0 35px 80px rgba(200, 41, 4, 0.25);
                     }
 
@@ -1346,7 +1346,7 @@ const Home = () => {
                     }
 
                     .blob-shape:hover img {
-                        transform: scale(1.08);
+                        transform: none;
                     }
 
                     /* Content */
