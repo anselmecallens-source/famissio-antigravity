@@ -1221,7 +1221,7 @@ const Home = () => {
             </section>
 
             {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) - FOND CRÈME MAINTENANT */}
-                                                {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
+            {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
             <>
                 <style>{`
                     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -1274,7 +1274,7 @@ const Home = () => {
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                    padding: 100px 8%;
+                    padding: 70px 8% 30px 8%;
                     width: 100%;
                     }
 
@@ -1365,48 +1365,48 @@ const Home = () => {
 
                 <section className="toussaint-clean">
                     <div className="toussaint-bg">
-                    <img 
-                        src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
-                        alt="Mission Toussaint"
-                        loading="lazy"
-                    />
+                        <img
+                            src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
+                            alt="Mission Toussaint"
+                            loading="lazy"
+                        />
                     </div>
 
                     <div className="toussaint-overlay"></div>
 
                     <div className="toussaint-wrapper">
-                    <div className="toussaint-inner">
-                        <div className="toussaint-eyebrow">La Toussaint</div>
-                        
-                        <h2 className="toussaint-h2">
-                        Pourquoi faire ça à la Toussaint ?
-                        </h2>
+                        <div className="toussaint-inner">
+                            <div className="toussaint-eyebrow">La Toussaint</div>
 
-                        <div className="toussaint-text">
-                        <p>
-                            Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
-                        </p>
+                            <h2 className="toussaint-h2">
+                                Pourquoi faire ça à la Toussaint ?
+                            </h2>
 
-                        <p>
-                            C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
-                        </p>
+                            <div className="toussaint-text">
+                                <p>
+                                    Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
+                                </p>
 
-                        <p>
-                            À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
-                        </p>
+                                <p>
+                                    C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
+                                </p>
 
-                        <p>
-                            Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
-                        </p>
+                                <p>
+                                    À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
+                                </p>
+
+                                <p>
+                                    Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </section>
             </>
 
 
 
-{/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
+            {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
             <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
                 <style>{`
                     /* Timeline Container */
