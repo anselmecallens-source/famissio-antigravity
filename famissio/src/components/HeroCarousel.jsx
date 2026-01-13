@@ -306,10 +306,11 @@ const HeroCarousel = () => {
                                             <div style={{ fontSize: '1.2rem', fontWeight: '400', opacity: 0.9, marginBottom: '20px' }}>24 — 30 OCT 2026</div>
 
                                             {/* IMAGE CARTE */}
+                                            {/* IMAGE CARTE */}
                                             <img
-                                                src="https://www.dropbox.com/scl/fi/fpibs3f87k6l6dkb7xnvr/Capture_d_-cran_2026-01-13_213816-removebg-preview.png?rlkey=uidr46j9kvnwlnblreeqj4q4y&st=hkuajs1l&raw=1"
-                                                alt="Carte Mission"
-                                                style={{ height: '250px', objectFit: 'contain', margin: '10px 0 25px' }}
+                                                src="https://www.dropbox.com/scl/fi/fpibs3f87k6l6dkb7xnvr/Carte-mission-2026.png?rlkey=uidr46j9kvnwlnblreeqj4q4y&st=4asqakyt&raw=1"
+                                                alt="Carte Mission 2026"
+                                                className="w-full h-auto object-cover"
                                             />
 
                                             <p style={{ fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto 30px', fontStyle: 'italic', lineHeight: '1.6' }}>
