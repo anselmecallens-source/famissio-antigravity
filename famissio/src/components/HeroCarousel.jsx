@@ -63,10 +63,10 @@ const HeroCarousel = () => {
                     --ember: #f46a07;
                 }
                 body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
-                .famissio-container { width: 100%; height: 80vh; overflow: hidden; }
+                .famissio-container { width: 100%; height: 100vh; overflow: hidden; }
 
                 /* CAROUSEL */
-                .carousel-section { position: relative; width: 100%; height: 80vh; }
+                .carousel-section { position: relative; width: 100%; height: 100vh; }
                 .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; }
                 .carousel-track { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
                 .carousel-slide {
@@ -79,7 +79,7 @@ const HeroCarousel = () => {
                     position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
                     display: flex; flex-direction: column; align-items: center; justify-content: center;
                     /* Espace en bas pour la nav */
-                    padding-bottom: 60px; 
+                    padding-bottom: 100px; 
                 }
 
                 /* --- SLIDE 1: FORMATION --- */

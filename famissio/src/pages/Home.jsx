@@ -1209,7 +1209,7 @@ const Home = () => {
             </section>
 
             {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
-            <section style={{ background: 'white', padding: '20px 5% 120px 5%' }}>
+            <section style={{ background: 'white', padding: '60px 5% 120px 5%' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -1229,7 +1229,6 @@ const Home = () => {
                     .toussaint-clean {
                     position: relative;
                     min-height: auto;
-                    max-height: 60vh;
                     display: flex;
                     align-items: center;
                     background: #1a1a1a;
