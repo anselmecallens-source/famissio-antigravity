@@ -1499,7 +1499,7 @@ const Home = () => {
                         transition: box-shadow 0.5s ease, transform 0.5s ease;
                     }
 
-                    .blob-shape:hover {
+                    .timeline-item:hover .blob-shape {
                         transform: none;
                         box-shadow: 0 35px 80px rgba(200, 41, 4, 0.25);
                     }
@@ -1512,7 +1512,7 @@ const Home = () => {
                         transition: transform 0.6s ease;
                     }
 
-                    .blob-shape:hover img {
+                    .timeline-item:hover .blob-shape img {
                         transform: none;
                     }
 
