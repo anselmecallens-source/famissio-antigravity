@@ -1847,7 +1847,7 @@ const Home = () => {
             </section>
 
             {/* ET APRES CETTE SEMAINE (Depuis Source B) */}
-            <section className="after-section" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)' }}>
+            <section className="after-section" style={{ background: '#fffbf7' }}>
                 <div className="after-content">
                     <div className="after-number">+</div>
                     <h2 className="after-title">Et après cette semaine ?</h2>
