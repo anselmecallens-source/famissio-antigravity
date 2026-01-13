@@ -174,6 +174,25 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
         .location-text {
           font-family: 'Space Grotesk', sans-serif;
         }
+
+        .mission-eyebrow {
+          font-size: 0.85rem;
+          font-weight: 800;
+          color: #f46a07;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+        }
+        .mission-eyebrow::before, .mission-eyebrow::after { 
+          content: ''; 
+          width: 40px; 
+          height: 2px; 
+          background: #f46a07; 
+        }
       `}</style>
 
       {/* HERO SECTION */}
@@ -245,7 +264,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
       {/* MISSIONS GALLERY - MOSAIC LAYOUT */}
       <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="text-center mb-16">
-          <div className="inline-block mb-4 px-4 py-1 bg-orange-100 text-orange-600 rounded-full text-xs font-bold tracking-widest">
+          <div className="mission-eyebrow">
             NOTRE HISTOIRE
           </div>
           <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
