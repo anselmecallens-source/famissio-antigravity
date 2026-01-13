@@ -1024,37 +1024,36 @@ const Home = () => {
             .after-number { font-size: 10rem; margin-bottom: -50px; }
         }
 
-        /* --- NOUVEAUX STYLES POUR LE TRIANGLE HAUT ET SECTION GRISE --- */
-        
-        /* La section "Que faisons-nous" en gris */
+        /* --- STYLES SPÉCIFIQUES POUR LA TRANSITION MISSION -> ÉQUIPE --- */
+
+        /* 1. La section Mission en GRIS CLAIR */
         .mission-section-gray {
             background-color: #f4f6f8; /* Gris clair */
             position: relative;
-            /* On ajoute une marge en haut pour laisser la place au triangle de "remonter" sans chevaucher la vidéo */
-            margin-top: 60px; 
             z-index: 1;
+            padding-bottom: 120px; /* Espace pour que le triangle ne coupe pas le contenu */
         }
 
-        /* Le triangle pointant VERS LE HAUT */
-        .mission-section-gray::before {
+        /* 2. La section Équipe en BLANC avec le TRIANGLE VERS LE HAUT */
+        .team-section-white {
+            background-color: white;
+            position: relative;
+            z-index: 2; /* Pour passer par dessus */
+            padding-top: 100px;
+        }
+
+        /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
+        .team-section-white::before {
             content: '';
             position: absolute;
-            /* On le positionne au-dessus de la section de sa hauteur exacte */
-            top: -60px; 
+            top: -60px; /* On le remonte de sa hauteur */
             left: 0;
             width: 100%;
-            height: 60px; /* Hauteur du triangle */
-            background-color: #f4f6f8; /* Doit être la même couleur que la section */
-            /* Dessine le triangle pointant vers le haut */
+            height: 60px;
+            background-color: white; /* Même couleur que la section équipe */
+            /* Forme : Triangle pointant vers le haut */
             clip-path: polygon(0 100%, 50% 0, 100% 100%);
-            z-index: 0;
-        }
-
-        /* La section suivante (Équipe) en blanc */
-        .team-section {
-            background: white;
-            position: relative;
-            z-index: 2; /* S'assure qu'elle passe bien "par-dessus" le bas de la section grise si besoin */
+            z-index: 3;
         }
     `}</style>
 
@@ -1160,7 +1159,7 @@ const Home = () => {
             </section>
 
             {/* TEAM SECTION (SECTION BLANCHE SUIVANTE) */}
-            <section className="team-section">
+            <section className="team-section-white">
                 <div className="section-head">
                     <div className="eyebrow">L'Équipe Missionnaire</div>
                     <h2 className="title">Missionnaires à tout âge</h2>
