@@ -1106,31 +1106,9 @@ const Home = () => {
             <HeroCarousel />
 
             {/* NOTRE HISTOIRE */}
-            <style>{`
-                .history-eyebrow {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 0.85rem;
-                    font-weight: 800;
-                    color: #c82904;
-                    text-transform: uppercase;
-                    letter-spacing: 3px;
-                    margin-bottom: 15px;
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    justify-content: center; /* Centré comme dans la section head */
-                }
-                .history-eyebrow::before,
-                .history-eyebrow::after {
-                    content: '';
-                    width: 40px;
-                    height: 2px;
-                    background: #c82904;
-                }
-            `}</style>
             <div className="diagonal">
                 <div className="section-head">
-                    <div className="history-eyebrow">L'Historique</div>
+                    <div className="eyebrow">Notre Histoire</div>
                     <h2 className="title">Comment tout a commencé</h2>
                     <p className="subtitle">Une aventure familiale devenue mouvement missionnaire</p>
                 </div>

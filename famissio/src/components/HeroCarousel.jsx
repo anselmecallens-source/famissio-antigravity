@@ -299,25 +299,19 @@ const HeroCarousel = () => {
                                     <div className="mission2026-slide">
                                         <div className="slide-content-wrapper">
 
-                                            <h2 className="mission-main-title" style={{ fontSize: '3.5rem', marginBottom: '0' }}>PROCHAINE MISSION</h2>
-                                            <div style={{ fontSize: '5rem', fontWeight: '900', color: 'rgba(255,255,255,0.2)', lineHeight: '1', fontFamily: 'Playfair Display, serif' }}>2026</div>
+                                            <div className="mission-overlap-container">
+                                                <div className="mission-year-bg">2026</div>
+                                                <h2 className="mission-main-title">Mission Paroissiale</h2>
+                                            </div>
 
-                                            <div style={{ fontSize: '1.4rem', fontWeight: '700', marginTop: '10px' }}>Diocèses de La Rochelle, Angoulême et Poitiers</div>
-                                            <div style={{ fontSize: '1.2rem', fontWeight: '400', opacity: 0.9, marginBottom: '20px' }}>24 — 30 OCT 2026</div>
+                                            {/* DIOCÈSES RESTAURÉS */}
+                                            <div className="mission-dioceses">
+                                                <span className="diocese-pill">La Rochelle</span>
+                                                <span className="diocese-pill">Angoulême</span>
+                                                <span className="diocese-pill">Poitiers</span>
+                                            </div>
 
-                                            {/* IMAGE CARTE */}
-                                            {/* IMAGE CARTE */}
-                                            <img
-                                                src="https://www.dropbox.com/scl/fi/fpibs3f87k6l6dkb7xnvr/Carte-mission-2026.png?rlkey=uidr46j9kvnwlnblreeqj4q4y&st=4asqakyt&raw=1"
-                                                alt="Carte Mission 2026"
-                                                className="w-full h-auto object-cover"
-                                            />
-
-                                            <p style={{ fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto 30px', fontStyle: 'italic', lineHeight: '1.6' }}>
-                                                Monseigneur Bozo nous envoie explorer ces territoires. Inscrivez-vous dès maintenant pour vivre cette aventure extraordinaire !
-                                            </p>
-
-                                            <Link to={slide.link} className="mission-btn" style={{ background: 'white', color: '#c82904' }}>
+                                            <Link to={slide.link} className="mission-btn">
                                                 Rejoindre l'aventure <i className="fas fa-arrow-right"></i>
                                             </Link>
                                         </div>
