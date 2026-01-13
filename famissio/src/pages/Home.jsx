@@ -742,7 +742,7 @@ const Home = () => {
         /* SECTION 6 TEMPS FORTS - Grid innovante avec images (RENOMMÉ EN tf-*) */
         .tf-showcase {
           background: white;
-          padding: 120px 0;
+          padding: 120px 0 0 0; /* Plus d'espace blanc en bas */
         }
 
         .tf-header {
@@ -1016,9 +1016,9 @@ const Home = () => {
         .diagonal {
             margin-top: 0 !important; /* On colle au slider */
             padding-top: 100px !important; /* Moins de padding en haut car plus de "biais" */
-            /* Haut plat (0 0, 100% 0) et Triangle en bas (50% 100%) */
-            clip-path: polygon(0 0, 100% 0, 100% 95%, 50% 100%, 0 95%) !important;
-            padding-bottom: 15rem !important; /* Plus d'espace en bas pour le triangle */
+            /* Haut plat (0 0, 100% 0) et PENTE en bas (0 85% -> 100% 100%) */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%) !important;
+            padding-bottom: 15rem !important;
         }
         
         /* RESPONSIVE ADDITIONS */
@@ -1209,7 +1209,7 @@ const Home = () => {
             </section>
 
             {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
-            <section style={{ background: 'white', padding: '60px 5%' }}>
+            <section style={{ background: 'white', padding: '60px 5% 120px 5%' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
                 </div>
