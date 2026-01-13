@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "npm run dev --prefix famissio"
+  },
   "devDependencies": {
     "vite": "^7.3.1"
   }
