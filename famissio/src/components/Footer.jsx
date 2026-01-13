@@ -17,7 +17,12 @@ export default function Footer() {
                 <li><Link to="/temoignages" onClick={scrollToTop}>Témoignages</Link></li>
                 <li><Link to="/contact" onClick={scrollToTop}>Contact</Link></li>
             </ul>
-            <div className="footer-copy">© 2026 Famissio - Tous droits réservés</div>
+            <div className="footer-copy">
+                © 2026 Famissio - Tous droits réservés
+                <Link to="/reserve" style={{ fontSize: '10px', opacity: 0.5, textDecoration: 'none', color: 'inherit', marginLeft: '10px' }}>
+                    page réservée
+                </Link>
+            </div>
         </footer>
     );
 }
