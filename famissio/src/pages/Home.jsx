@@ -118,23 +118,24 @@ const Home = () => {
 
         /* HERO */
         .hero { 
-            height: 100vh; /* Plein écran strict */
+            min-height: 80vh; /* Plus flexible que 100vh */
             display: grid; 
             grid-template-columns: 1.3fr 1fr; 
             position: relative; 
-            overflow: hidden; /* Coupe ce qui dépasse pour éviter le scroll */
-            background: white; /* Fond blanc pour la partie droite */
+            overflow: hidden; 
+            background: white; 
+            padding-bottom: 0; /* Colle au carrousel */
         }
         
         .hero-left { 
             background: linear-gradient(135deg, var(--flame), var(--ember)); 
-            padding: 0 8%; 
+            padding: 80px 8%; /* Padding ajusté */
             display: flex; 
             align-items: center; 
             clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%); 
             position: relative; 
             height: 100%;
-            z-index: 2; /* Au-dessus de la droite pour le clip-path */
+            z-index: 2; 
         }
         .hero-left::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23fff' opacity='0.04'/%3E%3C/svg%3E"); }
         
@@ -205,7 +206,6 @@ const Home = () => {
             justify-content: center; 
             padding: 5%; 
             height: 100%;
-            /* Ajustement "un poil" vers le bas pour éviter le chevauchement avec la navbar */
             margin-top: 0; 
         }
         
@@ -295,10 +295,10 @@ const Home = () => {
         .diagonal { 
             background: #f8f9fa; 
             clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%); 
-            margin: 80px 0; 
-            padding: 150px 5%; 
+            margin: 0; /* Marge supprimée pour coller au carrousel */
+            padding: 100px 5%; /* Padding réduit (était 150px) */
             position: relative; 
-            z-index: 1; /* Assure que le clip-path fonctionne bien par dessus le fond */
+            z-index: 1; 
         }
         .story-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; }
         .image-wrap { position: relative; height: 600px; }
