@@ -282,8 +282,8 @@ const TemoignagesPage = () => {
                   key={emotion.id}
                   onClick={() => setSelectedCategory(`emotion-${emotion.id}`)}
                   className={`px-6 py-3 rounded-full font-bold transition-all flex items-center gap-2 ${selectedCategory === `emotion-${emotion.id}`
-                      ? 'text-white scale-110'
-                      : 'bg-gray-100 hover:bg-gray-200'
+                    ? 'text-white scale-110'
+                    : 'bg-gray-100 hover:bg-gray-200'
                     }`}
                   style={selectedCategory === `emotion-${emotion.id}` ? { backgroundColor: emotion.color } : {}}
                 >
@@ -314,21 +314,6 @@ const TemoignagesPage = () => {
 
       {/* GRILLE DE TÉMOIGNAGES */}
       <div className="max-w-7xl mx-auto px-6 py-16">
-        {/* Barre de recherche */}
-        <div className="mb-12 max-w-2xl mx-auto">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Rechercher un témoignage, un lieu, une année..."
-              className="w-full px-6 py-4 rounded-full border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
-            />
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id).map((testimony, index) => {
