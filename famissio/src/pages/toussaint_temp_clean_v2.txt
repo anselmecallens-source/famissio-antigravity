@@ -1,4 +1,4 @@
-            {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN) */}
+            {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
             <>
                 <style>{`
                     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -29,7 +29,7 @@
                     display: block;
                     }
 
-                    /* Overlay pour contraste */
+                    /* Overlay renforcé pour couvrir la zone de texte élargie */
                     .toussaint-overlay {
                     position: absolute;
                     top: 0;
@@ -38,9 +38,9 @@
                     height: 100%;
                     background: linear-gradient(
                         to right,
-                        rgba(0, 0, 0, 0.75) 0%,
-                        rgba(0, 0, 0, 0.5) 50%,
-                        rgba(0, 0, 0, 0.3) 100%
+                        rgba(0, 0, 0, 0.85) 0%,
+                        rgba(0, 0, 0, 0.6) 50%,
+                        rgba(0, 0, 0, 0.4) 100%
                     );
                     z-index: 2;
                     }
@@ -55,11 +55,12 @@
                     width: 100%;
                     }
 
+                    /* Largeur élargie à 1100px */
                     .toussaint-inner {
-                    max-width: 700px;
+                    max-width: 1100px;
                     }
 
-                    /* EYEBROW - Style exact du site */
+                    /* EYEBROW */
                     .toussaint-eyebrow {
                     font-family: 'Inter', sans-serif;
                     font-size: 0.85rem;
@@ -81,7 +82,7 @@
                     background: #f46a07;
                     }
 
-                    /* TITLE - Style exact du site */
+                    /* TITLE */
                     .toussaint-h2 {
                     font-family: 'Playfair Display', serif;
                     font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -98,7 +99,7 @@
                     }
 
                     .toussaint-text p {
-                    font-size: 1.2rem;
+                    font-size: 1.25rem;
                     line-height: 1.9;
                     color: rgba(255, 255, 255, 0.92);
                     margin-bottom: 28px;
@@ -106,62 +107,40 @@
                     }
 
                     .toussaint-text p:first-of-type {
-                    font-size: 1.35rem;
+                    font-size: 1.4rem;
                     font-weight: 500;
                     color: #ffffff;
                     border-left: 5px solid #f46a07;
                     padding-left: 25px;
                     background: rgba(248, 106, 7, 0.08);
-                    padding-top: 15px;
-                    padding-bottom: 15px;
-                    padding-right: 20px;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    padding-right: 30px;
                     border-radius: 0 8px 8px 0;
                     }
 
                     /* Responsive */
                     @media (max-width: 1024px) {
                     .toussaint-overlay {
-                        background: rgba(0, 0, 0, 0.7);
+                        background: rgba(0, 0, 0, 0.75);
                     }
                     }
 
                     @media (max-width: 768px) {
-                    .toussaint-clean {
-                        min-height: auto;
-                    }
-
                     .toussaint-wrapper {
                         padding: 70px 5%;
                     }
-
-                    .toussaint-inner {
-                        max-width: 100%;
-                    }
-
                     .toussaint-text p {
                         font-size: 1.1rem;
-                        line-height: 1.75;
+                        text-align: left;
                     }
-
                     .toussaint-text p:first-of-type {
                         font-size: 1.2rem;
-                        padding: 12px 15px 12px 20px;
-                    }
-
-                    .toussaint-eyebrow {
-                        font-size: 0.75rem;
-                        letter-spacing: 2px;
-                    }
-
-                    .toussaint-eyebrow::before,
-                    .toussaint-eyebrow::after {
-                        width: 25px;
                     }
                     }
                 `}</style>
 
                 <section className="toussaint-clean">
-                    {/* IMAGE */}
                     <div className="toussaint-bg">
                     <img 
                         src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
@@ -170,13 +149,10 @@
                     />
                     </div>
 
-                    {/* OVERLAY */}
                     <div className="toussaint-overlay"></div>
 
-                    {/* CONTENU */}
                     <div className="toussaint-wrapper">
                     <div className="toussaint-inner">
-                        
                         <div className="toussaint-eyebrow">La Toussaint</div>
                         
                         <h2 className="toussaint-h2">
@@ -200,7 +176,6 @@
                             Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
                         </p>
                         </div>
-
                     </div>
                     </div>
                 </section>
