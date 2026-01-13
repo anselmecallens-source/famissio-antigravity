@@ -1228,7 +1228,7 @@ const Home = () => {
 
                     .toussaint-clean {
                     position: relative;
-                    min-height: 90vh;
+                    min-height: auto;
                     display: flex;
                     align-items: center;
                     background: #1a1a1a;
@@ -1274,7 +1274,7 @@ const Home = () => {
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                    padding: 30px 8% 0px 8%;
+                    padding: 0px 8%;
                     width: 100%;
                     }
 
@@ -1318,15 +1318,19 @@ const Home = () => {
                     /* Texte */
                     .toussaint-text {
                     font-family: 'Inter', sans-serif;
-                    margin-top: 45px;
+                    margin-top: 15px;
                     }
 
                     .toussaint-text p {
                     font-size: 1.25rem;
                     line-height: 1.9;
                     color: rgba(255, 255, 255, 0.92);
-                    margin-bottom: 28px;
+                    margin-bottom: 15px;
                     text-align: justify;
+                    }
+
+                    .toussaint-text p:last-of-type {
+                    margin-bottom: 0;
                     }
 
                     .toussaint-text p:first-of-type {
