@@ -25,6 +25,8 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
+
+
   // 1. BARRE PRINCIPALE
   // Absolute + width 100% + transparent = Flotte au-dessus de l'image sans décaler le site vers le bas
   const navStyle = isHome
@@ -35,6 +37,21 @@ const Navbar = () => {
   const linkTextStyle = isHome
     ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
     : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
+
+  // Helper pour la couleur active (Orange clair)
+  const getLinkStyle = (path) => {
+    const isActive = location.pathname === path;
+    const activeColor = 'var(--ember)';
+    return {
+      ...linkTextStyle,
+      color: isActive ? activeColor : linkTextStyle.color
+    };
+  };
+
+  // Helper pour le sidebar
+  const getSideLinkStyle = (path) => {
+    return location.pathname === path ? { color: 'var(--ember)' } : {};
+  };
 
   // 3. CONTENEUR DU MENU (C'est ici que tout se joue)
   const linksContainerStyle = isHome
@@ -70,11 +87,11 @@ const Navbar = () => {
         </div>
 
         <ul className="nav-links" style={linksContainerStyle}>
-          <li><Link to="/" style={linkTextStyle} onClick={closeMenu}>Accueil</Link></li>
-          <li><Link to="/missions" style={linkTextStyle} onClick={closeMenu}>Nos missions</Link></li>
-          <li><Link to="/formation" style={linkTextStyle} onClick={closeMenu}>Formation</Link></li>
-          <li><Link to="/temoignages" style={linkTextStyle} onClick={closeMenu}>Témoignages</Link></li>
-          <li><Link to="/contact" style={linkTextStyle} onClick={closeMenu}>Contact</Link></li>
+          <li><Link to="/" style={getLinkStyle('/')} onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" style={getLinkStyle('/missions')} onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" style={getLinkStyle('/formation')} onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" style={getLinkStyle('/temoignages')} onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" style={getLinkStyle('/contact')} onClick={closeMenu}>Contact</Link></li>
         </ul>
       </nav>
 
@@ -87,11 +104,11 @@ const Navbar = () => {
       <div className={`menu-backdrop ${menuActive ? 'active' : ''}`} onClick={closeMenu}></div>
       <div className={`side-menu ${menuActive ? 'active' : ''}`} id="sideMenu">
         <ul className="side-links">
-          <li><Link to="/" className="side-link" onClick={closeMenu}>Accueil</Link></li>
-          <li><Link to="/missions" className="side-link" onClick={closeMenu}>Nos missions</Link></li>
-          <li><Link to="/formation" className="side-link" onClick={closeMenu}>Formation</Link></li>
-          <li><Link to="/temoignages" className="side-link" onClick={closeMenu}>Témoignages</Link></li>
-          <li><Link to="/contact" className="side-link" onClick={closeMenu}>Contact</Link></li>
+          <li><Link to="/" className="side-link" style={getSideLinkStyle('/')} onClick={closeMenu}>Accueil</Link></li>
+          <li><Link to="/missions" className="side-link" style={getSideLinkStyle('/missions')} onClick={closeMenu}>Nos missions</Link></li>
+          <li><Link to="/formation" className="side-link" style={getSideLinkStyle('/formation')} onClick={closeMenu}>Formation</Link></li>
+          <li><Link to="/temoignages" className="side-link" style={getSideLinkStyle('/temoignages')} onClick={closeMenu}>Témoignages</Link></li>
+          <li><Link to="/contact" className="side-link" style={getSideLinkStyle('/contact')} onClick={closeMenu}>Contact</Link></li>
         </ul>
       </div>
     </>
