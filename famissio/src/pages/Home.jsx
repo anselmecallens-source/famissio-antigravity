@@ -1243,53 +1243,492 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* 6 TEMPS FORTS (Depuis Source B - CLASSES RENOMMÉES) */}
-            <section className="tf-showcase">
-                <div className="tf-header">
-                    <div className="tf-super">Une Mission Paroissiale</div>
-                    <h2 className="tf-title">Les 6 piliers de la semaine de mission</h2>
-                    <p className="tf-subtitle">Cliquez sur chaque activité pour découvrir les détails</p>
+            {/* SECTION 6 TEMPS FORTS - TIMELINE INTERACTIVE */}
+            <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '120px 5%', position: 'relative', overflow: 'hidden' }}>
+                <style>{`
+                    /* Timeline Container */
+                    .timeline-showcase {
+                        max-width: 1400px;
+                        margin: 0 auto;
+                        position: relative;
+                    }
+
+                    /* Timeline Line */
+                    .timeline-line {
+                        position: absolute;
+                        left: 50%;
+                        top: 150px;
+                        bottom: 0;
+                        width: 3px;
+                        background: linear-gradient(180deg, var(--ember), var(--coral), transparent);
+                        transform: translateX(-50%);
+                        z-index: 1;
+                    }
+
+                    /* Timeline Items */
+                    .timeline-track {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 100px;
+                        position: relative;
+                        z-index: 2;
+                    }
+
+                    .timeline-item {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 80px;
+                        align-items: center;
+                        position: relative;
+                    }
+
+                    .timeline-item:nth-child(even) {
+                        direction: rtl;
+                    }
+
+                    .timeline-item:nth-child(even) > * {
+                        direction: ltr;
+                    }
+
+                    /* Timeline Dot */
+                    .timeline-dot {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 30px;
+                        height: 30px;
+                        background: white;
+                        border: 5px solid var(--ember);
+                        border-radius: 50%;
+                        z-index: 3;
+                        box-shadow: 0 0 0 10px rgba(248, 106, 7, 0.1);
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+                    }
+
+                    .timeline-dot:hover {
+                        transform: translate(-50%, -50%) scale(1.3);
+                        box-shadow: 0 0 0 20px rgba(248, 106, 7, 0.2);
+                    }
+
+                    /* Image Blob */
+                    .timeline-blob {
+                        position: relative;
+                        width: 100%;
+                        max-width: 500px;
+                        height: 400px;
+                        margin: 0 auto;
+                    }
+
+                    .blob-shape {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+                        overflow: hidden;
+                        box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+                        position: relative;
+                        animation: morphBlob 12s ease-in-out infinite;
+                        cursor: pointer;
+                        transition: all 0.5s ease;
+                    }
+
+                    .timeline-item:nth-child(2n) .blob-shape {
+                        animation-delay: -2s;
+                    }
+
+                    .timeline-item:nth-child(3n) .blob-shape {
+                        animation-delay: -4s;
+                    }
+
+                    @keyframes morphBlob {
+                        0%, 100% { border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; }
+                        25% { border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; }
+                        50% { border-radius: 50% 50% 50% 50% / 60% 40% 60% 40%; }
+                        75% { border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%; }
+                    }
+
+                    .blob-shape:hover {
+                        transform: scale(1.05);
+                        box-shadow: 0 40px 100px rgba(200, 41, 4, 0.3);
+                    }
+
+                    .blob-shape img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.6s ease;
+                    }
+
+                    .blob-shape:hover img {
+                        transform: scale(1.1);
+                    }
+
+                    /* Number Badge on Image */
+                    .timeline-number-badge {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        width: 70px;
+                        height: 70px;
+                        background: rgba(255, 255, 255, 0.95);
+                        backdrop-filter: blur(10px);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Playfair Display', serif;
+                        font-size: 2.0rem;
+                        font-weight: 900;
+                        color: var(--flame);
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                        z-index: 2;
+                    }
+
+                    /* Content */
+                    .timeline-content {
+                        position: relative;
+                    }
+
+                    .timeline-title {
+                        font-family: 'Playfair Display', serif;
+                        font-size: 2.5rem;
+                        font-weight: 900;
+                        color: var(--flame);
+                        margin-bottom: 20px;
+                        line-height: 1.2;
+                        position: relative;
+                    }
+
+                    .timeline-title::before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        bottom: -10px;
+                        width: 80px;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--ember), var(--coral));
+                        border-radius: 2px;
+                    }
+
+                    .timeline-description {
+                        font-size: 1.15rem;
+                        line-height: 1.9;
+                        color: #555;
+                        margin: 30px 0;
+                        text-align: justify;
+                    }
+
+                    .timeline-expand-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 15px 35px;
+                        background: linear-gradient(135deg, var(--flame), var(--ember));
+                        color: white;
+                        border: none;
+                        border-radius: 50px;
+                        font-weight: 700;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 10px 30px rgba(200, 41, 4, 0.3);
+                    }
+
+                    .timeline-expand-btn:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 15px 40px rgba(200, 41, 4, 0.4);
+                        gap: 18px;
+                    }
+
+                    /* Modal Fullscreen */
+                    .timeline-modal-backdrop {
+                        position: fixed;
+                        inset: 0;
+                        background: rgba(0, 0, 0, 0.85);
+                        backdrop-filter: blur(10px);
+                        z-index: 9999;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 40px;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .timeline-modal-backdrop.active {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    .timeline-modal {
+                        background: white;
+                        border-radius: 30px;
+                        max-width: 1100px;
+                        width: 100%;
+                        max-height: 90vh;
+                        overflow: hidden;
+                        box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+                        display: grid;
+                        grid-template-columns: 45% 55%;
+                        transform: scale(0.8) translateY(50px);
+                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .timeline-modal-backdrop.active .timeline-modal {
+                        transform: scale(1) translateY(0);
+                    }
+
+                    .modal-image-section {
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .modal-image-section img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .modal-number-overlay {
+                        position: absolute;
+                        top: 30px;
+                        left: 30px;
+                        font-family: 'Playfair Display', serif;
+                        font-size: 8rem;
+                        font-weight: 900;
+                        color: white;
+                        text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+                        line-height: 1;
+                    }
+
+                    .modal-content-section {
+                        padding: 50px;
+                        overflow-y: auto;
+                    }
+
+                    .modal-close-btn {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        width: 50px;
+                        height: 50px;
+                        background: rgba(255, 255, 255, 0.9);
+                        border: none;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.8rem;
+                        color: var(--flame);
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        z-index: 10;
+                        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+                    }
+
+                    .modal-close-btn:hover {
+                        transform: rotate(90deg) scale(1.1);
+                        background: var(--flame);
+                        color: white;
+                    }
+
+                    .modal-title {
+                        font-family: 'Playfair Display', serif;
+                        font-size: 2.5rem;
+                        font-weight: 900;
+                        color: var(--flame);
+                        margin-bottom: 30px;
+                        line-height: 1.2;
+                    }
+
+                    .modal-main-text {
+                        font-size: 1.1rem;
+                        line-height: 1.9;
+                        color: #444;
+                        margin-bottom: 30px;
+                        text-align: justify;
+                    }
+
+                    .modal-list {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .modal-list li {
+                        padding: 15px 0 15px 35px;
+                        position: relative;
+                        font-size: 1.05rem;
+                        line-height: 1.7;
+                        color: #555;
+                        border-bottom: 1px solid rgba(0,0,0,0.06);
+                        transition: all 0.3s ease;
+                    }
+
+                    .modal-list li:last-child {
+                        border-bottom: none;
+                    }
+
+                    .modal-list li::before {
+                        content: '✦';
+                        position: absolute;
+                        left: 0;
+                        color: var(--ember);
+                        font-size: 1.3rem;
+                        font-weight: bold;
+                    }
+
+                    .modal-list li:hover {
+                        padding-left: 45px;
+                        color: var(--charcoal);
+                    }
+
+                    /* Responsive */
+                    @media (max-width: 1200px) {
+                        .timeline-item {
+                            grid-template-columns: 1fr;
+                            gap: 40px;
+                        }
+
+                        .timeline-item:nth-child(even) {
+                            direction: ltr;
+                        }
+
+                        .timeline-line {
+                            left: 30px;
+                        }
+
+                        .timeline-dot {
+                            left: 30px;
+                        }
+
+                        .timeline-blob {
+                            max-width: 100%;
+                        }
+
+                        .timeline-modal {
+                            grid-template-columns: 1fr;
+                            max-height: 95vh;
+                        }
+
+                        .modal-image-section {
+                            min-height: 250px;
+                            max-height: 300px;
+                        }
+
+                        .modal-content-section {
+                            padding: 30px;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .timeline-blob {
+                            height: 300px;
+                        }
+
+                        .timeline-title {
+                            font-size: 1.8rem;
+                        }
+
+                        .timeline-description {
+                            font-size: 1rem;
+                        }
+
+                        .modal-number-overlay {
+                            font-size: 5rem;
+                        }
+
+                        .modal-title {
+                            font-size: 1.8rem;
+                        }
+                    }
+                `}</style>
+
+                {/* Section Header */}
+                <div className="section-head">
+                    <div className="eyebrow">Une Semaine de Mission</div>
+                    <h2 className="title">Les 6 Temps Forts</h2>
+                    <p className="subtitle">Découvrez le déroulement d'une semaine missionnaire avec Famissio</p>
                 </div>
 
-                <div className="tf-grid">
-                    {missionBlocks.map((block, index) => (
-                        <div
-                            key={block.id}
-                            className="tf-card"
-                            onClick={() => setActiveMission(block)}
-                        >
-                            <div className="tf-card-image">
-                                <img src={block.image} alt={block.title} />
-                            </div>
-                            <div className="tf-overlay">
-                                <div className="tf-number">0{index + 1}</div>
-                                <h3 className="tf-card-title">{block.title}</h3>
-                                <div className="tf-preview">
-                                    {block.content ? block.content.substring(0, 100) + '...' : 'Découvrez les activités →'}
+                {/* Timeline Container */}
+                <div className="timeline-showcase">
+                    <div className="timeline-line"></div>
+
+                    <div className="timeline-track">
+                        {missionBlocks.map((block, index) => (
+                            <div key={block.id} className="timeline-item">
+                                {/* Image Blob */}
+                                <div className="timeline-blob" onClick={() => setActiveMission(block)}>
+                                    <div className="blob-shape">
+                                        <img src={block.image} alt={block.title} />
+                                        <div className="timeline-number-badge">0{index + 1}</div>
+                                    </div>
                                 </div>
+
+                                {/* Content */}
+                                <div className="timeline-content">
+                                    <h3 className="timeline-title">{block.title}</h3>
+                                    <p className="timeline-description">
+                                        {block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
+                                    </p>
+                                    <button
+                                        className="timeline-expand-btn"
+                                        onClick={() => setActiveMission(block)}
+                                    >
+                                        <span>En savoir plus</span>
+                                        <i className="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                                {/* Timeline Dot */}
+                                <div className="timeline-dot" onClick={() => setActiveMission(block)}></div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
-                {/* Panel latéral */}
-                <div className={`tf-panel ${activeMission ? 'active' : ''}`}>
-                    <button className="panel-close" onClick={() => setActiveMission(null)}>×</button>
-                    {activeMission && (
-                        <>
-                            <h3 className="panel-title">{activeMission.title}</h3>
-                            {activeMission.content && (
-                                <p className="panel-content">{activeMission.content}</p>
-                            )}
-                            {activeMission.items && (
-                                <ul className="panel-list">
-                                    {activeMission.items.map((item, idx) => (
-                                        <li key={idx}>{item}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </>
-                    )}
+                {/* Modal Fullscreen */}
+                <div
+                    className={`timeline-modal-backdrop ${activeMission ? 'active' : ''}`}
+                    onClick={() => setActiveMission(null)}
+                >
+                    <div className="timeline-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close-btn" onClick={() => setActiveMission(null)}>
+                            ×
+                        </button>
+
+                        {activeMission && (
+                            <>
+                                {/* Image Section */}
+                                <div className="modal-image-section">
+                                    <img src={activeMission.image} alt={activeMission.title} />
+                                    <div className="modal-number-overlay">
+                                        0{missionBlocks.findIndex(b => b.id === activeMission.id) + 1}
+                                    </div>
+                                </div>
+
+                                {/* Content Section */}
+                                <div className="modal-content-section">
+                                    <h3 className="modal-title">{activeMission.title}</h3>
+
+                                    {activeMission.content && (
+                                        <p className="modal-main-text">{activeMission.content}</p>
+                                    )}
+
+                                    {activeMission.items && (
+                                        <ul className="modal-list">
+                                            {activeMission.items.map((item, idx) => (
+                                                <li key={idx}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </section>
 
