@@ -1,0 +1,553 @@
+/* ================== BASE ================== */
+.fam-wrap {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    line-height: 1.55
+}
+
+.fam-wrap .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px
+}
+
+.fam-hero {
+    background: #fff
+}
+
+.fam-hero h1 {
+    margin: 0 0 6px;
+    font-size: 34px;
+    color: #c82904
+}
+
+/* ================== CARTE LEAFLET ================== */
+.fam-map-section {
+    background: #fff;
+    padding: 24px 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.fam-map-container-leaflet {
+    position: relative;
+    max-width: 800px;
+    height: 450px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    /* Fond blanc propre */
+}
+
+#fam-leaflet-map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: transparent;
+    /* CORRECTION : Fond transparent pour ne pas avoir de gris */
+}
+
+/* === Points des missions (Rouge Animé) === */
+.fam-mission-marker-leaflet {
+    background-color: #c82904;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    animation: pulse-leaflet 2s infinite;
+    transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s, box-shadow 0.2s;
+}
+
+.fam-mission-marker-leaflet.is-highlighted {
+    background-color: #f46a07;
+    width: 16px;
+    height: 16px;
+    margin-left: -2px;
+    margin-top: -2px;
+    animation: none;
+    box-shadow: 0 0 10px rgba(244, 106, 7, 0.5);
+    z-index: 1000 !important;
+}
+
+@keyframes pulse-leaflet {
+    0% {
+        box-shadow: 0 0 0 0 rgba(200, 41, 4, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(200, 41, 4, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(200, 41, 4, 0);
+    }
+}
+
+/* === Infobulle Leaflet === */
+.leaflet-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 8px;
+    font-size: 13px;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+
+.leaflet-tooltip-permanent {
+    background: #f46a07 !important;
+    color: white !important;
+    border: 1px solid white !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+    border: none;
+}
+
+.fam-tooltip-city {
+    font-weight: bold;
+}
+
+.fam-tooltip-year {
+    font-size: 12px;
+    opacity: 0.9;
+    display: block;
+}
+
+/* ======= Barre de recherche ======= */
+.fam-search {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.fam-search .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px
+}
+
+.search-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c82904
+}
+
+.fam-input {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 10px 14px
+}
+
+.fam-input input {
+    border: 0;
+    outline: 0;
+    width: 100%;
+    font-size: 14px
+}
+
+/* === Bouton Reset Filtre === */
+#fam-filter-reset-container {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#fam-filter-reset-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f46a07;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 9999px;
+    font-size: 13px;
+    transition: background-color .2s;
+    cursor: pointer;
+}
+
+#fam-filter-reset-button:hover {
+    background-color: #c82904;
+}
+
+/* ======= Liste des missions ======= */
+.fam-timeline {
+    margin: 14px auto 0;
+    padding-left: 0;
+    border-left: 0
+}
+
+.fam-mission {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 18px 0
+}
+
+.fam-dot {
+    display: none
+}
+
+.fam-card {
+    background: #fff;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 14px;
+    transition: border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+}
+
+.fam-mission.is-highlighted .fam-card {
+    border-color: #f46a07;
+    box-shadow: 0 8px 20px rgba(244, 106, 7, 0.2);
+}
+
+.fam-card h2 {
+    font-size: 22px;
+    color: #c82904;
+    margin: 0 0 2px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.fam-card h2:hover {
+    text-decoration: none;
+    color: #f46a07;
+}
+
+.fam-sub {
+    color: #6b7280;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 14px
+}
+
+.fam-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 10px
+}
+
+.fam-badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    font-size: 12px;
+    transition: background-color .2s, color .2s;
+    cursor: pointer;
+}
+
+.fam-badge.is-highlighted {
+    background-color: #f46a07;
+    color: white;
+}
+
+@keyframes fam-flash-card-orange {
+
+    0%,
+    100% {
+        background-color: #fff;
+    }
+
+    50% {
+        background-color: #feeddf;
+    }
+}
+
+@keyframes fam-flash-badge-orange {
+
+    0%,
+    100% {
+        background-color: #f3f4f6;
+        color: #111;
+    }
+
+    50% {
+        background-color: #f46a07;
+        color: white;
+    }
+}
+
+.fam-card.flash-highlight {
+    animation: fam-flash-card-orange 2.5s ease-out;
+}
+
+.fam-badge.flash-highlight {
+    animation: fam-flash-badge-orange 2.5s ease-out;
+}
+
+.fam-grid {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    flex-wrap: wrap
+}
+
+.fam-body {
+    font-size: 14px;
+    color: #222;
+    flex: 1 1 320px
+}
+
+.fam-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 6px
+}
+
+.fam-link {
+    font-size: 13px;
+    color: #c82904;
+    text-decoration: none
+}
+
+.fam-link:hover {
+    text-decoration: underline
+}
+
+/* ======= Vignettes vidéo / Images ======= */
+.fam-thumb {
+    flex: 0 0 300px;
+    max-width: 300px
+}
+
+/* CORRECTION : Coins arrondis et Overflow pour toutes les boites images */
+.yt-box {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%;
+    /* Ratio 16:9 */
+    position: relative;
+    border: 0;
+    border-radius: 12px;
+    /* Coins arrondis forcés */
+    background: #000;
+    overflow: hidden;
+    /* Clip l'image aux bords */
+    cursor: pointer;
+}
+
+/* CORRECTION : Object-fit pour remplir tout le carré sans bord blanc */
+.yt-box img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Remplissage complet */
+    display: block;
+    transition: transform .2s ease, filter .2s ease;
+}
+
+.yt-box::after {
+    content: "YouTube";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 11px;
+    background: rgba(0, 0, 0, .55);
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 6px;
+    letter-spacing: .2px
+}
+
+.yt-box:hover img {
+    transform: scale(1.02);
+    filter: brightness(.92)
+}
+
+.yt-play {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f46a07;
+    display: grid;
+    place-items: center;
+    margin: 0 auto;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .2)
+}
+
+.yt-play i {
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 16px solid #fff;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-left: 4px
+}
+
+.yt-cap {
+    margin-top: 6px;
+    font-size: 12px;
+    text-align: center
+}
+
+.yt-cap a {
+    color: #f46a07;
+    text-decoration: none
+}
+
+.yt-cap a:hover {
+    text-decoration: underline
+}
+
+.yt-box.no-video {
+    cursor: default;
+    background-color: #f3f4f6;
+}
+
+.yt-box.no-video .yt-play,
+.yt-box.no-video::after {
+    display: none
+}
+
+.yt-box.no-video:hover img {
+    transform: none;
+    filter: none
+}
+
+.yt-cap.no-video {
+    display: none
+}
+
+/* ======= Lire la suite ======= */
+.rm-wrap {
+    position: relative;
+    margin-bottom: 6px
+}
+
+.rm-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rm-toggle {
+    display: none;
+    text-align: right;
+    font-size: 12px;
+    color: #777;
+    margin-top: 6px;
+    cursor: pointer;
+    text-decoration: none
+}
+
+.rm-toggle:hover {
+    text-decoration: underline
+}
+
+.rm-check {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none
+}
+
+.rm-check~label.rm-toggle::after {
+    content: "Lire la suite"
+}
+
+.rm-check:checked~.rm-content {
+    display: block;
+    overflow: visible
+}
+
+.rm-check:checked~label.rm-toggle::after {
+    content: "Réduire"
+}
+
+.is-hidden {
+    display: none !important
+}
+
+/* =================================================================== */
+/* === VUE MOBILE ADAPTATIVE === */
+/* =================================================================== */
+@media (max-width: 760px) {
+    .fam-wrap .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .fam-timeline {
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    .fam-mission {
+        margin: 0 0 12px 0;
+        border-radius: 0;
+    }
+
+    .fam-card {
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .fam-card h2 {
+        padding: 16px 16px 0;
+        font-size: 20px;
+    }
+
+    .fam-card .fam-sub {
+        padding: 0 16px;
+    }
+
+    .fam-card .fam-badges {
+        padding: 12px 16px 16px;
+    }
+
+    .fam-grid {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+
+    .fam-body {
+        order: 2;
+        padding: 16px;
+        font-size: 14px;
+    }
+
+    .fam-thumb {
+        order: 1;
+        flex-basis: auto;
+        max-width: 100%;
+        padding: 0 16px;
+        /* Ajout d'un petit padding latéral sur mobile si souhaité, sinon mettre 0 */
+    }
+
+    .yt-box {
+        /* CORRECTION : On garde les coins arrondis sur mobile comme demandé */
+        border-radius: 12px;
+    }
+
+    .yt-cap {
+        padding-bottom: 12px;
+    }
+}
