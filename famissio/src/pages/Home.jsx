@@ -1411,7 +1411,7 @@ const Home = () => {
 
 
             {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
-            <section style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
+            <section style={{ background: 'white', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
                 <style>{`
                     /* Timeline Container */
                     .timeline-showcase {
@@ -1847,7 +1847,7 @@ const Home = () => {
             </section>
 
             {/* ET APRES CETTE SEMAINE (Depuis Source B) */}
-            <section className="after-section">
+            <section className="after-section" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #faf7f5 100%)' }}>
                 <div className="after-content">
                     <div className="after-number">+</div>
                     <h2 className="after-title">Et après cette semaine ?</h2>
