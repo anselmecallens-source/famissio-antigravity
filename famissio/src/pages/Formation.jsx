@@ -98,39 +98,42 @@ const FormationsPage = () => {
             transform: translateY(0);
           }
         }
+        
+        .blob {
+          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+          animation: morph 8s ease-in-out infinite;
+        }
+        
+        @keyframes morph {
+          0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
       `}</style>
 
             {/* HERO */}
-            <div className="relative bg-white border-b-4 border-black">
-                <div className="max-w-7xl mx-auto px-6 py-24">
-                    <div className="flex items-start gap-8">
-                        <div className="flex-1">
-                            <div className="inline-block px-4 py-2 bg-black text-white text-xs font-bold tracking-widest mb-6">
-                                ACADÉMIE FAMISSIO
-                            </div>
+            <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+                <div className="absolute inset-0">
+                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+                </div>
 
-                            <h1 className="text-7xl sm:text-8xl font-black mb-6 leading-none" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                                18 Formations
-                            </h1>
+                <div className="relative max-w-7xl mx-auto px-6 py-24">
+                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                        Formation
+                    </h1>
 
-                            <p className="text-2xl text-gray-700 mb-8 leading-relaxed max-w-2xl">
-                                Choisissez votre thème pour découvrir les formations essentielles.
-                                Préparez-vous à répondre avec justesse et compassion.
-                            </p>
+                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+                        Retrouvez ici les 18 formations essentielles pour nourrir votre foi et vous aider à répondre aux questions en mission.
+                    </p>
+                </div>
+            </div>
 
-                            <div className="bg-orange-50 border-l-4 border-orange-500 p-6">
-                                <p className="text-gray-800 font-semibold">
-                                    💡 L'Esprit Saint vous guidera le moment venu. Restez à l'écoute de l'autre et portez chaque rencontre dans la prière.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="hidden lg:block">
-                            <div className="text-9xl font-black text-gray-100" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                                18
-                            </div>
-                        </div>
-                    </div>
+            {/* CITATION BAND */}
+            <div className="bg-orange-100 py-8 border-y border-orange-200">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <p className="text-orange-900 font-medium italic text-lg leading-relaxed">
+                        "Il n'y a pas de réponse toute faite. L'Esprit Saint vous donnera la parole juste. Soyez les instruments du Seigneur en privilégiant l'écoute et la prière pour chaque rencontre."
+                    </p>
                 </div>
             </div>
 
