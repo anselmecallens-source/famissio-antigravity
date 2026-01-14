@@ -250,7 +250,7 @@ const Home = () => {
         /* SECTIONS GENERAL */
         section { padding: 120px 5%; position: relative; }
         .section-cream { background: var(--cream); }
-        .team-section-white { padding-bottom: 20px !important; } /* Override generic section padding */
+        .team-section-white { padding-bottom: 60px !important; } /* Adjusted spacing: not too tight, not too loose */
         
         /* REPRISE EXACTE DU SCRIPT 1 POUR LES TITRES (Correction bug) */
         .section-head { 
