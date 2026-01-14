@@ -385,11 +385,20 @@ const Home = () => {
 
         /* SECTION ÉQUIPE MISSIONNAIRE */
         .team-section { background: white; }
-        .team-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 500px 1fr; gap: 60px; align-items: start; }
+        .team-layout { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 500px 1fr; 
+            gap: 60px; 
+            align-items: flex-start;
+            position: relative;
+        }
         .team-image-box { 
+            position: -webkit-sticky;
             position: sticky; 
-            top: 80px; 
-            align-self: flex-start;
+            top: 100px; 
+            height: fit-content;
         }
         .team-image { 
             width: 100%; 
@@ -400,6 +409,7 @@ const Home = () => {
             margin-bottom: 30px;
             transform: translateZ(0);
             will-change: transform;
+            transition: box-shadow 0.3s ease;
         }
         
         .team-image img { 
@@ -1060,8 +1070,8 @@ const Home = () => {
         .team-section-white {
             background-color: white;
             position: relative;
-            z-index: 2;
             padding-top: 100px;
+            padding-bottom: 120px;
         }
 
         /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
