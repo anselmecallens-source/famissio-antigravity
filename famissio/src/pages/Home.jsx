@@ -388,15 +388,18 @@ const Home = () => {
         .team-layout { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 500px 1fr; gap: 60px; align-items: start; }
         .team-image-box { 
             position: sticky; 
-            top: 50px; 
+            top: 80px; 
+            align-self: flex-start;
         }
         .team-image { 
             width: 100%; 
             height: 600px; 
             border-radius: 35px; 
             overflow: hidden; 
-            box-shadow: 0 30px 80px rgba(0,0,0,0.2); 
-            margin-bottom: 30px; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3), 0 20px 60px rgba(248, 106, 7, 0.15); 
+            margin-bottom: 30px;
+            transform: translateZ(0);
+            will-change: transform;
         }
         
         .team-image img { 
