@@ -41,7 +41,7 @@ function App() {
         <Route path="/missions" element={<Missions />} />
         <Route path="/formation" element={<Formation />} />
         <Route path="/temoignages" element={<Temoignages />} />
-        <Route path="/contact" element={<div style={{ paddingTop: '120px' }}><NousRejoindre /></div>} />
+        <Route path="/contact" element={<NousRejoindre />} />
         <Route path="/priere-famissio" element={<PriereFamissio />} />
         <Route path="/reserve" element={<ProtectedPage />} />
       </Routes>

@@ -118,7 +118,7 @@ export default function NousRejoindre() {
           <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Contact
           </h1>
-          <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
             Vous vous sentez appelés à vivre une expérience de mission ? Contactez-nous pour que nous puissions en parler.
           </p>
         </div>

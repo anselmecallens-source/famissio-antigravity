@@ -205,7 +205,7 @@ const TemoignagesPage = () => {
             Témoignages
           </h1>
 
-          <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
