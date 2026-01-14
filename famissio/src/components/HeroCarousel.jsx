@@ -62,7 +62,7 @@ const HeroCarousel = () => {
                     --deep-red: #8a1c02;
                     --ember: #f46a07;
                 }
-                body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+                body { font-family: 'Inter', sans-serif; width: 100%; }
                 .famissio-container { width: 100%; height: 100vh; overflow: hidden; margin: 0; }
 
                 /* CAROUSEL */
