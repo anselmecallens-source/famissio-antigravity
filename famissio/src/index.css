@@ -22,11 +22,11 @@
   --off-white-warm: #faf7f5;
 }
 
-/* SCROLL SMOOTH */
+/* SCROLL SMOOTH - IMPORTANT: overflow-y MUST stay visible for sticky to work! */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  /* IMPORTANT: overflow-y doit être visible pour que position: sticky fonctionne */
+  overflow-y: visible !important;
 }
 
 body {
@@ -34,7 +34,7 @@ body {
   color: var(--charcoal);
   line-height: 1.7;
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: visible !important;
 }
 
 .hero {
