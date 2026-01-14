@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
@@ -15,6 +15,11 @@ const MissionsPage = () => {
   const handleCloseMission = () => {
     setSelectedMission(null);
     setIsVideoPlaying(false);
+  };
+
+  // Toggle vidéo
+  const toggleVideo = () => {
+    setIsVideoPlaying(!isVideoPlaying);
   };
 
   // Navigation entre missions
@@ -360,7 +365,7 @@ const MissionsPage = () => {
               <img
                 src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1&v=2"
                 alt="Carte Mission 2026"
-                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain hover:scale-105 transition-transform duration-500"
+                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain transition-transform duration-500" // Suppression de hover:scale-105
               />
             </div>
           </div>
@@ -522,16 +527,18 @@ const MissionsPage = () => {
                         <span className="text-lg font-semibold">{selectedMission.diocese}</span>
                       </div>
 
-                      {/* VILLES (TEXTE SIMPLE) - Alignement vertical sous le texte du diocèse */}
-                      <div className="mt-2 pl-10">
-                        <div>
-                          {selectedMission.cities.map((city, idx) => (
-                            <span key={idx} className="city-text">
-                              {city}
-                            </span>
-                          ))}
+                      {/* VILLES (Affichées uniquement si ce n'est pas une mission "année") */}
+                      {selectedMission.category !== 'year' && (
+                        <div className="mt-2 pl-10">
+                          <div>
+                            {selectedMission.cities.map((city, idx) => (
+                              <span key={idx} className="city-text">
+                                {city}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     {/* PARTICIPANTS */}
@@ -556,23 +563,34 @@ const MissionsPage = () => {
                 </div>
               </div>
 
-              {/* TEXTE HISTOIRE : HORS GRILLE -> PLEINE LARGEUR */}
+              {/* TEXTE HISTOIRE : HORS GRILLE -> PLEINE LARGEUR + JUSTIFIÉ */}
               <div className="w-full bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-white/5">
-                <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
-                  {selectedMission.story}
-                </p>
+                <div className="w-full">
+                  <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify w-full">
+                    {selectedMission.story}
+                  </p>
+                </div>
               </div>
 
               {/* LIENS & BOUTONS */}
               <div className="flex flex-wrap gap-4 mb-8">
-                {/* Bouton Vidéo */}
+                {/* Bouton Vidéo (Toggle) */}
                 {selectedMission.video && (
                   <button
-                    onClick={() => setIsVideoPlaying(true)}
+                    onClick={toggleVideo}
                     className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg"
                   >
-                    <Play className="w-5 h-5 fill-current" />
-                    Voir la vidéo
+                    {isVideoPlaying ? (
+                      <>
+                        <X className="w-5 h-5 fill-current" />
+                        Fermer la vidéo
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-5 h-5 fill-current" />
+                        Voir la vidéo
+                      </>
+                    )}
                   </button>
                 )}
 
