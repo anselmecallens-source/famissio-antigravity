@@ -320,7 +320,7 @@ const MissionsPage = () => {
       `}</style>
 
       {/* HERO SECTION */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-br from-orange-50 via-white to-orange-50 text-gray-900 overflow-hidden">
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
           
@@ -350,7 +350,7 @@ const MissionsPage = () => {
             Nos Missions
           </h1>
 
-          <p className="text-xl sm:text-2xl text-justify max-w-6xl mx-auto opacity-90 leading-relaxed font-medium">
+          <p className="text-xl sm:text-2xl text-justify max-w-6xl mx-auto text-gray-600 leading-relaxed font-medium">
             Pendant la semaine autour de La Toussaint, nous organisons chaque année une mission dans plusieurs paroisses d'un même diocèse. Cette mission se prépare pendant un an, main dans la main avec chacune des paroisses pour adapter le programme à leurs besoins et spécificités.
           </p>
         </div>

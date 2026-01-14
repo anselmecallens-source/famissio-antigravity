@@ -194,7 +194,7 @@ const TemoignagesPage = () => {
       `}</style>
 
       {/* HERO */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-br from-orange-50 via-white to-orange-50 text-gray-900 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-20"></div>
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-20" style={{ animationDelay: '2s' }}></div>
@@ -205,10 +205,13 @@ const TemoignagesPage = () => {
             Témoignages
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto opacity-90 leading-relaxed">
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-600 leading-relaxed">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
+
+        {/* Bande orange décorative en bas */}
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-amber-500 to-orange-500"></div>
       </div>
 
       {/* TÉMOIGNAGE DU JOUR */}
