@@ -395,10 +395,11 @@ const Home = () => {
             position: relative;
         }
         .team-image-box { 
-            position: -webkit-sticky;
-            position: sticky; 
-            top: 100px; 
-            height: fit-content;
+            position: -webkit-sticky !important;
+            position: sticky !important; 
+            top: 100px !important; 
+            height: fit-content !important;
+            align-self: start !important;
         }
         .team-image { 
             width: 100%; 
@@ -1251,6 +1252,7 @@ const Home = () => {
                     align-items: center;
                     background: #1a1a1a;
                     overflow: hidden;
+                    padding: 0 !important;
                     }
 
                     /* L'IMAGE EN ARRIÈRE-PLAN */
