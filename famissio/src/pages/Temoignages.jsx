@@ -194,10 +194,10 @@ const TemoignagesPage = () => {
       `}</style>
 
       {/* HERO */}
-      <div className="relative bg-gradient-to-br from-orange-50 via-orange-100 to-amber-50 text-gray-900 overflow-hidden">
+      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-300 blob opacity-30"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-300 blob opacity-30" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-24">
@@ -214,8 +214,8 @@ const TemoignagesPage = () => {
       {/* TÉMOIGNAGE DU JOUR */}
       {testimonyOfDay && (
         <>
-          <div className="bg-gradient-to-r from-amber-500 to-orange-500 py-2">
-            <div className="max-w-7xl mx-auto px-6 text-center text-white font-bold flex items-center justify-center gap-3">
+          <div className="bg-orange-100 py-2 border-y border-orange-200">
+            <div className="max-w-7xl mx-auto px-6 text-center text-orange-800 font-bold flex items-center justify-center gap-3">
               <Sparkles className="w-5 h-5" />
               <span>TÉMOIGNAGE DU JOUR</span>
               <Sparkles className="w-5 h-5" />
