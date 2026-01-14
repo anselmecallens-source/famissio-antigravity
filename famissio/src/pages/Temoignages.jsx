@@ -194,34 +194,31 @@ const TemoignagesPage = () => {
       `}</style>
 
       {/* HERO */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-orange-50 via-orange-100 to-amber-50 text-gray-900 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-10"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-10" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-300 blob opacity-30"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-300 blob opacity-30" style={{ animationDelay: '2s' }}></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Témoignages
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-600 leading-relaxed">
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
-
-        {/* Bande orange décorative en bas */}
-        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-amber-500 to-orange-500"></div>
       </div>
 
       {/* TÉMOIGNAGE DU JOUR */}
       {testimonyOfDay && (
         <>
-          <div className="py-8 flex justify-center">
-            <div className="inline-flex items-center justify-center gap-2 px-6 py-2 bg-orange-100 text-orange-600 rounded-full font-bold text-sm tracking-widest uppercase shadow-sm">
-              <Sparkles className="w-4 h-4" />
+          <div className="bg-gradient-to-r from-amber-500 to-orange-500 py-2">
+            <div className="max-w-7xl mx-auto px-6 text-center text-white font-bold flex items-center justify-center gap-3">
+              <Sparkles className="w-5 h-5" />
               <span>TÉMOIGNAGE DU JOUR</span>
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-5 h-5" />
             </div>
           </div>
 

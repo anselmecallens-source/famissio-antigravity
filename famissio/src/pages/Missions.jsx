@@ -320,7 +320,7 @@ const MissionsPage = () => {
       `}</style>
 
       {/* HERO SECTION */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-orange-50 via-orange-100 to-amber-50 text-gray-900 overflow-hidden">
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
           
@@ -337,26 +337,26 @@ const MissionsPage = () => {
 
         {/* Fond animé avec Blobs */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-10"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-10" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-300 blob opacity-30"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-300 blob opacity-30" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Contenu */}
         <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
           <h1
-            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center"
+            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
             Nos Missions
           </h1>
 
-          <p className="text-xl sm:text-2xl text-justify max-w-6xl mx-auto text-gray-600 leading-relaxed font-medium">
+          <p className="text-xl sm:text-2xl text-justify max-w-6xl mx-auto text-gray-700 leading-relaxed font-medium">
             Pendant la semaine autour de La Toussaint, nous organisons chaque année une mission dans plusieurs paroisses d'un même diocèse. Cette mission se prépare pendant un an, main dans la main avec chacune des paroisses pour adapter le programme à leurs besoins et spécificités.
           </p>
         </div>
 
-        {/* Bande orange décorative en bas */}
-        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+        {/* Bande orange décorative en bas - Plus claire */}
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-orange-300 to-amber-300"></div>
       </div>
 
       {/* MISSION 2026 */}
