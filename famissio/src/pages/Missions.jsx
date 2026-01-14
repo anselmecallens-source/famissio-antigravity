@@ -4,7 +4,7 @@ import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRig
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
 
-  // Données mises à jour
+  // Données
   const missions = [
     // --- MISSIONS TOUSSAINT ---
     {
@@ -12,8 +12,8 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2025',
       date: 'Toussaint 2025',
-      location: 'Limousin & Charente',
-      diocese: 'Limoges, Angoulême, Tulle',
+      location: 'Limoges, Angoulême, Tulle', // Affichage carte
+      diocese: 'Limoges, Angoulême, Tulle', // Affichage Popup
       participants: '380',
       image: 'https://www.dropbox.com/scl/fi/gs1ubcrv9xjqmp313f8d7/Groupe-2025.JPG?rlkey=h27o0wozxxa9uggcpzl34493z&st=plymodzr&raw=1',
       cities: ['Confolens', 'Haute-Charente', 'La Rochefoucauld', 'Limoges', 'Nantiat', 'Boisseuil', 'Brive'],
@@ -39,7 +39,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2024',
       date: 'Toussaint 2024',
-      location: 'Lozère, Aveyron, Cantal, Orne',
+      location: 'Mende, Rodez, Saint-Flour, Séez',
       diocese: 'Mende, Rodez, Saint-Flour, Séez',
       participants: '340',
       image: 'https://www.dropbox.com/scl/fi/4ntkl4phubtubihjzt2bo/Groupe-2024.jpg?rlkey=an0idcz0143dtd3d0eadzl3us&st=3jkf2a5r&raw=1',
@@ -62,7 +62,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2023',
       date: 'Toussaint 2023',
-      location: 'Creuse',
+      location: 'Limoges (Creuse)',
       diocese: 'Limoges',
       participants: '280',
       image: 'https://www.dropbox.com/scl/fi/fkhlly77zj3zse6pm7ib9/Groupe-2023.jpg?rlkey=5naurijx6hv79x988ocfefgc1&st=sywqghnw&raw=1',
@@ -84,7 +84,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2022',
       date: 'Toussaint 2022',
-      location: 'Alpes-de-Haute-Provence',
+      location: 'Digne (Alpes-de-Haute-Provence)',
       diocese: 'Digne',
       participants: '260',
       image: 'https://www.dropbox.com/scl/fi/535qp3971mdvhs1g6b99z/Groupe-2022.jpg?rlkey=6sdiai1vvyrhc0q7friftqog9&st=6nuf09ar&raw=1',
@@ -106,7 +106,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2021',
       date: 'Toussaint 2021',
-      location: 'Creuse',
+      location: 'Limoges (Creuse)',
       diocese: 'Limoges',
       participants: '180',
       image: 'https://www.dropbox.com/scl/fi/hcg9hnxg7rjtfj42veart/Groupe-2021.jpg?rlkey=uqz2y7jdwjcd9f0xdt1ue0jat&st=5cc6cj5w&raw=1',
@@ -127,7 +127,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2020',
       date: 'Toussaint 2020',
-      location: 'Orne',
+      location: 'Séez (Orne)',
       diocese: 'Séez',
       participants: '90',
       image: 'https://www.dropbox.com/scl/fi/qd8mjaxsk77koxw8lqd1z/Groupe-2020.jpg?rlkey=f3xm2i2w4o96yp04m51boiggp&st=apf1aqw7&raw=1',
@@ -146,7 +146,7 @@ const MissionsPage = () => {
       category: 'toussaint',
       year: '2019',
       date: 'Toussaint 2019',
-      location: 'Creuse',
+      location: 'Limoges (Creuse)',
       diocese: 'Limoges',
       participants: '30',
       image: 'https://www.dropbox.com/scl/fi/llacr38y9h7jlnngqzy8e/Groupe-2019.jpg?rlkey=f2akrwo3kjtc6adroe30hm7sn&st=ijdjpvp8&raw=1',
@@ -206,7 +206,6 @@ const MissionsPage = () => {
     e.stopPropagation();
     if (!selectedMission) return;
 
-    // Créer une liste unifiée pour la navigation, ou naviguer dans la catégorie courante ?
     // Navigation globale à travers toutes les missions affichées
     const allVisible = [...toussaintMissions, ...yearMissions];
     const currentIndex = allVisible.findIndex(m => m.id === selectedMission.id);
@@ -253,7 +252,23 @@ const MissionsPage = () => {
           content: ''; width: 40px; height: 2px; background: #f46a07; 
         }
 
-        /* Suppression des styles d'images arrondis spécifiques qui causaient des problèmes */
+        .mission-overlay { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .mission-content { animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Style spécifique pour les villes alignées */
+        .city-tag {
+           display: inline-block;
+           padding: 4px 12px;
+           margin: 0 8px 8px 0;
+           background: rgba(244, 106, 7, 0.15);
+           color: #f46a07;
+           border: 1px solid rgba(244, 106, 7, 0.3);
+           border-radius: 9999px;
+           font-size: 0.85rem;
+        }
       `}</style>
 
       {/* HERO SECTION */}
@@ -275,7 +290,7 @@ const MissionsPage = () => {
         </div>
       </div>
 
-      {/* MISSION 2026 */}
+      {/* MISSION 2026 - (Retour au texte d'origine) */}
       <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-6 py-24">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -287,11 +302,11 @@ const MissionsPage = () => {
                 2026
               </h2>
               <p className="text-2xl mb-8 location-text font-semibold text-orange-200">
-                La Rochelle, Angoulême et Poitiers
+                Diocèse de La Rochelle, Angoulême et Poitiers
               </p>
               <div className="flex items-center gap-4 text-3xl font-bold mb-8">
                 <Calendar className="w-10 h-10 text-orange-400" />
-                <span className="year-tag">TOUSSAINT 2026</span>
+                <span className="year-tag">24 - 30 OCT 2026</span>
               </div>
               <p className="text-lg text-gray-300 leading-relaxed">
                 Monseigneur Bozo nous envoie explorer ces territoires.
@@ -311,25 +326,35 @@ const MissionsPage = () => {
 
       {/* GALLERIE MISSIONS */}
       <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="text-center mb-12">
-          <div className="mission-eyebrow">NOTRE HISTOIRE</div>
+        {/* EN-TÊTE EXACT DEMANDÉ */}
+        <div className="text-center mb-16">
+          <div className="mission-eyebrow">
+            NOTRE HISTOIRE
+          </div>
           <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
-            MISSIONS TOUSSAINT
+            9 MISSIONS
           </h2>
+          <p className="text-xl text-gray-600">
+            De 2019 à aujourd'hui, cliquez pour découvrir chaque aventure
+          </p>
         </div>
 
+        {/* TITRE INTERMÉDIAIRE POUR TOUSSAINT */}
+        <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
+          FAMISSIO TOUSSAINT
+        </h3>
+
         {/* GRILLE TOUSSAINT */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
           {toussaintMissions.map((mission, index) => (
             <div
               key={mission.id}
-              className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg bg-gray-200 
-                ${mission.size === 'large' ? 'col-span-2 row-span-2 h-[500px] md:h-[600px]' :
+              className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg 
+                ${mission.size === 'large' ? 'col-span-2 row-span-2 h-[600px]' :
                   mission.size === 'medium' ? 'col-span-2 row-span-1 h-[300px]' :
-                    'col-span-2 md:col-span-1 row-span-1 h-[250px]'}`}
+                    'col-span-1 row-span-1 h-[240px]'}`}
               onClick={() => setSelectedMission(mission)}
             >
-              {/* IMAGE ABSOLUE SANS CADRE BLANC */}
               <div className="absolute inset-0 w-full h-full">
                 <img
                   src={mission.image}
@@ -338,41 +363,43 @@ const MissionsPage = () => {
                 />
               </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
 
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <div className="transform transition-transform group-hover:translate-y-0 translate-y-2">
-                  <div className="text-5xl sm:text-7xl font-black mb-1 year-tag text-white">
+                  <div className="text-5xl sm:text-7xl font-black mb-2 year-tag text-white">
                     {mission.year}
                   </div>
-                  <div className="flex items-center gap-2 text-orange-300">
+                  <div className="flex items-center gap-2 text-orange-300 mb-2">
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm font-semibold truncate">{mission.location}</span>
                   </div>
+                  {mission.participants && (
+                    <div className="flex items-center gap-2 text-white/80">
+                      <Users className="w-4 h-4" />
+                      <span className="text-sm font-bold">{mission.participants} Famissionnaires</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
-                VOIR
+              <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                VOIR PLUS
               </div>
             </div>
           ))}
         </div>
 
         {/* SECTION MISSIONS ANNÉE */}
-        <div className="text-center mb-12">
-          <div className="w-24 h-1 bg-orange-200 mx-auto rounded-full mb-8"></div>
-          <h2 className="text-5xl font-black mb-4 year-tag text-gray-800">
-            MISSIONS À L'ANNÉE
-          </h2>
-          <p className="text-xl text-gray-600">Famissio 92 en action</p>
-        </div>
+        <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
+          MISSIONS À L'ANNÉE
+        </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {yearMissions.map((mission) => (
             <div
               key={mission.id}
-              className="mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg h-[350px]"
+              className="mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg h-[300px]"
               onClick={() => setSelectedMission(mission)}
             >
               <div className="absolute inset-0 w-full h-full">
@@ -382,14 +409,14 @@ const MissionsPage = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 hover:opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90"></div>
 
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <div className="text-5xl font-black mb-2 year-tag text-white">
                   {mission.year}
                 </div>
                 <div className="flex items-center gap-2 text-orange-300">
-                  <MapPin className="w-5 h-5" />
+                  <MapPin className="w-4 h-4" />
                   <span className="text-lg font-semibold">{mission.location}</span>
                 </div>
               </div>
@@ -398,120 +425,119 @@ const MissionsPage = () => {
         </div>
       </div>
 
-      {/* MISSION OVERLAY (MODAL) */}
+      {/* MISSION OVERLAY (MODAL CORRIGÉ) */}
       {selectedMission && (
-        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto animate-in fade-in duration-300">
-          <div className="min-h-screen p-4 sm:p-8 flex flex-col items-center">
+        <div className="mission-overlay fixed inset-0 bg-black/95 z-50 overflow-y-auto">
 
-            {/* Navigation et Fermeture */}
-            <div className="w-full max-w-6xl flex justify-between items-center mb-6 sticky top-0 z-50 pt-4">
+          {/* FLÈCHES DE NAVIGATION (HORS DU CONTENEUR) */}
+          <button
+            onClick={(e) => navigateMission('prev', e)}
+            className="fixed left-4 top-1/2 -translate-y-1/2 z-[60] p-4 text-white hover:text-orange-500 transition-colors"
+          >
+            <ChevronLeft className="w-12 h-12" />
+          </button>
+
+          <button
+            onClick={(e) => navigateMission('next', e)}
+            className="fixed right-4 top-1/2 -translate-y-1/2 z-[60] p-4 text-white hover:text-orange-500 transition-colors"
+          >
+            <ChevronRight className="w-12 h-12" />
+          </button>
+
+          <div className="mission-content min-h-screen p-6 sm:p-12 flex items-center justify-center">
+            <div className="max-w-5xl w-full relative">
+
+              {/* BOUTON FERMER (ORIGINE) */}
               <button
                 onClick={() => setSelectedMission(null)}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full text-white transition-colors"
+                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50"
               >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            <div className="max-w-6xl w-full bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden relative shadow-2xl">
-
-              {/* Flèches de navigation latérales */}
-              <button
-                onClick={(e) => navigateMission('prev', e)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/30 hover:bg-orange-500 rounded-full text-white transition-all hover:scale-110"
-              >
-                <ChevronLeft className="w-8 h-8" />
+                <X className="w-6 h-6 text-white" />
               </button>
 
-              <button
-                onClick={(e) => navigateMission('next', e)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/30 hover:bg-orange-500 rounded-full text-white transition-all hover:scale-110"
-              >
-                <ChevronRight className="w-8 h-8" />
-              </button>
+              {/* GRILLE DU HAUT (INFO GAUCHE / IMAGE DROITE) */}
+              <div className="grid md:grid-cols-2 gap-12 mb-8">
+                {/* COLONNE GAUCHE : INFOS + VILLES ALIGNÉES */}
+                <div className="flex flex-col justify-center">
+                  <div className="text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
+                    {selectedMission.year}
+                  </div>
 
-              <div className="grid lg:grid-cols-2 gap-0">
-                {/* Colonne Image (Full height) */}
-                <div className="h-[400px] lg:h-auto relative">
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3 text-orange-300">
+                      <Calendar className="w-6 h-6" />
+                      <span className="text-xl font-semibold">{selectedMission.date}</span>
+                    </div>
+
+                    <div className="flex items-start gap-3 text-white">
+                      <MapPin className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+                      <span className="text-lg font-semibold">{selectedMission.diocese}</span>
+                    </div>
+
+                    {selectedMission.participants && (
+                      <div className="flex items-center gap-3 text-white">
+                        <Users className="w-6 h-6 text-orange-400" />
+                        <span className="text-xl font-semibold">{selectedMission.participants} Famissionnaires</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* VILLES : ALIGNÉES SOUS LE TEXTE (MEME VERTICALE QUE LES ICONES) */}
+                  <div className="pl-[2.25rem]"> {/* Alignement avec le texte des icones (24px icone + 12px gap) */}
+                    <div className="flex flex-wrap">
+                      {selectedMission.cities.map((city, idx) => (
+                        <span key={idx} className="city-tag">
+                          {city}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* COLONNE DROITE : IMAGE */}
+                <div className="rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-auto">
                   <img
                     src={selectedMission.image}
                     alt={selectedMission.year}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent lg:hidden"></div>
-                </div>
-
-                {/* Colonne Infos Header */}
-                <div className="p-8 lg:p-12 flex flex-col justify-center bg-gray-900">
-                  <div className="text-7xl lg:text-8xl font-black mb-6 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
-                    {selectedMission.year}
-                  </div>
-
-                  <div className="space-y-6 mb-8">
-                    <div className="flex items-center gap-4 text-orange-200">
-                      <Calendar className="w-6 h-6 flex-shrink-0" />
-                      <span className="text-2xl font-bold">{selectedMission.date}</span>
-                    </div>
-
-                    <div className="flex items-start gap-4 text-white">
-                      <MapPin className="w-6 h-6 text-orange-500 mt-1 flex-shrink-0" />
-                      <div>
-                        <span className="text-xl font-semibold block mb-1">{selectedMission.diocese}</span>
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {selectedMission.cities.map((city, idx) => (
-                            <span key={idx} className="text-sm text-gray-400 border border-gray-700 px-2 py-1 rounded">
-                              {city}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {selectedMission.participants && (
-                      <div className="flex items-center gap-4 text-white">
-                        <Users className="w-6 h-6 text-orange-500 flex-shrink-0" />
-                        <span className="text-xl font-bold">{selectedMission.participants} Famissionnaires</span>
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
 
-              {/* Contenu Texte (Pleine largeur) */}
-              <div className="p-8 lg:p-12 bg-gray-800/50 border-t border-white/5">
-                <div className="max-w-4xl mx-auto">
-                  <p className="text-gray-200 text-lg lg:text-xl leading-relaxed whitespace-pre-line mb-10 text-justify">
-                    {selectedMission.story}
-                  </p>
-
-                  {/* Boutons d'action (Style restauré) */}
-                  <div className="flex flex-wrap gap-4 justify-center">
-                    {selectedMission.video && (
-                      <a
-                        href={`https://youtu.be/${selectedMission.video}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-8 py-4 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-transform hover:scale-105 shadow-lg"
-                      >
-                        <Play className="w-5 h-5 fill-current" />
-                        Voir la vidéo
-                      </a>
-                    )}
-                    {selectedMission.links.map((link, idx) => (
-                      <a
-                        key={idx}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-bold transition-transform hover:scale-105 shadow-lg"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        {link.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+              {/* TEXTE HISTOIRE : PLEINE LARGEUR (SOUS LA GRILLE) */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8">
+                <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
+                  {selectedMission.story}
+                </p>
               </div>
+
+              {/* BOUTONS (STYLE D'ORIGINE : TRANSPARENT/BLANC) */}
+              <div className="flex flex-wrap gap-4">
+                {selectedMission.video && (
+                  <a
+                    href={`https://youtu.be/${selectedMission.video}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-colors"
+                  >
+                    <Play className="w-5 h-5" />
+                    Voir la vidéo
+                  </a>
+                )}
+                {selectedMission.links.map((link, idx) => (
+                  <a
+                    key={idx}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+
             </div>
           </div>
         </div>
