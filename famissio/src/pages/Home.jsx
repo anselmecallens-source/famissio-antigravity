@@ -250,7 +250,7 @@ const Home = () => {
         /* SECTIONS GENERAL */
         section { padding: 120px 5%; position: relative; }
         .section-cream { background: var(--cream); }
-        .team-section-white { padding-bottom: 60px !important; } /* Adjusted spacing: not too tight, not too loose */
+        .team-section-white { padding-bottom: 80px !important; } /* Adjusted spacing: perfect balance */
         
         /* REPRISE EXACTE DU SCRIPT 1 POUR LES TITRES (Correction bug) */
         .section-head { 
@@ -397,11 +397,11 @@ const Home = () => {
             position: relative;
         }
         .team-image-box { 
-            position: -webkit-sticky !important;
-            position: sticky !important; 
-            top: 100px !important; 
-            height: fit-content !important;
-            align-self: start !important;
+            position: -webkit-sticky;
+            position: sticky; 
+            top: 100px; 
+            height: fit-content;
+            align-self: start;
         }
         .team-image { 
             width: 100%; 
@@ -1141,7 +1141,7 @@ const Home = () => {
                 <div className="story-grid">
                     <div className="image-wrap">
                         <div className="main-img">
-                            <img src="https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1" alt="Équipe" />
+                            <img src="https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1" alt="Équipe" loading="lazy" />
                         </div>
                         <div className="accent-shape"></div>
                     </div>
@@ -1164,7 +1164,7 @@ const Home = () => {
                 </div>
                 <div className="video-frame">
                     <div className="video-box">
-                        <iframe src="https://www.youtube.com/embed/bYFu-nvDDHI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/bYFu-nvDDHI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                     </div>
                 </div>
             </section>
@@ -1212,7 +1212,7 @@ const Home = () => {
                 <div className="team-layout">
                     <div className="team-image-box">
                         <div className="team-image">
-                            <img src="https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg" alt="Équipe" />
+                            <img src="https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg" alt="Équipe" loading="lazy" />
                         </div>
                     </div>
                     <div className="team-content">
@@ -1807,7 +1807,7 @@ const Home = () => {
                                 {/* Image Blob */}
                                 <div className="timeline-blob" onClick={() => setActiveMission(block)}>
                                     <div className="blob-shape">
-                                        <img src={block.image} alt={block.title} />
+                                        <img src={block.image} alt={block.title} loading="lazy" />
                                     </div>
                                 </div>
 
@@ -1898,7 +1898,7 @@ const Home = () => {
             {/* PRIEST */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
-                    <img src="https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg" alt="Père Barrière" className="priest-circle-img" />
+                    <img src="https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
                     <div className="priest-name-zone">
                         <h2>Père Jean-Pierre Barrière</h2>
                         <p>Aumônier de Famissio</p>
@@ -1935,7 +1935,7 @@ const Home = () => {
             <section className="section-cream">
                 <div className="container">
                     <div className="pope-intro">
-                        <img src="https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg" alt="Pape François" className="pope-image" />
+                        <img src="https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg" alt="Pape François" className="pope-image" loading="lazy" />
                         <h2>Pape François</h2>
                     </div>
 
@@ -1981,7 +1981,7 @@ const Home = () => {
             {/* PRAYER */}
             <div className="prayer">
                 <div className="prayer-logo">
-                    <img src="https://www.dropbox.com/scl/fi/kh7mhfrgqasyw1unjhzbb/Logo-Famissio-1.png?rlkey=4a5umup7f9b66oxtgvr8deas9&st=z51lydtw&raw=1" alt="Logo Prière" />
+                    <img src="https://www.dropbox.com/scl/fi/kh7mhfrgqasyw1unjhzbb/Logo-Famissio-1.png?rlkey=4a5umup7f9b66oxtgvr8deas9&st=z51lydtw&raw=1" alt="Logo Prière" loading="lazy" />
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
