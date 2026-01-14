@@ -98,16 +98,6 @@ const FormationsPage = () => {
             transform: translateY(0);
           }
         }
-        
-        .blob {
-          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-          animation: morph 8s ease-in-out infinite;
-        }
-        
-        @keyframes morph {
-          0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-        }
       `}</style>
 
             {/* HERO */}
@@ -126,15 +116,9 @@ const FormationsPage = () => {
                         Retrouvez ici les 18 formations essentielles pour nourrir votre foi et vous aider à répondre aux questions en mission.
                     </p>
                 </div>
-            </div>
 
-            {/* CITATION BAND */}
-            <div className="bg-orange-100 py-8 border-y border-orange-200">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <p className="text-orange-900 font-medium italic text-lg leading-relaxed">
-                        "Il n'y a pas de réponse toute faite. L'Esprit Saint vous donnera la parole juste. Soyez les instruments du Seigneur en privilégiant l'écoute et la prière pour chaque rencontre."
-                    </p>
-                </div>
+                {/* Bande orange décorative en bas */}
+                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-orange-200 to-red-200"></div>
             </div>
 
             {/* THEME SELECTION */}
@@ -144,9 +128,15 @@ const FormationsPage = () => {
                         <h2 className="text-4xl font-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                             Choisissez votre thème
                         </h2>
-                        <p className="text-xl text-gray-600">
+                        <p className="text-xl text-gray-600 mb-8">
                             Sélectionnez un domaine pour explorer les formations
                         </p>
+
+                        <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 max-w-3xl mx-auto">
+                            <p className="text-gray-800 font-medium italic">
+                                💡 "Il n'y a pas de réponse toute faite. L'Esprit Saint vous donnera la parole juste. Soyez les instruments du Seigneur en privilégiant l'écoute et la prière pour chaque rencontre."
+                            </p>
+                        </div>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
