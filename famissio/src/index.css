@@ -794,9 +794,6 @@ section {
   transform: scale(1.08);
 }
 
-.team-content {
-  min-height: 1200px;
-}
 
 .team-content h3 {
   font-family: 'Playfair Display', serif;
@@ -819,7 +816,8 @@ section {
   background-color: white;
   position: relative;
   padding-top: 100px;
-  padding-bottom: 150px;
+  padding-bottom: 20px !important;
+  /* REDUCED SPACE */
   overflow: visible !important;
 }
 
