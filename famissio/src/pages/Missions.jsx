@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
-  const location = useLocation();
-
-  React.useEffect(() => {
-    if (location.hash === '#liste-missions') {
-      const element = document.getElementById('liste-missions');
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    }
-  }, [location]);
 
   const missions = [
     {
@@ -23,29 +10,46 @@ const MissionsPage = () => {
       year: '2025',
       date: '24-30 Oct 2025',
       location: 'Limoges, Angoulême, Tulle',
+      diocese: 'Diocèse de Limoges (Haute-Vienne), Diocèse d\'Angoulême (Charente), Diocèse de Tulle (Corrèze)',
       participants: '380',
-      image: 'https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG',
+      image: 'https://www.dropbox.com/scl/fi/gs1ubcrv9xjqmp313f8d7/Groupe-2025.JPG?rlkey=h27o0wozxxa9uggcpzl34493z&st=plymodzr&raw=1',
       cities: ['Confolens', 'Terres-de-Haute-Charente', 'La Rochefoucauld', 'Limoges', 'Nantiat', 'Boisseuil', 'Brive-la-Gaillarde'],
-      story: `380 Famissionnaires réunis autour de Monseigneur Gosselin pour une semaine extraordinaire. Répartis dans 8 paroisses, nous avons vécu des moments de grâce intense. Le Seigneur nous précédait partout, préparant les cœurs à la rencontre.
+      story: `380 Famissionnaires se sont retrouvés pour un envoi en mission autour de Monseigneur Gosselin. Ils se sont ensuite répartis entre 8 paroisses. Chacun des 8 groupes a vécu une mission différente, dans des territoires variés, des paroisses uniques. Mais partout, le Seigneur était bien présent au milieu de nous. Partout, il a devancé paroissiens et Famissionnaires qui allaient à la rencontre des personnes. Partout, il avait préparé les cœurs. Certes, certains habitants gardaient leur porte fermée mais lorsqu'ils étaient prêts à la rencontre, ils nous ont permis de vivre des cœurs à cœurs magnifiques pour aller ensemble vers Jésus. Vous retrouverez dans l'onglet "témoignages" le récit des plus belles rencontres !
 
-Temps forts : Jubilate Pop Louange à Angoulême, procession Holywin à Limoges, spectacle public à Brive. Des cœurs touchés, des vies transformées. La mission remplit de joie et nous laisse la tête dans le Ciel !`,
+Quelques temps forts ont aussi marqué cette semaine : Jubilate Pop Louange venu (fidèlement !) dans le diocèse d'Angoulême, une procession des saints Holywin à Limoges, un pèlerinage et un spectacle sur la place publique à Brive-La-Gaillarde.
+
+Nous rendons grâce ! La mission remplit les coeurs de joie. Nous rentrons tous la tête dans le Ciel !`,
       video: null,
-      links: ['France Catholique', 'Le Limousin', 'France 3'],
+      links: [
+        { name: 'France Catholique', url: 'https://famissio-99.webself.net/file/si1759337/WhatsApp%20Image%202025-11-02%20at%2016.34.27-fi36539960x470.jpeg' },
+        { name: 'Le Limousin', url: 'https://famissio-99.webself.net/file/si1759337/WhatsApp%20Image%202025-11-02%20at%2016.35.17-fi36539970x586.jpeg' },
+        { name: 'France 3', url: 'https://famissio-99.webself.net/file/si1759337/download/VID-20251030-WA0015-fi36539971.mp4' }
+      ],
       size: 'large'
     },
     {
       id: 2,
       year: '2024',
       date: '25-31 Oct 2024',
-      location: 'Mende, Rodez, Saint-Flour',
+      location: 'Mende, Rodez, Saint-Flour, Séez',
+      diocese: 'Diocèse de Mende (Lozère), Diocèse de Rodez (Aveyron), Diocèse de Saint-Flour (Cantal), Diocèse de Séez (Orne)',
       participants: '340',
-      image: 'https://famissio-99.webself.net/file/si1759337/2024-fi36533476x586.png',
+      image: 'https://www.dropbox.com/scl/fi/4ntkl4phubtubihjzt2bo/Groupe-2024.jpg?rlkey=an0idcz0143dtd3d0eadzl3us&st=3jkf2a5r&raw=1',
       cities: ['Massiac', 'Ruynes-en-Margeride', 'Saint-Chély-d\'Apcher', 'Marvejols', 'Mende', 'Millau', 'Vimoutiers'],
-      story: `Montagnes, vallées, cœurs grands ouverts. Les régions rurales nous ont accueillis avec une générosité touchante. 340 Famissionnaires ont arpenté les rues de Mende, cloches sonnant à toute volée.
+      story: `L'édition 2024 nous a emmenés dans des régions plus montagneuses, plus rurales aussi. Les habitants avaient le cœur ouvert et accueillaient facilement les rencontres. Les fruits ont été nombreux, la joie d'annoncer le Christ immense.
 
-Les habitants avaient soif de rencontres authentiques. Bénédictions de tracteurs, fermes, commerces... La foi s'est incarnée dans le quotidien. Les Famissionnaires ont découvert ces terres magnifiques et garderont ces souvenirs gravés à jamais.`,
+Les différentes paroisses nous ont réservé un fabuleux accueil, organisé des soirées festives mémorables, concocté de magnifiques temps de mission et de bénédictions de tracteurs, fermes, commerces et cimetières !
+
+Beaucoup de Famissionnaires découvraient ces contrées et ne sont pas prêts de les oublier !
+
+Les 340 Famissionnaires ont sillonné les rues de Mende lors de la journée interdiocésaine avec les cloches qui sonnaient à tout rompre. Leur joie était manifeste. La semaine nous a laissé la tête dans le Ciel après avoir rencontré nos contemporains qui avaient soif d'entendre parler du Christ !`,
       video: 'fkal1pZgV3Q',
-      links: ['Midi Libre', 'Diocèse de Mende'],
+      links: [
+        { name: 'Midi Libre', url: 'https://www.midilibre.fr/2024/10/11/la-mission-famissio-de-la-paroisse-saint-jacques-12253698.php' },
+        { name: 'Diocèse de Mende', url: 'https://www.diocese-mende.fr/des-familles-missionnaires-dans-nos-paroisses/' },
+        { name: 'Diocèse de Saint-Flour', url: 'https://diocese15.fr/blog/2024/09/allons-donc-de-toutes-les-nations-faites-des-disciples-famissio-familles-en-mission/' },
+        { name: 'La Lozère Nouvelle', url: 'https://famissio-99.webself.net/file/si1759337/download/WhatsApp%20Image%202024-10-17%20at%2020.06.47-fi36254054.jpeg' }
+      ],
       size: 'medium'
     },
     {
@@ -53,74 +57,136 @@ Les habitants avaient soif de rencontres authentiques. Bénédictions de tracteu
       year: '2023',
       date: '26 Oct - 1 Nov 2023',
       location: 'Limoges (Creuse)',
+      diocese: 'Diocèse de Limoges (Creuse)',
       participants: '280',
-      image: 'https://famissio-99.webself.net/file/si1759337/2023-fi36533474x470.png',
+      image: 'https://www.dropbox.com/scl/fi/fkhlly77zj3zse6pm7ib9/Groupe-2023.jpg?rlkey=5naurijx6hv79x988ocfefgc1&st=sywqghnw&raw=1',
       cities: ['La Souterraine', 'Guéret', 'Aubusson', 'Bourganeuf', 'Chénérailles', 'Gouzon'],
-      story: `Monseigneur Bozo nous garde dans son diocèse ! L'accueil des Creusois : inoubliable. Des liens profonds tissés entre paroissiens et missionnaires.
+      story: `Pour l'édition Toussaint 2023, Monseigneur Bozo nous a gardés dans son propre diocèse !! Nous avons eu la joie de goûter à l'accueil incomparable des Creusois. Des liens forts se sont établis entre les paroissiens et Famissio.
 
-Grande comédie musicale célébrant les saints du Limousin, concert Jubilate Pop Louanges à Guéret. 280 Famissionnaires témoins de l'œuvre du Seigneur. Rencontres improbables, cœurs ouverts, vies touchées.`,
+Les 280 Famissionnaires que nous étions se sont répartis entre les 6 paroisses qui nous accueillaient.
+
+Lors de la journée diocésaine, nous avons voulu renouer avec la Comédie musicale qui mettait à l'honneur tous les grands saints du Limousin. Nombre de Famissionnaires ont pu s'investir tout au long de l'année dans ce projet ! Un grand concert de Jubilate Pop Louanges, organisé à Guéret, aura aussi été le point d'orgue de cette mission.
+
+Cette semaine a été parsemée de rencontres improbables et émouvantes. Beaucoup de cœurs se sont ouverts. Tous ceux qui expérimentaient la mission ont eu ce bonheur immense de voir le Seigneur à l'œuvre. Nous rendons grâce pour tous ses bienfaits !`,
       video: null,
-      links: ['Famille Chrétienne', 'La Montagne'],
+      links: [
+        { name: 'Famille chrétienne (Jan)', url: 'https://famissio-99.webself.net/file/si1759337/download/2024%2001%20Famille%20chr%C3%A9tienne-fi36248537.pdf' },
+        { name: 'Famille chrétienne (Nov)', url: 'https://famissio-99.webself.net/file/si1759337/download/2023%2011%20Famille%20chr%C3%A9tienne-fi36248538.pdf' },
+        { name: 'La Montagne', url: 'http://www.lamontagne.fr/bonnat-23220/actualites/famissio-a-la-rencontre-du-relais-paroissial_14394969/' }
+      ],
       size: 'medium'
     },
     {
       id: 4,
-      year: '2022',
-      date: '28 Oct - 3 Nov 2022',
-      location: 'Digne (Alpes-de-Haute-Provence)',
-      participants: '260',
-      image: 'https://famissio-99.webself.net/file/si1759337/2022-fi36533471x470.jpg',
-      cities: ['Manosque', 'Oraison', 'Saint-Auban', 'Barcelonnette', 'Forcalquier', 'Digne', 'Banon'],
-      story: `Les Alpes de Haute-Provence nous ont émerveillés ! Paysages à couper le souffle, accueil chaleureux, liens tissés avec émotion.
+      year: '2022-2023',
+      date: 'Année 2022-2023',
+      location: 'Villeneuve-la-Garenne',
+      diocese: 'Famissio 92',
+      participants: null,
+      image: 'https://www.dropbox.com/scl/fi/535qp3971mdvhs1g6b99z/Groupe-2022.jpg?rlkey=6sdiai1vvyrhc0q7friftqog9&st=6nuf09ar&raw=1',
+      cities: ['Villeneuve-la-Garenne'],
+      story: `Famissio 92 a vécu une année merveilleuse avec les paroissiens très profonds, chaleureux, généreux et audacieux de Villeneuve-La-Garenne. Très nombreux sont ceux qui ont tenté avec confiance l'expérience de la mission. Ils nous ont édifiés. Leur piété et leur assurance, don de l'Esprit Saint, nous ont permis d'être témoins d'une multitude de cœurs qui s'ouvraient. Nous rendons gloire pour tous ces temps exceptionnels de mission, vécus tout au long de cette année !
 
-260 t-shirts orange "Jésus t'aime" ont fleuri dans 7 paroisses. Comédie musicale sur Mgr de Miollis, figure inspirante. Tel lui, nous avons sillonné routes et chemins pour annoncer le nom de Jésus.`,
-      video: 'lYaeQevBzuU',
-      links: ['BFM TV', 'RCF'],
+Avec leur beau pasteur, le Père Olivier Foulon, les paroissiens sont avides de poursuivre la mission et de mettre le feu à Villeneuve-La-Garenne !`,
+      video: 'oEbx6esqKTs',
+      links: [],
       size: 'small'
     },
     {
       id: 5,
-      year: '2021',
-      date: '29 Oct - 4 Nov 2021',
-      location: 'Limoges (Creuse)',
-      participants: '180',
-      image: 'https://famissio-99.webself.net/file/si1759337/2021-fi36533469x470.jpg',
-      cities: ['Gouzon', 'Boussac', 'Genouillac', 'Bourganeuf', 'Eymoutiers', 'Chambon-sur-Voueize'],
-      story: `180 missionnaires dans la Creuse profonde. Prêtres, séminaristes, religieux nous accompagnent.
+      year: '2022',
+      date: '28 Oct - 3 Nov 2022',
+      location: 'Digne (Alpes-de-Haute-Provence)',
+      diocese: 'Diocèse de Digne (Alpes-de-Haute-Provence)',
+      participants: '260',
+      image: 'https://www.dropbox.com/scl/fi/535qp3971mdvhs1g6b99z/Groupe-2022.jpg?rlkey=6sdiai1vvyrhc0q7friftqog9&st=6nuf09ar&raw=1',
+      cities: ['Manosque', 'Oraison', 'Saint-Auban', 'Barcelonnette', 'Forcalquier', 'Digne', 'Banon'],
+      story: `Pour l'édition Toussaint 2022, Monseigneur Bozo nous a envoyés dans cette si belle région des Alpes de Hautes-Provence !! Ce fut un véritable ravissement tant l'accueil reçu nous a profondément touchés, tant les liens tissés entre Famissio et les paroissiens nous ont émus, tant les paysages nous ont émerveillés ! Nous étions près de 260 Famissionnaires à arborer un t-shirt orange « Jésus t'aime – Creuse ta foi », répartis entre 7 paroisses du diocèse.
 
-Journée diocésaine à Chambon-sur-Voueize avec les jeunes. Louanges, visites, EHPAD, bénédictions de cimetières, spectacle pour enfants. L'accueil des Creusois : généreux et authentique. Vive la mission !`,
-      video: 'n74BNF8fPcw',
-      links: ['La Nef', 'RCF'],
+18 séminaristes, religieuse, religieux, prêtres ou diacre de tous les diocèses nous ont accompagnés pour aider les jeunes à relire leurs temps de mission et faire croître leur foi.
+
+Une journée diocésaine nous a rassemblés sous une pluie battante vite oubliée par la joie exprimée des retrouvailles, de beaux temps de prière et de messe. Enfin, la journée s'est terminée en apothéose avec la remarquable Comédie musicale créée pour l'occasion par les diocésains : « Monseigneur Bienvenu de Miollis, un évêque missionnaire en Provence » dont la figure est particulièrement inspirante.
+
+Tel Msg de Miollis, nous avons sillonné la région à la rencontre de ses habitants dans la rue, sur les chemins, sur les marchés, dans les cimetières, dans les EHPAD. Le nom de Jésus a été annoncé…Puisse-t-il avoir touché les cœurs !`,
+      video: 'lYaeQevBzuU',
+      links: [
+        { name: 'BFM TV', url: 'https://bfmtv.com/bfm-dici/replay-emissions/le-12h30-17h/alpes-de-haute-provence-la-messe-de-la-toussaint-accompagnee-par-des-familles-de-missionnaires_VN-202211010321.html' },
+        { name: 'Œuvre des campagnes', url: 'https://oeuvredescampagnes.fr/missions-devangelisation/famissio/' },
+        { name: 'Le Dauphiné', url: 'https://i.imgur.com/16pFVvO.jpg' },
+        { name: 'RCF', url: 'https://rcf.fr/culture-et-societe/et-si-on-parlait-ensemble?episode=306777' }
+      ],
       size: 'small'
     },
     {
       id: 6,
-      year: '2020',
-      date: '30 Oct - 5 Nov 2020',
-      location: 'Séez (Orne)',
-      participants: '90',
-      image: 'https://famissio-99.webself.net/file/si1759337/2020-fi36533468x520.jpg',
-      cities: ['Alençon', 'Ecouché', 'L\'Aigle', 'Le Mêle-sur-Sarthe'],
-      story: `COVID change les plans mais n'éteint pas le feu ! 4 paroisses prévues, finalement 2 accueillent 45 missionnaires chacune.
+      year: '2021-2022',
+      date: 'Année 2021-2022',
+      location: 'Gennevilliers',
+      diocese: 'Famissio 92',
+      participants: null,
+      image: 'https://www.dropbox.com/scl/fi/hcg9hnxg7rjtfj42veart/Groupe-2021.jpg?rlkey=uqz2y7jdwjcd9f0xdt1ue0jat&st=5cc6cj5w&raw=1',
+      cities: ['Gennevilliers'],
+      story: `La première mission Famissio 92 vient de s'achever par une journée pleine de joie, d'entrain, d'audace et de rencontres. Les paroissiens ont découvert combien témoigner de sa foi rendait heureux et pouvait porter du fruit. Ils ont eu la chance, lors de la dernière journée, de voir une femme demander le baptême, une petite fille demander à rejoindre le catéchisme, un adolescent manifester son désir d'être présent dans une aumônerie. Ils avaient soif de Dieu, ces habitants ! Ils attendaient la présence de témoins pour savoir où trouver la nourriture spirituelle dont ils avaient besoin.
 
-Alençon et Ecouché : une semaine intense malgré les contraintes. La mission s'adapte, la joie demeure, les rencontres restent authentiques.`,
-      video: 'ngv3kXBMu5Q',
-      links: ['Aleteia'],
+Le curé, le Père Jean-Baptiste, a pris les choses en main, mobilisé ses paroissiens et suscité l'enthousiasme. Les veillées de ces 5 journées ont été variées, recueillies et animées de façon extraordinaire. Les cœurs ont été touchés. La paroisse Saint Joseph des 4 Routes prépare d'ores et déjà des journées de missions pour l'année 2022-2023. Elle a le feu !
+Quant à Famissio 92, en route vers St Joseph de Villeneuve-La-Garenne !`,
+      video: 'kzDZYmrYkP4',
+      links: [],
       size: 'small'
     },
     {
       id: 7,
+      year: '2021',
+      date: '29 Oct - 4 Nov 2021',
+      location: 'Limoges (Creuse)',
+      diocese: 'Diocèse de Limoges (Creuse)',
+      participants: '180',
+      image: 'https://www.dropbox.com/scl/fi/hcg9hnxg7rjtfj42veart/Groupe-2021.jpg?rlkey=uqz2y7jdwjcd9f0xdt1ue0jat&st=5cc6cj5w&raw=1',
+      cities: ['Gouzon', 'Boussac', 'Genouillac', 'Bourganeuf', 'Eymoutiers', 'Chambon-sur-Voueize'],
+      story: `La mission Toussaint 2021... Une belle édition ! 180 missionnaires, avec l'aide de fervents prêtres, séminaristes, religieuses et religieux se sont rendus cette année dans le diocèse de Limoges, dans la Creuse, sur la paroisse de Gouzon, Boussac et Genouillac. D'autres mémorables visites missionnaires d'une journée ont été lancées dans les paroisses du même diocèse à Bourganeuf et Eymoutiers. Un extraordinaire accueil nous a permis de vivre de fructueuses journées.
+
+Enfin, une journée diocésaine à Chambon-sur-Voueize sur le thème de la mission avec des jeunes collégiens et lycéens venus nous rejoindre pour évangéliser nous a tous portés. Au menu pour cette édition : des temps de prière avec louanges, laudes, adoration et messe au quotidien, des missions dans la rue ou des visitations chez les habitants, un après-midi dans un EPADH, des bénédictions dans les cimetières au moment de La Toussaint, une journée dédiée aux enfants avec la réalisation d'un spectacle, des veillées merveilleuses pour les malades, sur le thème de l'au-delà…, Les Creusois ont accueilli avec beaucoup de générosité tous les missionnaires ! Vive la mission... Et vivement l'édition 2022 dans les Alpes-de-Haute-Provence !`,
+      video: 'n74BNF8fPcw',
+      links: [
+        { name: 'La Nef', url: 'https://famissio-99.webself.net/file/si1759337/download/La%20Nef%20(%20page%2042)%20-%20Famissio-fi32558405.PNG' },
+        { name: 'RCF (audio)', url: 'https://youtu.be/yQQwKf2tJ2A' }
+      ],
+      size: 'small'
+    },
+    {
+      id: 8,
+      year: '2020',
+      date: '30 Oct - 5 Nov 2020',
+      location: 'Séez (Orne)',
+      diocese: 'Diocèse de Séez (Orne)',
+      participants: '90',
+      image: 'https://www.dropbox.com/scl/fi/qd8mjaxsk77koxw8lqd1z/Groupe-2020.jpg?rlkey=f3xm2i2w4o96yp04m51boiggp&st=apf1aqw7&raw=1',
+      cities: ['Alençon', 'Ecouché', 'L\'Aigle', 'Le Mêle-sur-Sarthe'],
+      story: `4 paroisses devaient accueillir Famissio... jusqu'à l'arrivée du COVID qui a perturbé le projet initial ! Les paroisses du Mêle-sur-Sarthe (Père Pascal Durand) et de L'Aigle (Père Stéphane Cailliaux) ont évangélisé sans les missionnaires qui se sont alors répartis entre Alençon (Père Loïc Gicquel des Touches) et Ecouché (Père Alexis de Brébisson). Chacune de ces deux paroisses a accueilli quarante-cinq missionnaires pour une semaine de feu !`,
+      video: 'ngv3kXBMu5Q',
+      links: [
+        { name: 'Aleteia', url: 'https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/' },
+        { name: 'Famille chrétienne', url: 'https://drive.google.com/file/d/1tdEPm5ikAnjNR8g04BLUvvyXAafsVCxN/view' },
+        { name: 'Communauté de l\'Emmanuel', url: 'https://emmanuel.info/missionnaire-en-famille-paroisses-rurales/' }
+      ],
+      size: 'small'
+    },
+    {
+      id: 9,
       year: '2019',
       date: '1-6 Nov 2019',
       location: 'Limoges (Creuse)',
+      diocese: 'Diocèse de Limoges (Creuse)',
       participants: '30',
-      image: 'https://famissio-99.webself.net/file/si1759337/2019-fi36533467x498.jpg',
+      image: 'https://www.dropbox.com/scl/fi/llacr38y9h7jlnngqzy8e/Groupe-2019.jpg?rlkey=f2akrwo3kjtc6adroe30hm7sn&st=ijdjpvp8&raw=1',
       cities: ['Gouzon', 'Boussac'],
-      story: `La toute première ! 30 personnes : 3 familles, des jeunes, 2 séminaristes. Un environnement rural touchant, l'accueil du Père Jean-Pierre Barrière.
-
-Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simplicité et la joie de la première mission.`,
+      story: `Une merveilleuse première mission nous a conduits dans la Creuse, dans un environnement très rural qui nous a beaucoup touchés. Nous avons été accueillis par le Père Jean-Pierre Barrière qui nous a fait la joie de nous rejoindre l'année suivante dans l'Orne. Nous étions alors un groupe d'une trentaine de personnes avec 3 familles, de nombreux jeunes et 2 séminaristes de la Castille à Toulon.`,
       video: 'DdFKEYBhstk',
-      links: [],
+      links: [
+        { name: 'Boussac', url: 'https://drive.google.com/file/d/1mJEaOMouzx6OlD2ZSq4g4d6JrjO3dEmf/view' },
+        { name: 'Alençon', url: 'https://drive.google.com/file/d/1rnzeg7o6F54K8yGfQRrl-2txe_faTfCr/view' },
+        { name: 'Limoges (vidéo)', url: 'https://youtu.be/qnFAbNBbDOM' }
+      ],
       size: 'small'
     }
   ];
@@ -193,6 +259,14 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
           height: 2px; 
           background: #f46a07; 
         }
+
+        .mission-card img {
+          border-radius: 1.25rem;
+        }
+
+        .overlay-image {
+          border-radius: 2rem;
+        }
       `}</style>
 
       {/* HERO SECTION */}
@@ -250,12 +324,18 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
               </p>
             </div>
 
-            <img
-              src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1&v=2"
-              alt="Carte Mission 2026"
-              className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain hover:scale-105 transition-transform duration-500"
-              style={{ background: 'transparent', boxShadow: 'none' }}
-            />
+            <div className="flex items-center justify-center">
+              <img
+                src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1&v=2"
+                alt="Carte Mission 2026"
+                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain hover:scale-105 transition-transform duration-500"
+                style={{
+                  background: 'transparent',
+                  mixBlendMode: 'normal',
+                  filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -267,7 +347,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
             NOTRE HISTOIRE
           </div>
           <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
-            7 MISSIONS
+            9 MISSIONS
           </h2>
           <p className="text-xl text-gray-600">
             De 2019 à aujourd'hui, cliquez pour découvrir chaque aventure
@@ -291,6 +371,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
                 src={mission.image}
                 alt={mission.year}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style={{ borderRadius: '1.25rem' }}
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
@@ -304,10 +385,12 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm font-semibold">{mission.location}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-white/80">
-                    <Users className="w-4 h-4" />
-                    <span className="text-sm font-bold">{mission.participants} Famissionnaires</span>
-                  </div>
+                  {mission.participants && (
+                    <div className="flex items-center gap-2 text-white/80">
+                      <Users className="w-4 h-4" />
+                      <span className="text-sm font-bold">{mission.participants} Famissionnaires</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -326,7 +409,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
             <div className="max-w-5xl mx-auto">
               <button
                 onClick={() => setSelectedMission(null)}
-                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors"
+                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -342,14 +425,16 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
                       <Calendar className="w-6 h-6" />
                       <span className="text-xl font-semibold">{selectedMission.date}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-white">
-                      <MapPin className="w-6 h-6 text-orange-400" />
-                      <span className="text-xl font-semibold">{selectedMission.location}</span>
+                    <div className="flex items-start gap-3 text-white">
+                      <MapPin className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+                      <span className="text-lg font-semibold">{selectedMission.diocese}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-white">
-                      <Users className="w-6 h-6 text-orange-400" />
-                      <span className="text-xl font-semibold">{selectedMission.participants} Famissionnaires</span>
-                    </div>
+                    {selectedMission.participants && (
+                      <div className="flex items-center gap-3 text-white">
+                        <Users className="w-6 h-6 text-orange-400" />
+                        <span className="text-xl font-semibold">{selectedMission.participants} Famissionnaires</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-8">
@@ -365,7 +450,7 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
                   <img
                     src={selectedMission.image}
                     alt={selectedMission.year}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover overlay-image"
                   />
                 </div>
               </div>
@@ -389,13 +474,16 @@ Petit groupe, grande aventure. Les fondations de Famissio se posent dans la simp
                   </a>
                 )}
                 {selectedMission.links.map((link, idx) => (
-                  <button
+                  <a
                     key={idx}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    {link}
-                  </button>
+                    {link.name}
+                  </a>
                 ))}
               </div>
             </div>
