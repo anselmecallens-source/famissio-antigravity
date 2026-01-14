@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// Force deployment update
 import "./Contact.css"; // Gardé pour compatibilité, mais le contenu est scopé et ne devrait pas gêner
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
