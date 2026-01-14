@@ -319,11 +319,10 @@ const MissionsPage = () => {
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      {/* HERO SECTION - Style "Hero à recup" adapté */}
+      {/* HERO SECTION */}
       <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 text-white overflow-hidden">
-        {/* Styles spécifiques pour l'animation Blob du fichier donné */}
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
           
           .blob {
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
@@ -343,23 +342,21 @@ const MissionsPage = () => {
         </div>
 
         {/* Contenu */}
-        <div className="relative max-w-7xl mx-auto px-6 py-24 sm:py-32">
+        <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
           <h1
-            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center uppercase"
+            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
-            NOS MISSIONS
+            Nos Missions
           </h1>
 
-          <div className="text-xl text-center max-w-4xl mx-auto opacity-90 leading-relaxed space-y-6 font-medium">
-            <p>
-              Pendant la semaine autour de La Toussaint, nous organisons chaque année une mission dans plusieurs paroisses d'un même diocèse.
-            </p>
-            <p>
-              Cette mission se prépare pendant un an, main dans la main avec chacune des paroisses pour adapter le programme à leurs besoins et spécificités.
-            </p>
-          </div>
+          <p className="text-xl sm:text-2xl text-center max-w-6xl mx-auto opacity-90 leading-relaxed font-medium">
+            Pendant la semaine autour de La Toussaint, nous organisons chaque année une mission dans plusieurs paroisses d'un même diocèse. Cette mission se prépare pendant un an, main dans la main avec chacune des paroisses pour adapter le programme à leurs besoins et spécificités.
+          </p>
         </div>
+
+        {/* Bande orange décorative en bas */}
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-amber-500 to-orange-500"></div>
       </div>
 
       {/* MISSION 2026 */}
