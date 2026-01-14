@@ -3,15 +3,47 @@ import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRig
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  // Données complètes récupérées du fichier source
+  // Fonction pour ouvrir une mission et reset la vidéo
+  const handleOpenMission = (mission) => {
+    setSelectedMission(mission);
+    setIsVideoPlaying(false);
+  };
+
+  // Fonction pour fermer
+  const handleCloseMission = () => {
+    setSelectedMission(null);
+    setIsVideoPlaying(false);
+  };
+
+  // Navigation entre missions
+  const navigateMission = (direction, e) => {
+    e.stopPropagation();
+    if (!selectedMission) return;
+    setIsVideoPlaying(false); // On coupe la vidéo quand on change de mission
+
+    const allVisible = [...toussaintMissions, ...yearMissions];
+    const currentIndex = allVisible.findIndex(m => m.id === selectedMission.id);
+
+    let nextIndex;
+    if (direction === 'next') {
+      nextIndex = (currentIndex + 1) % allVisible.length;
+    } else {
+      nextIndex = (currentIndex - 1 + allVisible.length) % allVisible.length;
+    }
+
+    setSelectedMission(allVisible[nextIndex]);
+  };
+
+  // Données
   const missions = [
     // --- MISSIONS TOUSSAINT ---
     {
       id: 1,
       category: 'toussaint',
       year: '2025',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Limousin & Charente',
       diocese: 'Limoges, Angoulême, Tulle',
       participants: '380',
@@ -38,7 +70,7 @@ const MissionsPage = () => {
       id: 2,
       category: 'toussaint',
       year: '2024',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Lozère, Aveyron, Cantal, Orne',
       diocese: 'Mende, Rodez, Saint-Flour, Séez',
       participants: '340',
@@ -64,7 +96,7 @@ const MissionsPage = () => {
       id: 3,
       category: 'toussaint',
       year: '2023',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '280',
@@ -89,7 +121,7 @@ const MissionsPage = () => {
       id: 5,
       category: 'toussaint',
       year: '2022',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Alpes-de-Haute-Provence',
       diocese: 'Digne',
       participants: '260',
@@ -110,13 +142,13 @@ const MissionsPage = () => {
         { name: 'RCF', url: 'https://rcf.fr/culture-et-societe/et-si-on-parlait-ensemble?episode=306777' }
       ],
       size: 'small',
-      imageZoom: true // Pour zoomer la photo 2022
+      imageZoom: true
     },
     {
       id: 7,
       category: 'toussaint',
       year: '2021',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '180',
@@ -140,7 +172,7 @@ const MissionsPage = () => {
       id: 8,
       category: 'toussaint',
       year: '2020',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Orne',
       diocese: 'Séez',
       participants: '90',
@@ -163,7 +195,7 @@ const MissionsPage = () => {
       id: 9,
       category: 'toussaint',
       year: '2019',
-      date: 'Toussaint', // Modifié
+      date: 'Toussaint',
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '30',
@@ -187,7 +219,7 @@ const MissionsPage = () => {
       year: '2022-2023',
       date: 'Toute l\'année',
       location: 'Villeneuve-la-Garenne',
-      diocese: 'Villeneuve-la-Garenne', // Modifié
+      diocese: 'Villeneuve-la-Garenne',
       participants: null,
       image: 'https://www.dropbox.com/scl/fi/1vtsnt5my7yxb92lk686h/Groupe-22-23.jpg?rlkey=x5p3x0lmo8rrv6gwxo2ao3wlm&st=e7hyvzds&raw=1',
       cities: ['Villeneuve-la-Garenne'],
@@ -206,7 +238,7 @@ const MissionsPage = () => {
       year: '2021-2022',
       date: 'Toute l\'année',
       location: 'Gennevilliers',
-      diocese: 'Gennevilliers', // Modifié
+      diocese: 'Gennevilliers',
       participants: null,
       image: 'https://www.dropbox.com/scl/fi/q9bsn70khk5gfjt9e1n3e/Groupe-2021-2022.jpg?rlkey=feaz7xkl08rdns5e8ghccdneu&st=579zxprb&raw=1',
       cities: ['Gennevilliers'],
@@ -228,23 +260,6 @@ const MissionsPage = () => {
   const toussaintMissions = missions.filter(m => m.category === 'toussaint');
   const yearMissions = missions.filter(m => m.category === 'year');
 
-  const navigateMission = (direction, e) => {
-    e.stopPropagation();
-    if (!selectedMission) return;
-
-    const allVisible = [...toussaintMissions, ...yearMissions];
-    const currentIndex = allVisible.findIndex(m => m.id === selectedMission.id);
-
-    let nextIndex;
-    if (direction === 'next') {
-      nextIndex = (currentIndex + 1) % allVisible.length;
-    } else {
-      nextIndex = (currentIndex - 1 + allVisible.length) % allVisible.length;
-    }
-
-    setSelectedMission(allVisible[nextIndex]);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-50">
       <style>{`
@@ -265,16 +280,16 @@ const MissionsPage = () => {
           content: ''; width: 40px; height: 2px; background: #f46a07; 
         }
 
-        /* Style des tags de villes */
-        .city-tag {
-           display: inline-block;
-           padding: 4px 12px;
-           margin: 0 8px 8px 0;
-           background: rgba(244, 106, 7, 0.15);
-           color: #f46a07;
-           border: 1px solid rgba(244, 106, 7, 0.3);
-           border-radius: 9999px;
-           font-size: 0.85rem;
+        /* Villes : Style Texte Simple */
+        .city-text {
+            display: inline-block;
+            color: #d1d5db; /* Gray-300 */
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+        .city-text:not(:last-child)::after {
+            content: ', ';
+            margin-right: 6px;
         }
 
         /* Animation reflet brillant sur les boutons */
@@ -293,6 +308,10 @@ const MissionsPage = () => {
             object-position: center;
             transform: scale(1.1);
         }
+
+        /* Suppression des scrollbars par défaut dans le modal si nécessaire */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
       {/* HERO SECTION */}
@@ -350,7 +369,6 @@ const MissionsPage = () => {
 
       {/* GALLERIE MISSIONS */}
       <div className="max-w-7xl mx-auto px-6 py-24">
-        {/* EN-TÊTE EXACT */}
         <div className="text-center mb-16">
           <div className="mission-eyebrow">
             NOTRE HISTOIRE
@@ -363,7 +381,6 @@ const MissionsPage = () => {
           </p>
         </div>
 
-        {/* TITRE TOUSSAINT */}
         <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
           FAMISSIO TOUSSAINT
         </h3>
@@ -377,7 +394,7 @@ const MissionsPage = () => {
                 ${mission.size === 'large' ? 'col-span-2 row-span-2 h-[600px]' :
                   mission.size === 'medium' ? 'col-span-2 row-span-1 h-[300px]' :
                     'col-span-1 row-span-1 h-[240px]'}`}
-              onClick={() => setSelectedMission(mission)}
+              onClick={() => handleOpenMission(mission)}
             >
               <div className="absolute inset-0 w-full h-full">
                 <img
@@ -424,7 +441,7 @@ const MissionsPage = () => {
             <div
               key={mission.id}
               className="mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg h-[300px]"
-              onClick={() => setSelectedMission(mission)}
+              onClick={() => handleOpenMission(mission)}
             >
               <div className="absolute inset-0 w-full h-full">
                 <img
@@ -451,9 +468,9 @@ const MissionsPage = () => {
 
       {/* MISSION OVERLAY (POPUP) */}
       {selectedMission && (
-        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto">
+        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto no-scrollbar">
 
-          {/* FLÈCHES NAVIGATION (Redessinées et rapprochées du contenu) */}
+          {/* FLÈCHES NAVIGATION */}
           <button
             onClick={(e) => navigateMission('prev', e)}
             className="fixed left-2 md:left-8 top-1/2 -translate-y-1/2 z-[60] p-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full text-white/70 hover:text-orange-500 border border-white/10 transition-all hover:scale-110 group"
@@ -473,15 +490,15 @@ const MissionsPage = () => {
 
               {/* BOUTON FERMER */}
               <button
-                onClick={() => setSelectedMission(null)}
+                onClick={handleCloseMission}
                 className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50 border border-white/10"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
 
-              {/* GRILLE DU HAUT */}
+              {/* GRILLE DU HAUT (Infos + Image) */}
               <div className="grid md:grid-cols-2 gap-12 mb-8">
-                {/* COLONNE GAUCHE */}
+                {/* COLONNE GAUCHE : INFOS */}
                 <div className="flex flex-col justify-center">
                   <div className="text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
                     {selectedMission.year}
@@ -505,11 +522,11 @@ const MissionsPage = () => {
                         <span className="text-lg font-semibold">{selectedMission.diocese}</span>
                       </div>
 
-                      {/* VILLES (Strictement alignées sous le texte, donc marge de w-6 (24px) + gap-4 (16px) = 40px) */}
-                      <div className="mt-4 pl-10">
-                        <div className="flex flex-wrap">
+                      {/* VILLES (TEXTE SIMPLE) - Alignement vertical sous le texte du diocèse */}
+                      <div className="mt-2 pl-10">
+                        <div>
                           {selectedMission.cities.map((city, idx) => (
-                            <span key={idx} className="city-tag">
+                            <span key={idx} className="city-text">
                               {city}
                             </span>
                           ))}
@@ -529,7 +546,7 @@ const MissionsPage = () => {
                   </div>
                 </div>
 
-                {/* COLONNE DROITE : IMAGE */}
+                {/* COLONNE DROITE : IMAGE (Arrondie forcée) */}
                 <div className="rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-auto border border-white/10">
                   <img
                     src={selectedMission.image}
@@ -539,28 +556,27 @@ const MissionsPage = () => {
                 </div>
               </div>
 
-              {/* TEXTE HISTOIRE : PLEINE LARGEUR (W-FULL) */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-white/5">
-                <div className="w-full"> {/* Conteneur pleine largeur */}
-                  <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
-                    {selectedMission.story}
-                  </p>
-                </div>
+              {/* TEXTE HISTOIRE : HORS GRILLE -> PLEINE LARGEUR */}
+              <div className="w-full bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-white/5">
+                <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
+                  {selectedMission.story}
+                </p>
               </div>
 
-              {/* BOUTONS (Avec reflet brillant) */}
-              <div className="flex flex-wrap gap-4">
+              {/* LIENS & BOUTONS */}
+              <div className="flex flex-wrap gap-4 mb-8">
+                {/* Bouton Vidéo */}
                 {selectedMission.video && (
-                  <a
-                    href={`https://youtu.be/${selectedMission.video}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => setIsVideoPlaying(true)}
                     className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg"
                   >
                     <Play className="w-5 h-5 fill-current" />
                     Voir la vidéo
-                  </a>
+                  </button>
                 )}
+
+                {/* Autres liens */}
                 {selectedMission.links.map((link, idx) => (
                   <a
                     key={idx}
@@ -574,6 +590,21 @@ const MissionsPage = () => {
                   </a>
                 ))}
               </div>
+
+              {/* LECTEUR VIDÉO (S'ouvre en bas) */}
+              {isVideoPlaying && selectedMission.video && (
+                <div className="w-full mt-8 rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-in slide-in-from-bottom-10 fade-in duration-500">
+                  <div className="relative pt-[56.25%] bg-black">
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${selectedMission.video}?autoplay=1`}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+              )}
 
             </div>
           </div>
