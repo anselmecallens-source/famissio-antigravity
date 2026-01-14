@@ -98,6 +98,16 @@ const FormationsPage = () => {
             transform: translateY(0);
           }
         }
+
+        .blob {
+          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+          animation: morph 8s ease-in-out infinite;
+        }
+          
+        @keyframes morph {
+          0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
       `}</style>
 
             {/* HERO */}
@@ -116,10 +126,10 @@ const FormationsPage = () => {
                         Retrouvez ici les 18 formations essentielles pour nourrir votre foi et vous aider à répondre aux questions en mission.
                     </p>
                 </div>
-
-                {/* Bande orange décorative en bas */}
-                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-orange-200 to-red-200"></div>
             </div>
+
+            {/* Bande orange décorative en bas (Style Témoignages : Largeur visuelle) */}
+            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
             {/* THEME SELECTION */}
             {!selectedTheme && (

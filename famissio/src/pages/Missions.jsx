@@ -355,9 +355,10 @@ const MissionsPage = () => {
           </p>
         </div>
 
-        {/* Bande orange décorative en bas - Plus claire */}
-        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-orange-200 to-red-200"></div>
       </div>
+
+      {/* Bande orange décorative en bas (Style Témoignages) */}
+      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
       {/* MISSION 2026 */}
       <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white overflow-hidden">
