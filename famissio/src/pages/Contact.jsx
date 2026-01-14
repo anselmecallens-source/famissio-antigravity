@@ -389,9 +389,10 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="w-full flex justify-center">
-            {/* J'ai fixé une largeur min/max pour éviter le bug d'affichage étroit */}
-            <div className="bg-white rounded-3xl shadow-xl p-4 w-full max-w-[550px] overflow-hidden">
+          <div className="flex justify-center w-full">
+            {/* Conteneur large avec min-width pour empêcher l'écrasement */}
+            <div className="bg-white rounded-3xl shadow-xl p-6 w-full max-w-[550px] flex justify-center" style={{ minHeight: '500px' }}>
+
               <div
                 className="fb-page"
                 data-href="https://www.facebook.com/Famissio-108524034407006/"
@@ -401,12 +402,14 @@ export default function Contact() {
                 data-small-header="false"
                 data-adapt-container-width="true"
                 data-hide-cover="false"
-                data-show-facepile="false">
+                data-show-facepile="true">
 
                 <blockquote cite="https://www.facebook.com/Famissio-108524034407006/" className="fb-xfbml-parse-ignore">
                   <a href="https://www.facebook.com/Famissio-108524034407006/">Famissio</a>
                 </blockquote>
+
               </div>
+
             </div>
           </div>
         </div>
