@@ -93,17 +93,39 @@ function ContactForm() {
 
 export default function NousRejoindre() {
   return (
-    <div className="nousrejoindre">
-      <section className="introSection">
-        <div className="container">
-          <h1>Nous Rejoindre</h1>
-          <p>
-            Vous vous sentez appelés à vivre une expérience de mission ?
-            <br />
-            Contactez-nous pour que nous puissions en parler.
+    <div className="nousrejoindre" style={{ marginTop: 0, paddingTop: 0 }}>
+      {/* HERO */}
+      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
+          
+          .blob {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+          }
+          
+          @keyframes morph {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+          }
+        `}</style>
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 py-24">
+          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Contact
+          </h1>
+          <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+            Vous vous sentez appelés à vivre une expérience de mission ? Contactez-nous pour que nous puissions en parler.
           </p>
         </div>
-      </section>
+      </div>
+
+      {/* Bande orange décorative en bas */}
+      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
       {/* C’EST ICI l’endroit “blanc” : on met le formulaire dedans */}
       <section className="formSection" id="formulaire">
