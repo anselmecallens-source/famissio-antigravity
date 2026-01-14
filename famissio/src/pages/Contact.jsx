@@ -167,29 +167,7 @@ function ContactForm() {
 export default function Contact() {
 
   // Intégration correcte du script Facebook via useEffect
-  // Gestion du script Facebook
-  useEffect(() => {
-    // Fonction pour lancer le plugin
-    const initFacebook = () => {
-      if (window.FB) {
-        // On attend un tout petit peu que le code HTML soit bien là
-        setTimeout(() => {
-          window.FB.XFBML.parse();
-        }, 1000);
-      }
-    };
 
-    if (document.getElementById('facebook-jssdk')) {
-      initFacebook();
-    } else {
-      const js = document.createElement('script');
-      js.id = 'facebook-jssdk';
-      js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
-      js.crossOrigin = "anonymous";
-      js.onload = initFacebook;
-      document.body.appendChild(js);
-    }
-  }, []);
 
   return (
     <div className="bg-gray-50">
@@ -377,7 +355,7 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* SECTION FACEBOOK */}
+      {/* SECTION FACEBOOK (SociableKIT) */}
       <div className="bg-gray-100 py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -390,25 +368,17 @@ export default function Contact() {
           </div>
 
           <div className="flex justify-center w-full">
-            {/* J'ai réduit le padding (p-4) et ajusté la hauteur du conteneur */}
-            <div className="bg-white rounded-3xl shadow-xl p-4 w-full max-w-[550px] flex justify-center" style={{ minHeight: '500px' }}>
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden w-full max-w-[550px]">
 
-              <div
-                className="fb-page"
-                data-href="https://www.facebook.com/Famissio-108524034407006/"
-                data-tabs="timeline"
-                data-width="500"
-                data-height="500"
-                data-small-header="true"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="false">
-
-                <blockquote cite="https://www.facebook.com/Famissio-108524034407006/" className="fb-xfbml-parse-ignore">
-                  <a href="https://www.facebook.com/Famissio-108524034407006/">Famissio</a>
-                </blockquote>
-
-              </div>
+              {/* Widget SociableKIT avec ton ID 25643545 */}
+              <iframe
+                src='https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545'
+                frameBorder='0'
+                width='100%'
+                height='600'
+                style={{ border: 'none' }}
+                title="Facebook Feed"
+              ></iframe>
 
             </div>
           </div>
