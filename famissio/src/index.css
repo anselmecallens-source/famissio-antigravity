@@ -758,12 +758,15 @@ section {
   display: grid;
   grid-template-columns: 31.25rem 1fr;
   gap: 3.75rem;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .team-image-box {
+  position: -webkit-sticky;
   position: sticky;
-  top: 3.125rem;
+  top: 100px;
+  height: fit-content;
+  z-index: 10;
 }
 
 .team-image {
@@ -771,7 +774,7 @@ section {
   height: 37.5rem;
   border-radius: 2.1875rem;
   overflow: hidden;
-  box-shadow: 0 1.875rem 5rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.3), 0 20px 60px rgba(248, 106, 7, 0.15);
 }
 
 .team-image img {
@@ -784,6 +787,10 @@ section {
 
 .team-image:hover img {
   transform: scale(1.08);
+}
+
+.team-content {
+  min-height: 1200px;
 }
 
 .team-content h3 {

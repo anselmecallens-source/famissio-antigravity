@@ -1076,6 +1076,7 @@ const Home = () => {
             position: relative;
             padding-top: 100px;
             padding-bottom: 120px;
+            overflow: visible !important;
         }
 
         /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
@@ -1291,8 +1292,8 @@ const Home = () => {
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                     padding: 20px 8% 20px 8%;
-                     width: 100%;
+                    padding: 20px 8%;
+                    width: 100%;
                     }
 
                     /* Largeur élargie à 1100px */
