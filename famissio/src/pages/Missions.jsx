@@ -319,20 +319,44 @@ const MissionsPage = () => {
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      {/* HERO SECTION */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-red-600 via-orange-500 to-red-700 text-white">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="relative max-w-7xl mx-auto px-6 py-32 sm:py-40">
-          <div className="text-center">
-            <div className="inline-block mb-6 px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold tracking-widest">
-              NOS MISSIONS
-            </div>
-            <h1 className="text-7xl sm:text-9xl font-black mb-8 year-tag leading-none">
-              UNE PAR AN
-            </h1>
-            <p className="text-xl sm:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
-              Chaque Toussaint, des centaines de Famissionnaires sillonnent un diocèse pendant une semaine.
-              Un an de préparation avec les paroisses pour une aventure inoubliable.
+      {/* HERO SECTION - Style "Hero à recup" adapté */}
+      <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 text-white overflow-hidden">
+        {/* Styles spécifiques pour l'animation Blob du fichier donné */}
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap');
+          
+          .blob {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+          }
+          
+          @keyframes morph {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+          }
+        `}</style>
+
+        {/* Fond animé avec Blobs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-20"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        {/* Contenu */}
+        <div className="relative max-w-7xl mx-auto px-6 py-24 sm:py-32">
+          <h1
+            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center uppercase"
+            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+          >
+            NOS MISSIONS
+          </h1>
+
+          <div className="text-xl text-center max-w-4xl mx-auto opacity-90 leading-relaxed space-y-6 font-medium">
+            <p>
+              Pendant la semaine autour de La Toussaint, nous organisons chaque année une mission dans plusieurs paroisses d'un même diocèse.
+            </p>
+            <p>
+              Cette mission se prépare pendant un an, main dans la main avec chacune des paroisses pour adapter le programme à leurs besoins et spécificités.
             </p>
           </div>
         </div>
