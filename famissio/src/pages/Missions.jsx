@@ -4,19 +4,19 @@ import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRig
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
 
-  // Données
+  // Données complètes récupérées du fichier source
   const missions = [
     // --- MISSIONS TOUSSAINT ---
     {
       id: 1,
       category: 'toussaint',
       year: '2025',
-      date: 'Toussaint 2025',
-      location: 'Limoges, Angoulême, Tulle', // Affichage carte
-      diocese: 'Limoges, Angoulême, Tulle', // Affichage Popup
+      date: 'Toussaint', // Modifié
+      location: 'Limousin & Charente',
+      diocese: 'Limoges, Angoulême, Tulle',
       participants: '380',
       image: 'https://www.dropbox.com/scl/fi/gs1ubcrv9xjqmp313f8d7/Groupe-2025.JPG?rlkey=h27o0wozxxa9uggcpzl34493z&st=plymodzr&raw=1',
-      cities: ['Confolens', 'Haute-Charente', 'La Rochefoucauld', 'Limoges', 'Nantiat', 'Boisseuil', 'Brive'],
+      cities: ['Confolens', 'Terres-de-Haute-Charente', 'La Rochefoucauld', 'Limoges', 'Nantiat', 'Boisseuil', 'Brive-la-Gaillarde'],
       story: `380 Famissionnaires se sont retrouvés pour un envoi en mission autour de Monseigneur Gosselin. Ils se sont ensuite répartis entre 8 paroisses.
       
       Chacun des 8 groupes a vécu une mission différente, dans des territoires variés, des paroisses uniques. Mais partout, le Seigneur était bien présent au milieu de nous. Partout, il a devancé paroissiens et Famissionnaires qui allaient à la rencontre des personnes. Partout, il avait préparé les cœurs.
@@ -38,22 +38,25 @@ const MissionsPage = () => {
       id: 2,
       category: 'toussaint',
       year: '2024',
-      date: 'Toussaint 2024',
-      location: 'Mende, Rodez, Saint-Flour, Séez',
+      date: 'Toussaint', // Modifié
+      location: 'Lozère, Aveyron, Cantal, Orne',
       diocese: 'Mende, Rodez, Saint-Flour, Séez',
       participants: '340',
       image: 'https://www.dropbox.com/scl/fi/4ntkl4phubtubihjzt2bo/Groupe-2024.jpg?rlkey=an0idcz0143dtd3d0eadzl3us&st=3jkf2a5r&raw=1',
-      cities: ['Massiac', 'Ruynes', 'Saint-Chély', 'Marvejols', 'Mende', 'Millau', 'Vimoutiers'],
+      cities: ['Massiac', 'Ruynes-en-Margeride', 'Saint-Chély-d\'Apcher', 'Marvejols', 'Mende', 'Millau', 'Vimoutiers'],
       story: `L'édition 2024 nous a emmenés dans des régions plus montagneuses, plus rurales aussi. Les habitants avaient le cœur ouvert et accueillaient facilement les rencontres. Les fruits ont été nombreux, la joie d'annoncer le Christ immense.
       
       Les différentes paroisses nous ont réservé un fabuleux accueil, organisé des soirées festives mémorables, concocté de magnifiques temps de mission et de bénédictions de tracteurs, fermes, commerces et cimetières !
+      
+      Beaucoup de Famissionnaires découvraient ces contrées et ne sont pas prêts de les oublier !
       
       Les 340 Famissionnaires ont sillonné les rues de Mende lors de la journée interdiocésaine avec les cloches qui sonnaient à tout rompre. Leur joie était manifeste. La semaine nous a laissé la tête dans le Ciel après avoir rencontré nos contemporains qui avaient soif d'entendre parler du Christ !`,
       video: 'fkal1pZgV3Q',
       links: [
         { name: 'Midi Libre', url: 'https://www.midilibre.fr/2024/10/11/la-mission-famissio-de-la-paroisse-saint-jacques-12253698.php' },
         { name: 'Diocèse de Mende', url: 'https://www.diocese-mende.fr/des-familles-missionnaires-dans-nos-paroisses/' },
-        { name: 'Diocèse de Saint-Flour', url: 'https://diocese15.fr/blog/2024/09/allons-donc-de-toutes-les-nations-faites-des-disciples-famissio-familles-en-mission/' }
+        { name: 'Diocèse de Saint-Flour', url: 'https://diocese15.fr/blog/2024/09/allons-donc-de-toutes-les-nations-faites-des-disciples-famissio-familles-en-mission/' },
+        { name: 'La Lozère Nouvelle', url: 'https://famissio-99.webself.net/file/si1759337/download/WhatsApp%20Image%202024-10-17%20at%2020.06.47-fi36254054.jpeg' }
       ],
       size: 'medium'
     },
@@ -61,8 +64,8 @@ const MissionsPage = () => {
       id: 3,
       category: 'toussaint',
       year: '2023',
-      date: 'Toussaint 2023',
-      location: 'Limoges (Creuse)',
+      date: 'Toussaint', // Modifié
+      location: 'Creuse',
       diocese: 'Limoges',
       participants: '280',
       image: 'https://www.dropbox.com/scl/fi/fkhlly77zj3zse6pm7ib9/Groupe-2023.jpg?rlkey=5naurijx6hv79x988ocfefgc1&st=sywqghnw&raw=1',
@@ -71,10 +74,13 @@ const MissionsPage = () => {
       
       Les 280 Famissionnaires que nous étions se sont répartis entre les 6 paroisses qui nous accueillaient. Lors de la journée diocésaine, nous avons voulu renouer avec la Comédie musicale qui mettait à l'honneur tous les grands saints du Limousin.
       
-      Un grand concert de Jubilate Pop Louanges, organisé à Guéret, aura aussi été le point d'orgue de cette mission. Cette semaine a été parsemée de rencontres improbables et émouvantes. Beaucoup de cœurs se sont ouverts.`,
+      Nombre de Famissionnaires ont pu s'investir tout au long de l'année dans ce projet ! Un grand concert de Jubilate Pop Louanges, organisé à Guéret, aura aussi été le point d'orgue de cette mission.
+      
+      Cette semaine a été parsemée de rencontres improbables et émouvantes. Beaucoup de cœurs se sont ouverts. Tous ceux qui expérimentaient la mission ont eu ce bonheur immense de voir le Seigneur à l'œuvre.`,
       video: null,
       links: [
         { name: 'Famille chrétienne (Jan)', url: 'https://famissio-99.webself.net/file/si1759337/download/2024%2001%20Famille%20chr%C3%A9tienne-fi36248537.pdf' },
+        { name: 'Famille chrétienne (Nov)', url: 'https://famissio-99.webself.net/file/si1759337/download/2023%2011%20Famille%20chr%C3%A9tienne-fi36248538.pdf' },
         { name: 'La Montagne', url: 'http://www.lamontagne.fr/bonnat-23220/actualites/famissio-a-la-rencontre-du-relais-paroissial_14394969/' }
       ],
       size: 'medium'
@@ -83,41 +89,49 @@ const MissionsPage = () => {
       id: 5,
       category: 'toussaint',
       year: '2022',
-      date: 'Toussaint 2022',
-      location: 'Digne (Alpes-de-Haute-Provence)',
+      date: 'Toussaint', // Modifié
+      location: 'Alpes-de-Haute-Provence',
       diocese: 'Digne',
       participants: '260',
       image: 'https://www.dropbox.com/scl/fi/535qp3971mdvhs1g6b99z/Groupe-2022.jpg?rlkey=6sdiai1vvyrhc0q7friftqog9&st=6nuf09ar&raw=1',
       cities: ['Manosque', 'Oraison', 'Saint-Auban', 'Barcelonnette', 'Forcalquier', 'Digne', 'Banon'],
       story: `Pour l'édition Toussaint 2022, Monseigneur Bozo nous a envoyés dans cette si belle région des Alpes de Hautes-Provence !! Ce fut un véritable ravissement tant l'accueil reçu nous a profondément touchés.
       
-      Nous étions près de 260 Famissionnaires à arborer un t-shirt orange « Jésus t'aime – Creuse ta foi », répartis entre 7 paroisses du diocèse. Une journée diocésaine nous a rassemblés sous une pluie battante vite oubliée par la joie exprimée des retrouvailles.
+      Nous étions près de 260 Famissionnaires à arborer un t-shirt orange « Jésus t'aime – Creuse ta foi », répartis entre 7 paroisses du diocèse. 18 séminaristes, religieuse, religieux, prêtres ou diacre de tous les diocèses nous ont accompagnés.
+      
+      Une journée diocésaine nous a rassemblés sous une pluie battante vite oubliée par la joie exprimée des retrouvailles. Enfin, la journée s'est terminée en apothéose avec la remarquable Comédie musicale « Monseigneur Bienvenu de Miollis, un évêque missionnaire en Provence ».
       
       Tel Msg de Miollis, nous avons sillonné la région à la rencontre de ses habitants dans la rue, sur les chemins, sur les marchés, dans les cimetières, dans les EHPAD. Le nom de Jésus a été annoncé…Puisse-t-il avoir touché les cœurs !`,
       video: 'lYaeQevBzuU',
       links: [
         { name: 'BFM TV', url: 'https://bfmtv.com/bfm-dici/replay-emissions/le-12h30-17h/alpes-de-haute-provence-la-messe-de-la-toussaint-accompagnee-par-des-familles-de-missionnaires_VN-202211010321.html' },
+        { name: 'Œuvre des campagnes', url: 'https://oeuvredescampagnes.fr/missions-devangelisation/famissio/' },
+        { name: 'Le Dauphiné', url: 'https://i.imgur.com/16pFVvO.jpg' },
         { name: 'RCF', url: 'https://rcf.fr/culture-et-societe/et-si-on-parlait-ensemble?episode=306777' }
       ],
-      size: 'small'
+      size: 'small',
+      imageZoom: true // Pour zoomer la photo 2022
     },
     {
       id: 7,
       category: 'toussaint',
       year: '2021',
-      date: 'Toussaint 2021',
-      location: 'Limoges (Creuse)',
+      date: 'Toussaint', // Modifié
+      location: 'Creuse',
       diocese: 'Limoges',
       participants: '180',
       image: 'https://www.dropbox.com/scl/fi/hcg9hnxg7rjtfj42veart/Groupe-2021.jpg?rlkey=uqz2y7jdwjcd9f0xdt1ue0jat&st=5cc6cj5w&raw=1',
-      cities: ['Gouzon', 'Boussac', 'Genouillac', 'Bourganeuf', 'Eymoutiers', 'Chambon'],
-      story: `La mission Toussaint 2021... Une belle édition ! 180 missionnaires se sont rendus cette année dans le diocèse de Limoges.
+      cities: ['Gouzon', 'Boussac', 'Genouillac', 'Bourganeuf', 'Eymoutiers', 'Chambon-sur-Voueize'],
+      story: `La mission Toussaint 2021... Une belle édition ! 180 missionnaires, avec l'aide de fervents prêtres, séminaristes, religieuses et religieux se sont rendus cette année dans le diocèse de Limoges, dans la Creuse.
       
-      Au menu pour cette édition : des temps de prière avec louanges, missions dans la rue, visitations chez les habitants, après-midi en EHPAD, bénédictions dans les cimetières, journée dédiée aux enfants et veillées pour les malades.
+      D'autres mémorables visites missionnaires d'une journée ont été lancées dans les paroisses du même diocèse à Bourganeuf et Eymoutiers. Un extraordinaire accueil nous a permis de vivre de fructueuses journées.
       
-      Les Creusois ont accueilli avec beaucoup de générosité tous les missionnaires ! Vive la mission...`,
+      Au menu pour cette édition : des temps de prière avec louanges, laudes, adoration et messe au quotidien, des missions dans la rue ou des visitations chez les habitants, un après-midi dans un EPADH, des bénédictions dans les cimetières au moment de La Toussaint, une journée dédiée aux enfants avec la réalisation d'un spectacle.
+      
+      Vive la mission... Et vivement l'édition 2022 dans les Alpes-de-Haute-Provence !`,
       video: 'n74BNF8fPcw',
       links: [
+        { name: 'La Nef', url: 'https://famissio-99.webself.net/file/si1759337/download/La%20Nef%20(%20page%2042)%20-%20Famissio-fi32558405.PNG' },
         { name: 'RCF (audio)', url: 'https://youtu.be/yQQwKf2tJ2A' }
       ],
       size: 'small'
@@ -126,18 +140,22 @@ const MissionsPage = () => {
       id: 8,
       category: 'toussaint',
       year: '2020',
-      date: 'Toussaint 2020',
-      location: 'Séez (Orne)',
+      date: 'Toussaint', // Modifié
+      location: 'Orne',
       diocese: 'Séez',
       participants: '90',
       image: 'https://www.dropbox.com/scl/fi/qd8mjaxsk77koxw8lqd1z/Groupe-2020.jpg?rlkey=f3xm2i2w4o96yp04m51boiggp&st=apf1aqw7&raw=1',
       cities: ['Alençon', 'Ecouché', 'L\'Aigle', 'Le Mêle-sur-Sarthe'],
       story: `4 paroisses devaient accueillir Famissio... jusqu'à l'arrivée du COVID qui a perturbé le projet initial !
       
-      Les paroisses du Mêle-sur-Sarthe et de L'Aigle ont évangélisé sans les missionnaires qui se sont alors répartis entre Alençon et Ecouché. Chacune de ces deux paroisses a accueilli quarante-cinq missionnaires pour une semaine de feu !`,
+      Les paroisses du Mêle-sur-Sarthe (Père Pascal Durand) et de L'Aigle (Père Stéphane Cailliaux) ont évangélisé sans les missionnaires qui se sont alors répartis entre Alençon (Père Loïc Gicquel des Touches) et Ecouché (Père Alexis de Brébisson).
+      
+      Chacune de ces deux paroisses a accueilli quarante-cinq missionnaires pour une semaine de feu !`,
       video: 'ngv3kXBMu5Q',
       links: [
-        { name: 'Aleteia', url: 'https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/' }
+        { name: 'Aleteia', url: 'https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/' },
+        { name: 'Famille chrétienne', url: 'https://drive.google.com/file/d/1tdEPm5ikAnjNR8g04BLUvvyXAafsVCxN/view' },
+        { name: 'Communauté de l\'Emmanuel', url: 'https://emmanuel.info/missionnaire-en-famille-paroisses-rurales/' }
       ],
       size: 'small'
     },
@@ -145,8 +163,8 @@ const MissionsPage = () => {
       id: 9,
       category: 'toussaint',
       year: '2019',
-      date: 'Toussaint 2019',
-      location: 'Limoges (Creuse)',
+      date: 'Toussaint', // Modifié
+      location: 'Creuse',
       diocese: 'Limoges',
       participants: '30',
       image: 'https://www.dropbox.com/scl/fi/llacr38y9h7jlnngqzy8e/Groupe-2019.jpg?rlkey=f2akrwo3kjtc6adroe30hm7sn&st=ijdjpvp8&raw=1',
@@ -155,7 +173,11 @@ const MissionsPage = () => {
       
       Nous avons été accueillis par le Père Jean-Pierre Barrière qui nous a fait la joie de nous rejoindre l'année suivante dans l'Orne. Nous étions alors un groupe d'une trentaine de personnes avec 3 familles, de nombreux jeunes et 2 séminaristes de la Castille à Toulon.`,
       video: 'DdFKEYBhstk',
-      links: [],
+      links: [
+        { name: 'Boussac', url: 'https://drive.google.com/file/d/1mJEaOMouzx6OlD2ZSq4g4d6JrjO3dEmf/view' },
+        { name: 'Alençon', url: 'https://drive.google.com/file/d/1rnzeg7o6F54K8yGfQRrl-2txe_faTfCr/view' },
+        { name: 'Limoges (vidéo)', url: 'https://youtu.be/qnFAbNBbDOM' }
+      ],
       size: 'small'
     },
     // --- MISSIONS ANNÉE ---
@@ -165,7 +187,7 @@ const MissionsPage = () => {
       year: '2022-2023',
       date: 'Toute l\'année',
       location: 'Villeneuve-la-Garenne',
-      diocese: 'Famissio 92',
+      diocese: 'Villeneuve-la-Garenne', // Modifié
       participants: null,
       image: 'https://www.dropbox.com/scl/fi/1vtsnt5my7yxb92lk686h/Groupe-22-23.jpg?rlkey=x5p3x0lmo8rrv6gwxo2ao3wlm&st=e7hyvzds&raw=1',
       cities: ['Villeneuve-la-Garenne'],
@@ -184,7 +206,7 @@ const MissionsPage = () => {
       year: '2021-2022',
       date: 'Toute l\'année',
       location: 'Gennevilliers',
-      diocese: 'Famissio 92',
+      diocese: 'Gennevilliers', // Modifié
       participants: null,
       image: 'https://www.dropbox.com/scl/fi/q9bsn70khk5gfjt9e1n3e/Groupe-2021-2022.jpg?rlkey=feaz7xkl08rdns5e8ghccdneu&st=579zxprb&raw=1',
       cities: ['Gennevilliers'],
@@ -192,7 +214,11 @@ const MissionsPage = () => {
       
       Les paroissiens ont découvert combien témoigner de sa foi rendait heureux et pouvait porter du fruit. Ils ont eu la chance, lors de la dernière journée, de voir une femme demander le baptême, une petite fille demander à rejoindre le catéchisme, un adolescent manifester son désir d'être présent dans une aumônerie.
       
-      Ils avaient soif de Dieu, ces habitants ! Ils attendaient la présence de témoins pour savoir où trouver la nourriture spirituelle dont ils avaient besoin.`,
+      Ils avaient soif de Dieu, ces habitants ! Ils attendaient la présence de témoins pour savoir où trouver la nourriture spirituelle dont ils avaient besoin.
+      
+      Le curé, le Père Jean-Baptiste, a pris les choses en main, mobilisé ses paroissiens et suscité l'enthousiasme. Les veillées de ces 5 journées ont été variées, recueillies et animées de façon extraordinaire.
+      
+      La paroisse Saint Joseph des 4 Routes prépare d'ores et déjà des journées de missions pour l'année 2022-2023. Elle a le feu !`,
       video: 'kzDZYmrYkP4',
       links: [],
       size: 'medium'
@@ -206,7 +232,6 @@ const MissionsPage = () => {
     e.stopPropagation();
     if (!selectedMission) return;
 
-    // Navigation globale à travers toutes les missions affichées
     const allVisible = [...toussaintMissions, ...yearMissions];
     const currentIndex = allVisible.findIndex(m => m.id === selectedMission.id);
 
@@ -225,40 +250,22 @@ const MissionsPage = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap');
         
-        .mission-card {
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .mission-card:hover {
-          transform: translateY(-8px) scale(1.02);
-        }
+        .mission-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .mission-card:hover { transform: translateY(-8px) scale(1.02); }
         
         .year-tag { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
         .location-text { font-family: 'Space Grotesk', sans-serif; }
         
         .mission-eyebrow {
-          font-size: 0.85rem;
-          font-weight: 800;
-          color: #f46a07;
-          text-transform: uppercase;
-          letter-spacing: 3px;
-          margin-bottom: 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 15px;
+          font-size: 0.85rem; font-weight: 800; color: #f46a07;
+          text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
+          display: flex; align-items: center; justify-content: center; gap: 15px;
         }
         .mission-eyebrow::before, .mission-eyebrow::after { 
           content: ''; width: 40px; height: 2px; background: #f46a07; 
         }
 
-        .mission-overlay { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .mission-content { animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Style spécifique pour les villes alignées */
+        /* Style des tags de villes */
         .city-tag {
            display: inline-block;
            padding: 4px 12px;
@@ -268,6 +275,23 @@ const MissionsPage = () => {
            border: 1px solid rgba(244, 106, 7, 0.3);
            border-radius: 9999px;
            font-size: 0.85rem;
+        }
+
+        /* Animation reflet brillant sur les boutons */
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg); transition: 0s;
+        }
+        .btn-shine:hover::after {
+            left: 200%; transition: 0.7s ease-in-out;
+        }
+        
+        /* Zoom spécifique pour la photo 2022 */
+        .img-zoom-fix {
+            object-position: center;
+            transform: scale(1.1);
         }
       `}</style>
 
@@ -290,7 +314,7 @@ const MissionsPage = () => {
         </div>
       </div>
 
-      {/* MISSION 2026 - (Retour au texte d'origine) */}
+      {/* MISSION 2026 */}
       <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-6 py-24">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -326,7 +350,7 @@ const MissionsPage = () => {
 
       {/* GALLERIE MISSIONS */}
       <div className="max-w-7xl mx-auto px-6 py-24">
-        {/* EN-TÊTE EXACT DEMANDÉ */}
+        {/* EN-TÊTE EXACT */}
         <div className="text-center mb-16">
           <div className="mission-eyebrow">
             NOTRE HISTOIRE
@@ -339,14 +363,14 @@ const MissionsPage = () => {
           </p>
         </div>
 
-        {/* TITRE INTERMÉDIAIRE POUR TOUSSAINT */}
+        {/* TITRE TOUSSAINT */}
         <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
           FAMISSIO TOUSSAINT
         </h3>
 
         {/* GRILLE TOUSSAINT */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
-          {toussaintMissions.map((mission, index) => (
+          {toussaintMissions.map((mission) => (
             <div
               key={mission.id}
               className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg 
@@ -390,7 +414,7 @@ const MissionsPage = () => {
           ))}
         </div>
 
-        {/* SECTION MISSIONS ANNÉE */}
+        {/* TITRE MISSIONS ANNÉE */}
         <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
           MISSIONS À L'ANNÉE
         </h3>
@@ -425,102 +449,115 @@ const MissionsPage = () => {
         </div>
       </div>
 
-      {/* MISSION OVERLAY (MODAL CORRIGÉ) */}
+      {/* MISSION OVERLAY (POPUP) */}
       {selectedMission && (
-        <div className="mission-overlay fixed inset-0 bg-black/95 z-50 overflow-y-auto">
+        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto">
 
-          {/* FLÈCHES DE NAVIGATION (HORS DU CONTENEUR) */}
+          {/* FLÈCHES NAVIGATION (Redessinées et rapprochées du contenu) */}
           <button
             onClick={(e) => navigateMission('prev', e)}
-            className="fixed left-4 top-1/2 -translate-y-1/2 z-[60] p-4 text-white hover:text-orange-500 transition-colors"
+            className="fixed left-2 md:left-8 top-1/2 -translate-y-1/2 z-[60] p-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full text-white/70 hover:text-orange-500 border border-white/10 transition-all hover:scale-110 group"
           >
-            <ChevronLeft className="w-12 h-12" />
+            <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:-translate-x-1" />
           </button>
 
           <button
             onClick={(e) => navigateMission('next', e)}
-            className="fixed right-4 top-1/2 -translate-y-1/2 z-[60] p-4 text-white hover:text-orange-500 transition-colors"
+            className="fixed right-2 md:right-8 top-1/2 -translate-y-1/2 z-[60] p-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full text-white/70 hover:text-orange-500 border border-white/10 transition-all hover:scale-110 group"
           >
-            <ChevronRight className="w-12 h-12" />
+            <ChevronRight className="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:translate-x-1" />
           </button>
 
-          <div className="mission-content min-h-screen p-6 sm:p-12 flex items-center justify-center">
-            <div className="max-w-5xl w-full relative">
+          <div className="min-h-screen p-6 sm:p-12 flex items-center justify-center">
+            <div className="max-w-6xl w-full relative">
 
-              {/* BOUTON FERMER (ORIGINE) */}
+              {/* BOUTON FERMER */}
               <button
                 onClick={() => setSelectedMission(null)}
-                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50"
+                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50 border border-white/10"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
 
-              {/* GRILLE DU HAUT (INFO GAUCHE / IMAGE DROITE) */}
+              {/* GRILLE DU HAUT */}
               <div className="grid md:grid-cols-2 gap-12 mb-8">
-                {/* COLONNE GAUCHE : INFOS + VILLES ALIGNÉES */}
+                {/* COLONNE GAUCHE */}
                 <div className="flex flex-col justify-center">
                   <div className="text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
                     {selectedMission.year}
                   </div>
 
                   <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-3 text-orange-300">
-                      <Calendar className="w-6 h-6" />
+                    {/* DATE */}
+                    <div className="flex items-center gap-4 text-orange-300">
+                      <div className="w-6 flex justify-center flex-shrink-0">
+                        <Calendar className="w-6 h-6" />
+                      </div>
                       <span className="text-xl font-semibold">{selectedMission.date}</span>
                     </div>
 
-                    <div className="flex items-start gap-3 text-white">
-                      <MapPin className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
-                      <span className="text-lg font-semibold">{selectedMission.diocese}</span>
+                    {/* DIOCESE + VILLES */}
+                    <div className="text-white">
+                      <div className="flex items-start gap-4">
+                        <div className="w-6 flex justify-center pt-1 flex-shrink-0">
+                          <MapPin className="w-6 h-6 text-orange-400" />
+                        </div>
+                        <span className="text-lg font-semibold">{selectedMission.diocese}</span>
+                      </div>
+
+                      {/* VILLES (Strictement alignées sous le texte, donc marge de w-6 (24px) + gap-4 (16px) = 40px) */}
+                      <div className="mt-4 pl-10">
+                        <div className="flex flex-wrap">
+                          {selectedMission.cities.map((city, idx) => (
+                            <span key={idx} className="city-tag">
+                              {city}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
 
+                    {/* PARTICIPANTS */}
                     {selectedMission.participants && (
-                      <div className="flex items-center gap-3 text-white">
-                        <Users className="w-6 h-6 text-orange-400" />
+                      <div className="flex items-center gap-4 text-white">
+                        <div className="w-6 flex justify-center flex-shrink-0">
+                          <Users className="w-6 h-6 text-orange-400" />
+                        </div>
                         <span className="text-xl font-semibold">{selectedMission.participants} Famissionnaires</span>
                       </div>
                     )}
                   </div>
-
-                  {/* VILLES : ALIGNÉES SOUS LE TEXTE (MEME VERTICALE QUE LES ICONES) */}
-                  <div className="pl-[2.25rem]"> {/* Alignement avec le texte des icones (24px icone + 12px gap) */}
-                    <div className="flex flex-wrap">
-                      {selectedMission.cities.map((city, idx) => (
-                        <span key={idx} className="city-tag">
-                          {city}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 {/* COLONNE DROITE : IMAGE */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-auto">
+                <div className="rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-auto border border-white/10">
                   <img
                     src={selectedMission.image}
                     alt={selectedMission.year}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover rounded-2xl ${selectedMission.imageZoom ? 'img-zoom-fix' : ''}`}
                   />
                 </div>
               </div>
 
-              {/* TEXTE HISTOIRE : PLEINE LARGEUR (SOUS LA GRILLE) */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8">
-                <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
-                  {selectedMission.story}
-                </p>
+              {/* TEXTE HISTOIRE : PLEINE LARGEUR (W-FULL) */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-white/5">
+                <div className="w-full"> {/* Conteneur pleine largeur */}
+                  <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify">
+                    {selectedMission.story}
+                  </p>
+                </div>
               </div>
 
-              {/* BOUTONS (STYLE D'ORIGINE : TRANSPARENT/BLANC) */}
+              {/* BOUTONS (Avec reflet brillant) */}
               <div className="flex flex-wrap gap-4">
                 {selectedMission.video && (
                   <a
                     href={`https://youtu.be/${selectedMission.video}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-colors"
+                    className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg"
                   >
-                    <Play className="w-5 h-5" />
+                    <Play className="w-5 h-5 fill-current" />
                     Voir la vidéo
                   </a>
                 )}
@@ -530,7 +567,7 @@ const MissionsPage = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-colors"
+                    className="btn-shine flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-all transform hover:scale-105 border border-white/10 shadow-lg"
                   >
                     <ExternalLink className="w-4 h-4" />
                     {link.name}
