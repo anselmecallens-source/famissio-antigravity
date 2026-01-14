@@ -18,18 +18,18 @@
     --off-white-warm: #faf7f5;
 }
 
-/* SCROLL SNAP DOUX */
+/* SCROLL SNAP DOUX - No overflow-x on html/body to preserve sticky! */
 html {
     scroll-behavior: smooth;
     scroll-snap-type: y proximity;
-    overflow-x: hidden;
+    /* Do NOT set overflow-x: hidden here - it breaks sticky! */
 }
 
 body {
     font-family: 'Inter', sans-serif;
     color: var(--charcoal);
     line-height: 1.7;
-    overflow-x: hidden;
+    /* Do NOT set overflow-x: hidden here - it breaks sticky! */
 }
 
 .hero {
