@@ -376,7 +376,7 @@ const MissionsPage = () => {
       <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="text-center mb-16">
           <div className="mission-eyebrow">
-            NOTRE HISTOIRE
+            L'HISTORIQUE
           </div>
           <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
             9 MISSIONS
@@ -465,6 +465,10 @@ const MissionsPage = () => {
                   <MapPin className="w-4 h-4" />
                   <span className="text-lg font-semibold">{mission.location}</span>
                 </div>
+              </div>
+
+              <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                VOIR PLUS
               </div>
             </div>
           ))}
