@@ -227,10 +227,7 @@ export default function Contact() {
 
         <div className="relative max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-orange-100 px-6 py-2 rounded-full mb-6">
-              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-              <span className="text-orange-700 font-bold uppercase text-sm tracking-wider">Contactez-nous</span>
-            </div>
+
             <h2 className="text-5xl font-black mb-4 gradient-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               Envoyez-nous un message
             </h2>
