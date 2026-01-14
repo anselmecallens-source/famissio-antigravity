@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NousRejoindre.css";
+import "./Contact.css";
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
 
@@ -91,9 +91,9 @@ function ContactForm() {
   );
 }
 
-export default function NousRejoindre() {
+export default function Contact() {
   return (
-    <div className="nousrejoindre" style={{ marginTop: 0, paddingTop: 0 }}>
+    <div className="contact" style={{ marginTop: 0, paddingTop: 0 }}>
       {/* HERO */}
       <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
         <style>{`

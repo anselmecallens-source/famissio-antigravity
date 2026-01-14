@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 
-export default function PriereFamissio() {
+export default function Priere() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);

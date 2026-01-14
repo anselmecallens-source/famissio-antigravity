@@ -8,7 +8,7 @@ const HeroCarousel = () => {
 
     const slides = [
         { id: 1, type: 'formation', link: '/formation' },
-        { id: 2, type: 'priere', link: '/priere-famissio' },
+        { id: 2, type: 'priere', link: '/priere' },
         { id: 3, type: 'mission2026', link: '/missions' }
     ];
 
