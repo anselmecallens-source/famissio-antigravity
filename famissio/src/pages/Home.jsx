@@ -1292,7 +1292,7 @@ const Home = () => {
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                    padding: 20px 8%;
+                    padding: 5px 8%;
                     width: 100%;
                     }
 

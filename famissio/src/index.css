@@ -22,11 +22,11 @@
   --off-white-warm: #faf7f5;
 }
 
-/* SCROLL SNAP DOUX */
+/* SCROLL SMOOTH */
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -34,6 +34,7 @@ body {
   color: var(--charcoal);
   line-height: 1.7;
   overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .hero {
@@ -774,7 +775,7 @@ section {
   height: 37.5rem;
   border-radius: 2.1875rem;
   overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.3), 0 20px 60px rgba(248, 106, 7, 0.15);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3), 0 20px 60px rgba(248, 106, 7, 0.15);
 }
 
 .team-image img {
@@ -807,6 +808,15 @@ section {
   color: #555;
   margin-bottom: 1.5625rem;
   text-align: justify;
+}
+
+/* Section Équipe avec sticky - DOIT avoir overflow visible */
+.team-section-white {
+  background-color: white;
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 150px;
+  overflow: visible !important;
 }
 
 .quote-box {
