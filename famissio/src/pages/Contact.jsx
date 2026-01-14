@@ -169,26 +169,26 @@ export default function Contact() {
   // Intégration correcte du script Facebook via useEffect
   // Gestion du script Facebook
   useEffect(() => {
-    // Fonction pour initialiser le plugin
+    // Fonction pour lancer le plugin
     const initFacebook = () => {
       if (window.FB) {
-        window.FB.XFBML.parse();
+        // On attend un tout petit peu que le code HTML soit bien là
+        setTimeout(() => {
+          window.FB.XFBML.parse();
+        }, 1000);
       }
     };
 
-    // Si le script existe déjà, on le relance
     if (document.getElementById('facebook-jssdk')) {
       initFacebook();
-      return;
+    } else {
+      const js = document.createElement('script');
+      js.id = 'facebook-jssdk';
+      js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
+      js.crossOrigin = "anonymous";
+      js.onload = initFacebook;
+      document.body.appendChild(js);
     }
-
-    // Sinon, on le crée
-    const js = document.createElement('script');
-    js.id = 'facebook-jssdk';
-    js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
-    js.crossOrigin = "anonymous";
-    js.onload = initFacebook; // On lance dès que c'est chargé
-    document.body.appendChild(js);
   }, []);
 
   return (
@@ -385,18 +385,17 @@ export default function Contact() {
               Notre actualité Facebook
             </h2>
             <p className="text-gray-600 text-lg">
-              Découvrez nos dernières publications et événements
+              Découvrez nos dernières publications
             </p>
           </div>
 
-          {/* Conteneur centré */}
           <div className="flex justify-center w-full">
-            <div className="bg-white rounded-3xl shadow-xl p-4 md:p-6 w-full max-w-[550px] flex justify-center">
+            <div className="bg-white rounded-3xl shadow-xl p-4 md:p-6 w-full max-w-[500px] flex justify-center">
 
               <div
                 className="fb-page"
                 data-href="https://www.facebook.com/Famissio-108524034407006/"
-                data-tabs="timeline,events"
+                data-tabs="timeline"
                 data-width="500"
                 data-height="800"
                 data-small-header="false"
