@@ -414,7 +414,12 @@ const Home = () => {
         }
         
         .team-content {
-            min-height: 1200px;
+            /* min-height removed so sticky stops exactly at end of content */
+        }
+
+        .team-section-white {
+            background: white;
+            padding-bottom: 20px; /* Reduced padding (space) between Team and Program sections */
         }
         
         .team-image img { 
