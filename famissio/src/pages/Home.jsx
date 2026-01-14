@@ -412,6 +412,10 @@ const Home = () => {
             transition: box-shadow 0.3s ease;
         }
         
+        .team-content {
+            min-height: 1200px;
+        }
+        
         .team-image img { 
             width: 100%; height: 100%; object-fit: cover; 
             object-position: 25% center; 
@@ -1287,8 +1291,8 @@ const Home = () => {
                     z-index: 10;
                     max-width: 1400px;
                     margin: 0 auto;
-                    padding: 40px 8% 30px 8%;
-                    width: 100%;
+                     padding: 20px 8% 20px 8%;
+                     width: 100%;
                     }
 
                     /* Largeur élargie à 1100px */
