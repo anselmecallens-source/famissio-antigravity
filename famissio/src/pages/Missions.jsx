@@ -320,7 +320,7 @@ const MissionsPage = () => {
       `}</style>
 
       {/* HERO SECTION */}
-      <div className="relative bg-gradient-to-br from-orange-50 via-white to-orange-50 text-gray-900 overflow-hidden">
+      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
           
@@ -337,8 +337,8 @@ const MissionsPage = () => {
 
         {/* Fond animé avec Blobs */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-yellow-400 blob opacity-10"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-400 blob opacity-10" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Contenu */}
