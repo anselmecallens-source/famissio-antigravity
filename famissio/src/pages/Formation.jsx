@@ -122,7 +122,7 @@ const FormationsPage = () => {
                         Formation
                     </h1>
 
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+                    <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
                         Retrouvez ici les 18 formations essentielles pour nourrir votre foi et vous aider à répondre aux questions en mission.
                     </p>
                 </div>

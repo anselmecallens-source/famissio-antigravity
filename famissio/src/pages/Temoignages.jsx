@@ -205,7 +205,7 @@ const TemoignagesPage = () => {
             Témoignages
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
@@ -214,13 +214,7 @@ const TemoignagesPage = () => {
       {/* TÉMOIGNAGE DU JOUR */}
       {testimonyOfDay && (
         <>
-          <div className="bg-orange-100 py-2 border-y border-orange-200">
-            <div className="max-w-7xl mx-auto px-6 text-center text-orange-800 font-bold flex items-center justify-center gap-3">
-              <Sparkles className="w-5 h-5" />
-              <span>TÉMOIGNAGE DU JOUR</span>
-              <Sparkles className="w-5 h-5" />
-            </div>
-          </div>
+          <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
           <div className="max-w-7xl mx-auto px-6 -mt-12 mb-16 relative z-10">
             <div

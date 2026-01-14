@@ -342,7 +342,7 @@ const MissionsPage = () => {
         </div>
 
         {/* Contenu */}
-        <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
+        <div className="relative max-w-7xl mx-auto px-6 py-24">
           <h1
             className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
@@ -350,7 +350,7 @@ const MissionsPage = () => {
             Nos Missions
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="text-xl text-justify max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
             Chaque année à la Toussaint, nous organisons une mission diocésaine. Elle se prépare sur un an avec les paroisses pour adapter le programme à leurs besoins spécifiques.
           </p>
         </div>
