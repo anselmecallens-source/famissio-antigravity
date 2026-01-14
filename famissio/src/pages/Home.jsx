@@ -114,7 +114,7 @@ const Home = () => {
         }
         
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--charcoal); line-height: 1.7; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; color: var(--charcoal); line-height: 1.7; }
 
         /* HERO */
         .hero { 

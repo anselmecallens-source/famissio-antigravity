@@ -22,19 +22,23 @@
   --off-white-warm: #faf7f5;
 }
 
-/* SCROLL SMOOTH - IMPORTANT: overflow-y MUST stay visible for sticky to work! */
+/* SCROLL SMOOTH - No overflow on html/body to preserve sticky positioning */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: visible !important;
+  /* NOTE: Do NOT set overflow-x: hidden here - it breaks sticky! */
 }
 
 body {
   font-family: 'Inter', sans-serif;
   color: var(--charcoal);
   line-height: 1.7;
-  overflow-x: hidden;
-  overflow-y: visible !important;
+  /* NOTE: Do NOT set overflow-x: hidden here - it breaks sticky! */
+}
+
+/* Use this wrapper class on page containers to prevent horizontal scroll */
+.overflow-clip-x {
+  overflow-x: clip;
+  /* 'clip' doesn't affect sticky like 'hidden' does */
 }
 
 .hero {
