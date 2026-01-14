@@ -168,17 +168,17 @@ export default function Contact() {
 
   // Intégration correcte du script Facebook via useEffect
   useEffect(() => {
-    if (document.getElementById('facebook-jssdk')) return; // Évite les doublons
+    // Si le script Facebook est déjà là (navigation entre pages), on le force à réafficher le plugin
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
 
-    const fjs = document.getElementsByTagName('script')[0];
-    const js = document.createElement('script');
-    js.id = 'facebook-jssdk';
-    js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
-    js.crossOrigin = "anonymous";
-
-    if (fjs && fjs.parentNode) {
-      fjs.parentNode.insertBefore(js, fjs);
-    } else {
+    // Chargement initial du script s'il n'est pas présent
+    if (!document.getElementById('facebook-jssdk')) {
+      const js = document.createElement('script');
+      js.id = 'facebook-jssdk';
+      js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
+      js.crossOrigin = "anonymous";
       document.body.appendChild(js);
     }
   }, []);
@@ -384,7 +384,7 @@ export default function Contact() {
           <div className="bg-white rounded-3xl shadow-xl p-6 max-w-xl mx-auto">
             <div
               className="fb-page"
-              data-href="https://www.facebook.com/famissio"
+              data-href="https://www.facebook.com/Famissio-108524034407006/"
               data-tabs="timeline"
               data-width="500"
               data-height="700"
@@ -393,8 +393,8 @@ export default function Contact() {
               data-hide-cover="false"
               data-show-facepile="true"
             >
-              <blockquote cite="https://www.facebook.com/famissio" className="fb-xfbml-parse-ignore">
-                <a href="https://www.facebook.com/famissio">Famissio</a>
+              <blockquote cite="https://www.facebook.com/Famissio-108524034407006/" className="fb-xfbml-parse-ignore">
+                <a href="https://www.facebook.com/Famissio-108524034407006/">Famissio</a>
               </blockquote>
             </div>
           </div>
