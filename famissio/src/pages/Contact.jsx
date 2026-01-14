@@ -167,20 +167,28 @@ function ContactForm() {
 export default function Contact() {
 
   // Intégration correcte du script Facebook via useEffect
+  // Gestion du script Facebook
   useEffect(() => {
-    // Si le script Facebook est déjà là (navigation entre pages), on le force à réafficher le plugin
-    if (window.FB) {
-      window.FB.XFBML.parse();
+    // Fonction pour initialiser le plugin
+    const initFacebook = () => {
+      if (window.FB) {
+        window.FB.XFBML.parse();
+      }
+    };
+
+    // Si le script existe déjà, on le relance
+    if (document.getElementById('facebook-jssdk')) {
+      initFacebook();
+      return;
     }
 
-    // Chargement initial du script s'il n'est pas présent
-    if (!document.getElementById('facebook-jssdk')) {
-      const js = document.createElement('script');
-      js.id = 'facebook-jssdk';
-      js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
-      js.crossOrigin = "anonymous";
-      document.body.appendChild(js);
-    }
+    // Sinon, on le crée
+    const js = document.createElement('script');
+    js.id = 'facebook-jssdk';
+    js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0";
+    js.crossOrigin = "anonymous";
+    js.onload = initFacebook; // On lance dès que c'est chargé
+    document.body.appendChild(js);
   }, []);
 
   return (
@@ -381,21 +389,27 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-xl p-6 max-w-xl mx-auto">
-            <div
-              className="fb-page"
-              data-href="https://www.facebook.com/Famissio-108524034407006/"
-              data-tabs="timeline"
-              data-width="500"
-              data-height="700"
-              data-small-header="false"
-              data-adapt-container-width="true"
-              data-hide-cover="false"
-              data-show-facepile="true"
-            >
-              <blockquote cite="https://www.facebook.com/Famissio-108524034407006/" className="fb-xfbml-parse-ignore">
-                <a href="https://www.facebook.com/Famissio-108524034407006/">Famissio</a>
-              </blockquote>
+          {/* Conteneur centré */}
+          <div className="flex justify-center w-full">
+            <div className="bg-white rounded-3xl shadow-xl p-4 md:p-6 w-full max-w-[550px] flex justify-center">
+
+              <div
+                className="fb-page"
+                data-href="https://www.facebook.com/Famissio-108524034407006/"
+                data-tabs="timeline,events"
+                data-width="500"
+                data-height="800"
+                data-small-header="false"
+                data-adapt-container-width="true"
+                data-hide-cover="false"
+                data-show-facepile="true">
+
+                <blockquote cite="https://www.facebook.com/Famissio-108524034407006/" className="fb-xfbml-parse-ignore">
+                  <a href="https://www.facebook.com/Famissio-108524034407006/">Famissio</a>
+                </blockquote>
+
+              </div>
+
             </div>
           </div>
         </div>
