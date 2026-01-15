@@ -104,14 +104,14 @@ function ContactForm() {
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
             Nom & Prénom
           </label>
-          <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+          <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
             <input
               name="name"
               type="text"
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+              className="w-full px-6 py-4 bg-transparent border-0 outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               placeholder="Jean Dupont"
             />
@@ -123,14 +123,14 @@ function ContactForm() {
             <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
               Téléphone
             </label>
-            <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
               <input
                 name="phone"
                 type="tel"
                 required
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+                className="w-full px-6 py-4 bg-transparent border-0 outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}
                 placeholder="06 12 34 56 78"
               />
@@ -141,14 +141,14 @@ function ContactForm() {
             <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
               Email
             </label>
-            <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
               <input
                 name="email"
                 type="email"
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+                className="w-full px-6 py-4 bg-transparent border-0 outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}
                 placeholder="jean@exemple.fr"
               />
@@ -160,14 +160,14 @@ function ContactForm() {
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
             Votre message
           </label>
-          <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+          <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
             <input
               name="subject"
               type="text"
               required
               value={formData.subject}
               onChange={handleChange}
-              className="w-full px-6 py-4 bg-transparent border-b border-gray-100 outline-none text-gray-900 font-bold appearance-none"
+              className="w-full px-6 py-4 bg-transparent border-0 border-b border-gray-100 outline-none text-gray-900 font-bold appearance-none"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               placeholder="Objet : Demande d'information..."
             />
@@ -177,7 +177,7 @@ function ContactForm() {
               required
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-6 py-4 bg-transparent outline-none resize-none text-gray-900 appearance-none"
+              className="w-full px-6 py-4 bg-transparent border-0 outline-none resize-none text-gray-900 appearance-none"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               placeholder="Parlez-nous de votre projet ou de vos questions..."
             />
