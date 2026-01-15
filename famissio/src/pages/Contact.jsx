@@ -7,7 +7,9 @@ function ContactForm() {
   const [status, setStatus] = useState("idle");
   const [formData, setFormData] = useState({
     name: '',
+    phone: '',
     email: '',
+    subject: '',
     message: ''
   });
 
@@ -27,7 +29,9 @@ function ContactForm() {
     try {
       const data = new FormData();
       data.append('name', formData.name);
+      data.append('phone', formData.phone);
       data.append('email', formData.email);
+      data.append('subject', formData.subject);
       data.append('message', formData.message);
 
       const res = await fetch(FORM_ENDPOINT, {
@@ -38,7 +42,7 @@ function ContactForm() {
 
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
       } else {
         setStatus("error");
       }
@@ -48,6 +52,20 @@ function ContactForm() {
   }
 
   if (status === "success") {
+    // ... (keep success message existing code conceptually, but I am replacing the functional component body partially, need to be careful with ranges)
+    // Wait, the range I selected (StartLine 8, EndLine 48) only covers state and submit logic.
+    // I need to replace the Form JSX too.
+    // The previous tool call view shows lines up to 386.
+    // I will try to replace the whole ContactForm component content or do it in chunks.
+    // Replacing logic first is safer if I can't see everything, but I have the whole file in context.
+    // I will split this into two replacements if possible or one big one.
+    // Actually, looking at the previous file view, I have the whole content.
+    // I'll replace the state/logic part first, then the JSX part.
+    // Logic part: lines 8-48.
+
+    // BUT I also need to update the JSX part (lines 84-129).
+    // Let's do a single Replace for the whole internal logic + JSX if I can target it well, OR modify use `multi_replace_file_content`?
+    // `multi_replace_file_content` is better here.
     return (
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-red-100 opacity-30"></div>
@@ -81,51 +99,90 @@ function ContactForm() {
 
   return (
     <div className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="space-y-6">
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-            Votre nom
+            Nom & Prénom
           </label>
-          <input
-            name="name"
-            type="text"
-            required
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition-all outline-none text-gray-900 font-medium"
-            placeholder="Jean Dupont"
-          />
+          <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <input
+              name="name"
+              type="text"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              placeholder="Jean Dupont"
+            />
+          </div>
         </div>
 
-        <div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
+              Téléphone
+            </label>
+            <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+              <input
+                name="phone"
+                type="tel"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+                style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+                placeholder="06 12 34 56 78"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
+              Email
+            </label>
+            <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+              <input
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-6 py-4 bg-transparent outline-none text-gray-900 appearance-none placeholder-gray-400 font-medium"
+                style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+                placeholder="jean@exemple.fr"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-4">
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-            Votre email
+            Votre message
           </label>
-          <input
-            name="email"
-            type="email"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition-all outline-none text-gray-900 font-medium"
-            placeholder="jean@exemple.fr"
-          />
+          <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <input
+              name="subject"
+              type="text"
+              required
+              value={formData.subject}
+              onChange={handleChange}
+              className="w-full px-6 py-4 bg-transparent border-b border-gray-100 outline-none text-gray-900 font-bold appearance-none"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              placeholder="Objet : Demande d'information..."
+            />
+            <textarea
+              name="message"
+              rows="6"
+              required
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full px-6 py-4 bg-transparent outline-none resize-none text-gray-900 appearance-none"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              placeholder="Parlez-nous de votre projet ou de vos questions..."
+            />
+          </div>
         </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-          Votre message
-        </label>
-        <textarea
-          name="message"
-          rows="6"
-          required
-          value={formData.message}
-          onChange={handleChange}
-          className="w-full px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition-all outline-none resize-none text-gray-900 font-medium"
-          placeholder="Parlez-nous de votre projet ou de vos questions..."
-        />
       </div>
 
       <div className="flex justify-end pt-2">
@@ -172,7 +229,7 @@ export default function Contact() {
   return (
     <div className="bg-gray-50">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         .blob {
           border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
@@ -300,7 +357,7 @@ export default function Contact() {
       </div>
 
       {/* SECTION RÉSEAUX SOCIAUX */}
-      <div className="bg-white py-16">
+      <div className="bg-gray-100 py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h3 className="text-3xl font-black mb-8 gradient-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Suivez-nous sur les réseaux
@@ -318,7 +375,6 @@ export default function Contact() {
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
               </div>
-              <p className="mt-3 text-sm font-bold text-gray-700 group-hover:text-orange-600 transition-colors">Facebook</p>
             </a>
 
             <a
@@ -332,7 +388,6 @@ export default function Contact() {
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </div>
-              <p className="mt-3 text-sm font-bold text-gray-700 group-hover:text-orange-600 transition-colors">YouTube</p>
             </a>
 
             <a
@@ -346,7 +401,6 @@ export default function Contact() {
                   <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
                 </svg>
               </div>
-              <p className="mt-3 text-sm font-bold text-gray-700 group-hover:text-orange-600 transition-colors">Instagram</p>
             </a>
           </div>
         </div>
@@ -372,7 +426,7 @@ export default function Contact() {
                 src='https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545'
                 frameBorder='0'
                 width='100%'
-                height='600'
+                height='800'
                 style={{ border: 'none' }}
                 title="Facebook Feed"
               ></iframe>

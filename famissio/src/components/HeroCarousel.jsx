@@ -27,7 +27,7 @@ const HeroCarousel = () => {
     useEffect(() => {
         if (!isAutoPlaying) return;
         setProgress(0);
-        const duration = 10000;
+        const duration = 5000;
         const interval = 50;
         const increment = (interval / duration) * 100;
         const progressTimer = setInterval(() => {

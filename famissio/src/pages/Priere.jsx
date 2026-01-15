@@ -142,7 +142,7 @@ export default function Priere() {
                                     className="hidden"
                                 >
                                     <source
-                                        src="https://famissio-99.webself.net/file/si1759337/download/Audio%20-%20Pri%C3%A8re%20de%20famissio-fi36531802.mp3"
+                                        src="https://www.dropbox.com/scl/fi/rfe9jg3wfuz5md6an1imo/Audio-pri-re-de-famissio.mp3?rlkey=xpoq3vwmmc5mjngd1alty6hro&st=rdmaslcu&raw=1"
                                         type="audio/mpeg"
                                     />
                                 </audio>
@@ -250,7 +250,7 @@ export default function Priere() {
                             ))}
 
                             <button
-                                onClick={() => window.open('https://famissio-99.webself.net/file/si1759337/download/Paroles%20-%20Pri%C3%A8re%20de%20Famissio-fi36531805.pdf', '_blank')}
+                                onClick={() => window.open('https://www.dropbox.com/scl/fi/9mtui0z00cblc6zzmk1m2/Paroles-Pri-re-de-Famissio.pdf?rlkey=ux2phadjuhkglogijgbxgvm62&st=9oso3jhe&raw=1', '_blank')}
                                 className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl"
                             >
                                 <Download className="w-5 h-5" />
@@ -285,11 +285,11 @@ export default function Priere() {
                                 <iframe
                                     className="w-full h-[600px]"
                                     title="Partition – Prière de Famissio"
-                                    src="https://famissio-99.webself.net/file/si1759337/Partition%20-%20Prie%CC%80re%20de%20Famissio%20-fi36531803.pdf#view=FitH&toolbar=0"
+                                    src="https://www.dropbox.com/scl/fi/c1h0blprgjxokwjxmjhqv/Partition-Pri-re-de-Famissio.pdf?rlkey=2mfpev3xx17dptwx1pn8nwl85&st=q0ntoisa&raw=1#view=FitH&toolbar=0"
                                 />
                             </div>
                             <button
-                                onClick={() => window.open('https://famissio-99.webself.net/file/si1759337/download/Partition%20-%20Prie%CC%80re%20de%20Famissio%20-fi36531803.pdf', '_blank')}
+                                onClick={() => window.open('https://www.dropbox.com/scl/fi/c1h0blprgjxokwjxmjhqv/Partition-Pri-re-de-Famissio.pdf?rlkey=2mfpev3xx17dptwx1pn8nwl85&st=q0ntoisa&raw=1', '_blank')}
                                 className="mt-4 w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl"
                             >
                                 <Download className="w-5 h-5" />

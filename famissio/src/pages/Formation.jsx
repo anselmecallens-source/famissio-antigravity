@@ -10,18 +10,18 @@ const FormationsPage = () => {
         {
             id: 'fondamentaux',
             icon: BookOpen,
-            title: 'Fondamentaux',
+            title: 'Fondamentaux de la Foi',
             count: 6,
             color: '#c82904',
             gradient: 'from-red-600 to-orange-500',
             image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600',
             formations: [
-                { id: 1, title: "Dieu existe-t-il ?", desc: "Arguments rationnels et philosophiques pour soutenir l'existence de Dieu", pdf: "https://famissio-99.webself.net/file/si1759337/download/10-%20Quels%20sont%20les%20preuves%20de%20l%E2%80%99existence%20de%20Dieu-fi36256494.pdf" },
-                { id: 2, title: "La Trinité", desc: "Un Dieu unique en trois personnes : Père, Fils et Saint-Esprit", pdf: "https://famissio-99.webself.net/file/si1759337/download/12-%20Comment%20expliquer%20simplement%20la%20Trinit%C3%A9-fi36256492.pdf" },
-                { id: 3, title: "Dieu fait Homme", desc: "Pourquoi Dieu a choisi de partager notre condition humaine", pdf: "https://famissio-99.webself.net/file/si1759337/download/11-%20Pourquoi%20Dieu%20s%E2%80%99est%20fait%20homme-fi36256487.pdf" },
-                { id: 4, title: "Véracité des Évangiles", desc: "Prouver la fiabilité des textes sacrés et du témoignage apostolique", pdf: "https://famissio-99.webself.net/file/si1759337/download/14-%20Comment%20prouver%20la%20v%C3%A9racit%C3%A9%20des%20%C3%A9vangiles-fi36256490.pdf" },
-                { id: 5, title: "La Miséricorde", desc: "Témoigner d'un amour qui pardonne et relève", pdf: "https://famissio-99.webself.net/file/si1759337/download/9-%20Comment%20t%C3%A9moigner%20de%20la%20mis%C3%A9ricorde%20de%20Dieu-fi36256500.pdf" },
-                { id: 6, title: "La Vie Éternelle", desc: "Annoncer notre destinée ultime et l'espérance chrétienne", pdf: "https://famissio-99.webself.net/file/si1759337/download/1-%20Comment%20annoncer%20la%20vie%20%C3%A9ternelle-fi36256497.pdf" }
+                { id: 1, title: "Dieu existe-t-il ?", desc: "Arguments rationnels et philosophiques pour soutenir l'existence de Dieu", pdf: "https://www.dropbox.com/scl/fi/gxeuxskdawmc8h1sa1lgx/10-Quels-sont-les-preuves-de-l-existence-de-Dieu.pdf?rlkey=wsr4rl5gyy98gw0w9fg7lt8n2&st=ugcak1yi&raw=1" },
+                { id: 2, title: "La Trinité", desc: "Un Dieu unique en trois personnes : Père, Fils et Saint-Esprit", pdf: "https://www.dropbox.com/scl/fi/hi7cwj9h93xrlk6fdyt3h/12-Comment-expliquer-simplement-la-Trinit.pdf?rlkey=uwm8idppua8ydsncrofy30j6n&st=fj6v0waf&raw=1" },
+                { id: 3, title: "Dieu fait Homme", desc: "Pourquoi Dieu a choisi de partager notre condition humaine", pdf: "https://www.dropbox.com/scl/fi/cxxsrs6unfscii0hxv3ug/11-Pourquoi-Dieu-s-est-fait-homme.pdf?rlkey=citj0u78m84pqe82ioymn5gtt&st=up04c10b&raw=1" },
+                { id: 4, title: "Véracité des Évangiles", desc: "Prouver la fiabilité des textes sacrés et du témoignage apostolique", pdf: "https://www.dropbox.com/scl/fi/1t3it5m8blri0m9qlyrc0/14-Comment-prouver-la-v-racit-des-vangiles.pdf?rlkey=lcnmsqxjx7okgk1v1pqjv2r0z&st=xpxqusbv&raw=1" },
+                { id: 5, title: "La Miséricorde", desc: "Témoigner d'un amour qui pardonne et relève", pdf: "https://www.dropbox.com/scl/fi/6x4oz51p2ar3a4gggz4s5/9-Comment-t-moigner-de-la-mis-ricorde-de-Dieu.pdf?rlkey=3eek1gb3warec8tl69o40cvdy&st=e9o3lu4u&raw=1" },
+                { id: 6, title: "La Vie Éternelle", desc: "Annoncer notre destinée ultime et l'espérance chrétienne", pdf: "https://www.dropbox.com/scl/fi/388cdic3scxdjwfon62wu/1-Comment-annoncer-la-vie-ternelle.pdf?rlkey=7rplgl8i76h13bwt8u5qz3vgx&st=pw9xzni7&raw=1" }
             ]
         },
         {
@@ -33,29 +33,29 @@ const FormationsPage = () => {
             gradient: 'from-orange-500 to-amber-500',
             image: 'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=600',
             formations: [
-                { id: 7, title: "Répondre à l'Indifférent", desc: "Celui qui n'a pas besoin de Dieu et trouve son bonheur ailleurs", pdf: "https://famissio-99.webself.net/file/si1759337/download/5-%20Que%20r%C3%A9pondre%20%C3%A0%20l%E2%80%99indiff%C3%A9rent%20qui%20n%E2%80%99a%20pas%20besoin%20de%20Dieu-fi36256493.pdf" },
-                { id: 8, title: "Celui qui souffre", desc: "Accompagner la douleur et le deuil avec présence", pdf: "https://famissio-99.webself.net/file/si1759337/download/4-%20Que%20r%C3%A9pondre%20%C3%A0%20celui%20qui%20souffre-fi36256486.pdf" },
-                { id: 9, title: "Dialogue avec les Musulmans", desc: "Témoigner avec respect et clarté de sa foi chrétienne", pdf: "https://famissio-99.webself.net/file/si1759337/download/13-%20Que%20r%C3%A9pondre%20%C3%A0%20un%20musulman-fi36256498.pdf" },
-                { id: 10, title: "L'Église Pécheresse", desc: "Sainte mais imparfaite à cause des fautes de ses membres", pdf: "https://famissio-99.webself.net/file/si1759337/download/6-%20Que%20r%C3%A9pondre%20%C3%A0%20celui%20qui%20rejette%20l%E2%80%99Eglise%20sainte%20mais%20imparfaite-fi36256495.pdf" },
-                { id: 11, title: "Je prie seul", desc: "Pourquoi la communauté et les sacrements sont essentiels", pdf: "https://famissio-99.webself.net/file/si1759337/download/7-%20Que%20r%C3%A9pondre%20%C3%A0%20celui%20qui%20prie%20seul%20et%20n%E2%80%99a%20pas%20besoin%20de%20l%E2%80%99Eglise-fi36256491.pdf" },
-                { id: 12, title: "Divorcés - Remariés", desc: "Accueillir avec vérité et charité", pdf: "https://famissio-99.webself.net/file/si1759337/download/8-%20Que%20dire%20%C3%A0%20des%20personnes%20s%C3%A9par%C3%A9es%2C%20remari%C3%A9es-fi36256499.pdf" },
-                { id: 13, title: "Sciences Occultes", desc: "Les dangers cachés de ces pratiques", pdf: "https://famissio-99.webself.net/file/si1759337/download/17-%20Quel%20sont%20les%20dangers%20des%20sciences%20occultes-fi36471285.pdf" }
+                { id: 7, title: "Répondre à l'Indifférent", desc: "Celui qui n'a pas besoin de Dieu et trouve son bonheur ailleurs", pdf: "https://www.dropbox.com/scl/fi/sistxpoev7z65xt2racgt/5-Que-r-pondre-l-indiff-rent-qui-n-a-pas-besoin-de-Dieu.pdf?rlkey=bdjc0yvfqtlkm2axxe2q74s6e&st=vlrb3spf&raw=1" },
+                { id: 8, title: "Celui qui souffre", desc: "Accompagner la douleur et le deuil avec présence", pdf: "https://www.dropbox.com/scl/fi/4jg617ap9ean6nbrcejrk/4-Que-r-pondre-celui-qui-souffre.pdf?rlkey=2zipvtosv7btbl5iwk4ts2cv7&st=wlg2c5cd&raw=1" },
+                { id: 9, title: "Dialogue avec les Musulmans", desc: "Témoigner avec respect et clarté de sa foi chrétienne", pdf: "https://www.dropbox.com/scl/fi/0mxwoqkxlfc6ml1d196uw/13-Que-r-pondre-un-musulman.pdf?rlkey=016t41w0vbcgrqnsx7hmsbsci&st=a3av3qfe&raw=1" },
+                { id: 10, title: "L'Église : Sainte mais pécheresse", desc: "Sainte mais imparfaite à cause des fautes de ses membres", pdf: "https://www.dropbox.com/scl/fi/8fystg103uj375yen44pz/6-Que-r-pondre-celui-qui-rejette-l-Eglise-sainte-mais-imparfaite.pdf?rlkey=wh1jsmwcvpiqqixo14l2pmpng&st=hhavtdpa&raw=1" },
+                { id: 11, title: "Je prie seul, sans l'Église", desc: "Pourquoi la communauté et les sacrements sont essentiels", pdf: "https://www.dropbox.com/scl/fi/pzi69x7u3k3r5j7wsegsz/7-Que-r-pondre-celui-qui-prie-seul-et-n-a-pas-besoin-de-l-Eglise.pdf?rlkey=nqhn10gy5axzszuwbffqstlcn&st=9tii22v4&raw=1" },
+                { id: 12, title: "Divorcés - Remariés", desc: "Accueillir avec vérité et charité", pdf: "https://www.dropbox.com/scl/fi/8i83msy562og2s81gv252/8-Que-dire-des-personnes-s-par-es-remari-es.pdf?rlkey=yxgt51ofz5tiqnsafadgv6dzp&st=3amln5uf&raw=1" },
+                { id: 13, title: "Sciences Occultes", desc: "Les dangers cachés de ces pratiques", pdf: "https://www.dropbox.com/scl/fi/z85vwsygdfqtt6o3cpnxs/17-Quel-sont-les-dangers-des-sciences-occultes.pdf?rlkey=mi9ukcn3wbuj7bcmly1eiy8yl&st=75xbo8pi&raw=1" }
             ]
         },
         {
             id: 'spirituel',
             icon: Heart,
-            title: 'Vie Spirituelle',
+            title: 'Vivre sa foi',
             count: 5,
             color: '#1a1a1a',
             gradient: 'from-gray-900 to-gray-700',
             image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=600',
             formations: [
-                { id: 14, title: "Annoncer avec la Parole", desc: "Utiliser la Parole de Dieu pour toucher les cœurs", pdf: "https://famissio-99.webself.net/file/si1759337/download/Mission%20avec%20la%20parole%20de%20Dieu-fi36548922.pdf" },
-                { id: 15, title: "Couple et Mission", desc: "Le mariage comme socle de l'évangélisation", pdf: "https://famissio-99.webself.net/file/si1759337/download/16-%20Quels%20fruits%20pour%20la%20mission%20en%20couple-fi36256501.pdf" },
-                { id: 16, title: "La Gratitude", desc: "Transformer son regard sur la vie", pdf: "https://famissio-99.webself.net/file/si1759337/download/15-%20Comment%20vivre%20de%20la%20gratitude-fi36256488.pdf" },
-                { id: 17, title: "Le Pardon", desc: "Un chemin de libération intérieure et spirituelle", pdf: "https://famissio-99.webself.net/file/si1759337/download/3-%20Pourquoi%20et%20comment%20pardonner-fi36256489.pdf" },
-                { id: 18, title: "Comment Dieu nous guide", desc: "Reconnaître les signes de Dieu au quotidien", pdf: "https://famissio-99.webself.net/file/si1759337/download/2-%20Comment%20Dieu%20nous%20guide-t-il-fi36256496.pdf" }
+                { id: 14, title: "Annoncer avec la Parole", desc: "Utiliser la Parole de Dieu pour toucher les cœurs", pdf: "https://www.dropbox.com/scl/fi/edywe39fgmjlky8wx2i4j/Mission-avec-la-parole-de-Dieu.pdf?rlkey=o3ucv7ystsgbtdlbdzo3erc09&st=ztcgw8vp&raw=1" },
+                { id: 15, title: "Couple et Mission", desc: "Le mariage comme socle de l'évangélisation", pdf: "https://www.dropbox.com/scl/fi/62nd3rwd4vvksi2jmafpz/16-Quels-fruits-pour-la-mission-en-couple.pdf?rlkey=u8kcwjnsm6p0vx0vaw7xxh2c9&st=icad0a71&raw=1" },
+                { id: 16, title: "La Gratitude", desc: "Transformer son regard sur la vie", pdf: "https://www.dropbox.com/scl/fi/sgdnsvxzaulfz6ocgqwfe/15-Comment-vivre-de-la-gratitude.pdf?rlkey=o77tachq7mo02jpwvkcpi5naw&st=lrxustq8&raw=1" },
+                { id: 17, title: "Le Pardon", desc: "Un chemin de libération intérieure et spirituelle", pdf: "https://www.dropbox.com/scl/fi/gjeam66o0nt3pzytja4gq/3-Pourquoi-et-comment-pardonner.pdf?rlkey=d934fv994tgi73e9chaaumhaf&st=w1n95j9v&raw=1" },
+                { id: 18, title: "Comment Dieu nous guide", desc: "Reconnaître les signes de Dieu au quotidien", pdf: "https://www.dropbox.com/scl/fi/024ir8x8m6cx476zkmqs4/2-Comment-Dieu-nous-guide-t-il.pdf?rlkey=wprqiszi0amwzu2wnalslrm8c&st=hirb085n&raw=1" }
             ]
         }
     ];
@@ -159,7 +159,7 @@ const FormationsPage = () => {
                                     onClick={() => setSelectedTheme(theme.id)}
                                     style={{ animationDelay: `${idx * 0.1}s` }}
                                 >
-                                    <div className="relative rounded-2xl shadow-xl overflow-hidden">
+                                    <div className="relative rounded-2xl shadow-xl overflow-hidden h-[420px] group-hover:h-[460px] transition-all duration-500">
                                         {/* Image de fond */}
                                         <div className="absolute inset-0">
                                             <img
@@ -170,7 +170,7 @@ const FormationsPage = () => {
                                             <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-90`}></div>
                                         </div>
 
-                                        <div className="relative p-12">
+                                        <div className="relative p-10">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
                                             <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-12 -mb-12"></div>
 

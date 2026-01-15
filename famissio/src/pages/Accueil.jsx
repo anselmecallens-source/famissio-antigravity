@@ -28,13 +28,13 @@ const Accueil = () => {
         {
             id: 1,
             title: 'ENVOI EN MISSION',
-            image: 'https://famissio-99.webself.net/file/si1759337/DSC06804-fi34268819x450.JPG',
+            image: 'https://www.dropbox.com/scl/fi/0a64bir0kadzwru489vpi/Envoi-en-mission.JPG?rlkey=kxxzzmbqln98mmrwrb3zwtf4m&st=5imptrzw&raw=1',
             content: "La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."
         },
         {
             id: 2,
             title: 'FORMATION',
-            image: 'https://famissio-99.webself.net/file/si1759337/DSC06168%20(1)-fi34268804x450.JPG',
+            image: 'https://www.dropbox.com/scl/fi/fhykigm13z8v70eoaitjf/Formation.jpg?rlkey=czkb0imqdflyjnkoti69t1mk4&st=ykiwzs1u&raw=1',
             items: [
                 "Formation et jeux de rôle pour les Famissionnaires comme pour les Paroissiens le Dimanche après-midi",
                 "Préparation d'un témoignage personnel, pendant laquelle chacun revisite, sous le regard de Dieu, sa propre histoire sainte",
@@ -46,7 +46,7 @@ const Accueil = () => {
         {
             id: 3,
             title: 'TEMPS DE PRIÈRE',
-            image: 'https://famissio-99.webself.net/file/si1759337/IMG_20211104_171612-fi32460644x451.jpg',
+            image: 'https://www.dropbox.com/scl/fi/1uf5lgrz3ubeensny1ltn/Temps-de-pri-re.jpg?rlkey=rwtp06i5tygdxwix53uz226ne&st=dvrujw52&raw=1',
             items: [
                 "Chaque journée commence par une heure de laudes, louanges, adoration et formation",
                 "Une messe quotidienne",
@@ -57,7 +57,7 @@ const Accueil = () => {
         {
             id: 4,
             title: 'DES TEMPS DE MISSION',
-            image: 'https://famissio-99.webself.net/file/si1759337/DSC07017-fi34268812x450.JPG',
+            image: 'https://www.dropbox.com/scl/fi/eu2wp13sj54hpgudzgh6n/Temps-d-vang-lisation.jpg?rlkey=ncl3ecrmn4tadb0ih69zrnr05&st=a6zdzst0&raw=1',
             items: [
                 "Visitations dans la rue et sur les marchés",
                 "Porte-à-porte",
@@ -72,7 +72,7 @@ const Accueil = () => {
         {
             id: 5,
             title: 'TEMPS FRATERNELS',
-            image: 'https://famissio-99.webself.net/file/si1759337/IMGP2714-fi34268817x452.JPG',
+            image: 'https://www.dropbox.com/scl/fi/naxdurchcbr4k0vkycggx/Temps-fraternel.JPG?rlkey=toi143khnnga1z84rm9krji0q&st=yqqsx43l&raw=1',
             items: [
                 "Repas entre Famissionnaires et Paroissiens",
                 "Soirée jeux pour apprendre à se connaître",
@@ -83,7 +83,7 @@ const Accueil = () => {
         {
             id: 6,
             title: 'VEILLÉES',
-            image: 'https://famissio-99.webself.net/file/si1759337/DSC06370-fi34268813x450.JPG',
+            image: 'https://www.dropbox.com/scl/fi/a5f21rcwnpd6nxgw3xnsg/Veill-s.JPG?rlkey=uk6xbv20bbckzjgg7gycbu1jv&st=wck9z4z0&raw=1',
             items: [
                 "Veillée Miséricorde",
                 "Veillée sur le thème de l'au-delà et de nos défunts",
@@ -1212,7 +1212,7 @@ const Accueil = () => {
                 <div className="team-layout">
                     <div className="team-image-box">
                         <div className="team-image">
-                            <img src="https://famissio-99.webself.net/file/si1759337/trrrrrrrzzzzzzzf%20(2)-fi36539933x520.jpg" alt="Équipe" loading="lazy" />
+                            <img src="https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/Equipe-missionnaire.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=74cc3r4o&raw=1" alt="Équipe" loading="lazy" />
                         </div>
                     </div>
                     <div className="team-content">
@@ -1898,7 +1898,7 @@ const Accueil = () => {
             {/* PRIEST */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
-                    <img src="https://famissio-99.webself.net/file/si1759337/facebook_1607380343662_6741841804946048579-fotor-enhance-20251028173949-fi36537319x470.jpg" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
+                    <img src="https://www.dropbox.com/scl/fi/dsno7gyihzu9cgldd8r8m/P-re-Jean-Pierre-Barri-re.jpg?rlkey=4bgn6q71xyk271zuo9hz04qkd&st=26utw72b&raw=1" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
                     <div className="priest-name-zone">
                         <h2>Père Jean-Pierre Barrière</h2>
                         <p>Aumônier de Famissio</p>
@@ -1935,7 +1935,7 @@ const Accueil = () => {
             <section className="section-cream">
                 <div className="container">
                     <div className="pope-intro">
-                        <img src="https://famissio-99.webself.net/file/si1759337/pape_10_0-fi27235959x470.jpg" alt="Pape François" className="pope-image" loading="lazy" />
+                        <img src="https://www.dropbox.com/scl/fi/iqxyup7a7ovqdx1scs9ey/Pape-Fran-ois.jpg?rlkey=efa3ype4bq4pdw4ot4sttzj3f&st=po7qa19c&raw=1" alt="Pape François" className="pope-image" loading="lazy" />
                         <h2>Pape François</h2>
                     </div>
 

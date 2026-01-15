@@ -65,9 +65,9 @@ const MissionsPage = () => {
       Nous rendons grâce ! La mission remplit les coeurs de joie. Nous rentrons tous la tête dans le Ciel !`,
       video: null,
       links: [
-        { name: 'France Catholique', url: 'https://famissio-99.webself.net/file/si1759337/WhatsApp%20Image%202025-11-02%20at%2016.34.27-fi36539960x470.jpeg' },
-        { name: 'Le Limousin', url: 'https://famissio-99.webself.net/file/si1759337/WhatsApp%20Image%202025-11-02%20at%2016.35.17-fi36539970x586.jpeg' },
-        { name: 'France 3', url: 'https://famissio-99.webself.net/file/si1759337/download/VID-20251030-WA0015-fi36539971.mp4' }
+        { name: 'France Catholique', url: 'https://www.dropbox.com/scl/fi/l61ud2v1uvous2w9zhx0x/France-Catholique-2025.png?rlkey=0fivyuakazugiohuvns6szj5m&st=h39sa23x&raw=1' },
+        { name: 'Le Limousin', url: 'https://www.dropbox.com/scl/fi/20fkktvhh1l41n56ug28v/Le-Limousin-2025.png?rlkey=vxdvny9b3yj8kbmlidtm2j649&st=a6weal2a&raw=1' },
+        { name: 'France 3', url: 'https://www.dropbox.com/scl/fi/ncw3158cw1ye0gpap8n0z/France-3-2025.mp4?rlkey=pk88bww8uqlovzflfi3mdj015&st=8uvraiit&raw=1' }
       ],
       size: 'large'
     },
@@ -93,7 +93,7 @@ const MissionsPage = () => {
         { name: 'Midi Libre', url: 'https://www.midilibre.fr/2024/10/11/la-mission-famissio-de-la-paroisse-saint-jacques-12253698.php' },
         { name: 'Diocèse de Mende', url: 'https://www.diocese-mende.fr/des-familles-missionnaires-dans-nos-paroisses/' },
         { name: 'Diocèse de Saint-Flour', url: 'https://diocese15.fr/blog/2024/09/allons-donc-de-toutes-les-nations-faites-des-disciples-famissio-familles-en-mission/' },
-        { name: 'La Lozère Nouvelle', url: 'https://famissio-99.webself.net/file/si1759337/download/WhatsApp%20Image%202024-10-17%20at%2020.06.47-fi36254054.jpeg' }
+        { name: 'La Lozère Nouvelle', url: 'https://www.dropbox.com/scl/fi/qz0m7kbhhbcll5ggs5zhd/La-Lozerre-Nouvelle-2024.jpeg?rlkey=8f16ho9sskxmgntgpffyjkxkh&st=yihn47cp&raw=1' }
       ],
       size: 'medium'
     },
@@ -116,8 +116,8 @@ const MissionsPage = () => {
       Cette semaine a été parsemée de rencontres improbables et émouvantes. Beaucoup de cœurs se sont ouverts. Tous ceux qui expérimentaient la mission ont eu ce bonheur immense de voir le Seigneur à l'œuvre.`,
       video: null,
       links: [
-        { name: 'Famille chrétienne (Jan)', url: 'https://famissio-99.webself.net/file/si1759337/download/2024%2001%20Famille%20chr%C3%A9tienne-fi36248537.pdf' },
-        { name: 'Famille chrétienne (Nov)', url: 'https://famissio-99.webself.net/file/si1759337/download/2023%2011%20Famille%20chr%C3%A9tienne-fi36248538.pdf' },
+        { name: 'Famille chrétienne (Jan)', url: 'https://www.dropbox.com/scl/fi/7tfkf8hjwjql4ss3a36ur/2024-01-Famille-chr-tienne.pdf?rlkey=3hnxcjn39vek1rhlga9d9ujd8&st=ov97dp8z&raw=1' },
+        { name: 'Famille chrétienne (Nov)', url: 'https://www.dropbox.com/scl/fi/7md04n7v91a2wlw45ohsp/2023-11-Famille-chr-tienne.pdf?rlkey=5fm1vb5j76vhv84mhhic0ofls&st=addhdujw&raw=1' },
         { name: 'La Montagne', url: 'http://www.lamontagne.fr/bonnat-23220/actualites/famissio-a-la-rencontre-du-relais-paroissial_14394969/' }
       ],
       size: 'medium'
@@ -147,7 +147,7 @@ const MissionsPage = () => {
         { name: 'RCF', url: 'https://rcf.fr/culture-et-societe/et-si-on-parlait-ensemble?episode=306777' }
       ],
       size: 'small',
-      imageZoom: true
+      imageZoom: 'large'
     },
     {
       id: 7,
@@ -168,10 +168,11 @@ const MissionsPage = () => {
       Vive la mission... Et vivement l'édition 2022 dans les Alpes-de-Haute-Provence !`,
       video: 'n74BNF8fPcw',
       links: [
-        { name: 'La Nef', url: 'https://famissio-99.webself.net/file/si1759337/download/La%20Nef%20(%20page%2042)%20-%20Famissio-fi32558405.PNG' },
+        { name: 'La Nef', url: 'https://www.dropbox.com/scl/fi/xt36sb1gp9kd8caomtopa/La-Nef-page-42-2021.PNG?rlkey=ju7yhhwahy47n6r92oj78mjf0&st=ijezvnp6&raw=1' },
         { name: 'RCF (audio)', url: 'https://youtu.be/yQQwKf2tJ2A' }
       ],
-      size: 'small'
+      size: 'small',
+      imageZoom: 'medium'
     },
     {
       id: 8,
@@ -308,10 +309,22 @@ const MissionsPage = () => {
             left: 200%; transition: 0.7s ease-in-out;
         }
         
-        /* Zoom spécifique pour la photo 2022 */
-        .img-zoom-fix {
+        /* Zoom spécifique pour les photos avec bandes noires */
+        /* Zoom spécifique pour les photos avec bandes noires */
+        .img-zoom-medium {
             object-position: center;
-            transform: scale(1.1);
+            transform: scale(1.15);
+        }
+        .group:hover .img-zoom-medium {
+            transform: scale(1.25) !important;
+        }
+
+        .img-zoom-large {
+            object-position: center;
+            transform: scale(1.55);
+        }
+        .group:hover .img-zoom-large {
+            transform: scale(1.65) !important;
         }
 
         /* Suppression des scrollbars par défaut dans le modal si nécessaire */
@@ -427,7 +440,10 @@ const MissionsPage = () => {
                 <img
                   src={mission.image}
                   alt={mission.year}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 
+                    ${mission.imageZoom === 'large' ? 'img-zoom-large' :
+                      mission.imageZoom === 'medium' ? 'img-zoom-medium' :
+                        mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />
               </div>
 
@@ -474,7 +490,10 @@ const MissionsPage = () => {
                 <img
                   src={mission.image}
                   alt={mission.year}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 
+                    ${mission.imageZoom === 'large' ? 'img-zoom-large' :
+                      mission.imageZoom === 'medium' ? 'img-zoom-medium' :
+                        mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90"></div>
@@ -584,7 +603,10 @@ const MissionsPage = () => {
                   <img
                     src={selectedMission.image}
                     alt={selectedMission.year}
-                    className={`w-full h-full object-cover rounded-2xl ${selectedMission.imageZoom ? 'img-zoom-fix' : ''}`}
+                    className={`w-full h-full object-cover rounded-2xl 
+                      ${selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
+                        selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
+                          selectedMission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                   />
                 </div>
               </div>
