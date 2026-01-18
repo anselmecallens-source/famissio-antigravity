@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
+// URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
+const CARTE_MISSION_2026_URL = 'https://www.dropbox.com/scl/fi/3yzjfhbkz9leutyu942bg/Carte_mission_2026.png?rlkey=zk75bjnvzu5emaygefgjbxeev&st=gzhh3a6d&raw=1';
+
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -398,9 +401,10 @@ const MissionsPage = () => {
             </div>
             <div className="flex items-center justify-center">
               <img
-                src="https://www.dropbox.com/scl/fi/b7dexxmoef4st9py9ld49/Carte-mission-2026.png?rlkey=hespa9585cts17u1pubc2i1ev&st=g3bthdwz&raw=1&v=2"
+                src={CARTE_MISSION_2026_URL}
                 alt="Carte Mission 2026"
-                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain transition-transform duration-500" // Suppression de hover:scale-105
+                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain transition-transform duration-500"
+                style={{ background: 'transparent' }}
               />
             </div>
           </div>

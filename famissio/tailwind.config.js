@@ -10,5 +10,13 @@ export default {
     corePlugins: {
         preflight: false,
     },
-    plugins: [],
+    safelist: [
+        'border-black',
+        'border-2',
+        'border-gray-900',
+        'hover:border-black',
+        'border-orange-200',
+        'shadow-md',
+    ],
+    important: true,
 }

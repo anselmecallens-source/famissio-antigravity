@@ -69,9 +69,53 @@ body {
   pointer-events: none;
 }
 
+/* NAVBAR HOME vs PAGE styles (Moved from JS) */
+.navbar-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background: transparent;
+}
+
+.navbar-page {
+  background: var(--flame);
+  position: relative;
+}
+
+@media (max-width: 1200px) {
+
+  /* HIDE RED BANNER ON TABLET/MOBILE (Non-Home Pages) */
+  .navbar-page {
+    display: none !important;
+  }
+
+  /* Hide text links to avoid crowding / overlap with circle menu */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* Between 1024px and 1200px (Desktop Hero active):
+     - Show Navbar (so Desktop Logo is visible)
+     - Align Logo to RIGHT to balance the Left Circle Menu */
+  .hero-navbar {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  /* On HOME (<1024px), we use MobileHeroV2 which has its own logo.
+     So we hide the main Navbar entirely to prevent double logos. */
+  .navbar-home {
+    display: none !important;
+  }
+}
+
 .nav-logo-wrapper {
   flex-shrink: 0;
-  margin-right: 1.25rem;
+  /* margin-right removed to allow flush alignment when needed */
 }
 
 .nav-logo-img {
@@ -196,8 +240,10 @@ body {
   transition: all 0.3s;
 }
 
-.nav-toggle:hover {
-  transform: rotate(90deg);
+@media (hover: hover) {
+  .nav-toggle:hover {
+    transform: rotate(90deg);
+  }
 }
 
 /* --- 4. SIDEBAR MENU --- */
@@ -290,6 +336,8 @@ body {
 /* --- 5. HERO SECTION --- */
 .hero {
   height: 100vh;
+  /* Reverting to fixed height per user request */
+  max-height: 100vh;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   position: relative;
@@ -302,10 +350,14 @@ body {
   padding: 0 8%;
   display: flex;
   align-items: center;
+  -webkit-clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
   position: relative;
   height: 100%;
   z-index: 2;
+  transform: translateZ(0);
+  /* Force GPU */
+  will-change: clip-path;
 }
 
 .hero-left::before {
@@ -445,7 +497,8 @@ body {
   }
 
   50% {
-    transform: translateY(-0.9375rem);
+    transform: translateY(-8px);
+    /* Reduced amplitude */
   }
 }
 
@@ -524,11 +577,14 @@ section {
 
 .diagonal {
   background: #f8f9fa;
-  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+  clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
   margin: 5rem 0;
   padding: 9.375rem 5%;
   position: relative;
   z-index: 1;
+  width: 100%;
+  /* Ensure full width */
+  box-sizing: border-box;
 }
 
 .story-grid {
@@ -821,6 +877,169 @@ section {
   overflow: visible !important;
 }
 
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+    /* Global Zoom Out effect */
+  }
+
+  .team-section-white {
+    padding-bottom: 0 !important;
+    padding-top: 60px !important;
+  }
+
+  /* Add more space above video section (Découvrez-nous) - "Blue zone" INCREASED */
+  .video-section {
+    padding-top: 120px !important;
+  }
+
+  /* Reduce quote-box bottom margin to tighten gap above Programme */
+  .quote-box {
+    margin-bottom: 0 !important;
+  }
+
+  /* Père JPP: Compact horizontal layout */
+  .priest-intro-flex {
+    flex-direction: row !important;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 0 10px;
+  }
+
+  .priest-circle-img {
+    width: 70px !important;
+    height: 70px !important;
+    flex-shrink: 0;
+  }
+
+  .priest-name-zone {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .priest-name-zone h2 {
+    font-size: 1rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .priest-name-zone p {
+    font-size: 0.75rem !important;
+  }
+
+  /* === POPE GRID: Horizontal Carousel - SMALLER CARDS === */
+  .pope-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding: 10px 5%;
+    margin: 0 -5%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .pope-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pope-item {
+    min-width: 70vw !important;
+    /* Smaller so we see next card edge */
+    max-width: 70vw !important;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    padding: 15px !important;
+  }
+
+  .pope-item h4 {
+    font-size: 1rem !important;
+  }
+
+  .pope-item p {
+    font-size: 0.85rem !important;
+  }
+
+  /* === PILLARS: Accordion style on mobile === */
+  .pillars-three {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px;
+    padding: 0 10px !important;
+    margin: 0 !important;
+  }
+
+  .pillar-accordion {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .pillar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    cursor: pointer;
+    list-style: none;
+    /* Remove default marker */
+  }
+
+  .pillar-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .pillar-header .pillar-emoji {
+    font-size: 1.3rem;
+    color: var(--ember);
+  }
+
+  .pillar-header .pillar-title {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .pillar-arrow {
+    font-size: 0.8rem;
+    color: #999;
+    transition: transform 0.3s ease;
+  }
+
+  .pillar-accordion[open] .pillar-arrow {
+    transform: rotate(180deg);
+  }
+
+  .pillar-content {
+    padding: 0 15px 15px 15px;
+    background: #fafafa;
+  }
+
+  .pillar-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: justify;
+    margin: 0;
+  }
+
+  /* === POPE MESSAGE BOX: Wider === */
+  .pope-message-box {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    padding: 20px 15px !important;
+  }
+
+  /* === MISSION DOTS: Reduce space below === */
+  .mission-dots {
+    padding-bottom: 10px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
 .quote-box {
   background: linear-gradient(135deg, var(--cream), #fff);
   padding: 2.5rem;
@@ -834,6 +1053,30 @@ section {
   font-weight: 700;
   color: var(--flame);
   text-align: right;
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+    /* Global Zoom Out effect */
+  }
+
+  .quote-box {
+    padding: 1.5rem;
+    /* Reduce padding to save space */
+  }
+
+  .quote-box p {
+    font-size: 1rem;
+    /* Smaller text */
+    line-height: 1.6;
+  }
+
+  .quote-author {
+    font-size: 0.9rem;
+    /* Smaller author name */
+  }
 }
 
 .banner {
@@ -1329,7 +1572,7 @@ section {
 }
 
 .expandable-card-content li::before {
-  content: '→';
+  content: '?';
   position: absolute;
   left: 0;
   top: 0.75rem;
@@ -1589,7 +1832,7 @@ section {
 }
 
 .program-details li::before {
-  content: '✦';
+  content: '?';
   position: absolute;
   left: 0;
   top: 0.875rem;
@@ -1864,11 +2107,14 @@ section {
 @media (max-width: 1200px) {
   .hero {
     grid-template-columns: 1fr;
+    height: 92vh;
+    min-height: 92vh;
+    max-height: 92vh;
   }
 
   .hero-left {
     clip-path: none;
-    padding: 7.5rem 5% 5rem;
+    padding: 40px 20px 20px 20px;
   }
 
   .hero-right {
@@ -1885,16 +2131,36 @@ section {
   }
 
   .nav-links {
-    display: none;
+    display: none !important;
+    /* Force hide to override inline React styles */
   }
 
   .fixed-logo-link {
     position: fixed;
-    top: 1.875rem;
-    left: 1.875rem;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 1 !important;
-    transform: none !important;
     z-index: 1000;
+  }
+
+  .fixed-logo-link img {
+    width: 65px;
+    height: 65px;
+  }
+
+  .nav-logo-wrapper {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    top: 40px !important;
+  }
+
+  .nav-logo-wrapper img,
+  .nav-logo-img {
+    height: 150px !important;
+    width: auto !important;
   }
 
   .nav-circle {
@@ -1908,8 +2174,17 @@ section {
   }
 
   .hero-navbar {
-    padding: 0;
-    display: none;
+    padding: 1rem;
+    /* On remet le padding normal pour ne pas "agrandir" le container */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Ajustement taille logo mobile */
+  .nav-logo-img {
+    height: 5rem;
+    /* Plus petit sur mobile */
   }
 
   .side-menu {
@@ -1975,7 +2250,31 @@ section {
   .question-item p {
     font-size: 1rem;
   }
+
+  /* AJUSTEMENT VIDÉO PRÉSENTATION MOBILE */
+  .video-frame {
+    width: auto;
+    /* On force l'élargissement maximal pour prendre l'espace vide (-2.25rem) */
+    margin-left: -2.25rem;
+    margin-right: -2.25rem;
+
+    /* On épaissit la bordure (le padding bleu) car c'était "trop aminci" */
+    padding: 0.75rem !important;
+
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 1rem !important;
+    box-sizing: border-box;
+  }
+
+  .video-box {
+    border-radius: 0.6rem !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5) !important;
+    aspect-ratio: 16/9;
+    border: none !important;
+  }
 }
+
 
 /* --- COMPATIBILITY STYLES FOR OLDER SECTIONS (Priest, Pope, Mission Gallery) --- */
 :root {
@@ -2291,4 +2590,393 @@ section {
   font-style: normal;
   text-align: justify;
   font-size: 0.95rem;
+}
+
+/* MOBILE SPACING OPTIMIZATIONS */
+/* ============================================
+   FINAL MOBILE OVERRIDES - HIGHEST PRIORITY
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* === HERO MOBILE: 92vh, simple original layout === */
+  .hero {
+    height: 92vh !important;
+    max-height: 92vh !important;
+    min-height: 92vh !important;
+    margin-bottom: 0 !important;
+  }
+
+  .hero-right {
+    display: none !important;
+  }
+
+  .hero-left {
+    padding: 110px 20px 40px 20px !important;
+    clip-path: none !important;
+  }
+
+  .hero h1 {
+    font-size: 23vw !important;
+    /* Even bigger */
+    text-align: left;
+    /* Left aligned */
+    margin-left: -10px;
+    margin-right: 0;
+    line-height: 0.9 !important;
+    /* Tighter line height for big text */
+  }
+
+  .hero .underline {
+    /* Keep original underline style */
+  }
+
+  .hero p {
+    font-size: 0.95rem !important;
+  }
+
+  .hero .cta {
+    margin-top: 180px !important;
+    /* Moved even lower */
+    width: 100% !important;
+  }
+
+  .hero .badge {
+    font-size: 0.7rem !important;
+  }
+
+  /* === NAVBAR LOGO: Bigger and Centered on mobile === */
+  .fixed-logo-link {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 15px !important;
+  }
+
+  .fixed-logo-link img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  /* === HIDE LOGO ON MOBILE (NON-HOME PAGES) === */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* === DIAGONAL: VERY SHORT (25px padding) - NO SLOPE === */
+  .diagonal {
+    background: #f0f0f0 !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    /* Safari */
+    margin: 0 !important;
+    padding: 25px 5% !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    transform: none !important;
+  }
+
+  /* === VIDEO SECTION: MORE TOP SPACE === */
+  .video-section {
+    padding-top: 100px !important;
+    margin-top: 30px !important;
+  }
+
+  /* === TOUSSAINT: TEXT AGAINST EDGES (0 horizontal padding) === */
+  .toussaint-wrapper {
+    padding: 20px 0 !important;
+  }
+
+  .toussaint-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 5px !important;
+  }
+
+  .toussaint-h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .toussaint-eyebrow {
+    font-size: 0.65rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .toussaint-text p {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 8px !important;
+    text-align: justify !important;
+  }
+
+  .toussaint-text p:first-of-type {
+    padding: 10px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* === TIMELINE: STARTS LOWER === */
+  .timeline-line {
+    top: 80px !important;
+  }
+
+  /* === PJP: BIGGER PHOTO, SINGLE LINE TEXT === */
+  .priest-intro-flex {
+    gap: 10px !important;
+    padding: 0 5px !important;
+    justify-content: flex-start !important;
+  }
+
+  .priest-circle-img {
+    width: 90px !important;
+    height: 90px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .priest-name-zone {
+    flex: 1;
+  }
+
+  .priest-name-zone h2 {
+    font-size: 1.1rem !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .priest-name-zone p {
+    font-size: 0.85rem !important;
+    margin: 3px 0 0 0 !important;
+  }
+
+  /* === PILLARS: Column layout on mobile === */
+  .pillars-three {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .pillar-box {
+    width: 100% !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    background: white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .pillar-box h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .pillar-box p {
+    font-size: 0.9rem !important;
+    text-align: justify !important;
+    line-height: 1.6 !important;
+  }
+
+  .pillar-emoji {
+    font-size: 1.5rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* === 7 POINTS: NO ANIMATION === */
+  .pope-item {
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .pope-item:hover {
+    transform: none !important;
+  }
+
+  .pope-grid {
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .pope-item {
+    min-width: 75vw !important;
+    max-width: 75vw !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* === GLOBAL SECTION SPACING === */
+  section {
+    padding-top: 50px !important;
+  }
+
+  .section-head {
+    margin-bottom: 25px !important;
+  }
+}
+
+/* MOBILE LOGO DEFAULT (Hidden on desktop) */
+.mobile-logo,
+.mobile-hero-logo,
+.mobile-hero-insert {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* 1. LOGO TOP RIGHT (Absolute, scrolling) */
+  /* 1. LOGO REPLACEMENT (In Flow, Centered) */
+  .mobile-logo {
+    display: none !important;
+    /* Hide the top-right fixed logo */
+  }
+
+  .mobile-hero-logo {
+    display: block !important;
+    width: 50%;
+    max-width: 200px;
+    margin: -9vh auto 5vh auto;
+    /* Proportional: -70px -> -9vh, 40px -> 5vh */
+    height: auto;
+  }
+
+  .hero h1 {
+    display: none !important;
+    /* Hide text title */
+  }
+
+  /* Remove old classes */
+  .mobile-logo-left,
+  .mobile-logo-right,
+  .mobile-logo-top-left {
+    display: none !important;
+  }
+
+  /* REMOVED FORCED NAVBAR BUTTON STYLES TO RESTORE ORIGINAL */
+  /* Reverting to default behavior for .nav-circle on mobile */
+
+  /* FORCE NAVBAR LEFT EDGE */
+  .hero-navbar {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  /* 2. TEXT POSITION: JUST BELOW HEADER */
+  /* Remove centering to allow top positioning */
+  .hero-left {
+    align-items: flex-start !important;
+    padding-top: 11vh !important;
+    /* Proportional: 90px -> 11vh */
+    padding-bottom: 0 !important;
+    text-align: left;
+  }
+
+  .hero-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Compact Text Zone */
+  .hero h1 {
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+    line-height: 0.9 !important;
+  }
+
+  .underline {
+    margin: 10px 0 20px !important;
+  }
+
+  .hero p {
+    margin-bottom: 10px !important;
+    line-height: 1.4 !important;
+  }
+
+  .mobile-hero-insert {
+    display: block !important;
+    position: relative;
+    height: 42vh;
+    /* Proportional: 350px -> 42vh */
+    margin: 2.5vh 0 2.5vh 0;
+    /* Proportional: 20px -> 2.5vh */
+    width: 100%;
+  }
+
+  .mobile-hero-insert .image-blob {
+    width: 90%;
+    /* Agrandi (was 85%) */
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-hero-insert .image-blob img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* BUBBLES */
+  .mobile-hero-insert .float-stat {
+    position: absolute;
+    font-size: 0.7rem;
+    padding: 5px 8px !important;
+    min-width: auto !important;
+    width: auto !important;
+    /* Force shrink wrap */
+    max-width: 90% !important;
+    /* Safety cap */
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    animation-duration: 8s !important;
+  }
+
+  /* Top Bubble */
+  .mobile-hero-insert .float-stat:nth-child(2) {
+    top: -5px;
+    right: 0;
+    left: auto !important;
+  }
+
+  /* Service (Left) - Uses Disciples Color (Coral - Saumon) */
+  .mobile-hero-insert .float-stat:nth-child(3) {
+    bottom: 45px;
+    /* Higher (was 25px) */
+    left: 0;
+    right: auto !important;
+    color: var(--coral) !important;
+    /* Saumon */
+  }
+
+  /* Disciples (Right) - Uses Service Color (Flame - Rouge foncé) */
+  .mobile-hero-insert .float-stat:nth-child(4) {
+    bottom: 5px;
+    right: 0;
+    left: auto !important;
+    white-space: nowrap !important;
+    color: var(--flame) !important;
+    /* Rouge foncé */
+  }
+
+  .mobile-hero-insert .float-stat:nth-child(4) {
+    bottom: 5px;
+    right: 0;
+    left: auto !important;
+    /* Prevent stretch */
+    white-space: nowrap !important;
+    /* Force single line */
+  }
+
+  /* 4. BUTTON POSITION: PUSH DOWN */
+  .hero .cta {
+    margin-top: 9vh !important;
+    /* Proportional: 70px -> 9vh */
+    width: 100% !important;
+    padding: 12px 0 !important;
+  }
+
+  /* HIDE DESKTOP SIDE */
+  .hero-right {
+    display: none !important;
+  }
 }

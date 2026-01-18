@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../index.css';
 
-const LOGO_NAV = "https://www.dropbox.com/scl/fi/ncew1g2ubjqapfq0n3k0n/Logo-Famissio-1-1.png?rlkey=0sj65x2ntdvv6ob6na5ci1qag&st=qwwx9w4x&raw=1";
+const LOGO_NAV = "https://www.dropbox.com/scl/fi/w1mr871tpt818u1kgpjxm/Logo-Famissio-blanc.png?rlkey=8nxqxjka5gxp1sdzzfr1wx7v8&st=orb2ajfg&raw=1";
 
 const Navbar = () => {
   const location = useLocation();
@@ -28,10 +28,9 @@ const Navbar = () => {
 
 
   // 1. BARRE PRINCIPALE
-  // Absolute + width 100% + transparent = Flotte au-dessus de l'image sans décaler le site vers le bas
-  const navStyle = isHome
-    ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 99, background: 'transparent' }
-    : { background: 'var(--flame)', position: 'relative' };
+  // Styles moved to CSS classes: .navbar-home vs .navbar-page
+  // This allows hiding .navbar-page on mobile via Media Queries
+  const navClass = isHome ? 'navbar-home' : 'navbar-page';
 
   // 2. TEXTE
   const linkTextStyle = isHome
@@ -73,9 +72,20 @@ const Navbar = () => {
     <>
 
 
-      <nav className={`hero-navbar ${scrolled ? 'hidden' : ''}`} style={navStyle}>
+      <nav className={`hero-navbar ${scrolled ? 'hidden' : ''} ${navClass}`}>
 
-        <div className="nav-logo-wrapper">
+        {isHome && (
+          <div className="mobile-logo">
+            <Link to="/" onClick={closeMenu}>
+              <img
+                src="https://www.dropbox.com/scl/fi/9c4wjresj75ggoruwqwpp/Logo-Famissio-rouge.png?rlkey=td18v0flur03xqsroyazjh1l6&st=vqgiyjx2&raw=1"
+                alt="Famissio Logo Mobile"
+              />
+            </Link>
+          </div>
+        )}
+
+        <div className="nav-logo-wrapper hide-on-mobile">
           <Link to="/" onClick={closeMenu}>
             <img
               src={LOGO_NAV}

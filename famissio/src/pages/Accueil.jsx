@@ -1,8 +1,140 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import HeroCarousel from '../components/HeroCarousel';
+import MobileHeroV2 from '../components/MobileHeroV2';
+
+// Custom Hook for Drag-to-Scroll (Mouse)
+const useDraggableScroll = (ref) => {
+    useEffect(() => {
+        const slider = ref.current;
+        if (!slider) return;
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        const onMouseDown = (e) => {
+            isDown = true;
+            slider.classList.add('active'); // for cursor: grabbing
+
+            // Disable scroll snap for smooth dragging
+            slider.style.scrollSnapType = 'none';
+
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        };
+
+        const stopDrag = () => {
+            if (!isDown) return;
+            isDown = false;
+            slider.classList.remove('active');
+
+            // Re-enable scroll snap after drag
+            slider.style.scrollSnapType = 'x mandatory';
+        };
+
+        const onMouseLeave = stopDrag;
+        const onMouseUp = stopDrag;
+
+        const onMouseMove = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX); // 1:1 movement
+            slider.scrollLeft = scrollLeft - walk;
+        };
+
+        slider.addEventListener('mousedown', onMouseDown);
+        slider.addEventListener('mouseleave', onMouseLeave);
+        slider.addEventListener('mouseup', onMouseUp);
+        slider.addEventListener('mousemove', onMouseMove);
+
+        return () => {
+            if (!slider) return;
+            slider.removeEventListener('mousedown', onMouseDown);
+            slider.removeEventListener('mouseleave', onMouseLeave);
+            slider.removeEventListener('mouseup', onMouseUp);
+            slider.removeEventListener('mousemove', onMouseMove);
+        };
+    }, []);
+};
+
+// HELPER TO CENTER CARD ON CLICK (Slow Scroll)
+const scrollToCard = (containerRef, index) => {
+    if (containerRef.current) {
+        const container = containerRef.current;
+        const cardWidth = container.offsetWidth; // Assuming single card view on mobile
+        container.scrollTo({
+            left: cardWidth * index,
+            behavior: 'smooth'
+        });
+    }
+};
 
 const Accueil = () => {
+    // Refs for Drag-to-Scroll
+    const missionCardsRef = useRef(null);
+    const popeGridRef = useRef(null);
+
+    // Manual State for Dots (to force re-render)
+    const [activeMissionIndex, setActiveMissionIndex] = useState(0);
+
+    useDraggableScroll(missionCardsRef);
+    useDraggableScroll(popeGridRef);
+
+    // ... existing ...
+
+    // UPDATE RENDER SECTIONS:
+
+    // MISSION CARDS
+    // ...
+    <div
+        ref={missionCardsRef}
+        className="mission-cards"
+        id="mission-carousel"
+        onScroll={(e) => {
+            const scrollLeft = e.target.scrollLeft;
+            const width = e.target.offsetWidth;
+            // More robust calculation
+            const index = Math.round(scrollLeft / width);
+            setActiveMissionIndex(index);
+        }}
+    >
+        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 0)}>
+            <div className="mission-icon">
+                <i className="fas fa-hands-helping"></i>
+            </div>
+            <h3>Que faisons-nous ?</h3>
+            <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
+        </div>
+        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 1)}>
+            <div className="mission-icon">
+                <i className="fas fa-calendar-alt"></i>
+            </div>
+            <h3>Préparation</h3>
+            <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
+        </div>
+        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 2)}>
+            <div className="mission-icon">
+                <i className="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Où allons-nous ?</h3>
+            <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
+        </div>
+    </div>
+
+    {/* DOTS NAVIGATION (MOBILE ONLY) */ }
+    <div className="mission-dots">
+        {[0, 1, 2].map(idx => (
+            <button
+                key={idx}
+                className={`mission-dot ${activeMissionIndex === idx ? 'active' : ''}`}
+                onClick={() => scrollToCard(missionCardsRef, idx)}
+            />
+        ))}
+    </div>
+
+
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
 
@@ -28,7 +160,7 @@ const Accueil = () => {
         {
             id: 1,
             title: 'ENVOI EN MISSION',
-            image: 'https://www.dropbox.com/scl/fi/0a64bir0kadzwru489vpi/Envoi-en-mission.JPG?rlkey=kxxzzmbqln98mmrwrb3zwtf4m&st=5imptrzw&raw=1',
+            image: 'https://www.dropbox.com/scl/fi/0a64bir0kadzwru489vpi/Envoi-en-mission.JPG?rlkey=kxxzzmbqln98mmrwrb3zwtf4m&st=hn1o89fm&raw=1',
             content: "La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."
         },
         {
@@ -118,13 +250,15 @@ const Accueil = () => {
 
         /* HERO */
         .hero { 
-            min-height: 80vh; /* Plus flexible que 100vh */
+            height: 100vh; /* Fallback */
+            height: 100dvh; 
+            max-height: 100dvh;
             display: grid; 
             grid-template-columns: 1.3fr 1fr; 
             position: relative; 
             overflow: hidden; 
             background: white; 
-            padding-bottom: 0; /* Colle au carrousel */
+            padding-bottom: 0; 
         }
         
         .hero-left { 
@@ -284,7 +418,7 @@ const Accueil = () => {
         .subtitle { 
             font-size: 1.2rem; 
             color: #666; 
-            max-width: 700px; 
+            max-width: 1000px; 
             margin: 0 auto; 
         }
 
@@ -302,7 +436,7 @@ const Accueil = () => {
             position: relative; 
             z-index: 1; 
         }
-        .story-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; }
+        .story-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.3fr; gap: 60px; align-items: center; }
         .image-wrap { position: relative; height: 600px; }
         .main-img { position: absolute; width: 90%; height: 90%; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.2); }
         .main-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
@@ -314,9 +448,12 @@ const Accueil = () => {
 
         /* VIDEO */
         .video-section { background: linear-gradient(135deg, #0f0f0f, #1a1a2e); position: relative; }
-        .video-frame { max-width: 1200px; margin: 0 auto; padding: 40px; background: rgba(255,255,255,0.03); border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); }
+        .video-frame { max-width: 800px; margin: 0 auto; padding: 40px; background: rgba(255,255,255,0.03); border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); }
         .video-box { position: relative; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6); }
-        .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; border-radius: inherit; }
+        .video-section .video-box { border: 2px solid white; box-sizing: border-box; } /* Border on container for smooth corners */
+        .video-section .video-box iframe { border: none; } /* No border on iframe */
+
 
         /* SECTION MISSION (La Mission en Pratique) */
         .mission-cards {
@@ -413,6 +550,27 @@ const Accueil = () => {
             transform: translateZ(0);
             will-change: transform;
             transition: box-shadow 0.3s ease;
+        }
+
+        /* Responsive Team Image */
+        @media (max-width: 768px) {
+            .team-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .team-image-box {
+                position: static; /* Désactive le sticky/détachement */
+                width: 100%;
+                top: auto;
+            }
+            .team-image {
+                height: auto;
+                aspect-ratio: 1 / 1; /* Format carré */
+                width: 100%;
+                max-width: 300px; /* Réduit beaucoup la taille */
+                margin: 0 auto 30px auto;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ombre légère */
+            }
         }
         
         .team-content {
@@ -572,6 +730,7 @@ const Accueil = () => {
         /* Titre spécifique au Pape pour qu'il soit "plus petit" comme demandé */
         .rosé-header .title {
             font-size: 3rem;
+            color: var(--charcoal); /* Force le noir (au lieu de blanc possiblement hérité) */
         }
         
         .pope-grid {
@@ -580,6 +739,26 @@ const Accueil = () => {
             gap: var(--spacing-md);
             margin-bottom: var(--spacing-xl);
         }
+
+        @media (max-width: 1024px) {
+            .pope-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 20px;
+                padding-bottom: 30px; /* Space for scroll */
+            }
+            .pope-grid.active {
+                cursor: grabbing;
+                cursor: -webkit-grabbing;
+            }
+            .pope-item {
+                min-width: 85vw;
+                scroll-snap-align: center;
+                flex-shrink: 0;
+            }
+        }
+        
         .pope-item {
             background: white;
             padding: var(--spacing-lg);
@@ -1040,9 +1219,8 @@ const Accueil = () => {
         /* OVERRIDE pour la section "Notre Histoire" (Comment tout a commencé) */
         .diagonal {
             margin-top: 0 !important; /* On colle au slider */
-            padding-top: 100px !important; /* Moins de padding en haut car plus de "biais" */
-            /* Pente douce et droite : légère inclinaison en bas */
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%) !important;
+            padding-top: 100px !important;
+            clip-path: none !important; /* REMOVED SLOPE COMPLETELY */
             padding-bottom: 10rem !important;
         }
         
@@ -1061,11 +1239,55 @@ const Accueil = () => {
             .tf-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .diagonal { clip-path: none; padding: 80px 5%; }
+            .diagonal { clip-path: none !important; padding: 80px 5% !important; }
+            
+            /* FIXED: Adjusted height (400px) and Full Width for "Comment tout a commencé" on mobile */
+            .image-wrap { height: 400px !important; margin-bottom: 30px; }
+            .main-img { width: 100% !important; height: 100% !important; }
+            
+            /* FIXED: Qui sommes-nous adjustments - more separation */
+            .video-section .subtitle { text-align: justify !important; }
+            .video-frame { margin-top: 80px !important; }
+
             .mission-cards { grid-template-columns: 1fr; }
+            
+            /* FIXED: More space for "Que faisons-nous" content by reducing padding */
+            .mission-card { padding: 40px 25px !important; }
+            
             .masonry { columns: 1; }
-            .tf-grid { grid-template-columns: 1fr; }
+            .tf-grid { grid-template-columns: 1fr; padding: 0 !important; margin: 0 !important; width: 100% !important; }
+            .tf-overlay { padding: 15px !important; } /* Widen text area (40px -> 15px) */
+            .tf-card-title { font-size: 1.3rem !important; }
             .after-number { font-size: 10rem; margin-bottom: -50px; }
+            .after-text { text-align: justify !important; }
+            
+            /* Widen Priest Section (Photo + Text) ONLY - Zoom effect keeping ROW layout */
+            .priest-dual { overflow-x: hidden; } 
+            .priest-intro-flex {
+                width: 120% !important; /* Wider than screen */
+                max-width: 120% !important; 
+                margin-left: -10% !important; /* Centered visually */
+                display: flex !important;
+                flex-direction: row !important; /* Keep side by side */
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 15px !important; /* Reduced gap */
+                margin-bottom: 20px !important; /* Reduce space below photo/name (was 100px) */
+            }
+            .priest-circle-img {
+                width: 25vw !important; /* Responsive width */
+                height: 25vw !important;
+                border: 4px solid white !important;
+            }
+            .priest-name-zone h2 {
+                white-space: nowrap !important;
+                font-size: 5.5vw !important; /* Responsive text size */
+            }
+            .priest-name-zone p {
+                font-size: 3.5vw !important;
+                text-align: left !important;
+            }
+            /* Reset Global Padding override I added previously */
         }
 
         /* --- STYLES SPÉCIFIQUES POUR LA TRANSITION MISSION -> ÉQUIPE --- */
@@ -1102,16 +1324,43 @@ const Accueil = () => {
         }
     `}</style>
 
-            {/* HERO */}
+            {/* HERO USES TWO VERSIONS: DESKTOP (Old) & MOBILE (New V2) */}
+            <div className="mobile-hero-wrapper">
+                <MobileHeroV2 />
+            </div>
+
+            <style>{`
+                .mobile-hero-wrapper { display: none; }
+                
+                @media (max-width: 1024px) {
+                    .hero { display: none !important; }
+                    .mobile-hero-wrapper { display: block; }
+                }
+            `}</style>
+
             <div className="hero">
                 <div className="hero-left">
                     <div className="hero-content">
-                        <div className="badge">Mission • Foi • Famille</div>
+
+                        <img
+                            src="https://www.dropbox.com/scl/fi/w1mr871tpt818u1kgpjxm/Logo-Famissio-blanc.png?rlkey=8nxqxjka5gxp1sdzzfr1wx7v8&st=orb2ajfg&raw=1"
+                            alt="Famissio Logo"
+                            className="mobile-hero-logo"
+                        />
                         <h1>Famissio</h1>
 
                         <div className="underline"></div>
 
                         <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
+
+                        <div className="mobile-hero-insert">
+                            <div className="image-blob">
+                                <img src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp" alt="Équipe Famissio" />
+                            </div>
+                            <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
+                            <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
+                            <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
+                        </div>
 
                         <Link to="/missions#liste-missions" className="cta">
                             <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
@@ -1156,7 +1405,7 @@ const Accueil = () => {
             </div>
 
             {/* QUI SOMMES NOUS - VIDEO */}
-            <section className="video-section">
+            <section className="video-section"> {/* Reverted bottom padding reduction */}
                 <div className="section-head">
                     <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
                     <h2 className="title" style={{ color: 'white' }}>Qui sommes-nous ?</h2>
@@ -1172,28 +1421,43 @@ const Accueil = () => {
 
 
             {/* LA MISSION EN PRATIQUE (SECTION GRISE AVEC TRIANGLE HAUT) */}
-            {/* J'ai ajouté la classe 'mission-section-gray' ici */}
             <section id="mission" className="mission-section-gray">
                 <div className="section-head">
                     <div className="eyebrow">Notre Mission</div>
                     <h2 className="title">La mission en pratique</h2>
                 </div>
-                <div className="mission-cards">
-                    <div className="mission-card">
+
+                {/* 
+                    MOBILE CAROUSEL LOGIC:
+                    - Uses CSS scroll-snap on mobile.
+                    - Uses JS to track active slide for dots.
+                */}
+                <div
+                    ref={missionCardsRef}
+                    className="mission-cards"
+                    id="mission-carousel"
+                    onScroll={(e) => {
+                        const scrollLeft = e.target.scrollLeft;
+                        const width = e.target.offsetWidth;
+                        const index = Math.round(scrollLeft / width);
+                        setActiveMissionIndex(index);
+                    }}
+                >
+                    <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 0)}>
                         <div className="mission-icon">
                             <i className="fas fa-hands-helping"></i>
                         </div>
                         <h3>Que faisons-nous ?</h3>
                         <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
                     </div>
-                    <div className="mission-card">
+                    <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 1)}>
                         <div className="mission-icon">
                             <i className="fas fa-calendar-alt"></i>
                         </div>
                         <h3>Préparation</h3>
                         <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
                     </div>
-                    <div className="mission-card">
+                    <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 2)}>
                         <div className="mission-icon">
                             <i className="fas fa-map-marker-alt"></i>
                         </div>
@@ -1201,6 +1465,78 @@ const Accueil = () => {
                         <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
                     </div>
                 </div>
+
+                {/* DOTS NAVIGATION (MOBILE ONLY) */}
+                <div className="mission-dots">
+                    {[0, 1, 2].map(idx => (
+                        <button
+                            key={idx}
+                            className={`mission-dot ${activeMissionIndex === idx ? 'active' : ''}`}
+                            onClick={() => scrollToCard(missionCardsRef, idx)}
+                        />
+                    ))}
+                </div>
+
+                <style>{`
+                    .mission-dots {
+                        display: none; /* Hidden on Desktop */
+                        justify-content: center;
+                        gap: 10px;
+                        margin-top: 0; 
+                        padding-top: 10px;
+                        padding-bottom: 30px; 
+                    }
+                    .mission-dot {
+                        width: 10px; height: 10px;
+                        background: rgba(0,0,0,0.2);
+                        border-radius: 50%;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease; /* Only animate color, not scale */
+                    }
+                    .mission-dot.active {
+                        background: var(--flame);
+                        /* No scale transform */
+                    }
+
+                    @media (max-width: 768px) {
+                        .mission-cards {
+                            display: flex; 
+                            grid-template-columns: none; 
+                            overflow-x: auto;
+                            scroll-snap-type: x mandatory;
+                            padding: 20px 5% 40px 5%; 
+                            margin: 0 -5%; 
+                            gap: 20px;
+                            -ms-overflow-style: none;
+                            scrollbar-width: none;
+                            cursor: grab; /* Cursor indication */
+                        }
+                        .mission-cards:active {
+                            cursor: grabbing;
+                        }
+                        .mission-cards::-webkit-scrollbar {
+                            display: none;
+                        }
+
+                        .mission-card {
+                            min-width: 85vw; 
+                            scroll-snap-align: center;
+                            margin: 0;
+                            /* Prevent text selection during drag */
+                            user-select: none; 
+                        }
+
+                        .mission-dots {
+                            display: flex; 
+                        }
+                        
+                        .mission-card {
+                            box-shadow: none !important;
+                        }
+                    }
+                `}</style>
             </section>
 
             {/* TEAM SECTION (SECTION BLANCHE SUIVANTE) */}
@@ -1235,7 +1571,7 @@ const Accueil = () => {
             </section>
 
             {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
-            <section style={{ background: 'white', padding: '0px 5% 120px 5%' }}>
+            <section style={{ background: 'white', padding: '0px 5% 60px 5%' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
                 </div>
@@ -1375,7 +1711,54 @@ const Accueil = () => {
 
                     /* Responsive */
                     @media (max-width: 1024px) {
-                    .toussaint-overlay {
+                        .toussaint-overlay {
+                            background: rgba(0, 0, 0, 0.75);
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .toussaint-wrapper {
+                            padding-left: 8px !important;
+                            padding-right: 8px !important;
+                            padding-top: 40px !important;
+                            padding-bottom: 40px !important;
+                            width: 100% !important;
+                            max-width: 100% !important;
+                            box-sizing: border-box;
+                        }
+                        .toussaint-inner {
+                            max-width: 100% !important;
+                            width: 100% !important;
+                        }
+                        /* Toussaint text - smaller for more space */
+                        .toussaint-h2 {
+                            font-size: 1.6rem !important;
+                            line-height: 1.25 !important;
+                            margin-bottom: 15px !important;
+                        }
+                        .toussaint-text p {
+                            font-size: 0.9rem !important;
+                            line-height: 1.6 !important;
+                            margin-bottom: 10px !important;
+                        }
+                        .toussaint-text p:first-of-type {
+                            font-size: 0.95rem !important;
+                            padding: 12px !important;
+                        }
+                        .toussaint-eyebrow {
+                            font-size: 0.65rem !important;
+                        }
+                        
+                        /* Hero mobile styles now in index.css FINAL block */
+                    }
+
+                    /* FRAMING FIXES */
+                    /* Desktop Prayer Image (ID 3) - Match Mobile Focus */
+                    @media (min-width: 769px) {
+                        .timeline-item:nth-child(3) .blob-shape img {
+                             object-position: 40% 15% !important;
+                        }
+                    }
                         background: rgba(0, 0, 0, 0.75);
                     }
                     }
@@ -1410,7 +1793,7 @@ const Accueil = () => {
                             <div className="toussaint-eyebrow">La Toussaint</div>
 
                             <h2 className="toussaint-h2">
-                                Pourquoi faire ça à la Toussaint ?
+                                Le choix de la Toussaint
                             </h2>
 
                             <div className="toussaint-text">
@@ -1451,10 +1834,11 @@ const Accueil = () => {
                     .timeline-line {
                         position: absolute;
                         left: 50%;
-                        top: 100px;
+                        top: 0; 
                         bottom: 0;
                         width: 3px;
-                        background: linear-gradient(180deg, var(--ember), var(--coral), transparent);
+                        /* Only bottom fade - no top fade */
+                        background: linear-gradient(180deg, var(--ember) 0%, var(--coral) 90%, transparent);
                         transform: translateX(-50%);
                         z-index: 1;
                     }
@@ -1471,9 +1855,17 @@ const Accueil = () => {
                     .timeline-item {
                         display: grid;
                         grid-template-columns: 1fr 1fr;
-                        gap: 60px;
+                        gap: 100px; /* INCREASED GAP for Desktop Overlap (was 60px) */
                         align-items: center;
                         position: relative;
+                    }
+                    
+                    /* OFFSET TEXT to ensure no overlap with blob animation */
+                    .timeline-item:nth-child(2n+1) .timeline-content {
+                        padding-right: 40px; 
+                    }
+                    .timeline-item:nth-child(2n) .timeline-content {
+                        padding-left: 40px;
                     }
 
                     .timeline-item:nth-child(even) {
@@ -1542,6 +1934,19 @@ const Accueil = () => {
                     .timeline-item:hover .blob-shape img {
                         transform: none;
                     }
+
+                    /* AJUSTEMENT SPÉCIFIQUE IMAGE TEMPS DE PRIÈRE (ID 3) */
+                    /* La 3ème div .timeline-item correspond à ID 3 dans la liste renderée */
+                    .timeline-item:nth-child(3) .blob-shape img {
+                        object-position: 40% 15%; /* Monte encore plus (15% top) */
+                    }
+
+                    /* AJUSTEMENT SPÉCIFIQUE IMAGE TÉMOIGNAGES / ENVOI (ID 1) */
+                    .timeline-item:nth-child(1) .blob-shape img {
+                        object-position: 50% 25%; /* Lève l'image (25%) */
+                    }
+
+
 
                     /* Content */
                     .timeline-content {
@@ -1733,6 +2138,7 @@ const Accueil = () => {
                         .timeline-item {
                             grid-template-columns: 1fr;
                             gap: 35px;
+                            padding-left: 50px; /* Shift EVERYTHING (Image + Text) right of line */
                         }
 
                         .timeline-item:nth-child(even) {
@@ -1740,11 +2146,17 @@ const Accueil = () => {
                         }
 
                         .timeline-line {
-                            left: 30px;
+                            left: 20px; /* Aligned left */
                         }
 
                         .timeline-dot {
-                            left: 30px;
+                            left: 20px; /* Aligned left with line */
+                        }
+                        
+                        .timeline-content {
+                            padding-left: 60px; /* PUSH TEXT RIGHT to clear line/dot */
+                            position: relative;
+                            z-index: 10;
                         }
 
                         .timeline-blob {
@@ -1780,9 +2192,16 @@ const Accueil = () => {
                             font-size: 1.8rem;
                         }
 
+
                         .timeline-description {
                             font-size: 1rem;
                         }
+                        /* Align text with image (remove extra 60px padding) */
+                        .timeline-content {
+                            padding-left: 0 !important; 
+                            padding-right: 0 !important;
+                        }
+
 
                         .modal-title {
                             font-size: 1.8rem;
@@ -1943,35 +2362,44 @@ const Accueil = () => {
                         <h2 className="title">7 Points Clés pour la Mission</h2>
                     </div>
 
-                    <div className="pope-grid">
-                        <div className="pope-item">
+                    <div
+                        className="pope-grid"
+                        ref={popeGridRef}
+                        onScroll={(e) => {
+                            // Optional: track active item logic if needed in future
+                            // const scrollLeft = e.target.scrollLeft;
+                            // const width = e.target.offsetWidth;
+                            // const index = Math.round(scrollLeft / width);
+                        }}
+                    >
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 0)}>
                             <h4>1. Aller aux périphéries</h4>
                             <p>"Église en sortie" n'est pas une expression à la mode. Elle est un commandement du Christ. Soit l'Église est en sortie, soit elle n'est pas l'Église.</p>
                         </div>
-                        <div className="pope-item">
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 1)}>
                             <h4>2. Se laisser surprendre</h4>
                             <p>La mission n'est pas un projet d'entreprise bien rodé. L'Esprit saint agit comme il le veut, quand il le veut et où il le veut.</p>
                         </div>
-                        <div className="pope-item">
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 2)}>
                             <h4>3. Se mettre à l'écoute</h4>
                             <p>La fécondité de la mission ne tient pas à nos méthodes, mais elle est liée à ce vertige que l'on éprouve en présence des paroles de Jésus.</p>
                         </div>
-                        <div className="pope-item">
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 3)}>
                             <h4>4. Témoigner et non déclarer</h4>
                             <p>On est marqué par la rencontre avec une personne dont les gestes révèlent la foi.</p>
                         </div>
-                        <div className="pope-item">
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 4)}>
                             <h4>5. Éloge de la tendresse</h4>
                             <p>Annoncer l'Évangile ne consiste pas à assiéger les autres de discours. Lancer des vérités comme des pierres, c'est le signe que les paroles se sont transformées en idéologie.</p>
                         </div>
-                        <div className="pope-item">
+                        <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 5)}>
                             <h4>6. Le contact humain</h4>
                             <p>La mission est un contact humain, elle est le témoignage d'hommes et de femmes qui disent : "Je connais Jésus, je voudrais te le faire connaître".</p>
                         </div>
                     </div>
 
                     <div className="pope-message-box">
-                        <h3>Que puis-je faire en tant que jeune pour mon église ?</h3>
+                        <h3>7. Que puis-je faire en tant que jeune pour mon église ?</h3>
                         <p>Chers jeunes, je veux de la pagaille dans les diocèses ! Je veux que vous alliez à l'extérieur ! Je veux que l'Église sorte dans les rues ! Les paroisses, les écoles, les institutions, sont appelés à sortir ! S'ils ne sortent pas, ils deviennent une ONG et l'Église ne peut pas être une ONG.</p>
                         <p style={{ marginTop: '20px', fontWeight: '600' }}>N'oubliez pas, mettez la pagaille !</p>
                     </div>
@@ -1981,7 +2409,7 @@ const Accueil = () => {
             {/* PRAYER */}
             <div className="prayer">
                 <div className="prayer-logo">
-                    <img src="https://www.dropbox.com/scl/fi/kh7mhfrgqasyw1unjhzbb/Logo-Famissio-1.png?rlkey=4a5umup7f9b66oxtgvr8deas9&st=z51lydtw&raw=1" alt="Logo Prière" loading="lazy" />
+                    <img src="https://www.dropbox.com/scl/fi/9c4wjresj75ggoruwqwpp/Logo-Famissio-rouge.png?rlkey=td18v0flur03xqsroyazjh1l6&st=vqgiyjx2&raw=1" alt="Logo Prière" loading="lazy" />
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>

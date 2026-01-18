@@ -1,11 +1,98 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { X, Play, ChevronLeft, ChevronRight, Church, MessageCircle, User, Calendar } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+
+const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) => {
+  const [currentSrc, setCurrentSrc] = useState(src);
+  const [status, setStatus] = useState(() => {
+    // Synchronous check to prevent flash on initial render if cached
+    if (typeof window !== 'undefined') {
+      const img = new Image();
+      img.src = src;
+      if (img.complete) return 'loaded';
+    }
+    return 'loading';
+  });
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+    setCurrentSrc(src);
+    setRetryCount(0);
+
+    const img = new Image();
+    img.src = src;
+    if (img.complete) {
+      setStatus('loaded');
+    } else {
+      setStatus('loading');
+    }
+  }, [src]);
+
+  useEffect(() => {
+    if (status === 'loaded') return;
+
+    const img = new Image();
+    img.src = currentSrc;
+
+    // Double check in case it loaded between renders
+    if (img.complete) {
+      setStatus('loaded');
+      return;
+    }
+
+    img.onload = () => {
+      setStatus('loaded');
+    };
+
+    img.onerror = () => {
+      // If we have fallback images and haven't tried too many times
+      if (fallbackImages.length > 0 && retryCount < fallbackImages.length) {
+        console.log(`Image failed: ${currentSrc}, trying backup...`);
+        // Try the next image in the fallback list (using retryCount as index)
+        const nextImage = fallbackImages[retryCount % fallbackImages.length];
+        setRetryCount(prev => prev + 1);
+        setCurrentSrc(nextImage);
+      } else {
+        setStatus('error');
+      }
+    };
+  }, [currentSrc, fallbackImages, retryCount, status]);
+
+  if (status === 'error') {
+    return (
+      <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
+        <div className="text-gray-400 flex flex-col items-center">
+          {type === 'video' ? <Play className="w-8 h-8 opacity-50" /> : <Church className="w-8 h-8 opacity-50" />}
+          <span className="text-xs mt-2 font-medium">Image non disponible</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative ${className} overflow-hidden bg-gray-100`}>
+      {status === 'loading' && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-100">
+          <div className="w-8 h-8 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
+        </div>
+      )}
+      <img
+        src={currentSrc}
+        alt={alt}
+        className={`block w-full h-full object-cover ${status === 'loaded' ? '' : 'opacity-0'}`}
+        style={{ objectPosition: '50% 35%' }}
+      />
+    </div>
+  );
+};
 
 const TemoignagesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedTestimony, setSelectedTestimony] = useState(null);
   const [testimonyOfDay, setTestimonyOfDay] = useState(null);
   const [visibleCount, setVisibleCount] = useState(9);
+  const touchStartRef = React.useRef(null);
+
 
   useEffect(() => {
     if (selectedTestimony) {
@@ -23,7 +110,6 @@ const TemoignagesPage = () => {
     "https://www.dropbox.com/scl/fi/urgxwidi711zytkgl79r4/20221104_220907.jpg?rlkey=4g5mxnthjmfzelitvzvc4a5et&st=1m28xbgw&raw=1",
     "https://www.dropbox.com/scl/fi/4l3pfnoj0afg0ln96cnhq/3149446C-CE04-40A4-A33A-DA19E37C0EB3.jpeg?rlkey=4pw1105l0aqqmaouixq40shws&st=iy8eblpr&raw=1",
     "https://www.dropbox.com/scl/fi/xc8deosj4qra9rjl65lcu/IMG_4847.jpg?rlkey=59ny4unvj05ztxosmsetgbfwk&st=susixzx9&raw=1",
-    "https://www.dropbox.com/scl/fi/z851ymdvc5q476az9db5e/Mrvj-Gpe1-a8.jpg?rlkey=zl8zcqin1qa58v16ap80r4tt1&st=bnekutdt&raw=1",
     "https://www.dropbox.com/scl/fi/ixcw3h4uhj59m0xtvxtj2/IMG_5395.JPG?rlkey=eeucr2rcdema9x1rooq8b6ujf&st=y5g6u1jk&raw=1",
     "https://www.dropbox.com/scl/fi/hc363otmf84ozwh7oo6j7/IMG_9863.jpg?rlkey=dut2cu3nrf2tv6y4id0bmih18&st=sjxizhrn&raw=1",
     "https://www.dropbox.com/scl/fi/yocsem26icr39ysf5zr32/Famissio-200.jpg?rlkey=025bb00n4c5w9zn0g2682hwr0&st=0inl8xgg&raw=1",
@@ -551,7 +637,14 @@ const TemoignagesPage = () => {
       } else {
         displayImage = shuffledPool[index % shuffledPool.length];
       }
-      return { ...testimony, displayImage };
+
+      // Create a rotated fallback list starting from index + 2 to avoid neighbor duplication
+      const fallbackList = [
+        ...shuffledPool.slice((index + 2) % shuffledPool.length),
+        ...shuffledPool.slice(0, (index + 2) % shuffledPool.length)
+      ];
+
+      return { ...testimony, displayImage, fallbackList };
     });
     return withImages;
   }, []);
@@ -588,17 +681,86 @@ const TemoignagesPage = () => {
     setVisibleCount(prev => prev + 9);
   };
 
-  const navigateTestimony = (direction) => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Custom Swipe State
+  const [dragX, setDragX] = useState(0);
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Use Refs for synchronous coordinate tracking in events
+  const startXRef = useRef(0);
+  const startYRef = useRef(0);
+  const dragXRef = useRef(0);
+  const dragYRef = useRef(0);
+  const isDraggingRef = useRef(false);
+
+  const [rotationMultiplier, setRotationMultiplier] = useState(0.05); // Default to low rotation (Touch)
+
+  const [isLocked, setIsLocked] = useState(false); // New lock state
+  const cardRef = useRef(null);
+
+  // Custom hook to detect if at bottom of scroll
+  const isAtBottom = (element) => {
+    if (!element) return false;
+    return Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 5;
+  };
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Calculate available testimonies for navigation logic
+  const availableTestimonies = filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id);
+  const currentIndex = selectedTestimony ? availableTestimonies.findIndex(t => t.id === selectedTestimony.id) : -1;
+
+  const navigateTestimony = (direction, fromSwipe = false) => {
     if (!selectedTestimony) return;
-    const availableTestimonies = filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id);
-    const currentIndex = availableTestimonies.findIndex(t => t.id === selectedTestimony.id);
-    let newIndex;
+
     if (direction === 'prev') {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : availableTestimonies.length - 1;
+      if (currentIndex > 0) {
+        setSelectedTestimony(availableTestimonies[currentIndex - 1]);
+      }
     } else {
-      newIndex = currentIndex < availableTestimonies.length - 1 ? currentIndex + 1 : 0;
+      if (currentIndex < availableTestimonies.length - 1) {
+        setSelectedTestimony(availableTestimonies[currentIndex + 1]);
+      } else if (fromSwipe) {
+        // Exit modal if swiping next on the last item
+        setSelectedTestimony(null);
+      }
     }
-    setSelectedTestimony(availableTestimonies[newIndex]);
+  };
+
+  const [exitX, setExitX] = useState(0);
+
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 100;
+    const { offset, velocity } = info;
+
+    if (offset.x > swipeThreshold || velocity.x > 500) {
+      setExitX(1000);
+      setTimeout(() => {
+        navigateTestimony('prev');
+        setExitX(0);
+      }, 200);
+    } else if (offset.x < -swipeThreshold || velocity.x < -500) {
+      setExitX(-1000);
+      setTimeout(() => {
+        navigateTestimony('next');
+        setExitX(0);
+      }, 200);
+    }
   };
 
   const getTagsDisplay = (tags) => {
@@ -662,8 +824,8 @@ const TemoignagesPage = () => {
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+        <div className="relative max-w-7xl mx-auto px-4 py-24">
+          <h1 className="text-6xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Témoignages
           </h1>
 
@@ -684,16 +846,18 @@ const TemoignagesPage = () => {
               onClick={() => setSelectedTestimony(testimonyOfDay)}
             >
               <div className="p-12">
-                <div className="flex flex-col md:flex-row gap-12 items-stretch">
-                  {/* HAUTEUR FIXE 400px */}
-                  <div className="w-full md:w-1/2 relative h-[400px] rounded-2xl overflow-hidden shadow-lg group flex-shrink-0">
-                    <img
+                <div className="flex flex-col md:block relative gap-12">
+                  {/* HAUTEUR FIXE MOBILE, ABSOLUTE DESKTOP */}
+                  <div className="w-full md:absolute md:top-0 md:left-0 md:bottom-0 md:w-[calc(50%-24px)] h-80 md:h-auto rounded-2xl overflow-hidden shadow-lg group flex-shrink-0">
+                    <ImageWithFallback
                       src={testimonyOfDay.displayImage}
                       alt={testimonyOfDay.title}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full"
+                      type={testimonyOfDay.type}
+                      fallbackImages={testimonyOfDay.fallbackList}
                     />
                     {testimonyOfDay.type === 'video' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors pointer-events-none">
                         <div className="w-20 h-20 bg-orange-600 rounded-full flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform">
                           <Play className="w-10 h-10 text-white ml-1" fill="white" />
                         </div>
@@ -701,8 +865,8 @@ const TemoignagesPage = () => {
                     )}
                   </div>
 
-                  {/* CONTENU - HAUTEUR FIXE */}
-                  <div className="w-full md:w-1/2 flex flex-col justify-between h-[400px]">
+                  {/* CONTENU - ORDONNE LA HAUTEUR */}
+                  <div className="w-full md:w-1/2 md:ml-auto md:pl-6 flex flex-col justify-between min-h-[400px]">
                     <div>
                       <div className="flex items-center gap-3 mb-4">
                         {categories.find(c => c.id === testimonyOfDay.category) && (
@@ -715,7 +879,7 @@ const TemoignagesPage = () => {
                       <h2 className="text-3xl md:text-4xl font-black mb-4 text-gray-900 leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                         {testimonyOfDay.title}
                       </h2>
-                      <p className="text-base md:text-lg text-gray-600 leading-relaxed line-clamp-6 mb-4">
+                      <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
                         {testimonyOfDay.content}
                       </p>
                     </div>
@@ -736,12 +900,12 @@ const TemoignagesPage = () => {
       )}
 
       {/* FILTRES */}
-      <div className="bg-white border-y-2 border-gray-200 py-8 sticky top-0 z-50 testimony-filters">
+      <div className="bg-white border-y-2 border-gray-200 py-8 relative md:sticky md:top-0 z-50 testimony-filters">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-6 py-3 rounded-full font-bold transition-all ${selectedCategory === 'all' ? 'bg-black text-white scale-110' : 'bg-gray-100 hover:bg-gray-200'
+              className={`px-3 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold transition-all ${selectedCategory === 'all' ? 'bg-black text-white scale-110' : 'bg-gray-100 hover:bg-gray-200'
                 }`}
             >
               Tous
@@ -751,7 +915,7 @@ const TemoignagesPage = () => {
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-6 py-3 rounded-full font-bold transition-all flex items-center gap-2 ${selectedCategory === cat.id
+                className={`px-3 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold transition-all flex items-center gap-2 ${selectedCategory === cat.id
                   ? `${cat.bgSelect} text-white scale-105 border-transparent`
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                   }`}
@@ -779,15 +943,17 @@ const TemoignagesPage = () => {
                 onClick={() => setSelectedTestimony(testimony)}
                 style={{
                   transform: `rotate(${rotation}deg)`,
+                  WebkitTapHighlightColor: 'transparent'
                 }}
               >
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-0 h-full flex flex-col">
                   <div className="relative h-64 overflow-hidden flex-shrink-0">
-                    <img
+                    <ImageWithFallback
                       src={testimony.displayImage}
                       alt={testimony.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      loading="lazy"
+                      className="w-full h-full group-hover:scale-110 transition-transform duration-700"
+                      type={testimony.type}
+                      fallbackImages={testimony.fallbackList}
                     />
 
                     {categoryData && (
@@ -848,104 +1014,333 @@ const TemoignagesPage = () => {
       </div>
 
       {/* MODAL */}
-      {selectedTestimony && (
-        <div className="fixed inset-0 bg-black z-[99999] flex items-center justify-center p-4 md:p-6 overflow-y-auto">
-          <button
-            onClick={() => setSelectedTestimony(null)}
-            className="fixed top-6 right-6 w-14 h-14 bg-white hover:bg-orange-50 rounded-full flex items-center justify-center text-orange-600 hover:text-orange-700 transition-all z-[100001] shadow-2xl border-2 border-orange-200"
+      <AnimatePresence>
+        {selectedTestimony && (
+          <div
+            className="fixed inset-0 bg-black/90 z-[99999] flex items-center justify-center p-4 md:p-6 overflow-hidden md:overflow-y-auto"
           >
-            <X className="w-7 h-7" strokeWidth={2.5} />
-          </button>
+            {/* DESKTOP BACKGROUND CLOSE BUTTON */}
+            <button
+              onClick={() => setSelectedTestimony(null)}
+              className="hidden md:flex fixed top-6 right-6 w-14 h-14 bg-white hover:bg-orange-50 rounded-full items-center justify-center text-orange-600 hover:text-orange-700 transition-all z-[100001] shadow-2xl border-2 border-orange-200"
+            >
+              <X className="w-7 h-7" strokeWidth={2.5} />
+            </button>
 
-          <button
-            onClick={(e) => { e.stopPropagation(); navigateTestimony('prev'); }}
-            className="fixed left-4 md:left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-900 transition-all z-[100001] shadow-xl"
-          >
-            <ChevronLeft className="w-8 h-8" strokeWidth={2} />
-          </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateTestimony('prev'); }}
+              disabled={currentIndex === 0}
+              className={`hidden md:flex fixed left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white hover:bg-gray-100 rounded-full items-center justify-center text-gray-900 transition-all z-[100001] shadow-xl ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <ChevronLeft className="w-8 h-8" strokeWidth={2} />
+            </button>
 
-          <button
-            onClick={(e) => { e.stopPropagation(); navigateTestimony('next'); }}
-            className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-900 transition-all z-[100001] shadow-xl"
-          >
-            <ChevronRight className="w-8 h-8" strokeWidth={2} />
-          </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateTestimony('next'); }}
+              disabled={currentIndex === availableTestimonies.length - 1}
+              className={`hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-white hover:bg-gray-100 rounded-full items-center justify-center text-gray-900 transition-all z-[100001] shadow-xl ${currentIndex === availableTestimonies.length - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <ChevronRight className="w-8 h-8" strokeWidth={2} />
+            </button>
 
-          <div className="relative max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl my-8 z-[100000]">
-            <div className="p-8 md:p-12">
-              {selectedTestimony.type === 'video' ? (
-                <div>
-                  <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
-                    {categories.find(c => c.id === selectedTestimony.category) && (
-                      <div className={`w-14 h-14 flex-shrink-0 bg-gradient-to-br ${categories.find(c => c.id === selectedTestimony.category).gradient} rounded-2xl flex items-center justify-center shadow-lg icon-animate`}>
-                        {React.createElement(categories.find(c => c.id === selectedTestimony.category).icon, {
-                          className: "w-7 h-7 text-white",
-                          strokeWidth: 2.5
-                        })}
-                      </div>
-                    )}
-                    <div>
-                      <h2 className="text-3xl md:text-4xl font-black text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                        {selectedTestimony.title}
-                      </h2>
-                      <div className="flex items-center gap-2 mt-2">
-                        {getTagsDisplay(selectedTestimony.tags)}
-                        <span className="text-gray-400">•</span>
-                        <span className="text-gray-700 text-sm">{selectedTestimony.year}</span>
-                      </div>
+            {/* UNDERLAY CARD (THE NEXT ONE) - Visual Stack Effect */}
+            {isMobile && (() => {
+              if (dragY !== 0) return null; // Hide underlay when vertical dragging (closing)
+
+              // Calculate next testimony logic inside render for the underlay
+              const available = filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id);
+              const currentIdx = available.findIndex(t => t.id === selectedTestimony.id);
+              // Only show next card if there actually IS a next card
+              const nextIdx = currentIdx < available.length - 1 ? currentIdx + 1 : null;
+
+              if (nextIdx === null) return null; // No underlay if we are at the end
+
+              const nextCard = available[nextIdx];
+
+              return (
+                <div className="absolute inset-x-4 md:inset-0 top-8 bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 z-[9] h-[85vh] transform scale-95 translate-y-4 opacity-100 pointer-events-none">
+                  <div className="relative p-8 md:p-12 h-full overflow-hidden select-none">
+                    {/* Simplified Underlay Content (Performance) */}
+                    <div className="opacity-50 blur-[1px]">
+                      <h2 className="text-3xl font-black text-gray-900">{nextCard.title}</h2>
                     </div>
                   </div>
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-xl bg-black">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${selectedTestimony.videoId}`}
-                      className="w-full h-full"
-                      allowFullScreen
-                      title={selectedTestimony.title}
-                    ></iframe>
-                  </div>
                 </div>
-              ) : (
-                <div className="flex flex-col md:flex-row gap-8 items-start">
-                  <div className="w-full md:w-2/5 rounded-2xl overflow-hidden shadow-xl flex-shrink-0">
-                    <img
-                      src={selectedTestimony.displayImage}
-                      alt={selectedTestimony.title}
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-6">
+              );
+            })()}
+
+            <motion.div
+              ref={cardRef}
+              key={selectedTestimony.id}
+              className="relative max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl my-8 z-[10] h-[90vh] md:h-auto overflow-y-auto md:overflow-visible"
+
+              // CUSTOM TINDER LOGIC
+              style={isMobile ? {
+                // Use state-based multiplier to switch between 0.05 (Touch) and 0.2 (Mouse)
+                transform: `translate(${dragX}px, ${dragY}px) rotate(${dragX * rotationMultiplier}deg)`,
+                // Immediate reaction during drag, smooth release
+                transition: (isDragging || isLocked) ? 'none' : 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                touchAction: 'pan-y' // Restore pan-y so vertical scrolling works natively if not dragging
+              } : {}}
+
+              // --- TOUCH HANDLERS (Mobile Only / Original logic) ---
+              onTouchStart={(e) => {
+                if (!isMobile) return;
+                setRotationMultiplier(0.05); // Low rotation for touch
+
+                startXRef.current = e.touches[0].clientX;
+                startYRef.current = e.touches[0].clientY;
+                dragXRef.current = 0;
+                dragYRef.current = 0;
+                isDraggingRef.current = false;
+
+                setDragX(0);
+                setDragY(0);
+                setIsDragging(false);
+                setIsLocked(false);
+              }}
+
+              onTouchMove={(e) => {
+                if (!isMobile) return;
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const deltaX = currentX - startXRef.current;
+                const deltaY = currentY - startYRef.current;
+
+                if (!isDraggingRef.current && dragYRef.current === 0) {
+                  // Standard logic: Lock if Horizontal > Vertical
+                  if (Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && Math.abs(deltaY) > 5) {
+                    // Vertical scroll
+                  } else if (Math.abs(deltaX) > 10) {
+                    isDraggingRef.current = true;
+                    setIsDragging(true);
+                  }
+                }
+
+                if (isDraggingRef.current) {
+                  if (e.cancelable) e.preventDefault(); // Prevent scroll while swiping
+                  dragXRef.current = deltaX;
+                  setDragX(deltaX);
+                } else if (!isDraggingRef.current && Math.abs(deltaY) > 10) {
+                  dragYRef.current = deltaY;
+                  setDragY(deltaY);
+                }
+              }}
+
+              onTouchEnd={() => {
+                if (!isMobile) return;
+
+                // STANDARD THRESHOLD (100px)
+                const threshold = 100;
+
+                if (isDraggingRef.current) {
+                  if (Math.abs(dragXRef.current) > threshold) {
+                    const direction = dragXRef.current > 0 ? 1 : -1;
+                    const isFirst = currentIndex === 0;
+                    if (direction === 1 && isFirst) { setDragX(0); return; }
+
+                    const screenWidth = window.innerWidth;
+                    setDragX(direction * screenWidth);
+                    setTimeout(() => { navigateTestimony(direction > 0 ? 'prev' : 'next', true); setDragX(0); }, 200);
+                  } else {
+                    setDragX(0);
+                  }
+                } else if (dragYRef.current !== 0) {
+                  const verticalThreshold = 120;
+                  if (Math.abs(dragYRef.current) > verticalThreshold) {
+                    setDragY((dragYRef.current > 0 ? 1 : -1) * 1000);
+                    setTimeout(() => { setSelectedTestimony(null); setDragY(0); }, 200);
+                  } else {
+                    setDragY(0);
+                  }
+                }
+
+                setIsDragging(false);
+                setIsLocked(false);
+                isDraggingRef.current = false;
+              }}
+
+              // --- POINTER HANDLERS (Desktop MOUSE Only) ---
+              // MUST ignore touch to avoid conflict with above handlers
+              onPointerDown={(e) => {
+                if (!isMobile) return;
+                if (e.pointerType === 'touch') return; // Handled by onTouchStart
+
+                e.currentTarget.setPointerCapture(e.pointerId); // ROBUSTNESS for Mouse
+                setRotationMultiplier(0.2); // Extreme rotation for mouse
+
+                startXRef.current = e.clientX;
+                startYRef.current = e.clientY;
+                dragXRef.current = 0;
+                dragYRef.current = 0;
+                isDraggingRef.current = false;
+
+                setDragX(0);
+                setDragY(0);
+                setIsDragging(false);
+                setIsLocked(false);
+              }}
+
+              onPointerMove={(e) => {
+                if (!isMobile) return;
+                if (e.pointerType === 'touch') return;
+                if (e.buttons === 0) return;
+
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+                const deltaX = currentX - startXRef.current;
+                const deltaY = currentY - startYRef.current;
+
+                if (!isDraggingRef.current && dragYRef.current === 0) {
+                  if (Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && Math.abs(deltaY) > 5) {
+                    // Vertical
+                  } else if (Math.abs(deltaX) > 5) {
+                    isDraggingRef.current = true;
+                    setIsDragging(true);
+                  }
+                }
+
+                if (isDraggingRef.current) {
+                  e.preventDefault(); // Stop selection
+                  dragXRef.current = deltaX;
+                  setDragX(deltaX);
+                } else if (!isDraggingRef.current && Math.abs(deltaY) > 10) {
+                  dragYRef.current = deltaY;
+                  setDragY(deltaY);
+                }
+              }}
+
+              onPointerUp={(e) => {
+                if (!isMobile) return;
+                if (e.pointerType === 'touch') return;
+
+                e.currentTarget.releasePointerCapture(e.pointerId);
+
+                // EXTREME THRESHOLD FOR MOUSE (5px)
+                const threshold = 5;
+
+                if (isDraggingRef.current) {
+                  if (Math.abs(dragXRef.current) > threshold) {
+                    const direction = dragXRef.current > 0 ? 1 : -1;
+                    const isFirst = currentIndex === 0;
+                    if (direction === 1 && isFirst) { setDragX(0); return; }
+
+                    const screenWidth = window.innerWidth;
+                    setDragX(direction * screenWidth);
+                    setTimeout(() => { navigateTestimony(direction > 0 ? 'prev' : 'next', true); setDragX(0); }, 200);
+                  } else {
+                    setDragX(0);
+                  }
+                } else if (dragYRef.current !== 0) {
+                  const verticalThreshold = 80;
+                  if (Math.abs(dragYRef.current) > verticalThreshold) {
+                    setDragY((dragYRef.current > 0 ? 1 : -1) * 1000);
+                    setTimeout(() => { setSelectedTestimony(null); setDragY(0); }, 200);
+                  } else {
+                    setDragY(0);
+                  }
+                }
+
+                setIsDragging(false);
+                setIsLocked(false);
+                isDraggingRef.current = false;
+              }}
+
+              // DISABLE FRAMER ANIM ON MOBILE
+              initial={!isMobile ? { opacity: 0, scale: 0.9 } : undefined}
+              animate={!isMobile ? { opacity: 1, scale: 1 } : undefined}
+              exit={!isMobile ? { opacity: 0, scale: 0.9 } : undefined}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="relative p-8 md:p-12 h-full md:h-auto overflow-y-auto select-none">
+                {/* MOBILE CLOSE BUTTON (Scrolls with content) */}
+                <div
+                  onClick={() => setSelectedTestimony(null)}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="md:hidden absolute top-0 right-0 z-[100003] w-24 h-24 flex items-start justify-end p-2 cursor-pointer"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                  <X className="w-7 h-7 text-orange-600 drop-shadow-sm" strokeWidth={2.5} />
+                </div>
+                {selectedTestimony.type === 'video' ? (
+                  <div>
+                    <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                       {categories.find(c => c.id === selectedTestimony.category) && (
-                        <div className={`w-16 h-16 bg-gradient-to-br ${categories.find(c => c.id === selectedTestimony.category).gradient} rounded-2xl flex items-center justify-center shadow-lg icon-animate`}>
+                        <div className={`w-14 h-14 flex-shrink-0 bg-gradient-to-br ${categories.find(c => c.id === selectedTestimony.category).gradient} rounded-2xl flex items-center justify-center shadow-lg icon-animate`}>
                           {React.createElement(categories.find(c => c.id === selectedTestimony.category).icon, {
-                            className: "w-8 h-8 text-white",
+                            className: "w-7 h-7 text-white",
                             strokeWidth: 2.5
                           })}
                         </div>
                       )}
-                    </div>
-                    <h2 className="text-4xl font-black text-gray-900 mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                      {selectedTestimony.title}
-                    </h2>
-                    <div className="flex items-center gap-2 mb-6">
-                      {getTagsDisplay(selectedTestimony.tags)}
-                      <span className="text-gray-400">•</span>
-                      <div className="flex items-center gap-2 text-gray-700 text-sm">
-                        <Calendar className="w-4 h-4" />
-                        {selectedTestimony.year}
+                      <div>
+                        <h2 className="text-3xl md:text-4xl font-black text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                          {selectedTestimony.title}
+                        </h2>
+                        <div className="flex items-center gap-2 mt-2">
+                          {getTagsDisplay(selectedTestimony.tags)}
+                          <span className="text-gray-400">•</span>
+                          <span className="text-gray-700 text-sm">{selectedTestimony.year}</span>
+                        </div>
                       </div>
                     </div>
-                    <p className="text-lg leading-relaxed text-gray-700 whitespace-pre-line">
-                      {selectedTestimony.content}
-                    </p>
+                    <div className="aspect-video rounded-2xl overflow-hidden shadow-xl bg-black">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${selectedTestimony.videoId}`}
+                        className="w-full h-full"
+                        allowFullScreen
+                        title={selectedTestimony.title}
+                      ></iframe>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                ) : (
+                  <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="w-full md:w-2/5 rounded-2xl overflow-hidden shadow-xl flex-shrink-0">
+                      <ImageWithFallback
+                        src={selectedTestimony.displayImage}
+                        alt={selectedTestimony.title}
+                        className="w-full h-auto object-cover"
+                        type={selectedTestimony.type}
+                        fallbackImages={selectedTestimony.fallbackList}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-4 mb-6">
+                        {categories.find(c => c.id === selectedTestimony.category) && (
+                          <div className={`w-16 h-16 bg-gradient-to-br ${categories.find(c => c.id === selectedTestimony.category).gradient} rounded-2xl flex items-center justify-center shadow-lg icon-animate`}>
+                            {React.createElement(categories.find(c => c.id === selectedTestimony.category).icon, {
+                              className: "w-8 h-8 text-white",
+                              strokeWidth: 2.5
+                            })}
+                          </div>
+                        )}
+                      </div>
+                      <h2 className="text-4xl font-black text-gray-900 mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                        {selectedTestimony.title}
+                      </h2>
+                      <div className="flex items-center gap-2 mb-6">
+                        {getTagsDisplay(selectedTestimony.tags)}
+                        <span className="text-gray-400">•</span>
+                        <div className="flex items-center gap-2 text-gray-700 text-sm">
+                          <Calendar className="w-4 h-4" />
+                          {selectedTestimony.year}
+                        </div>
+                      </div>
+                      <p className="text-lg leading-relaxed text-gray-700 whitespace-pre-line">
+                        {selectedTestimony.content}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+        }
+      </AnimatePresence >
+    </div >
   );
 };
 

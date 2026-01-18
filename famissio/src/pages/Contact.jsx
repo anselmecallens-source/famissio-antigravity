@@ -28,6 +28,7 @@ function ContactForm() {
 
     try {
       const data = new FormData();
+      // Champs textes
       data.append('name', formData.name);
       data.append('phone', formData.phone);
       data.append('email', formData.email);
@@ -42,8 +43,14 @@ function ContactForm() {
 
       if (res.ok) {
         setStatus("success");
+        // Reset total du formulaire
         setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
       } else {
+        // --- Code de débuggage ---
+        const errorData = await res.json();
+        console.error("Erreur Formspree détaillée :", errorData);
+        alert("Erreur technique : " + (errorData.error || "Inconnue"));
+        // -------------------------
         setStatus("error");
       }
     } catch {
@@ -52,20 +59,6 @@ function ContactForm() {
   }
 
   if (status === "success") {
-    // ... (keep success message existing code conceptually, but I am replacing the functional component body partially, need to be careful with ranges)
-    // Wait, the range I selected (StartLine 8, EndLine 48) only covers state and submit logic.
-    // I need to replace the Form JSX too.
-    // The previous tool call view shows lines up to 386.
-    // I will try to replace the whole ContactForm component content or do it in chunks.
-    // Replacing logic first is safer if I can't see everything, but I have the whole file in context.
-    // I will split this into two replacements if possible or one big one.
-    // Actually, looking at the previous file view, I have the whole content.
-    // I'll replace the state/logic part first, then the JSX part.
-    // Logic part: lines 8-48.
-
-    // BUT I also need to update the JSX part (lines 84-129).
-    // Let's do a single Replace for the whole internal logic + JSX if I can target it well, OR modify use `multi_replace_file_content`?
-    // `multi_replace_file_content` is better here.
     return (
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-red-100 opacity-30"></div>
@@ -104,7 +97,7 @@ function ContactForm() {
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
             Nom & Prénom
           </label>
-          <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+          <div className="bg-white border border-black border-solid rounded-2xl overflow-hidden shadow-sm">
             <input
               name="name"
               type="text"
@@ -123,7 +116,7 @@ function ContactForm() {
             <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
               Téléphone
             </label>
-            <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <div className="bg-white border border-black border-solid rounded-2xl overflow-hidden shadow-sm">
               <input
                 name="phone"
                 type="tel"
@@ -141,7 +134,7 @@ function ContactForm() {
             <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
               Email
             </label>
-            <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+            <div className="bg-white border border-black border-solid rounded-2xl overflow-hidden shadow-sm">
               <input
                 name="email"
                 type="email"
@@ -160,7 +153,7 @@ function ContactForm() {
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
             Votre message
           </label>
-          <div className="bg-white border-2 border-black rounded-2xl overflow-hidden focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100 transition-all shadow-sm">
+          <div className="bg-white border border-black border-solid rounded-2xl overflow-hidden shadow-sm">
             <input
               name="subject"
               type="text"
@@ -176,7 +169,12 @@ function ContactForm() {
               rows="6"
               required
               value={formData.message}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (e.target.scrollHeight > e.target.clientHeight) {
+                  e.target.style.height = `${e.target.scrollHeight}px`;
+                }
+              }}
               className="w-full px-6 py-4 bg-transparent border-0 outline-none resize-none text-gray-900 appearance-none"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               placeholder="Parlez-nous de votre projet ou de vos questions..."
@@ -189,7 +187,7 @@ function ContactForm() {
         <button
           onClick={handleSubmit}
           disabled={status === "sending"}
-          className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-red-600 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-red-600 border-none text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {status === "sending" ? (
             <>
