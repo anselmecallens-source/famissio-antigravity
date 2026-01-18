@@ -476,7 +476,7 @@ const FormationsPage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className={`w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center transition-all duration-300 ${isThemeOpen ? 'rotate-180 bg-orange-50' : ''
+                                    <div className={`w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center transition-all duration-300 group-hover:bg-gray-50 ${isThemeOpen ? 'rotate-180 bg-gray-50' : ''
                                         }`}>
                                         <ChevronRight className={`w-6 h-6 transition-colors ${isThemeOpen ? 'text-orange-600' : 'text-gray-400'} transform rotate-90`} />
                                     </div>
@@ -513,7 +513,7 @@ const FormationsPage = () => {
                                                                             console.log('Toggling Formation:', formation.id);
                                                                             setActiveFormationId(prev => prev === formation.id ? null : formation.id);
                                                                         }}
-                                                                        className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 border-none outline-none ring-0 shadow-none"
+                                                                        className="px-4 py-2 bg-white hover:bg-gray-50 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 border border-gray-200 outline-none ring-0 shadow-none"
                                                                     >
                                                                         <BookOpen className="w-4 h-4" />
                                                                         {isOpen ? 'Fermer' : 'Voir la formation'}
