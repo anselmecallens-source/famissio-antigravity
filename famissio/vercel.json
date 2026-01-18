@@ -2,6 +2,6 @@
     "buildCommand": "npm install && npm run build",
     "outputDirectory": "dist",
     "env": {
-        "NODE_VERSION": "18.x"
+        "NODE_VERSION": "14.x"
     }
 }
