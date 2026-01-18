@@ -195,7 +195,7 @@ const FormationsPage = () => {
                     id: 10,
                     title: "L'Église : Sainte mais pécheresse",
                     intro: "Sainte mais imparfaite",
-                    pdf: "https://www.dropbox.com/scl/fi/8fystg103uj375yen44pz/6-Que-r-pondre-celui-qui-rejette-l-Eglise-sainte-mais-imparfaite.pdf?rlkey=wh1jsmwcvpiqqixo14l2pmpng&st=hhavtdpa&raw=1",
+                    pdf: "https://www.dropbox.com/scl/fi/8fystg103uj375yen44pz/6-Que-r-pondre-celui-qui-rejette-l-Eglise-sainte-mais-imparfaite.pdf?rlkey=wh1jsmwcvpiqqixo14p2pmpng&st=hhavtdpa&raw=1",
                     faqs: [
                         { q: "Comment l'Église peut-elle se dire \"sainte\" avec tous les scandales qu'on connaît ?", a: "Sa sainteté ne vient pas de la perfection des hommes qui la composent, mais de son union avec le Christ qui est son époux. Quand les chrétiens chantent qu'elle est sainte, ils proclament en réalité la fidélité de Dieu malgré leurs propres fautes." },
                         { q: "Est-ce vrai que même le Pape peut finir au Purgatoire ?", a: "Absolument, car l'Église reconnaît que tous ses membres sont des pécheurs ayant besoin de purification. C'est d'ailleurs pour cela qu'on célèbre des messes pour le repos de l'âme d'un pape dès son décès, même s'il est mort en \"odeur de sainteté\"." },
@@ -252,7 +252,7 @@ const FormationsPage = () => {
                     pdf: "https://www.dropbox.com/scl/fi/z85vwsygdfqtt6o3cpnxs/17-Quel-sont-les-dangers-des-sciences-occultes.pdf?rlkey=mi9ukcn3wbuj7bcmly1eiy8yl&st=75xbo8pi&raw=1",
                     faqs: [
                         { q: "Horoscope, voyance, soins énergétiques... est-ce vraiment si grave d'essayer ?", a: "Ces pratiques ne sont pas neutres et créent souvent une dépendance ou des angoisses au lieu du bonheur promis. On ne se livre pas impunément à des forces occultes ; il y a toujours un prix à payer car ces pratiques ouvrent la porte à un monde obscur au lieu de s'en remettre à la confiance en Dieu." },
-                        { q: "Si Dieu nous aime, pourquoi nous laisse-t-il galérer autant avec la souffrance ?", a: "Dieu n'est pas venu supprimer la douleur ou l'expliquer, mais il est venu la remplir de sa présence pour que personne ne la porte seul. La foi n'efface pas la peine, mais elle agit comme un rempart qui empêche de sombrer dans le désespoir total." },
+                        { q: "Si Dieu nous aime, pourquoi nous laisse-t-il galérer autant avec la souffrance ?", a: "Dieu n'is pas venu supprimer la douleur ou l'expliquer, mais il est venu la remplir de sa présence pour que personne ne la porte seul. La foi n'efface pas la peine, mais elle agit comme un rempart qui empêche de sombrer dans le désespoir total." },
                         { q: "Les Évangiles sont-ils des témoignages fiables ou de simples \"fake news\" historiques ?", a: "Les divergences de détails entre les récits ne sont pas des erreurs, mais des invitations à saisir la vérité centrale qui échappe aux mots : le salut de l'humanité. La Bible est vraie car elle construit une espérance et nous conduit vers le Christ, pas parce qu'elle est un rapport scientifique froid." },
                         { q: "Le monde est-il un pur hasard ou a-t-il vraiment été \"pensé\" par une intelligence ?", a: "La beauté improbable de la vie et les lois de l'univers laissent deviner un dessein intelligent derrière le mystère des choses. Puisque tout effet a une cause, l'univers complexe et limité exige l'existence d'un être nécessaire que nous appelons Dieu." },
                         { q: "Le Purgatoire, c’est une punition de plus ou une vraie chance de s’en sortir ?", a: "Ce n'est pas une prison mais \"l'infirmerie du Bon Dieu\" où l'on est purifié par l'amour pour pouvoir enfin supporter la lumière divine. C'est une souffrance heureuse car l'âme a la certitude absolue d'être sauvée et de rejoindre enfin la joie du Ciel." },
@@ -350,7 +350,7 @@ const FormationsPage = () => {
                     id: 18,
                     title: "Comment Dieu nous guide",
                     intro: "Reconnaître les signes",
-                    pdf: "https://www.dropbox.com/scl/fi/024ir8x8m6cx476zkmqs4/2-Comment-Dieu-nous-guide-t-il.pdf?rlkey=wprqiszi0amwzu2wnalslrm8c&st=hirb085n&raw=1",
+                    pdf: "https://www.dropbox.com/scl/fi/024ir8x8m6cx476zkmqs4/2-Comment-Dieu-nous-guide-t-il.pdf?rlkey=wprqiszi0amwzu2wnalsrrm8c&st=hirb085n&raw=1",
                     faqs: [
                         { q: "Dieu a-t-il un plan précis pour ma vie ou suis-je livré au hasard ?", a: "Chacun possède une mission personnelle que Dieu révèle discrètement par de multiples signes dans le quotidien. On n'est jamais le fruit d'un hasard indifférent, car Dieu nous guide sans cesse à travers les Écritures et les événements de notre vie." },
                         { q: "Comment savoir si c'est Dieu qui me parle ou juste ma propre imagination ?", a: "L'Esprit Saint parle au cœur par des \"motions intérieures\" qui sont perçues comme de véritables certitudes intimes. Pour faire la différence, il est essentiel d'écouter et de garder des temps de silence réguliers pendant la prière." },
@@ -389,38 +389,39 @@ const FormationsPage = () => {
     return (
         <div className="min-h-screen bg-white">
             <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
                 
                 .blob {
-                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-                    animation: morph 8s ease-in-out infinite;
+    border - radius: 30 % 70 % 70 % 30 % / 30% 30% 70% 70%;
+    animation: morph 8s ease -in -out infinite;
+}
+@keyframes morph {
+    0 %, 100 % { border- radius: 30 % 70 % 70 % 30 % / 30% 30% 70% 70%;
+}
+50 % { border- radius: 70 % 30 % 30 % 70 % / 70% 70% 30% 30%; }
                 }
-                @keyframes morph {
-                    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-                    50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-                }
-                .slide-down {
-                    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                }
-                @keyframes slideDown {
-                    from { opacity: 0; max-height: 0; }
-                    to { opacity: 1; max-height: 3000px; }
-                }
-                .faq-enter {
-                    animation: faqEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-                }
-                @keyframes faqEnter {
-                    from { opacity: 0; transform: translateY(-10px); max-height: 0; }
-                    to { opacity: 1; transform: translateY(0); max-height: 500px; }
-                }
-                .pulse-ring {
-                    animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-                }
-                @keyframes pulseRing {
-                    0%, 100% { transform: scale(1); opacity: 1; }
-                    50% { transform: scale(1.05); opacity: 0.9; }
-                }
-            `}</style>
+                .slide - down {
+    animation: slideDown 0.4s cubic - bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideDown {
+                    from { opacity: 0; max - height: 0; }
+                    to { opacity: 1; max - height: 3000px; }
+}
+                .faq - enter {
+    animation: faqEnter 0.3s cubic - bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes faqEnter {
+                    from { opacity: 0; transform: translateY(-10px); max - height: 0; }
+                    to { opacity: 1; transform: translateY(0); max - height: 500px; }
+}
+                .pulse - ring {
+    animation: pulseRing 2s cubic - bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulseRing {
+    0 %, 100 % { transform: scale(1); opacity: 1; }
+    50 % { transform: scale(1.05); opacity: 0.9; }
+}
+`}</style>
 
             {/* HERO */}
             <div className="relative bg-white text-gray-900 overflow-hidden">
@@ -457,7 +458,7 @@ const FormationsPage = () => {
                                         setActiveThemeId(prev => prev === theme.id ? null : theme.id);
                                         setActiveFormationId(null);
                                     }}
-                                    className="w-full p-8 flex items-center justify-between group hover:bg-gray-50 transition-all border-none outline-none ring-0 focus:ring-0"
+                                    className="w-full p-8 flex items-center justify-between group hover:bg-gray-100 transition-all border-none outline-none ring-0 focus:ring-0"
                                 >
                                     <div className="flex items-center gap-6">
                                         <div
@@ -476,7 +477,7 @@ const FormationsPage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className={`w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center transition-all duration-300 group-hover:bg-gray-50 ${isThemeOpen ? 'rotate-180 bg-gray-50' : ''
+                                    <div className={`w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center transition-all duration-300 group-hover:bg-gray-100 ${isThemeOpen ? 'rotate-180' : ''
                                         }`}>
                                         <ChevronRight className={`w-6 h-6 transition-colors ${isThemeOpen ? 'text-orange-600' : 'text-gray-400'} transform rotate-90`} />
                                     </div>
@@ -513,7 +514,7 @@ const FormationsPage = () => {
                                                                             console.log('Toggling Formation:', formation.id);
                                                                             setActiveFormationId(prev => prev === formation.id ? null : formation.id);
                                                                         }}
-                                                                        className="px-4 py-2 bg-white hover:bg-gray-50 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 border border-gray-200 outline-none ring-0 shadow-none"
+                                                                        className="px-4 py-2 bg-white hover:bg-gray-100 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 border border-gray-200 outline-none ring-0 shadow-none"
                                                                     >
                                                                         <BookOpen className="w-4 h-4" />
                                                                         {isOpen ? 'Fermer' : 'Voir la formation'}
@@ -540,120 +541,124 @@ const FormationsPage = () => {
                                                                         className="w-full h-96 border-none bg-white"
                                                                         title={formation.title}
                                                                     />
-                                                                </div>
+                                                                </div >
 
                                                                 {/* FAQ avec pagination */}
-                                                                {formation.faqs && formation.faqs.length > 0 && (
-                                                                    <div>
-                                                                        <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                                                            <MessageCircle className="w-5 h-5" style={{ color: theme.color }} />
-                                                                            Questions fréquentes
-                                                                        </h4>
-                                                                        {(() => {
-                                                                            const currentFaqs = formation.faqs;
-                                                                            const itemsPerPage = 4;
-                                                                            const currentPage = faqPages[formation.id] || 0;
-                                                                            const pageCount = Math.ceil(currentFaqs.length / itemsPerPage);
-                                                                            const displayedFaqs = currentFaqs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+                                                                {
+                                                                    formation.faqs && formation.faqs.length > 0 && (
+                                                                        <div>
+                                                                            <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                                                                <MessageCircle className="w-5 h-5" style={{ color: theme.color }} />
+                                                                                Questions fréquentes
+                                                                            </h4>
+                                                                            {(() => {
+                                                                                const currentFaqs = formation.faqs;
+                                                                                const itemsPerPage = 4;
+                                                                                const currentPage = faqPages[formation.id] || 0;
+                                                                                const pageCount = Math.ceil(currentFaqs.length / itemsPerPage);
+                                                                                const displayedFaqs = currentFaqs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
-                                                                            return (
-                                                                                <>
-                                                                                    <div className="space-y-3 mb-6">
-                                                                                        {displayedFaqs.map((faq, faqIdx) => {
-                                                                                            const absoluteIdx = (currentPage * itemsPerPage) + faqIdx;
-                                                                                            const faqKey = `${formation.id}-${absoluteIdx}`;
-                                                                                            const isFaqOpen = expandedFaqs[faqKey];
+                                                                                return (
+                                                                                    <>
+                                                                                        <div className="space-y-3 mb-6">
+                                                                                            {displayedFaqs.map((faq, faqIdx) => {
+                                                                                                const absoluteIdx = (currentPage * itemsPerPage) + faqIdx;
+                                                                                                const faqKey = `${formation.id}-${absoluteIdx}`;
+                                                                                                const isFaqOpen = expandedFaqs[faqKey];
 
-                                                                                            return (
-                                                                                                <div
-                                                                                                    key={absoluteIdx}
-                                                                                                    className={`bg-white rounded-xl border transition-all duration-300 overflow-hidden ${isFaqOpen ? 'border-orange-200 shadow-md' : 'border-gray-200 hover:border-gray-300'
-                                                                                                        }`}
-                                                                                                >
-                                                                                                    <button
-                                                                                                        onClick={() => toggleFaq(formation.id, faqKey)}
-                                                                                                        className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all border-none outline-none ring-0"
+                                                                                                return (
+                                                                                                    <div
+                                                                                                        key={absoluteIdx}
+                                                                                                        className={`rounded-xl border transition-all duration-300 overflow-hidden ${isFaqOpen ? 'bg-white border-orange-200 shadow-md' : 'bg-gray-100 border-gray-200 hover:border-gray-300'
+                                                                                                            }`}
                                                                                                     >
-                                                                                                        <span className={`font-semibold text-sm pr-3 transition-colors ${isFaqOpen ? 'text-gray-900' : 'text-gray-700'
-                                                                                                            }`}>
-                                                                                                            {faq.q}
-                                                                                                        </span>
-                                                                                                        <div
-                                                                                                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isFaqOpen ? 'bg-orange-100 rotate-180' : 'bg-gray-50'
-                                                                                                                }`}
+                                                                                                        <button
+                                                                                                            onClick={() => toggleFaq(formation.id, faqKey)}
+                                                                                                            className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-100 transition-all border-none outline-none ring-0"
                                                                                                         >
-                                                                                                            <ChevronDown className={`w-5 h-5 transition-colors ${isFaqOpen ? 'text-orange-600' : 'text-gray-400'
-                                                                                                                }`} />
-                                                                                                        </div>
-                                                                                                    </button>
-                                                                                                    {isFaqOpen && (
-                                                                                                        <div className="faq-enter px-4 pb-6 pt-2 text-gray-700 text-sm border-t border-gray-100 bg-white leading-relaxed">
-                                                                                                            {faq.a}
-                                                                                                        </div>
-                                                                                                    )}
-                                                                                                </div>
-                                                                                            );
-                                                                                        })}
-                                                                                    </div>
-
-                                                                                    {/* Pagination par points */}
-                                                                                    {pageCount > 1 && (
-                                                                                        <div className="flex justify-center gap-2 pt-2">
-                                                                                            {Array.from({ length: pageCount }).map((_, idx) => (
-                                                                                                <button
-                                                                                                    key={idx}
-                                                                                                    onClick={() => setFaqPages(prev => ({ ...prev, [formation.id]: idx }))}
-                                                                                                    className={`h-3 rounded-full transition-all duration-300 border-none outline-none ring-0 ${currentPage === idx ? 'w-10' : 'w-3 bg-gray-200 hover:bg-gray-300'
-                                                                                                        }`}
-                                                                                                    style={{ backgroundColor: currentPage === idx ? theme.color : undefined }}
-                                                                                                />
-                                                                                            ))}
+                                                                                                            <span className={`font-semibold text-sm pr-3 transition-colors ${isFaqOpen ? 'text-gray-900' : 'text-gray-700'
+                                                                                                                }`}>
+                                                                                                                {faq.q}
+                                                                                                            </span>
+                                                                                                            <div
+                                                                                                                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isFaqOpen ? 'bg-orange-100 rotate-180' : 'bg-gray-50'
+                                                                                                                    }`}
+                                                                                                            >
+                                                                                                                <ChevronDown className={`w-5 h-5 transition-colors ${isFaqOpen ? 'text-orange-600' : 'text-gray-400'
+                                                                                                                    }`} />
+                                                                                                            </div>
+                                                                                                        </button>
+                                                                                                        {isFaqOpen && (
+                                                                                                            <div className="faq-enter px-4 pb-6 pt-2 text-gray-700 text-sm border-t border-gray-100 bg-white leading-relaxed">
+                                                                                                                {faq.a}
+                                                                                                            </div>
+                                                                                                        )}
+                                                                                                    </div>
+                                                                                                );
+                                                                                            })}
                                                                                         </div>
-                                                                                    )}
-                                                                                </>
-                                                                            );
-                                                                        })()}
-                                                                    </div>
-                                                                )}
-                                                            </div>
+
+                                                                                        {/* Pagination par points */}
+                                                                                        {pageCount > 1 && (
+                                                                                            <div className="flex justify-center gap-2 pt-2">
+                                                                                                {Array.from({ length: pageCount }).map((_, idx) => (
+                                                                                                    <button
+                                                                                                        key={idx}
+                                                                                                        onClick={() => setFaqPages(prev => ({ ...prev, [formation.id]: idx }))}
+                                                                                                        className={`h-3 rounded-full transition-all duration-300 border-none outline-none ring-0 ${currentPage === idx ? 'w-10' : 'w-3 bg-gray-200 hover:bg-gray-300'
+                                                                                                            }`}
+                                                                                                        style={{ backgroundColor: currentPage === idx ? theme.color : undefined }}
+                                                                                                    />
+                                                                                                ))}
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </>
+                                                                                );
+                                                                            })()}
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            </div >
                                                         )}
-                                                    </div>
+                                                    </div >
                                                 );
                                             })}
-                                        </div>
-                                    </div>
+                                        </div >
+                                    </div >
                                 )}
-                            </div>
+                            </div >
                         );
                     })}
-                </div>
-            </div>
+                </div >
+            </div >
 
             {/* MODAL PLEIN ÉCRAN PDF */}
-            {fullscreenPdf && (
-                <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col">
-                    <div className="flex items-center justify-between p-6 bg-gray-900">
-                        <div className="flex items-center gap-4">
-                            <BookOpen className="w-6 h-6 text-orange-400" />
-                            <h3 className="text-white font-bold text-xl">{fullscreenPdf.title}</h3>
+            {
+                fullscreenPdf && (
+                    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col">
+                        <div className="flex items-center justify-between p-6 bg-gray-900">
+                            <div className="flex items-center gap-4">
+                                <BookOpen className="w-6 h-6 text-orange-400" />
+                                <h3 className="text-white font-bold text-xl">{fullscreenPdf.title}</h3>
+                            </div>
+                            <button
+                                onClick={() => setFullscreenPdf(null)}
+                                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0"
+                            >
+                                <X className="w-6 h-6 text-white" />
+                            </button>
                         </div>
-                        <button
-                            onClick={() => setFullscreenPdf(null)}
-                            className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0"
-                        >
-                            <X className="w-6 h-6 text-white" />
-                        </button>
+                        <div className="flex-1 bg-gray-100 p-4">
+                            <iframe
+                                src={`${fullscreenPdf.pdf}#view=FitH`}
+                                className="w-full h-full rounded-2xl shadow-2xl border-none bg-white"
+                                title={fullscreenPdf.title}
+                            />
+                        </div>
                     </div>
-                    <div className="flex-1 bg-gray-100 p-4">
-                        <iframe
-                            src={`${fullscreenPdf.pdf}#view=FitH`}
-                            className="w-full h-full rounded-2xl shadow-2xl border-none bg-white"
-                            title={fullscreenPdf.title}
-                        />
-                    </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 };
 
