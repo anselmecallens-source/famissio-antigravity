@@ -388,7 +388,7 @@ const MissionsPage = () => {
                 2026
               </h2>
               <p className="text-2xl mb-8 location-text font-semibold text-orange-200">
-                Diocèse de La Rochelle, Angoulême et Poitiers
+                Diocèse de La Rochelle, Angoulême et Tulle
               </p>
               <div className="flex items-center gap-4 text-3xl font-bold mb-8">
                 <Calendar className="w-10 h-10 text-orange-400" />
