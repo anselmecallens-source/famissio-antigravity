@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
 // URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
@@ -7,6 +7,20 @@ const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  useEffect(() => {
+    const existingScript = document.getElementById('datawrapper-script-otsD1');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.id = 'datawrapper-script-otsD1';
+      script.src = 'https://datawrapper.dwcdn.net/otsD1/embed.js';
+      script.type = 'text/javascript';
+      script.async = true;
+      script.charset = 'utf-8';
+      script.setAttribute('data-target', '#datawrapper-vis-otsD1');
+      document.body.appendChild(script);
+    }
+  }, []);
 
   // Fonction pour ouvrir une mission et reset la vidéo
   const handleOpenMission = (mission) => {
@@ -330,6 +344,9 @@ const MissionsPage = () => {
             transform: scale(1.65) !important;
         }
 
+        /* Datawrapper transparency */
+        #datawrapper-vis-otsD1, #datawrapper-vis-otsD1 iframe { background: transparent !important; }
+
         /* Suppression des scrollbars par défaut dans le modal si nécessaire */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -399,13 +416,16 @@ const MissionsPage = () => {
                 Inscrivez-vous dès maintenant pour vivre cette aventure extraordinaire !
               </p>
             </div>
-            <div className="flex items-center justify-center">
-              <img
-                src={CARTE_MISSION_2026_URL}
-                alt="Carte Mission 2026"
-                className="relative z-10 w-full max-w-lg mx-auto h-auto object-contain transition-transform duration-500"
-                style={{ background: 'transparent' }}
-              />
+            <div className="flex items-center justify-center w-full">
+              <div
+                id="datawrapper-vis-otsD1"
+                className="w-full max-w-lg mx-auto"
+                style={{ minHeight: '500px', background: 'transparent' }}
+              >
+                <noscript>
+                  <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
+                </noscript>
+              </div>
             </div>
           </div>
         </div>
