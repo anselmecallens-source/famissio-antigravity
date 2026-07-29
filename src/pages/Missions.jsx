@@ -418,13 +418,18 @@ const MissionsPage = () => {
             </div>
             <div className="flex items-center justify-center w-full">
               <div
-                id="datawrapper-vis-otsD1"
-                className="w-full max-w-lg mx-auto"
-                style={{ minHeight: '500px', background: 'transparent' }}
+                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-xl"
+                style={{ maxHeight: '525px', background: 'transparent' }}
               >
-                <noscript>
-                  <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
-                </noscript>
+                <div
+                  id="datawrapper-vis-otsD1"
+                  className="w-full"
+                  style={{ minHeight: '580px', background: 'transparent' }}
+                >
+                  <noscript>
+                    <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
+                  </noscript>
+                </div>
               </div>
             </div>
           </div>
