@@ -160,13 +160,13 @@ const Accueil = () => {
         {
             id: 1,
             title: 'ENVOI EN MISSION',
-            image: 'https://www.dropbox.com/scl/fi/0a64bir0kadzwru489vpi/Envoi-en-mission.JPG?rlkey=kxxzzmbqln98mmrwrb3zwtf4m&st=hn1o89fm&raw=1',
+            image: '/assets/images/6 piliers de la mission/Envoi en mission.webp',
             content: "La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."
         },
         {
             id: 2,
             title: 'FORMATION',
-            image: 'https://www.dropbox.com/scl/fi/fhykigm13z8v70eoaitjf/Formation.jpg?rlkey=czkb0imqdflyjnkoti69t1mk4&st=ykiwzs1u&raw=1',
+            image: '/assets/images/6 piliers de la mission/Formation.webp',
             items: [
                 "Formation et jeux de rôle pour les Famissionnaires comme pour les Paroissiens le Dimanche après-midi",
                 "Préparation d'un témoignage personnel, pendant laquelle chacun revisite, sous le regard de Dieu, sa propre histoire sainte",
@@ -178,7 +178,7 @@ const Accueil = () => {
         {
             id: 3,
             title: 'TEMPS DE PRIÈRE',
-            image: 'https://www.dropbox.com/scl/fi/1uf5lgrz3ubeensny1ltn/Temps-de-pri-re.jpg?rlkey=rwtp06i5tygdxwix53uz226ne&st=dvrujw52&raw=1',
+            image: '/assets/images/6 piliers de la mission/Temps de prière.webp',
             items: [
                 "Chaque journée commence par une heure de laudes, louanges, adoration et formation",
                 "Une messe quotidienne",
@@ -189,7 +189,7 @@ const Accueil = () => {
         {
             id: 4,
             title: 'DES TEMPS DE MISSION',
-            image: 'https://www.dropbox.com/scl/fi/eu2wp13sj54hpgudzgh6n/Temps-d-vang-lisation.jpg?rlkey=ncl3ecrmn4tadb0ih69zrnr05&st=a6zdzst0&raw=1',
+            image: '/assets/images/6 piliers de la mission/Temps d évangélisation.webp',
             items: [
                 "Visitations dans la rue et sur les marchés",
                 "Porte-à-porte",
@@ -197,14 +197,14 @@ const Accueil = () => {
                 "Journée des familles",
                 "Pièces de théâtre sur les places publiques",
                 "Processions, chemins de croix",
-                "Visites aux AHPAD",
+                "Visites aux EHPAD",
                 "Concert polyphonique dans la rue"
             ]
         },
         {
             id: 5,
             title: 'TEMPS FRATERNELS',
-            image: 'https://www.dropbox.com/scl/fi/naxdurchcbr4k0vkycggx/Temps-fraternel.JPG?rlkey=toi143khnnga1z84rm9krji0q&st=yqqsx43l&raw=1',
+            image: '/assets/images/6 piliers de la mission/Temps fraternel.webp',
             items: [
                 "Repas entre Famissionnaires et Paroissiens",
                 "Soirée jeux pour apprendre à se connaître",
@@ -215,7 +215,7 @@ const Accueil = () => {
         {
             id: 6,
             title: 'VEILLÉES',
-            image: 'https://www.dropbox.com/scl/fi/a5f21rcwnpd6nxgw3xnsg/Veill-s.JPG?rlkey=uk6xbv20bbckzjgg7gycbu1jv&st=wck9z4z0&raw=1',
+            image: '/assets/images/6 piliers de la mission/Veillés.webp',
             items: [
                 "Veillée Miséricorde",
                 "Veillée sur le thème de l'au-delà et de nos défunts",
@@ -1343,7 +1343,7 @@ const Accueil = () => {
                     <div className="hero-content">
 
                         <img
-                            src="https://www.dropbox.com/scl/fi/w1mr871tpt818u1kgpjxm/Logo-Famissio-blanc.png?rlkey=8nxqxjka5gxp1sdzzfr1wx7v8&st=orb2ajfg&raw=1"
+                            src="/assets/images/Logo Famissio blanc.png"
                             alt="Famissio Logo"
                             className="mobile-hero-logo"
                         />
@@ -1355,7 +1355,7 @@ const Accueil = () => {
 
                         <div className="mobile-hero-insert">
                             <div className="image-blob">
-                                <img src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp" alt="Équipe Famissio" />
+                                <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
                             </div>
                             <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
                             <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
@@ -1369,7 +1369,7 @@ const Accueil = () => {
                 </div>
                 <div className="hero-right">
                     <div className="image-blob">
-                        <img src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/w2giupgix5rjmf8k97485/Famissio-252.jpg%3Frlkey=t9adnjqx59rmrid5540asx2cw%26st=41ucuw6p%26raw=1&w=1000&output=webp" alt="Équipe Famissio" />
+                        <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
                     </div>
                     <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
                     <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
@@ -1390,7 +1390,7 @@ const Accueil = () => {
                 <div className="story-grid">
                     <div className="image-wrap">
                         <div className="main-img">
-                            <img src="https://www.dropbox.com/scl/fi/1yhtq4m69r3azt0bwfhlr/facebook_1607379806212_6741839550715485834.jpg?rlkey=wphw7agzoatzbs9j5lrqucvnb&st=08zbyaix&raw=1" alt="Équipe" loading="lazy" />
+                            <img src="/assets/images/facebook_1607379806212_6741839550715485834.jpg" alt="Équipe" loading="lazy" />
                         </div>
                         <div className="accent-shape"></div>
                     </div>
@@ -1548,7 +1548,7 @@ const Accueil = () => {
                 <div className="team-layout">
                     <div className="team-image-box">
                         <div className="team-image">
-                            <img src="https://www.dropbox.com/scl/fi/x300cci110rnj6oe3e2w9/Equipe-missionnaire.jpg?rlkey=2huvhwb36hzwlatnc5cmb2aav&st=74cc3r4o&raw=1" alt="Équipe" loading="lazy" />
+                            <img src="/assets/images/Equipe missionnaire.webp" alt="Équipe" loading="lazy" />
                         </div>
                     </div>
                     <div className="team-content">
@@ -1780,7 +1780,7 @@ const Accueil = () => {
                 <section className="toussaint-clean">
                     <div className="toussaint-bg">
                         <img
-                            src="https://wsrv.nl/?url=https://www.dropbox.com/scl/fi/zacq8hzgkba4p8x5ra9nu/IMGP2672.JPG?rlkey=s52pp70wd3xpqii5sj9r7p7n9%26st=cviy7u1j%26raw=1&w=1920&output=webp&q=85"
+                            src="/assets/images/IMGP2672.JPG"
                             alt="Mission Toussaint"
                             loading="lazy"
                         />
@@ -2317,7 +2317,7 @@ const Accueil = () => {
             {/* PRIEST */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
-                    <img src="https://www.dropbox.com/scl/fi/dsno7gyihzu9cgldd8r8m/P-re-Jean-Pierre-Barri-re.jpg?rlkey=4bgn6q71xyk271zuo9hz04qkd&st=26utw72b&raw=1" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
+                    <img src="/assets/images/Père Jean Pierre Barrière.webp" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
                     <div className="priest-name-zone">
                         <h2>Père Jean-Pierre Barrière</h2>
                         <p>Aumônier de Famissio</p>
@@ -2354,7 +2354,7 @@ const Accueil = () => {
             <section className="section-cream">
                 <div className="container">
                     <div className="pope-intro">
-                        <img src="https://www.dropbox.com/scl/fi/iqxyup7a7ovqdx1scs9ey/Pape-Fran-ois.jpg?rlkey=efa3ype4bq4pdw4ot4sttzj3f&st=po7qa19c&raw=1" alt="Pape François" className="pope-image" loading="lazy" />
+                        <img src="/assets/images/Pape François.webp" alt="Pape François" className="pope-image" loading="lazy" />
                         <h2>Pape François</h2>
                     </div>
 
@@ -2409,7 +2409,7 @@ const Accueil = () => {
             {/* PRAYER */}
             <div className="prayer">
                 <div className="prayer-logo">
-                    <img src="https://www.dropbox.com/scl/fi/9c4wjresj75ggoruwqwpp/Logo-Famissio-rouge.png?rlkey=td18v0flur03xqsroyazjh1l6&st=vqgiyjx2&raw=1" alt="Logo Prière" loading="lazy" />
+                    <img src="/assets/images/Logo Famissio rouge.webp" alt="Logo Prière" loading="lazy" />
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>

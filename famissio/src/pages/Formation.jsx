@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Heart, Maximize2 } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Maximize2, Send, Bird } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FormationsPage = () => {
-    const [activeThemeId, setActiveThemeId] = useState(null);
     const [activeFormationId, setActiveFormationId] = useState(null);
     const [fullscreenPdf, setFullscreenPdf] = useState(null);
     const [expandedFaqs, setExpandedFaqs] = useState({});
@@ -267,7 +267,7 @@ const FormationsPage = () => {
         },
         {
             id: 'spirituel',
-            icon: Heart,
+            icon: Flame,
             title: 'Vivre sa foi',
             count: 5,
             color: '#1a1a1a',
@@ -387,7 +387,7 @@ const FormationsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-slate-50">
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
                 
@@ -423,236 +423,280 @@ const FormationsPage = () => {
             `}</style>
 
             {/* HERO */}
-            <div className="relative bg-white text-gray-900 overflow-hidden">
+            <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-100 blob opacity-30"></div>
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-100 blob opacity-30" style={{ animationDelay: '2s' }}></div>
+                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
                 </div>
                 <div className="relative max-w-7xl mx-auto px-6 py-24">
-                    <h1 className="text-5xl md:text-7xl lg:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                         Formations
                     </h1>
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
                         Des outils concrets pour approfondir votre foi et mieux en témoigner.
                     </p>
                 </div>
             </div>
-            <div className="bg-orange-50 h-12 border-y border-orange-100"></div>
 
-            {/* CONTENU - ACCORDÉONS */}
-            <div className="max-w-7xl mx-auto px-6 py-12">
-                <div className="space-y-6 mb-[100px] lg:mb-[200px]">
+            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+
+            {/* SECTION INTRODUCTIVE - POURQUOI SE FORMER */}
+            <div className="relative overflow-hidden py-16 lg:py-24">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-8 leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                Pourquoi se former avec <span className="text-orange-600">Famissio ?</span>
+                            </h2>
+                            <div className="space-y-6 text-lg text-gray-700 font-medium leading-relaxed">
+                                <p>
+                                    Se former est une responsabilité envers ceux que nous rencontrons. C'est s'assurer que nos paroles restent fidèles au <span className="text-orange-600 font-bold">Credo de l'Église</span> et ne s'égarent pas dans des interprétations personnelles.
+                                </p>
+                                <p>
+                                    La formation nous donne l'assurance nécessaire pour témoigner, mais elle nous apprend aussi l'art de <span className="text-gray-900 font-bold">l'écoute</span>. Avant de vouloir convaincre, il s'agit de rejoindre l'autre là où il en est, avec humilité et respect.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="bg-white p-8 lg:p-12 rounded-[40px] shadow-xl border border-orange-100 relative group transition-all duration-500 hover:shadow-2xl overflow-hidden">
+                            {/* Décoration subtile */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
+
+                            <div className="relative space-y-6">
+                                <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center mb-6">
+                                    <Bird className="w-6 h-6 text-orange-600" />
+                                </div>
+
+                                <blockquote className="text-xl lg:text-2xl font-bold text-gray-900 leading-snug italic" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                    "Rappelez-vous qu'il n'existe pas de réponses toutes faites. L'Esprit Saint vous soufflera, le moment venu, la parole juste qui saura rejoindre la personne rencontrée."
+                                </blockquote>
+
+                                <div className="pt-4 border-t border-gray-100">
+                                    <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                                        Vous êtes avant tout les <span className="font-bold">instruments du Seigneur</span> : le plus important est de rester à l'écoute de l'autre et de porter cette rencontre dans la prière.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* CONTENU - GRILLE PAR THÈME */}
+            <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
+                <div className="space-y-20 mb-[100px] lg:mb-[200px]">
                     {themes.map((theme) => {
-                        const isThemeOpen = activeThemeId === theme.id;
-
                         return (
-                            <div
-                                key={theme.id}
-                                className="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
-                            >
+                            <div key={theme.id}>
                                 {/* En-tête du thème */}
-                                <button
-                                    onClick={() => {
-                                        console.log('Toggling Theme:', theme.id);
-                                        setActiveThemeId(prev => prev === theme.id ? null : theme.id);
-                                        setActiveFormationId(null);
-                                    }}
-                                    className="w-full p-8 flex items-center justify-between group hover:bg-gray-50 transition-all border-none outline-none ring-0 focus:ring-0"
-                                >
-                                    <div className="flex items-center gap-6">
-                                        <div
-                                            className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform ${isThemeOpen ? 'scale-110 pulse-ring' : ''
-                                                }`}
-                                            style={{ backgroundColor: theme.color }}
-                                        >
-                                            {React.createElement(theme.icon, { className: "w-8 h-8" })}
-                                        </div>
-                                        <div className="text-left">
-                                            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-1" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                <div className="flex items-center gap-5 mb-8">
+                                    <div
+                                        className="rounded-2xl flex items-center justify-center text-white shadow-lg shrink-0"
+                                        style={{ backgroundColor: theme.color, width: '3.25rem', height: '3.25rem' }}
+                                    >
+                                        {React.createElement(theme.icon, { className: "w-7 h-7" })}
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-4 flex-wrap">
+                                            <h2 className="text-3xl lg:text-4xl font-black text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                                                 {theme.title}
                                             </h2>
-                                            <p className="text-gray-600 font-medium">
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full text-white uppercase tracking-wider" style={{ backgroundColor: theme.color }}>
                                                 {theme.count} formations
-                                            </p>
+                                            </span>
                                         </div>
                                     </div>
-                                    <div className={`w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center transition-all duration-300 ${isThemeOpen ? 'rotate-180 bg-orange-50' : ''
-                                        }`}>
-                                        <ChevronRight className={`w-6 h-6 transition-colors ${isThemeOpen ? 'text-orange-600' : 'text-gray-400'} transform rotate-90`} />
-                                    </div>
-                                </button>
+                                </div>
+                                <div className="h-px mb-8" style={{ background: `linear-gradient(to right, ${theme.color}50, transparent)` }}></div>
 
-                                {/* Liste des formations */}
-                                {isThemeOpen && (
-                                    <div className="slide-down border-t border-gray-100">
-                                        <div className="p-6 space-y-4 bg-white">
-                                            {theme.formations.map((formation, idx) => {
-                                                const isOpen = activeFormationId === formation.id;
+                                {/* Grille des formations */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {theme.formations.map((formation, idx) => {
+                                        const isOpen = activeFormationId === formation.id;
 
-                                                return (
-                                                    <div
-                                                        key={formation.id}
-                                                        className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:border-gray-200 transition-all"
-                                                    >
-                                                        <div className="p-6 flex items-start gap-4">
-                                                            <span
-                                                                className="text-4xl font-black opacity-20 shrink-0"
-                                                                style={{ fontFamily: 'Space Grotesk, sans-serif', color: theme.color }}
-                                                            >
-                                                                {String(idx + 1).padStart(2, '0')}
-                                                            </span>
-                                                            <div className="flex-1 min-w-0">
-                                                                <h3 className="text-xl font-bold text-gray-900 leading-tight mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                                                                    {formation.title}
-                                                                </h3>
-                                                                <p className="text-gray-600 text-sm mb-4">{formation.intro}</p>
+                                        return (
+                                            <div
+                                                key={formation.id}
+                                                className={`bg-white rounded-2xl border-2 transition-all duration-300 overflow-hidden flex flex-col ${isOpen ? 'shadow-xl' : 'border-gray-100 hover:border-gray-200 hover:shadow-md shadow-sm'}`}
+                                                style={{ borderColor: isOpen ? theme.color : undefined }}
+                                            >
+                                                <div className="p-5 flex flex-col flex-1">
+                                                    <div className="flex items-start gap-3 mb-3">
+                                                        <span
+                                                            className="text-3xl font-black opacity-15 shrink-0 leading-none"
+                                                            style={{ fontFamily: 'Space Grotesk, sans-serif', color: theme.color }}
+                                                        >
+                                                            {String(idx + 1).padStart(2, '0')}
+                                                        </span>
+                                                        <h3 className="text-lg font-bold text-gray-900 leading-tight pt-1" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                                            {formation.title}
+                                                        </h3>
+                                                    </div>
+                                                    <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{formation.intro}</p>
+                                                    <div className="flex gap-2 mt-auto">
+                                                        <button
+                                                            onClick={() => setActiveFormationId(prev => prev === formation.id ? null : formation.id)}
+                                                            className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 border-none outline-none ring-0 shadow-none"
+                                                        >
+                                                            <BookOpen className="w-4 h-4" />
+                                                            {isOpen ? 'Fermer' : 'Voir'}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setFullscreenPdf(formation)}
+                                                            className="px-4 py-2.5 text-white rounded-xl font-semibold text-sm transition-all flex items-center gap-2 hover:opacity-90 border-none outline-none ring-0 shadow-none"
+                                                            style={{ backgroundColor: theme.color }}
+                                                        >
+                                                            <Maximize2 className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                </div>
 
-                                                                <div className="flex gap-2">
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            console.log('Toggling Formation:', formation.id);
-                                                                            setActiveFormationId(prev => prev === formation.id ? null : formation.id);
-                                                                        }}
-                                                                        className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 border-none outline-none ring-0 shadow-none"
-                                                                    >
-                                                                        <BookOpen className="w-4 h-4" />
-                                                                        {isOpen ? 'Fermer' : 'Voir la formation'}
-                                                                    </button>
-                                                                    <button
-                                                                        onClick={() => setFullscreenPdf(formation)}
-                                                                        className="px-4 py-2 text-white rounded-xl font-semibold text-sm transition-all flex items-center gap-2 hover:opacity-90 border-none outline-none ring-0 shadow-none"
-                                                                        style={{ backgroundColor: theme.color }}
-                                                                    >
-                                                                        <Maximize2 className="w-4 h-4" />
-                                                                        Plein écran
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                {/* Contenu étendu - sous la carte, pleine largeur via col-span */}
+                                                {isOpen && (
+                                                    <div className="slide-down border-t-2 p-6 bg-slate-50" style={{ borderColor: theme.color }}>
+                                                        {/* PDF Mini */}
+                                                        <div className="mb-6 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                                                            <iframe
+                                                                src={`https://docs.google.com/gview?url=${encodeURIComponent(formation.pdf)}&embedded=true`}
+                                                                className="w-full h-80 border-none bg-white"
+                                                                title={formation.title}
+                                                            />
                                                         </div>
 
-                                                        {/* Contenu étendu */}
-                                                        {isOpen && (
-                                                            <div className="slide-down border-t border-gray-100 p-6 bg-white">
-                                                                {/* PDF Mini */}
-                                                                <div className="mb-6 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                                                    <iframe
-                                                                        src={`https://docs.google.com/gview?url=${encodeURIComponent(formation.pdf)}&embedded=true`}
-                                                                        className="w-full h-96 border-none bg-white"
-                                                                        title={formation.title}
-                                                                    />
-                                                                </div>
+                                                        {/* FAQ avec pagination */}
+                                                        {formation.faqs && formation.faqs.length > 0 && (
+                                                            <div>
+                                                                <h4 className="text-base font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                                                    <MessageCircle className="w-4 h-4" style={{ color: theme.color }} />
+                                                                    Questions fréquentes
+                                                                </h4>
+                                                                {(() => {
+                                                                    const currentFaqs = formation.faqs;
+                                                                    const itemsPerPage = 4;
+                                                                    const currentPage = faqPages[formation.id] || 0;
+                                                                    const pageCount = Math.ceil(currentFaqs.length / itemsPerPage);
+                                                                    const displayedFaqs = currentFaqs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
-                                                                {/* FAQ avec pagination */}
-                                                                {formation.faqs && formation.faqs.length > 0 && (
-                                                                    <div>
-                                                                        <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                                                            <MessageCircle className="w-5 h-5" style={{ color: theme.color }} />
-                                                                            Questions fréquentes
-                                                                        </h4>
-                                                                        {(() => {
-                                                                            const currentFaqs = formation.faqs;
-                                                                            const itemsPerPage = 4;
-                                                                            const currentPage = faqPages[formation.id] || 0;
-                                                                            const pageCount = Math.ceil(currentFaqs.length / itemsPerPage);
-                                                                            const displayedFaqs = currentFaqs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+                                                                    return (
+                                                                        <>
+                                                                            <div className="space-y-3 mb-6">
+                                                                                {displayedFaqs.map((faq, faqIdx) => {
+                                                                                    const absoluteIdx = (currentPage * itemsPerPage) + faqIdx;
+                                                                                    const faqKey = `${formation.id}-${absoluteIdx}`;
+                                                                                    const isFaqOpen = expandedFaqs[faqKey];
 
-                                                                            return (
-                                                                                <>
-                                                                                    <div className="space-y-3 mb-6">
-                                                                                        {displayedFaqs.map((faq, faqIdx) => {
-                                                                                            const absoluteIdx = (currentPage * itemsPerPage) + faqIdx;
-                                                                                            const faqKey = `${formation.id}-${absoluteIdx}`;
-                                                                                            const isFaqOpen = expandedFaqs[faqKey];
-
-                                                                                            return (
+                                                                                    return (
+                                                                                        <div
+                                                                                            key={absoluteIdx}
+                                                                                            className={`bg-white rounded-xl border transition-all duration-300 overflow-hidden ${isFaqOpen ? 'border-orange-200 shadow-md' : 'border-gray-200 hover:border-gray-300'
+                                                                                                }`}
+                                                                                        >
+                                                                                            <button
+                                                                                                onClick={() => toggleFaq(formation.id, faqKey)}
+                                                                                                className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all border-none outline-none ring-0"
+                                                                                            >
+                                                                                                <span className={`font-semibold text-sm pr-3 transition-colors ${isFaqOpen ? 'text-gray-900' : 'text-gray-700'
+                                                                                                    }`}>
+                                                                                                    {faq.q}
+                                                                                                </span>
                                                                                                 <div
-                                                                                                    key={absoluteIdx}
-                                                                                                    className={`bg-white rounded-xl border transition-all duration-300 overflow-hidden ${isFaqOpen ? 'border-orange-200 shadow-md' : 'border-gray-200 hover:border-gray-300'
+                                                                                                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isFaqOpen ? 'bg-orange-100 rotate-180' : 'bg-gray-50'
                                                                                                         }`}
                                                                                                 >
-                                                                                                    <button
-                                                                                                        onClick={() => toggleFaq(formation.id, faqKey)}
-                                                                                                        className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all border-none outline-none ring-0"
-                                                                                                    >
-                                                                                                        <span className={`font-semibold text-sm pr-3 transition-colors ${isFaqOpen ? 'text-gray-900' : 'text-gray-700'
-                                                                                                            }`}>
-                                                                                                            {faq.q}
-                                                                                                        </span>
-                                                                                                        <div
-                                                                                                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isFaqOpen ? 'bg-orange-100 rotate-180' : 'bg-gray-50'
-                                                                                                                }`}
-                                                                                                        >
-                                                                                                            <ChevronDown className={`w-5 h-5 transition-colors ${isFaqOpen ? 'text-orange-600' : 'text-gray-400'
-                                                                                                                }`} />
-                                                                                                        </div>
-                                                                                                    </button>
-                                                                                                    {isFaqOpen && (
-                                                                                                        <div className="faq-enter px-4 pb-6 pt-2 text-gray-700 text-sm border-t border-gray-100 bg-white leading-relaxed">
-                                                                                                            {faq.a}
-                                                                                                        </div>
-                                                                                                    )}
+                                                                                                    <ChevronDown className={`w-5 h-5 transition-colors ${isFaqOpen ? 'text-orange-600' : 'text-gray-400'
+                                                                                                        }`} />
                                                                                                 </div>
-                                                                                            );
-                                                                                        })}
-                                                                                    </div>
-
-                                                                                    {/* Pagination par points */}
-                                                                                    {pageCount > 1 && (
-                                                                                        <div className="flex justify-center gap-2 pt-2">
-                                                                                            {Array.from({ length: pageCount }).map((_, idx) => (
-                                                                                                <button
-                                                                                                    key={idx}
-                                                                                                    onClick={() => setFaqPages(prev => ({ ...prev, [formation.id]: idx }))}
-                                                                                                    className={`h-3 rounded-full transition-all duration-300 border-none outline-none ring-0 ${currentPage === idx ? 'w-10' : 'w-3 bg-gray-200 hover:bg-gray-300'
-                                                                                                        }`}
-                                                                                                    style={{ backgroundColor: currentPage === idx ? theme.color : undefined }}
-                                                                                                />
-                                                                                            ))}
+                                                                                            </button>
+                                                                                            {isFaqOpen && (
+                                                                                                <div className="faq-enter px-4 pb-6 pt-2 text-gray-700 text-sm border-t border-gray-100 bg-white leading-relaxed">
+                                                                                                    {faq.a}
+                                                                                                </div>
+                                                                                            )}
                                                                                         </div>
-                                                                                    )}
-                                                                                </>
-                                                                            );
-                                                                        })()}
-                                                                    </div>
-                                                                )}
+                                                                                    );
+                                                                                })}
+                                                                            </div>
+
+                                                                            {/* Pagination par points */}
+                                                                            {pageCount > 1 && (
+                                                                                <div className="flex justify-center gap-2 pt-2">
+                                                                                    {Array.from({ length: pageCount }).map((_, idx) => (
+                                                                                        <button
+                                                                                            key={idx}
+                                                                                            onClick={() => setFaqPages(prev => ({ ...prev, [formation.id]: idx }))}
+                                                                                            className={`h-3 rounded-full transition-all duration-300 border-none outline-none ring-0 ${currentPage === idx ? 'w-10' : 'w-3 bg-gray-200 hover:bg-gray-300'
+                                                                                                }`}
+                                                                                            style={{ backgroundColor: currentPage === idx ? theme.color : undefined }}
+                                                                                        />
+                                                                                    ))}
+                                                                                </div>
+                                                                            )}
+                                                                        </>
+                                                                    );
+                                                                })()}
                                                             </div>
                                                         )}
                                                     </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                )}
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         );
                     })}
                 </div>
+
+                {/* SECTION CONTACT CTA */}
+                <div className="max-w-4xl mx-auto px-6 mb-32">
+                    <div className="bg-gray-900 rounded-[40px] p-12 text-center relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+                        <div className="relative">
+                            <h2 className="text-3xl lg:text-4xl font-black text-white mb-6" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                Une autre formation en tête ?
+                            </h2>
+                            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                                S'il y a des thèmes ou des formations que vous auriez aimé trouver dans notre catalogue, n'hésitez pas à nous en faire part !
+                            </p>
+                            <Link
+                                to="/contact"
+                                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 rounded-2xl font-black transition-all hover:bg-orange-50 hover:scale-105 active:scale-95 shadow-xl"
+                            >
+                                <Send className="w-5 h-5 text-orange-600" />
+                                Dites-le nous
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* MODAL PLEIN ÉCRAN PDF */}
-            {fullscreenPdf && (
-                <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col">
-                    <div className="flex items-center justify-between p-6 bg-gray-900">
-                        <div className="flex items-center gap-4">
-                            <BookOpen className="w-6 h-6 text-orange-400" />
-                            <h3 className="text-white font-bold text-xl">{fullscreenPdf.title}</h3>
+            {
+                fullscreenPdf && (
+                    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col">
+                        <div className="flex items-center justify-between p-6 bg-gray-900">
+                            <div className="flex items-center gap-4">
+                                <BookOpen className="w-6 h-6 text-orange-400" />
+                                <h3 className="text-white font-bold text-xl">{fullscreenPdf.title}</h3>
+                            </div>
+                            <button
+                                onClick={() => setFullscreenPdf(null)}
+                                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0"
+                            >
+                                <X className="w-6 h-6 text-white" />
+                            </button>
                         </div>
-                        <button
-                            onClick={() => setFullscreenPdf(null)}
-                            className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0"
-                        >
-                            <X className="w-6 h-6 text-white" />
-                        </button>
+                        <div className="flex-1 bg-gray-100 p-4">
+                            <iframe
+                                src={`${fullscreenPdf.pdf}#view=FitH`}
+                                className="w-full h-full rounded-2xl shadow-2xl border-none bg-white"
+                                title={fullscreenPdf.title}
+                            />
+                        </div>
                     </div>
-                    <div className="flex-1 bg-gray-100 p-4">
-                        <iframe
-                            src={`${fullscreenPdf.pdf}#view=FitH`}
-                            className="w-full h-full rounded-2xl shadow-2xl border-none bg-white"
-                            title={fullscreenPdf.title}
-                        />
-                    </div>
-                </div>
-            )}
+                )
+            }
         </div>
     );
 };

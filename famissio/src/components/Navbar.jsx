@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../index.css';
 
-const LOGO_NAV = "https://www.dropbox.com/scl/fi/w1mr871tpt818u1kgpjxm/Logo-Famissio-blanc.png?rlkey=8nxqxjka5gxp1sdzzfr1wx7v8&st=orb2ajfg&raw=1";
+const LOGO_NAV = "/assets/images/Logo Famissio blanc.png";
 
 const Navbar = () => {
   const location = useLocation();
@@ -78,7 +78,7 @@ const Navbar = () => {
           <div className="mobile-logo">
             <Link to="/" onClick={closeMenu}>
               <img
-                src="https://www.dropbox.com/scl/fi/9c4wjresj75ggoruwqwpp/Logo-Famissio-rouge.png?rlkey=td18v0flur03xqsroyazjh1l6&st=vqgiyjx2&raw=1"
+                src="/assets/images/Logo Famissio rouge.webp"
                 alt="Famissio Logo Mobile"
               />
             </Link>

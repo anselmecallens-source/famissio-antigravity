@@ -92,20 +92,38 @@ export default function Priere() {
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <div className="relative overflow-hidden pt-12 pb-6">
-                <div className="relative max-w-5xl mx-auto px-6">
-                    <div className="text-center">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
+                
+                .blob {
+                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                    animation: morph 8s ease-in-out infinite;
+                }
+                
+                @keyframes morph {
+                    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+                    50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+                }
+            `}</style>
 
-                        <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight text-red-700" style={{ fontFamily: "'Playfair Display', serif" }}>
-                            Prière de Famissio
-                        </h1>
-                        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
-                            Une prière pour inspirer la mission et la foi dans nos cœurs
-                        </p>
-                    </div>
+            {/* HERO */}
+            <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+                <div className="absolute inset-0">
+                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+                </div>
+
+                <div className="relative max-w-7xl mx-auto px-6 py-24">
+                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                        Prière
+                    </h1>
+                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+                        Une prière pour inspirer la mission et la foi dans nos cœurs.
+                    </p>
                 </div>
             </div>
+
+            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
             {/* Main Content - Full Width Mobile / Boxed Desktop */}
             <div className="w-full md:max-w-5xl md:mx-auto md:px-6 py-12 md:py-12 space-y-[135px] md:space-y-24 pb-20">

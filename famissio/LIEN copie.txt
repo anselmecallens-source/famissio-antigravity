@@ -1,4 +1,1 @@
-npm run dev
-
-
-npm run dev --prefix famissio -- --host
+npm run dev --prefix famissio -- --host 0.0.0.0

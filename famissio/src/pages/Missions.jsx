@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
 // URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
-const CARTE_MISSION_2026_URL = 'https://www.dropbox.com/scl/fi/3yzjfhbkz9leutyu942bg/Carte_mission_2026.png?rlkey=zk75bjnvzu5emaygefgjbxeev&st=gzhh3a6d&raw=1';
+const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
@@ -55,7 +55,7 @@ const MissionsPage = () => {
       location: 'Limousin & Charente',
       diocese: 'Limoges, Angoulême, Tulle',
       participants: '380',
-      image: 'https://www.dropbox.com/scl/fi/gs1ubcrv9xjqmp313f8d7/Groupe-2025.JPG?rlkey=h27o0wozxxa9uggcpzl34493z&st=plymodzr&raw=1',
+      image: '/assets/images/Groupe 2025.webp',
       cities: ['Confolens', 'Terres-de-Haute-Charente', 'La Rochefoucauld', 'Limoges', 'Nantiat', 'Boisseuil', 'Brive-la-Gaillarde'],
       story: `380 Famissionnaires se sont retrouvés pour un envoi en mission autour de Monseigneur Gosselin. Ils se sont ensuite répartis entre 8 paroisses.
       
@@ -82,7 +82,7 @@ const MissionsPage = () => {
       location: 'Lozère, Aveyron, Cantal, Orne',
       diocese: 'Mende, Rodez, Saint-Flour, Séez',
       participants: '340',
-      image: 'https://www.dropbox.com/scl/fi/4ntkl4phubtubihjzt2bo/Groupe-2024.jpg?rlkey=an0idcz0143dtd3d0eadzl3us&st=3jkf2a5r&raw=1',
+      image: '/assets/images/Groupe 2024 .webp',
       cities: ['Massiac', 'Ruynes-en-Margeride', 'Saint-Chély-d\'Apcher', 'Marvejols', 'Mende', 'Millau', 'Vimoutiers'],
       story: `L'édition 2024 nous a emmenés dans des régions plus montagneuses, plus rurales aussi. Les habitants avaient le cœur ouvert et accueillaient facilement les rencontres. Les fruits ont été nombreux, la joie d'annoncer le Christ immense.
       
@@ -108,7 +108,7 @@ const MissionsPage = () => {
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '280',
-      image: 'https://www.dropbox.com/scl/fi/fkhlly77zj3zse6pm7ib9/Groupe-2023.jpg?rlkey=5naurijx6hv79x988ocfefgc1&st=sywqghnw&raw=1',
+      image: '/assets/images/Groupe 2023.webp',
       cities: ['La Souterraine', 'Guéret', 'Aubusson', 'Bourganeuf', 'Chénérailles', 'Gouzon'],
       story: `Pour l'édition Toussaint 2023, Monseigneur Bozo nous a gardés dans son propre diocèse !! Nous avons eu la joie de goûter à l'accueil incomparable des Creusois. Des liens forts se sont établis entre les paroissiens et Famissio.
       
@@ -133,7 +133,7 @@ const MissionsPage = () => {
       location: 'Alpes-de-Haute-Provence',
       diocese: 'Digne',
       participants: '260',
-      image: 'https://www.dropbox.com/scl/fi/535qp3971mdvhs1g6b99z/Groupe-2022.jpg?rlkey=6sdiai1vvyrhc0q7friftqog9&st=6nuf09ar&raw=1',
+      image: '/assets/images/Groupe 2022.webp',
       cities: ['Manosque', 'Oraison', 'Saint-Auban', 'Barcelonnette', 'Forcalquier', 'Digne', 'Banon'],
       story: `Pour l'édition Toussaint 2022, Monseigneur Bozo nous a envoyés dans cette si belle région des Alpes de Hautes-Provence !! Ce fut un véritable ravissement tant l'accueil reçu nous a profondément touchés.
       
@@ -160,7 +160,7 @@ const MissionsPage = () => {
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '180',
-      image: 'https://www.dropbox.com/scl/fi/hcg9hnxg7rjtfj42veart/Groupe-2021.jpg?rlkey=uqz2y7jdwjcd9f0xdt1ue0jat&st=5cc6cj5w&raw=1',
+      image: '/assets/images/Groupe 2021.webp',
       cities: ['Gouzon', 'Boussac', 'Genouillac', 'Bourganeuf', 'Eymoutiers', 'Chambon-sur-Voueize'],
       story: `La mission Toussaint 2021... Une belle édition ! 180 missionnaires, avec l'aide de fervents prêtres, séminaristes, religieuses et religieux se sont rendus cette année dans le diocèse de Limoges, dans la Creuse.
       
@@ -185,7 +185,7 @@ const MissionsPage = () => {
       location: 'Orne',
       diocese: 'Séez',
       participants: '90',
-      image: 'https://www.dropbox.com/scl/fi/qd8mjaxsk77koxw8lqd1z/Groupe-2020.jpg?rlkey=f3xm2i2w4o96yp04m51boiggp&st=apf1aqw7&raw=1',
+      image: '/assets/images/Groupe 2020.webp',
       cities: ['Alençon', 'Ecouché', 'L\'Aigle', 'Le Mêle-sur-Sarthe'],
       story: `4 paroisses devaient accueillir Famissio... jusqu'à l'arrivée du COVID qui a perturbé le projet initial !
       
@@ -208,7 +208,7 @@ const MissionsPage = () => {
       location: 'Creuse',
       diocese: 'Limoges',
       participants: '30',
-      image: 'https://www.dropbox.com/scl/fi/llacr38y9h7jlnngqzy8e/Groupe-2019.jpg?rlkey=f2akrwo3kjtc6adroe30hm7sn&st=ijdjpvp8&raw=1',
+      image: '/assets/images/Groupe 2019.webp',
       cities: ['Gouzon', 'Boussac'],
       story: `Une merveilleuse première mission nous a conduits dans la Creuse, dans un environnement très rural qui nous a beaucoup touchés.
       
@@ -230,7 +230,7 @@ const MissionsPage = () => {
       location: 'Villeneuve-la-Garenne',
       diocese: 'Villeneuve-la-Garenne',
       participants: null,
-      image: 'https://www.dropbox.com/scl/fi/1vtsnt5my7yxb92lk686h/Groupe-22-23.jpg?rlkey=x5p3x0lmo8rrv6gwxo2ao3wlm&st=e7hyvzds&raw=1',
+      image: '/assets/images/Groupe 22-23.jpg',
       cities: ['Villeneuve-la-Garenne'],
       story: `Famissio 92 a vécu une année merveilleuse avec les paroissiens très profonds, chaleureux, généreux et audacieux de Villeneuve-La-Garenne.
       
@@ -249,7 +249,7 @@ const MissionsPage = () => {
       location: 'Gennevilliers',
       diocese: 'Gennevilliers',
       participants: null,
-      image: 'https://www.dropbox.com/scl/fi/q9bsn70khk5gfjt9e1n3e/Groupe-2021-2022.jpg?rlkey=feaz7xkl08rdns5e8ghccdneu&st=579zxprb&raw=1',
+      image: '/assets/images/Groupe 2021-2022.jpg',
       cities: ['Gennevilliers'],
       story: `La première mission Famissio 92 vient de s'achever par une journée pleine de joie, d'entrain, d'audace et de rencontres.
       
@@ -366,7 +366,7 @@ const MissionsPage = () => {
             Nos Missions
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
             Chaque année à la Toussaint, nous organisons une mission diocésaine. Elle se prépare sur un an avec les paroisses pour adapter le programme à leurs besoins spécifiques.
           </p>
         </div>

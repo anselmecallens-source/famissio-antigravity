@@ -11,7 +11,7 @@ export default function MobileHeroV2() {
       {/* Logo en haut à droite */}
       <div className="mobile-hero-logo-wrapper">
         <img
-          src="https://www.dropbox.com/scl/fi/9c4wjresj75ggoruwqwpp/Logo-Famissio-rouge.png?rlkey=td18v0flur03xqsroyazjh1l6&st=vqgiyjx2&raw=1"
+          src="/assets/images/Logo Famissio rouge.webp"
           alt="Famissio"
           className="mobile-hero-logo-img"
         />
