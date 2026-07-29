@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
 // URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
@@ -7,20 +7,6 @@ const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
-  useEffect(() => {
-    const existingScript = document.getElementById('datawrapper-script-otsD1');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.id = 'datawrapper-script-otsD1';
-      script.src = 'https://datawrapper.dwcdn.net/otsD1/embed.js';
-      script.type = 'text/javascript';
-      script.async = true;
-      script.charset = 'utf-8';
-      script.setAttribute('data-target', '#datawrapper-vis-otsD1');
-      document.body.appendChild(script);
-    }
-  }, []);
 
   // Fonction pour ouvrir une mission et reset la vidéo
   const handleOpenMission = (mission) => {
@@ -418,18 +404,22 @@ const MissionsPage = () => {
             </div>
             <div className="flex items-center justify-center w-full">
               <div
-                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-xl"
-                style={{ maxHeight: '525px', background: 'transparent' }}
+                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-2xl"
+                style={{ height: '510px', background: 'transparent' }}
               >
-                <div
-                  id="datawrapper-vis-otsD1"
-                  className="w-full"
-                  style={{ minHeight: '580px', background: 'transparent' }}
-                >
-                  <noscript>
-                    <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
-                  </noscript>
-                </div>
+                <iframe
+                  title="Carte Mission 2026"
+                  id="datawrapper-chart-otsD1"
+                  src="https://datawrapper.dwcdn.net/otsD1/2/"
+                  scrolling="no"
+                  frameBorder="0"
+                  style={{
+                    width: '100%',
+                    height: '570px',
+                    border: 'none',
+                    background: 'transparent'
+                  }}
+                />
               </div>
             </div>
           </div>
