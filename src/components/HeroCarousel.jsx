@@ -154,8 +154,8 @@ const HeroCarousel = () => {
                 .famissio-container { width: 100%; height: 75vh; min-height: 550px; overflow: hidden; margin: 0; padding: 0 !important; }
 
                 /* CAROUSEL */
-                .carousel-section { position: relative; width: 100%; height: 75vh; min-height: 550px; padding: 0 !important; margin: 0 !important; }
-                .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; user-select: none; }
+                .carousel-section { position: relative; width: 100%; height: 75vh; min-height: 550px; padding: 0 5% !important; margin: 0 !important; }
+                .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; user-select: none; border-radius: 20px; }
                 
                 .carousel-track {
                     display: flex; height: 100%;
@@ -328,16 +328,18 @@ const HeroCarousel = () => {
 
                 .carousel-arrow {
                     position: absolute; top: 50%; transform: translateY(-50%);
-                    width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
-                    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+                    width: 40px; height: 40px; border-radius: 0; border: none; cursor: pointer;
+                    display: flex; align-items: center; justify-content: center; font-size: 2.2rem;
                     transition: all 0.3s ease; z-index: 20;
-                    background: white;
-                    color: var(--flame);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+                    background: transparent !important;
+                    color: white !important;
+                    box-shadow: none !important;
+                    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
+                    padding: 5px;
                 }
-                .carousel-arrow:hover { transform: translateY(-50%) scale(1.1); background: white; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); }
-                .carousel-arrow.prev { left: 25px; }
-                .carousel-arrow.next { right: 25px; }
+                .carousel-arrow:hover { transform: translateY(-50%) scale(1.25); background: transparent !important; color: white !important; opacity: 0.85; }
+                .carousel-arrow.prev { left: 20px; }
+                .carousel-arrow.next { right: 20px; }
 
                 @media(max-width: 768px) {
                     /* Carousel: 75vh, FULL WIDTH, minimal padding */
