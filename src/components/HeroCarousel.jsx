@@ -191,26 +191,26 @@ const HeroCarousel = () => {
                     border-radius: 50%; pointer-events: none;
                 }
                 
-                .formation-icon-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; color: var(--flame); font-size: 1.6rem; }
+                .formation-icon-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 15px; color: var(--flame); font-size: 1.8rem; }
                 
                 .formation-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(1.8rem, 3.5vw, 3.2rem);
-                    font-weight: 800; color: var(--flame); margin-bottom: 12px; white-space: nowrap;
+                    font-size: clamp(2rem, 4vw, 3.6rem);
+                    font-weight: 800; color: var(--flame); margin-bottom: 14px; white-space: nowrap;
                 }
                 .formation-subtitle {
-                    font-size: clamp(1rem, 1.3vw, 1.15rem); color: #555; max-width: 700px; margin: 0 auto 15px; font-weight: 300;
+                    font-size: clamp(1.05rem, 1.4vw, 1.25rem); color: #555; max-width: 750px; margin: 0 auto 18px; font-weight: 300;
                 }
                 
                 .formation-highlight {
-                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 6px 18px;
-                    border-radius: 20px; font-weight: 700; font-size: 0.85rem; margin-bottom: 20px;
+                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 7px 22px;
+                    border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 22px;
                     border: 1px solid rgba(200, 41, 4, 0.1);
                 }
 
                 .slide-cta-btn {
                     display: inline-flex; align-items: center; gap: 10px;
-                    padding: 12px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.95rem;
+                    padding: 14px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem;
                     transition: all 0.3s ease; z-index: 10;
                     background: var(--flame); color: white; box-shadow: 0 10px 25px rgba(200, 41, 4, 0.3);
                 }
@@ -221,22 +221,22 @@ const HeroCarousel = () => {
                     background: radial-gradient(circle at center, #2e1042 0%, #150821 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
                 }
-                .priere-icon-top { font-size: 2rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 12px; }
+                .priere-icon-top { font-size: 2.4rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 14px; }
                 
                 .priere-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(1.8rem, 3.5vw, 3.2rem);
-                    font-weight: 700; color: white; margin-bottom: 15px; white-space: nowrap;
+                    font-size: clamp(2rem, 4vw, 3.6rem);
+                    font-weight: 700; color: white; margin-bottom: 18px; white-space: nowrap;
                 }
                 .priere-quote {
                     font-family: 'Playfair Display', serif; font-style: italic;
-                    font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.5; color: rgba(255, 255, 255, 0.9);
-                    max-width: 800px; margin-bottom: 15px;
+                    font-size: clamp(1.2rem, 2.3vw, 1.55rem); line-height: 1.55; color: rgba(255, 255, 255, 0.9);
+                    max-width: 800px; margin-bottom: 18px;
                 }
                 
                 .priere-infos {
-                    display: flex; gap: 20px; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem;
-                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; font-weight: 500;
+                    display: flex; gap: 20px; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;
+                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 22px; font-weight: 500;
                 }
                 .priere-infos span { display: flex; align-items: center; gap: 8px; }
 
@@ -257,34 +257,34 @@ const HeroCarousel = () => {
                 }
 
                 .mission-overlap-container {
-                    position: relative; height: 150px; width: 100%; display: flex; align-items: center; justify-content: center;
-                    margin-bottom: 15px;
+                    position: relative; height: 165px; width: 100%; display: flex; align-items: center; justify-content: center;
+                    margin-bottom: 18px;
                 }
                 .mission-year-bg {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(6rem, 12vw, 10rem);
+                    font-size: clamp(7rem, 13vw, 11rem);
                     font-weight: 900; color: rgba(255, 255, 255, 0.12);
                     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
                     z-index: 1; user-select: none;
                 }
                 .mission-main-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(1.8rem, 3.8vw, 3.5rem);
+                    font-size: clamp(2rem, 4.2vw, 3.8rem);
                     font-weight: 700; color: white; position: relative; z-index: 2;
                     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); white-space: nowrap;
                 }
 
                 .mission-dioceses {
-                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; z-index: 2;
+                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; z-index: 2;
                 }
                 .diocese-pill {
                     background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);
-                    padding: 6px 18px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.85rem;
+                    padding: 7px 20px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.9rem;
                     backdrop-filter: blur(5px);
                 }
                 
                 .mission-btn {
-                    background: white; color: var(--flame); padding: 12px 35px; border-radius: 50px;
+                    background: white; color: var(--flame); padding: 14px 40px; border-radius: 50px;
                     text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
                     transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 }
