@@ -1,4 +1,4 @@
-﻿/* ================================================
+/* ================================================
    FAMISSIO - HOME COMPONENT STYLES
    ================================================ */
 
@@ -1649,8 +1649,11 @@ section {
 .footer-nav a {
   color: white;
   text-decoration: none;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
   transition: color 0.3s;
 }
 
@@ -1662,6 +1665,99 @@ section {
   font-size: 0.9rem;
   opacity: 0.5;
   text-align: center;
+}
+
+/* === SMART SCROLL-UP NAVBAR (Desktop Only) === */
+@media (min-width: 769px) {
+  .smart-scroll-up-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200, 41, 4, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .smart-scroll-up-nav.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .smart-nav-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .smart-nav-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .smart-nav-logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .smart-nav-logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .smart-nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .smart-nav-links a {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+  }
+
+  .smart-nav-links a:hover {
+    color: white;
+    background-color: var(--ember);
+  }
+
+  .smart-nav-links a.active {
+    color: white;
+    background-color: var(--flame);
+    box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
+  }
+}
+
+@media (max-width: 768px) {
+  .smart-scroll-up-nav {
+    display: none !important;
+  }
 }
 
 /* ================================================

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../index.css';
 
 export default function Footer() {
-    // Fonction pour remonter en haut de page au clic
     const scrollToTop = () => {
         window.scrollTo(0, 0);
     };
@@ -11,11 +10,11 @@ export default function Footer() {
     return (
         <footer className="site-footer">
             <ul className="footer-nav">
-                <li><Link to="/" onClick={scrollToTop}>Accueil</Link></li>
-                <li><Link to="/missions" onClick={scrollToTop}>Nos missions</Link></li>
-                <li><Link to="/formation" onClick={scrollToTop}>Formation</Link></li>
-                <li><Link to="/temoignages" onClick={scrollToTop}>Témoignages</Link></li>
-                <li><Link to="/contact" onClick={scrollToTop}>Contact</Link></li>
+                <li><Link to="/" onClick={scrollToTop}>ACCUEIL</Link></li>
+                <li><Link to="/missions" onClick={scrollToTop}>NOS MISSIONS</Link></li>
+                <li><Link to="/formation" onClick={scrollToTop}>FORMATION</Link></li>
+                <li><Link to="/temoignages" onClick={scrollToTop}>TÉMOIGNAGES</Link></li>
+                <li><Link to="/contact" onClick={scrollToTop}>CONTACT</Link></li>
             </ul>
             <div className="footer-copy">
                 © 2026 Famissio - Tous droits réservés
