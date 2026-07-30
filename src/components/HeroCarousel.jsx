@@ -342,21 +342,21 @@ const HeroCarousel = () => {
                 .carousel-arrow.next { right: 20px; }
 
                 @media(max-width: 768px) {
-                    /* Carousel: 75vh, FULL WIDTH, minimal padding */
+                    /* Carousel: 58vh, FULL WIDTH, compact spacing */
                     .famissio-container, .carousel-section {
-                        height: 75vh !important;
-                        min-height: 400px !important;
+                        height: 58vh !important;
+                        min-height: 380px !important;
                         width: 100vw !important; /* Full viewport width */
                         margin-left: calc(-50vw + 50%) !important; /* Break out of container */
                         padding: 0 !important;
                     }
 
                     .slide-content-wrapper { 
-                        padding-bottom: 30px !important;
-                        padding-top: 10px !important; /* Minimal top space */
+                        padding-bottom: 25px !important;
+                        padding-top: 5px !important;
                     }
                     .carousel-arrow { display: none; }
-                    .mission-year-bg { font-size: 8rem; }
+                    .mission-year-bg { font-size: 6.5rem !important; }
                     .formation-title, .priere-title, .mission-main-title { white-space: normal; }
                     
                     /* Fix Prayer Info Overflow */
@@ -366,7 +366,7 @@ const HeroCarousel = () => {
                         gap: 10px;
                         font-size: 0.8rem;
                     }
-                    .carousel-nav { bottom: 15px; }
+                    .carousel-nav { bottom: 12px !important; }
                 }
             `}</style>
 
