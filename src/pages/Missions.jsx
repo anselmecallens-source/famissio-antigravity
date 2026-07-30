@@ -405,7 +405,7 @@ const MissionsPage = () => {
             <div className="flex items-center justify-center w-full">
               <div
                 className="relative overflow-hidden w-full max-w-lg mx-auto rounded-2xl"
-                style={{ height: '510px', background: 'transparent' }}
+                style={{ height: '440px', background: 'transparent' }}
               >
                 <iframe
                   title="Carte Mission 2026"
@@ -415,7 +415,7 @@ const MissionsPage = () => {
                   frameBorder="0"
                   style={{
                     width: '100%',
-                    height: '570px',
+                    height: '520px',
                     border: 'none',
                     background: 'transparent'
                   }}

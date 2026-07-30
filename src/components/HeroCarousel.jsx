@@ -445,7 +445,7 @@ const HeroCarousel = () => {
                                             <div className="mission-dioceses">
                                                 <span className="diocese-pill">La Rochelle</span>
                                                 <span className="diocese-pill">Angoulême</span>
-                                                <span className="diocese-pill">Poitiers</span>
+                                                <span className="diocese-pill">Tulle</span>
                                             </div>
                                             <Link to={slide.link} className="mission-btn">
                                                 Rejoindre l'aventure <i className="fas fa-arrow-right"></i>
