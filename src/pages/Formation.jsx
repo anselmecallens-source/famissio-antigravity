@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Maximize2, Send, Bird } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Maximize2, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const FormationsPage = () => {
@@ -463,11 +463,11 @@ const FormationsPage = () => {
 
                             <div className="relative space-y-6">
                                 <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center mb-6">
-                                    <Bird className="w-6 h-6 text-orange-600" />
+                                    <i className="fa-solid fa-dove text-2xl text-orange-600"></i>
                                 </div>
 
                                 <blockquote className="text-xl lg:text-2xl font-bold text-gray-900 leading-snug italic" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                                    "Rappelez-vous qu'il n'existe pas de réponses toutes faites. L'Esprit Saint vous soufflera, le moment venu, la parole juste qui saura rejoindre la personne rencontrée."
+                                    Rappelez-vous qu'il n'existe pas de réponses toutes faites. L'Esprit Saint vous soufflera, le moment venu, la parole juste qui saura rejoindre la personne rencontrée.
                                 </blockquote>
 
                                 <div className="pt-4 border-t border-gray-100">
