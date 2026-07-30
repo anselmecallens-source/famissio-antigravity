@@ -151,10 +151,10 @@ const HeroCarousel = () => {
                     --ember: #f46a07;
                 }
                 body { font-family: 'Inter', sans-serif; width: 100%; }
-                .famissio-container { width: 100%; height: 85vh; min-height: 650px; overflow: hidden; margin: 0; }
+                .famissio-container { width: 100%; height: 75vh; min-height: 550px; overflow: hidden; margin: 0; padding: 0 !important; }
 
                 /* CAROUSEL */
-                .carousel-section { position: relative; width: 100%; height: 85vh; min-height: 650px; }
+                .carousel-section { position: relative; width: 100%; height: 75vh; min-height: 550px; padding: 0 !important; margin: 0 !important; }
                 .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; user-select: none; }
                 
                 .carousel-track {
@@ -173,9 +173,9 @@ const HeroCarousel = () => {
                 .slide-content-wrapper {
                     position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
                     display: flex; flex-direction: column; align-items: center; justify-content: center;
-                    /* Padding spécifique : 50px haut, 95px bas pour ne JAMAIS chevaucher la barre de navigation */
-                    padding-top: 50px;
-                    padding-bottom: 95px;
+                    /* Padding équilibré : 40px haut, 85px bas */
+                    padding-top: 40px;
+                    padding-bottom: 85px;
                     pointer-events: none; /* Laisse passer le click vers le container pour le drag */
                 }
                 .slide-content-wrapper > * { pointer-events: auto; } /* Réactive les clics sur les enfants */

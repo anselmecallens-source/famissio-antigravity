@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
@@ -1219,7 +1219,7 @@ const Accueil = () => {
         /* OVERRIDE pour la section "Notre Histoire" (Comment tout a commencé) */
         .diagonal {
             margin-top: 0 !important; /* On colle au slider */
-            padding-top: 100px !important;
+            padding-top: 60px !important;
             clip-path: none !important; /* REMOVED SLOPE COMPLETELY */
             padding-bottom: 10rem !important;
         }
