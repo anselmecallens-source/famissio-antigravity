@@ -151,10 +151,10 @@ const HeroCarousel = () => {
                     --ember: #f46a07;
                 }
                 body { font-family: 'Inter', sans-serif; width: 100%; }
-                .famissio-container { width: 100%; height: 100vh; min-height: 600px; overflow: hidden; margin: 0; }
+                .famissio-container { width: 100%; height: 85vh; min-height: 650px; overflow: hidden; margin: 0; }
 
                 /* CAROUSEL */
-                .carousel-section { position: relative; width: 100%; height: 100vh; min-height: 600px; }
+                .carousel-section { position: relative; width: 100%; height: 85vh; min-height: 650px; }
                 .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; user-select: none; }
                 
                 .carousel-track {
@@ -173,9 +173,9 @@ const HeroCarousel = () => {
                 .slide-content-wrapper {
                     position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
                     display: flex; flex-direction: column; align-items: center; justify-content: center;
-                    /* Espace équilibré haut et bas pour éviter le rognage des icônes */
-                    padding-top: 60px;
-                    padding-bottom: 60px;
+                    /* Padding spécifique : 50px haut, 95px bas pour ne JAMAIS chevaucher la barre de navigation */
+                    padding-top: 50px;
+                    padding-bottom: 95px;
                     pointer-events: none; /* Laisse passer le click vers le container pour le drag */
                 }
                 .slide-content-wrapper > * { pointer-events: auto; } /* Réactive les clics sur les enfants */
@@ -191,26 +191,26 @@ const HeroCarousel = () => {
                     border-radius: 50%; pointer-events: none;
                 }
                 
-                .formation-icon-group { display: flex; gap: 25px; justify-content: center; margin-bottom: 20px; color: var(--flame); font-size: 1.8rem; }
+                .formation-icon-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; color: var(--flame); font-size: 1.6rem; }
                 
                 .formation-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(2rem, 4.5vw, 4rem);
-                    font-weight: 800; color: var(--flame); margin-bottom: 15px; white-space: nowrap;
+                    font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+                    font-weight: 800; color: var(--flame); margin-bottom: 12px; white-space: nowrap;
                 }
                 .formation-subtitle {
-                    font-size: clamp(1rem, 1.5vw, 1.3rem); color: #555; max-width: 700px; margin: 0 auto 25px; font-weight: 300;
+                    font-size: clamp(1rem, 1.3vw, 1.15rem); color: #555; max-width: 700px; margin: 0 auto 15px; font-weight: 300;
                 }
                 
                 .formation-highlight {
-                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 8px 20px;
-                    border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 30px;
+                    background: rgba(200, 41, 4, 0.08); color: var(--flame); padding: 6px 18px;
+                    border-radius: 20px; font-weight: 700; font-size: 0.85rem; margin-bottom: 20px;
                     border: 1px solid rgba(200, 41, 4, 0.1);
                 }
 
                 .slide-cta-btn {
                     display: inline-flex; align-items: center; gap: 10px;
-                    padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem;
+                    padding: 12px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.95rem;
                     transition: all 0.3s ease; z-index: 10;
                     background: var(--flame); color: white; box-shadow: 0 10px 25px rgba(200, 41, 4, 0.3);
                 }
@@ -221,22 +221,22 @@ const HeroCarousel = () => {
                     background: radial-gradient(circle at center, #2e1042 0%, #150821 100%);
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
                 }
-                .priere-icon-top { font-size: 2.5rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 20px; }
+                .priere-icon-top { font-size: 2rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 12px; }
                 
                 .priere-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(2rem, 4.5vw, 4rem);
-                    font-weight: 700; color: white; margin-bottom: 25px; white-space: nowrap;
+                    font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+                    font-weight: 700; color: white; margin-bottom: 15px; white-space: nowrap;
                 }
                 .priere-quote {
                     font-family: 'Playfair Display', serif; font-style: italic;
-                    font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.6; color: rgba(255, 255, 255, 0.9);
-                    max-width: 800px; margin-bottom: 25px;
+                    font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.5; color: rgba(255, 255, 255, 0.9);
+                    max-width: 800px; margin-bottom: 15px;
                 }
                 
                 .priere-infos {
-                    display: flex; gap: 20px; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;
-                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; font-weight: 500;
+                    display: flex; gap: 20px; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem;
+                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; font-weight: 500;
                 }
                 .priere-infos span { display: flex; align-items: center; gap: 8px; }
 
@@ -257,34 +257,34 @@ const HeroCarousel = () => {
                 }
 
                 .mission-overlap-container {
-                    position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center;
-                    margin-bottom: 20px;
+                    position: relative; height: 150px; width: 100%; display: flex; align-items: center; justify-content: center;
+                    margin-bottom: 15px;
                 }
                 .mission-year-bg {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(7rem, 14vw, 12rem);
+                    font-size: clamp(6rem, 12vw, 10rem);
                     font-weight: 900; color: rgba(255, 255, 255, 0.12);
                     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
                     z-index: 1; user-select: none;
                 }
                 .mission-main-title {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(2rem, 5vw, 4.5rem);
+                    font-size: clamp(1.8rem, 3.8vw, 3.5rem);
                     font-weight: 700; color: white; position: relative; z-index: 2;
                     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); white-space: nowrap;
                 }
 
                 .mission-dioceses {
-                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; z-index: 2;
+                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; z-index: 2;
                 }
                 .diocese-pill {
                     background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);
-                    padding: 8px 20px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.9rem;
+                    padding: 6px 18px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.85rem;
                     backdrop-filter: blur(5px);
                 }
                 
                 .mission-btn {
-                    background: white; color: var(--flame); padding: 15px 40px; border-radius: 50px;
+                    background: white; color: var(--flame); padding: 12px 35px; border-radius: 50px;
                     text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
                     transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 }
@@ -292,7 +292,7 @@ const HeroCarousel = () => {
 
                 /* --- NAVIGATION --- */
                 .carousel-nav {
-                    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20;
+                    position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20;
                 }
                 .nav-bar {
                     width: 40px; height: 4px; border-radius: 4px; cursor: pointer; position: relative; overflow: hidden;
