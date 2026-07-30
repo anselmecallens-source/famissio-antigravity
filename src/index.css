@@ -1627,11 +1627,11 @@ section {
   }
 }
 
-/* FOOTER */
+/* FOOTER (COMPACT) */
 .site-footer {
   background: var(--flame);
   color: white;
-  padding: 2.5rem 5%;
+  padding: 1.25rem 5%;
   text-align: center;
   position: relative;
   z-index: 10;
@@ -1640,8 +1640,8 @@ section {
 .footer-nav {
   display: flex;
   justify-content: center;
-  gap: 2.5rem;
-  margin-bottom: 1.25rem;
+  gap: 1.8rem;
+  margin-bottom: 0.5rem;
   list-style: none;
   flex-wrap: wrap;
 }
@@ -1650,8 +1650,8 @@ section {
   color: white;
   text-decoration: none;
   font-family: 'Inter', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 0.9rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   transition: color 0.3s;
@@ -1662,13 +1662,16 @@ section {
 }
 
 .footer-copy {
-  font-size: 0.9rem;
-  opacity: 0.5;
+  font-size: 0.78rem;
+  opacity: 0.6;
   text-align: center;
 }
 
-/* === SMART SCROLL-UP NAVBAR (Desktop Only) === */
+/* === SMART SCROLL-UP NAVBAR & HIDE CIRCLE MENU ON DESKTOP === */
 @media (min-width: 769px) {
+  .nav-circle {
+    display: none !important;
+  }
   .smart-scroll-up-nav {
     position: fixed;
     top: 0;

@@ -130,7 +130,8 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      <div className={`nav-circle ${scrolled || window.innerWidth <= 1200 ? 'visible' : ''}`} style={{ zIndex: 9999 }}>
+      {/* Floating menu button (Mobile only) */}
+      <div className="nav-circle show-on-mobile" style={{ zIndex: 9999 }}>
         <button className="nav-toggle" id="menuToggle" onClick={toggleMenu}>
           <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
