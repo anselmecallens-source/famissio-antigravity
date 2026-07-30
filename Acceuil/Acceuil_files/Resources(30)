@@ -1,0 +1,81 @@
+﻿
+.naToggleButton
+{
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.naToggleButton > div
+{
+    width: 53px;
+    height: 28px;
+    border-radius: 31px;
+    background: #ee4545;
+    position: relative;
+    cursor: pointer;
+}
+
+.naToggleButton > div.wsOn
+{
+    background: [main-1-background-color];
+}
+
+.naToggleButton > div span
+{
+    position: absolute;
+    color: #000;
+    font-size: 10px;
+    font-weight:700;
+    padding: 0 6px;
+    line-height: 25px;
+}
+
+.naToggleButton > div span[name=on]
+{
+    display: none;
+}
+
+.naToggleButton > div span[name=off]
+{
+    display: block;
+    right: 0;
+    top: 0.25em;
+}
+
+.naToggleButton div.wsOn span[name=on]
+{
+    display: block !important;
+    left: 2px;
+    top: 0.25em;
+}
+
+.naToggleButton div.wsOn span[name=off]
+{
+    display: none !important;
+}
+
+.naToggleButton > div div
+{
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    height: 18px;
+    width: 18px;
+    border-radius: 20px;
+    bottom: 0;
+    margin: auto 0;
+    -o-transition: left 0.15s;
+    -moz-transition: left 0.15s;
+    -webkit-transition: left 0.15s;
+    transition: left 0.15s;
+}
+
+.naToggleButton div.wsOn div
+{
+    left: 30px;
+    -o-transition: left 0.15s;
+    -moz-transition: left 0.15s;
+    -webkit-transition: left 0.15s;
+    transition: left 0.15s;
+}
