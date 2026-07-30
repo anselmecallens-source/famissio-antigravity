@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://famissio.netlify.app/sitemap.xml
+Sitemap: https://famissio.pages.dev/sitemap.xml

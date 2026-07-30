@@ -392,7 +392,7 @@ const FormationsPage = () => {
             <Helmet>
                 <title>Catalogue de Formation - Famissio | 18 Fiches & FAQ Mission</title>
                 <meta name="description" content="Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission." />
-                <link rel="canonical" href="https://famissio.netlify.app/formation" />
+                <link rel="canonical" href="https://famissio.pages.dev/formation" />
             </Helmet>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');

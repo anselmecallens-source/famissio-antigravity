@@ -232,7 +232,7 @@ const Accueil = () => {
             <Helmet>
                 <title>Famissio - Accueil | Familles Missionnaires au service des Paroisses</title>
                 <meta name="description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
-                <link rel="canonical" href="https://famissio.netlify.app/" />
+                <link rel="canonical" href="https://famissio.pages.dev/" />
             </Helmet>
             <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }

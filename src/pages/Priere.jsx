@@ -96,7 +96,7 @@ export default function Priere() {
             <Helmet>
                 <title>La Prière Famissio - Audio, Paroles & Partition</title>
                 <meta name="description" content="Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique." />
-                <link rel="canonical" href="https://famissio.netlify.app/priere" />
+                <link rel="canonical" href="https://famissio.pages.dev/priere" />
             </Helmet>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');

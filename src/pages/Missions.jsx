@@ -275,7 +275,7 @@ const MissionsPage = () => {
       <Helmet>
         <title>Nos Missions - Famissio | Découvrir nos missions en France</title>
         <meta name="description" content="Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux." />
-        <link rel="canonical" href="https://famissio.netlify.app/missions" />
+        <link rel="canonical" href="https://famissio.pages.dev/missions" />
       </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap');

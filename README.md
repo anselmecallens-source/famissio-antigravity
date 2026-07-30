@@ -1,16 +1,33 @@
-# React + Vite
+# Famissio - Web Application (Vite + React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site web officiel de l'association **Famissio** - Familles Missionnaires au service des Paroisses.
 
-Currently, two official plugins are available:
+## Déploiement sur Cloudflare Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ce projet est configuré pour être déployé facilement sur **Cloudflare Pages**.
 
-## React Compiler
+### Paramètres de build Cloudflare Pages
+- **Framework preset** : `Vite` (ou `None`)
+- **Build command** : `npm run build`
+- **Build output directory** : `dist`
+- **Root directory** : `/` (par défaut)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Routage SPA (Single Page Application)
+Le routage est géré automatiquement via le fichier [`public/_redirects`](public/_redirects) :
+```
+/* /index.html 200
+```
+Ce fichier est copié dans le dossier `dist/` lors du build et garantit le bon fonctionnement des sous-pages (ex: `/missions`, `/formation`, `/contact`) au rafraîchissement.
 
-## Expanding the ESLint configuration
+## Développement Local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Installation des dépendances
+npm install
+
+# Lancer le serveur de développement
+npm run dev
+
+# Compiler le projet pour la production
+npm run build
+```

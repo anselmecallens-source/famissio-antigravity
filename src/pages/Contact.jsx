@@ -230,7 +230,7 @@ export default function Contact() {
       <Helmet>
         <title>Contact & Inscription - Famissio | Rejoindre une mission</title>
         <meta name="description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
-        <link rel="canonical" href="https://famissio.netlify.app/contact" />
+        <link rel="canonical" href="https://famissio.pages.dev/contact" />
       </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');

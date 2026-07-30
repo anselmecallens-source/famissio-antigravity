@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://famissio.netlify.app/</loc>
+    <loc>https://famissio.pages.dev/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://famissio.netlify.app/missions</loc>
+    <loc>https://famissio.pages.dev/missions</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://famissio.netlify.app/formation</loc>
+    <loc>https://famissio.pages.dev/formation</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://famissio.netlify.app/temoignages</loc>
+    <loc>https://famissio.pages.dev/temoignages</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://famissio.netlify.app/contact</loc>
+    <loc>https://famissio.pages.dev/contact</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://famissio.netlify.app/priere</loc>
+    <loc>https://famissio.pages.dev/priere</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
