@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import "./Contact.css"; // Gardé pour compatibilité, mais le contenu est scopé et ne devrait pas gêner
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
@@ -226,6 +227,11 @@ export default function Contact() {
 
   return (
     <div className="bg-gray-50">
+      <Helmet>
+        <title>Contact & Inscription - Famissio | Rejoindre une mission</title>
+        <meta name="description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
+        <link rel="canonical" href="https://famissio.netlify.app/contact" />
+      </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
         

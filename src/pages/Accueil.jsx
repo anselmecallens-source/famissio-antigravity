@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -228,6 +229,11 @@ const Accueil = () => {
 
     return (
         <div className="home-container">
+            <Helmet>
+                <title>Famissio - Accueil | Familles Missionnaires au service des Paroisses</title>
+                <meta name="description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
+                <link rel="canonical" href="https://famissio.netlify.app/" />
+            </Helmet>
             <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {

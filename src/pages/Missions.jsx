@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
 // URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
@@ -270,7 +271,12 @@ const MissionsPage = () => {
   const yearMissions = missions.filter(m => m.category === 'year');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-orange-500 selection:text-white">
+      <Helmet>
+        <title>Nos Missions - Famissio | Découvrir nos missions en France</title>
+        <meta name="description" content="Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux." />
+        <link rel="canonical" href="https://famissio.netlify.app/missions" />
+      </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap');
         

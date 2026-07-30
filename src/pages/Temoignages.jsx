@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { X, Play, ChevronLeft, ChevronRight, Church, MessageCircle, User, Calendar } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 
@@ -787,6 +788,11 @@ const TemoignagesPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>Témoignages - Famissio | Expériences et récits de mission</title>
+        <meta name="description" content="Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio." />
+        <link rel="canonical" href="https://famissio.netlify.app/temoignages" />
+      </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
         

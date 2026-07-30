@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Priere() {
@@ -92,6 +93,11 @@ export default function Priere() {
 
     return (
         <div className="min-h-screen bg-white">
+            <Helmet>
+                <title>La Prière Famissio - Audio, Paroles & Partition</title>
+                <meta name="description" content="Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique." />
+                <link rel="canonical" href="https://famissio.netlify.app/priere" />
+            </Helmet>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
                 
