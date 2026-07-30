@@ -328,15 +328,16 @@ const HeroCarousel = () => {
 
                 .carousel-arrow {
                     position: absolute; top: 50%; transform: translateY(-50%);
-                    width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer;
+                    width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
                     display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
                     transition: all 0.3s ease; z-index: 20;
+                    background: white;
+                    color: var(--flame);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
                 }
-                .formation-slide .carousel-arrow { background: white; color: var(--flame); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-                .priere-slide .carousel-arrow, .mission2026-slide .carousel-arrow { background: rgba(255, 255, 255, 0.2); color: white; backdrop-filter: blur(5px); }
-                .carousel-arrow:hover { transform: translateY(-50%) scale(1.1); }
-                .carousel-arrow.prev { left: 20px; }
-                .carousel-arrow.next { right: 20px; }
+                .carousel-arrow:hover { transform: translateY(-50%) scale(1.1); background: white; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); }
+                .carousel-arrow.prev { left: 25px; }
+                .carousel-arrow.next { right: 25px; }
 
                 @media(max-width: 768px) {
                     /* Carousel: 75vh, FULL WIDTH, minimal padding */
