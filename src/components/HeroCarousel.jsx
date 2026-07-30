@@ -151,10 +151,10 @@ const HeroCarousel = () => {
                     --ember: #f46a07;
                 }
                 body { font-family: 'Inter', sans-serif; width: 100%; }
-                .famissio-container { width: 100%; height: 100vh; overflow: hidden; margin: 0; }
+                .famissio-container { width: 100%; height: 100vh; min-height: 600px; overflow: hidden; margin: 0; }
 
                 /* CAROUSEL */
-                .carousel-section { position: relative; width: 100%; height: 100vh; }
+                .carousel-section { position: relative; width: 100%; height: 100vh; min-height: 600px; }
                 .carousel-wrapper { position: relative; height: 100%; width: 100%; overflow: hidden; user-select: none; }
                 
                 .carousel-track {
@@ -173,8 +173,9 @@ const HeroCarousel = () => {
                 .slide-content-wrapper {
                     position: relative; z-index: 2; text-align: center; max-width: 1200px; width: 90%;
                     display: flex; flex-direction: column; align-items: center; justify-content: center;
-                    /* Espace en bas pour la nav */
-                    padding-bottom: 100px;
+                    /* Espace équilibré haut et bas pour éviter le rognage des icônes */
+                    padding-top: 60px;
+                    padding-bottom: 60px;
                     pointer-events: none; /* Laisse passer le click vers le container pour le drag */
                 }
                 .slide-content-wrapper > * { pointer-events: auto; } /* Réactive les clics sur les enfants */
@@ -261,7 +262,7 @@ const HeroCarousel = () => {
                 }
                 .mission-year-bg {
                     font-family: 'Playfair Display', serif;
-                    font-size: clamp(10rem, 25vw, 18rem);
+                    font-size: clamp(7rem, 14vw, 12rem);
                     font-weight: 900; color: rgba(255, 255, 255, 0.12);
                     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
                     z-index: 1; user-select: none;
@@ -341,15 +342,15 @@ const HeroCarousel = () => {
                     /* Carousel: 75vh, FULL WIDTH, minimal padding */
                     .famissio-container, .carousel-section {
                         height: 75vh !important;
-                        min-height: 400px;
+                        min-height: 400px !important;
                         width: 100vw !important; /* Full viewport width */
                         margin-left: calc(-50vw + 50%) !important; /* Break out of container */
                         padding: 0 !important;
                     }
 
                     .slide-content-wrapper { 
-                        padding-bottom: 30px;
-                        padding-top: 10px; /* Minimal top space */
+                        padding-bottom: 30px !important;
+                        padding-top: 10px !important; /* Minimal top space */
                     }
                     .carousel-arrow { display: none; }
                     .mission-year-bg { font-size: 8rem; }
