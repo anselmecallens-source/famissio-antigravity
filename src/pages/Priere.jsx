@@ -97,6 +97,11 @@ export default function Priere() {
                 <title>La Prière Famissio - Audio, Paroles & Partition</title>
                 <meta name="description" content="Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique." />
                 <link rel="canonical" href="https://famissio.pages.dev/priere" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://famissio.pages.dev/priere" />
+                <meta property="og:title" content="La Prière Famissio - Audio, Paroles & Partition" />
+                <meta property="og:description" content="Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique." />
+                <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');

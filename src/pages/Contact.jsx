@@ -231,6 +231,11 @@ export default function Contact() {
         <title>Contact & Inscription - Famissio | Rejoindre une mission</title>
         <meta name="description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
         <link rel="canonical" href="https://famissio.pages.dev/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://famissio.pages.dev/contact" />
+        <meta property="og:title" content="Contact & Inscription - Famissio | Rejoindre une mission" />
+        <meta property="og:description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
+        <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
       </Helmet>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');

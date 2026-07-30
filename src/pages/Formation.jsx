@@ -393,6 +393,11 @@ const FormationsPage = () => {
                 <title>Catalogue de Formation - Famissio | 18 Fiches & FAQ Mission</title>
                 <meta name="description" content="Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission." />
                 <link rel="canonical" href="https://famissio.pages.dev/formation" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://famissio.pages.dev/formation" />
+                <meta property="og:title" content="Catalogue de Formation - Famissio | 18 Fiches & FAQ Mission" />
+                <meta property="og:description" content="Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission." />
+                <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
