@@ -49,132 +49,195 @@ body {
   scroll-snap-align: start;
 }
 
-/* --- 2. NAVIGATION STANDARD (Hero) --- */
-.hero-navbar {
-  position: absolute;
+/* --- 2. NAVIGATION UNIFIÉE FLUIDE ET MORPHING --- */
+.unified-navbar {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.25rem 3.125rem;
+  height: 76px;
+  z-index: 9999;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  z-index: 100;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  justify-content: space-between;
+  padding: 0 3.125rem;
+  box-sizing: border-box;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease,
+              background-color 0.35s ease,
+              backdrop-filter 0.35s ease,
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
 }
 
-.hero-navbar.hidden {
+/* Scroll visibility */
+.unified-navbar.nav-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.unified-navbar.nav-hidden {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
 }
 
-/* NAVBAR HOME vs PAGE styles (Moved from JS) */
-.navbar-home {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 99;
-  background: transparent;
+/* State 1: AT HERO (Top of page Y <= 100) */
+.unified-navbar.at-hero.navbar-home {
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-bottom: 1px solid transparent;
 }
 
-.navbar-page {
-  background: var(--flame);
-  position: relative;
+.unified-navbar.at-hero.navbar-page {
+  background-color: var(--flame);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+}
+
+/* State 2: IS FLOATING (Scrolled down Y > 100) */
+.unified-navbar.is-floating {
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(200, 41, 4, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 @media (max-width: 1200px) {
-
-  /* HIDE RED BANNER ON TABLET/MOBILE (Non-Home Pages) */
-  .navbar-page {
+  .unified-navbar.navbar-page.at-hero {
     display: none !important;
-  }
-
-  /* Hide text links to avoid crowding / overlap with circle menu */
-  .nav-links {
-    display: none !important;
-  }
-
-  /* Between 1024px and 1200px (Desktop Hero active):
-     - Show Navbar (so Desktop Logo is visible)
-     - Align Logo to RIGHT to balance the Left Circle Menu */
-  .hero-navbar {
-    justify-content: flex-end;
   }
 }
 
 @media (max-width: 1024px) {
-
-  /* On HOME (<1024px), we use MobileHeroV2 which has its own logo.
-     So we hide the main Navbar entirely to prevent double logos. */
-  .navbar-home {
+  .unified-navbar.navbar-home.at-hero {
     display: none !important;
   }
 }
 
+/* LOGO CROSS-FADE WRAPPER */
 .nav-logo-wrapper {
   flex-shrink: 0;
-  /* margin-right removed to allow flush alignment when needed */
-}
-
-.nav-logo-img {
-  height: 11.25rem;
-  width: auto;
-  display: block;
-}
-
-.nav-links {
   display: flex;
-  gap: 3.125rem;
-  list-style: none;
   align-items: center;
 }
 
-.nav-links a {
-  color: var(--flame);
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.nav-logo-link {
   position: relative;
-  padding-bottom: 0.3125rem;
-  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  min-width: 140px;
+}
+
+.nav-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.35s ease, transform 0.2s ease;
+}
+
+.nav-logo-link:hover .nav-logo-img {
+  transform: scale(1.04);
+}
+
+.logo-white {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.logo-red {
+  position: relative;
+}
+
+.logo-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* DESKTOP NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 7px 15px;
+  border-radius: 6px;
+  line-height: 1.2;
+  transition: color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
   white-space: nowrap;
 }
 
-.nav-links a:hover {
-  color: var(--ember);
+/* 1. At Home Hero: Flame Red text */
+.unified-navbar.at-hero.navbar-home .nav-links a {
+  color: var(--flame);
 }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: var(--ember);
-  transition: width 0.3s;
+.unified-navbar.at-hero.navbar-home .nav-links a:hover {
+  color: white;
+  background-color: var(--ember);
 }
 
-.nav-links a:hover::after {
-  width: 100%;
+.unified-navbar.at-hero.navbar-home .nav-links a.active {
+  color: white;
+  background-color: var(--flame);
+  box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
 }
 
-@media (max-width: 1500px) {
-  .nav-logo-img {
-    height: 8.75rem;
-  }
+/* 2. At Non-Home Page Hero: White text on Red Banner */
+.unified-navbar.at-hero.navbar-page .nav-links a {
+  color: #ffffff;
+}
 
-  .nav-links {
-    gap: 1.875rem;
-  }
+.unified-navbar.at-hero.navbar-page .nav-links a:hover {
+  color: var(--flame);
+  background-color: white;
+}
 
-  .nav-links a {
-    font-size: 1.1rem;
-  }
+.unified-navbar.at-hero.navbar-page .nav-links a.active {
+  color: var(--flame);
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. Floating (Scrolled down): Dark Charcoal text on Frosted Glass */
+.unified-navbar.is-floating .nav-links a {
+  color: var(--charcoal);
+}
+
+.unified-navbar.is-floating .nav-links a:hover {
+  color: white;
+  background-color: var(--ember);
+}
+
+.unified-navbar.is-floating .nav-links a.active {
+  color: white;
+  background-color: var(--flame);
+  box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
 }
 
 /* --- 3. ÉLÉMENTS FIXES --- */
@@ -1667,99 +1730,17 @@ section {
   text-align: center;
 }
 
-/* === SMART SCROLL-UP NAVBAR & HIDE CIRCLE MENU ON DESKTOP === */
+/* === HIDE CIRCLE MENU ON DESKTOP === */
 @media (min-width: 769px) {
   .nav-circle {
     display: none !important;
   }
-  .smart-scroll-up-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    z-index: 9999;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(200, 41, 4, 0.15);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .smart-scroll-up-nav.visible {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .smart-nav-content {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .smart-nav-logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: transform 0.2s ease;
-  }
-
-  .smart-nav-logo-link:hover {
-    transform: scale(1.05);
-  }
-
-  .smart-nav-logo-img {
-    height: 38px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .smart-nav-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    align-items: center;
-  }
-
-  .smart-nav-links a {
-    color: var(--charcoal);
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 6px 14px;
-    border-radius: 6px;
-    transition: all 0.25s ease;
-  }
-
-  .smart-nav-links a:hover {
-    color: white;
-    background-color: var(--ember);
-  }
-
-  .smart-nav-links a.active {
-    color: white;
-    background-color: var(--flame);
-    box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
-  }
 }
 
 @media (max-width: 768px) {
-  .smart-scroll-up-nav {
-    display: none !important;
+  .unified-navbar {
+    padding: 0 1rem;
+    height: 64px;
   }
 }
 

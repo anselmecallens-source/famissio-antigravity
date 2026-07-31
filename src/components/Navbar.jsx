@@ -9,8 +9,8 @@ const Navbar = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const [menuActive, setMenuActive] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showScrollUpNav, setShowScrollUpNav] = useState(false);
+  const [isFloating, setIsFloating] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
 
   useEffect(() => {
     let lastScrollY = window.pageYOffset;
@@ -19,21 +19,19 @@ const Navbar = () => {
       const currentScrollY = window.pageYOffset;
       const diff = currentScrollY - lastScrollY;
 
-      if (currentScrollY > window.innerHeight * 0.7) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
-      // Smart Scroll-Up Navbar for desktop
-      if (currentScrollY > 150) {
-        if (diff < -5) {
-          setShowScrollUpNav(true);
-        } else if (diff > 5) {
-          setShowScrollUpNav(false);
+      if (currentScrollY > 100) {
+        setIsFloating(true);
+        if (diff > 5) {
+          // Scrolling down -> hide navbar
+          setNavVisible(false);
+        } else if (diff < -5) {
+          // Scrolling up -> show floating navbar
+          setNavVisible(true);
         }
       } else {
-        setShowScrollUpNav(false);
+        // At top of page -> anchored at hero, always visible
+        setIsFloating(false);
+        setNavVisible(true);
       }
 
       lastScrollY = currentScrollY;
@@ -46,87 +44,95 @@ const Navbar = () => {
   const closeMenu = () => setMenuActive(false);
   const toggleMenu = () => setMenuActive(!menuActive);
 
-  const navClass = isHome ? 'navbar-home' : 'navbar-page';
-
-  const linkTextStyle = isHome
-    ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
-    : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
-
-  const getLinkStyle = (path) => {
-    const isActive = location.pathname === path;
-    const activeColor = 'var(--ember)';
-    return {
-      ...linkTextStyle,
-      color: isActive ? activeColor : linkTextStyle.color
-    };
-  };
-
   const getSideLinkStyle = (path) => {
     return location.pathname === path ? { color: 'var(--ember)' } : {};
   };
 
-  const linksContainerStyle = isHome
-    ? {
-      position: 'absolute',
-      right: '0',
-      top: '0',
-      height: '100%',
-      width: '35%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingRight: '2rem',
-      gap: '1.2rem'
-    }
-    : {};
+  const isPageActive = (path) => location.pathname === path;
 
   return (
     <>
-      {/* SMART SCROLL-UP NAVBAR (Desktop Only) */}
-      <div className={`smart-scroll-up-nav ${showScrollUpNav ? 'visible' : ''}`}>
-        <div className="smart-nav-content">
-          <Link to="/" onClick={closeMenu} className="smart-nav-logo-link">
-            <img src={LOGO_RED} alt="Famissio" className="smart-nav-logo-img" />
-          </Link>
-          <ul className="smart-nav-links">
-            <li><Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
-            <li><Link to="/missions" className={location.pathname === '/missions' ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
-            <li><Link to="/formation" className={location.pathname === '/formation' ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>
-            <li><Link to="/temoignages" className={location.pathname === '/temoignages' ? 'active' : ''} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
-            <li><Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={closeMenu}>CONTACT</Link></li>
-          </ul>
-        </div>
-      </div>
-
-      <nav className={`hero-navbar ${scrolled ? 'hidden' : ''} ${navClass}`}>
+      {/* UNIFIED MORPHING NAVBAR */}
+      <nav
+        className={`unified-navbar ${isHome ? 'navbar-home' : 'navbar-page'} ${
+          isFloating ? 'is-floating' : 'at-hero'
+        } ${navVisible ? 'nav-visible' : 'nav-hidden'}`}
+      >
         {isHome && (
-          <div className="mobile-logo">
+          <div className="mobile-logo show-on-mobile">
             <Link to="/" onClick={closeMenu}>
-              <img
-                src={LOGO_RED}
-                alt="Famissio Logo Mobile"
-              />
+              <img src={LOGO_RED} alt="Famissio Logo Mobile" />
             </Link>
           </div>
         )}
 
+        {/* LOGO WRAPPER WITH DUAL CROSS-FADING LOGOS */}
         <div className="nav-logo-wrapper hide-on-mobile">
-          <Link to="/" onClick={closeMenu}>
+          <Link to="/" onClick={closeMenu} className="nav-logo-link">
             <img
               src={LOGO_NAV}
-              alt="Famissio Logo"
-              className="nav-logo-img"
-              style={{ height: '7rem' }}
+              alt="Famissio Logo Blanc"
+              className={`nav-logo-img logo-white ${
+                isFloating ? 'logo-hidden' : 'logo-visible'
+              }`}
+            />
+            <img
+              src={LOGO_RED}
+              alt="Famissio Logo Rouge"
+              className={`nav-logo-img logo-red ${
+                isFloating ? 'logo-visible' : 'logo-hidden'
+              }`}
             />
           </Link>
         </div>
 
-        <ul className="nav-links" style={linksContainerStyle}>
-          <li><Link to="/" style={getLinkStyle('/')} onClick={closeMenu}>ACCUEIL</Link></li>
-          <li><Link to="/missions" style={getLinkStyle('/missions')} onClick={closeMenu}>NOS MISSIONS</Link></li>
-          <li><Link to="/formation" style={getLinkStyle('/formation')} onClick={closeMenu}>FORMATION</Link></li>
-          <li><Link to="/temoignages" style={getLinkStyle('/temoignages')} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
-          <li><Link to="/contact" style={getLinkStyle('/contact')} onClick={closeMenu}>CONTACT</Link></li>
+        {/* DESKTOP NAV LINKS */}
+        <ul className="nav-links hide-on-mobile">
+          <li>
+            <Link
+              to="/"
+              className={isPageActive('/') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              ACCUEIL
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/missions"
+              className={isPageActive('/missions') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              NOS MISSIONS
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/formation"
+              className={isPageActive('/formation') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              FORMATION
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/temoignages"
+              className={isPageActive('/temoignages') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              TÉMOIGNAGES
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              className={isPageActive('/contact') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              CONTACT
+            </Link>
+          </li>
         </ul>
       </nav>
 
