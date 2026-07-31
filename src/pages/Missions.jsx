@@ -300,16 +300,19 @@ const MissionsPage = () => {
           content: ''; width: 40px; height: 2px; background: #f46a07; 
         }
 
-        /* Villes : Style Texte Simple */
-        .city-text {
-            display: inline-block;
-            color: #d1d5db; /* Gray-300 */
-            font-size: 0.95rem;
-            font-weight: 300;
-        }
-        .city-text:not(:last-child)::after {
-            content: ', ';
-            margin-right: 6px;
+        /* Villes : Style Pillule Lumineuse */
+        .city-pill {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #ffedd5;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-right: 0.35rem;
+            margin-bottom: 0.35rem;
         }
 
         /* Animation reflet brillant sur les boutons */
@@ -391,32 +394,37 @@ const MissionsPage = () => {
       <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
       {/* MISSION 2026 */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+      <div className="relative bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white overflow-hidden shadow-xl">
+        {/* Blobs d'ambiance lumineuse en arrière-plan */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-16 -right-16 w-96 h-96 bg-red-400/20 rounded-full blur-3xl"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <div className="inline-block mb-4 px-4 py-1 bg-orange-500 rounded-full text-xs font-bold tracking-widest">
+              <div className="inline-block mb-4 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-widest text-white border border-white/30 shadow-sm">
                 PROCHAINE MISSION !
               </div>
-              <h2 className="text-7xl sm:text-8xl font-black mb-6 year-tag leading-none">
+              <h2 className="text-7xl sm:text-8xl font-black mb-6 year-tag leading-none drop-shadow-md">
                 2026
               </h2>
-              <p className="text-2xl mb-8 location-text font-semibold text-orange-200">
+              <p className="text-2xl mb-8 location-text font-semibold text-orange-100">
                 Diocèse de La Rochelle, Angoulême et Tulle
               </p>
-              <div className="flex items-center gap-4 text-3xl font-bold mb-8">
-                <Calendar className="w-10 h-10 text-orange-400" />
+              <div className="flex items-center gap-4 text-3xl font-bold mb-8 text-white">
+                <Calendar className="w-10 h-10 text-amber-300" />
                 <span className="year-tag">24 - 30 OCT 2026</span>
               </div>
-              <p className="text-lg text-gray-300 leading-relaxed">
+              <p className="text-lg text-white/90 leading-relaxed font-normal">
                 Monseigneur Bozo nous envoie explorer ces territoires.
                 Inscrivez-vous dès maintenant pour vivre cette aventure extraordinaire !
               </p>
             </div>
             <div className="flex items-center justify-center w-full">
               <div
-                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-2xl"
-                style={{ height: '440px', background: 'transparent' }}
+                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl p-2"
+                style={{ height: '440px' }}
               >
                 <iframe
                   title="Carte Mission 2026"
@@ -477,7 +485,7 @@ const MissionsPage = () => {
                 />
               </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity"></div>
 
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <div className="transform transition-transform group-hover:translate-y-0 translate-y-2">
@@ -526,7 +534,7 @@ const MissionsPage = () => {
                         mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity"></div>
 
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <div className="text-5xl font-black mb-2 year-tag text-white">
@@ -548,161 +556,157 @@ const MissionsPage = () => {
 
       {/* MISSION OVERLAY (POPUP) */}
       {selectedMission && (
-        <div className="fixed inset-0 bg-black/95 z-50 overflow-y-auto no-scrollbar">
-
-          {/* FLÈCHES NAVIGATION */}
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 overflow-y-auto no-scrollbar flex items-center justify-center p-4 sm:p-6"
+          onClick={handleCloseMission}
+        >
+          {/* FLÈCHES NAVIGATION (Desktop) */}
           <button
             onClick={(e) => navigateMission('prev', e)}
-            className="fixed left-2 md:left-8 top-1/2 -translate-y-1/2 z-[60] p-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full text-white/70 hover:text-orange-500 border border-white/10 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
           >
-            <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:-translate-x-1" />
+            <ChevronLeft className="w-8 h-8 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.5} />
           </button>
 
           <button
             onClick={(e) => navigateMission('next', e)}
-            className="fixed right-2 md:right-8 top-1/2 -translate-y-1/2 z-[60] p-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full text-white/70 hover:text-orange-500 border border-white/10 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
           >
-            <ChevronRight className="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:translate-x-1" />
+            <ChevronRight className="w-8 h-8 transition-transform group-hover:translate-x-0.5" strokeWidth={2.5} />
           </button>
 
-          <div className="min-h-screen p-6 sm:p-12 flex items-center justify-center">
-            <div className="max-w-6xl w-full relative">
+          {/* BOUTON FERMER */}
+          <button
+            onClick={handleCloseMission}
+            className="fixed top-6 right-6 bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 p-3 rounded-full transition-all z-[60] shadow-xl border border-gray-200"
+          >
+            <X className="w-6 h-6" strokeWidth={2.5} />
+          </button>
 
-              {/* BOUTON FERMER */}
-              <button
-                onClick={handleCloseMission}
-                className="fixed top-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full transition-colors z-50 border border-white/10"
-              >
-                <X className="w-6 h-6 text-white" />
-              </button>
+          {/* CARTE MODALE BLANCHE LUMINEUSE */}
+          <div
+            className="max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-orange-100 relative my-8 p-6 sm:p-10 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* GRILLE DU HAUT (Infos + Image) */}
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 items-center">
+              {/* COLONNE GAUCHE : INFOS */}
+              <div className="flex flex-col justify-center">
+                <div className="text-7xl sm:text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 leading-none">
+                  {selectedMission.year}
+                </div>
 
-              {/* GRILLE DU HAUT (Infos + Image) */}
-              <div className="grid md:grid-cols-2 gap-12 mb-8">
-                {/* COLONNE GAUCHE : INFOS */}
-                <div className="flex flex-col justify-center">
-                  <div className="text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">
-                    {selectedMission.year}
+                <div className="space-y-4 mb-6">
+                  {/* DATE */}
+                  <div className="flex items-center gap-3 text-orange-700 font-semibold bg-orange-50/80 px-4 py-2 rounded-xl border border-orange-100 inline-flex self-start">
+                    <Calendar className="w-5 h-5 text-orange-600 flex-shrink-0" />
+                    <span className="text-lg">{selectedMission.date}</span>
                   </div>
 
-                  <div className="space-y-4 mb-8">
-                    {/* DATE */}
-                    <div className="flex items-center gap-4 text-orange-300">
-                      <div className="w-6 flex justify-center flex-shrink-0">
-                        <Calendar className="w-6 h-6" />
+                  {/* DIOCESE */}
+                  <div className="text-gray-900">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-orange-100 rounded-lg text-orange-600 flex-shrink-0 mt-0.5">
+                        <MapPin className="w-5 h-5" />
                       </div>
-                      <span className="text-xl font-semibold">{selectedMission.date}</span>
+                      <span className="text-lg font-bold text-gray-800">{selectedMission.diocese}</span>
                     </div>
 
-                    {/* DIOCESE + VILLES */}
-                    <div className="text-white">
-                      <div className="flex items-start gap-4">
-                        <div className="w-6 flex justify-center pt-1 flex-shrink-0">
-                          <MapPin className="w-6 h-6 text-orange-400" />
-                        </div>
-                        <span className="text-lg font-semibold">{selectedMission.diocese}</span>
-                      </div>
-
-                      {/* VILLES (Affichées uniquement si ce n'est pas une mission "année") */}
-                      {selectedMission.category !== 'year' && (
-                        <div className="mt-2 pl-10">
-                          <div>
-                            {selectedMission.cities.map((city, idx) => (
-                              <span key={idx} className="city-text">
-                                {city}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* PARTICIPANTS */}
-                    {selectedMission.participants && (
-                      <div className="flex items-center gap-4 text-white">
-                        <div className="w-6 flex justify-center flex-shrink-0">
-                          <Users className="w-6 h-6 text-orange-400" />
-                        </div>
-                        <span className="text-xl font-semibold">{selectedMission.participants} Famissionnaires</span>
+                    {/* VILLES */}
+                    {selectedMission.category !== 'year' && selectedMission.cities?.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5 pl-10">
+                        {selectedMission.cities.map((city, idx) => (
+                          <span key={idx} className="city-pill">
+                            {city}
+                          </span>
+                        ))}
                       </div>
                     )}
                   </div>
-                </div>
 
-                {/* COLONNE DROITE : IMAGE (Arrondie forcée) */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl h-[400px] md:h-auto border border-white/10">
-                  <img
-                    src={selectedMission.image}
-                    alt={selectedMission.year}
-                    className={`w-full h-full object-cover rounded-2xl 
-                      ${selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
-                        selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
-                          selectedMission.imageZoom === true ? 'img-zoom-medium' : ''}`}
-                  />
+                  {/* PARTICIPANTS */}
+                  {selectedMission.participants && (
+                    <div className="flex items-center gap-3 text-gray-800 font-semibold">
+                      <div className="p-2 bg-red-50 rounded-lg text-red-600 flex-shrink-0">
+                        <Users className="w-5 h-5" />
+                      </div>
+                      <span className="text-lg">{selectedMission.participants} Famissionnaires</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* TEXTE HISTOIRE : HORS GRILLE -> PLEINE LARGEUR + JUSTIFIÉ */}
-              <div className="w-full bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-white/5">
-                <div className="w-full">
-                  <p className="text-white text-lg leading-relaxed whitespace-pre-line text-justify w-full">
-                    {selectedMission.story}
-                  </p>
-                </div>
+              {/* COLONNE DROITE : IMAGE */}
+              <div className="rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[360px] border border-gray-100 relative group">
+                <img
+                  src={selectedMission.image}
+                  alt={selectedMission.year}
+                  className={`w-full h-full object-cover rounded-2xl 
+                    ${selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
+                      selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
+                        selectedMission.imageZoom === true ? 'img-zoom-medium' : ''}`}
+                />
               </div>
+            </div>
 
-              {/* LIENS & BOUTONS */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                {/* Bouton Vidéo (Toggle) */}
-                {selectedMission.video && (
-                  <button
-                    onClick={toggleVideo}
-                    className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg"
-                  >
-                    {isVideoPlaying ? (
-                      <>
-                        <X className="w-5 h-5 fill-current" />
-                        Fermer la vidéo
-                      </>
-                    ) : (
-                      <>
-                        <Play className="w-5 h-5 fill-current" />
-                        Voir la vidéo
-                      </>
-                    )}
-                  </button>
-                )}
+            {/* TEXTE HISTOIRE */}
+            <div className="w-full bg-orange-50/40 rounded-2xl p-6 sm:p-8 mb-8 border border-orange-100/80">
+              <p className="text-gray-800 text-base sm:text-lg leading-relaxed whitespace-pre-line text-justify">
+                {selectedMission.story}
+              </p>
+            </div>
 
-                {/* Autres liens */}
-                {selectedMission.links.map((link, idx) => (
-                  <a
-                    key={idx}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-shine flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full font-semibold transition-all transform hover:scale-105 border border-white/10 shadow-lg"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-
-              {/* LECTEUR VIDÉO (S'ouvre en bas) */}
-              {isVideoPlaying && selectedMission.video && (
-                <div className="w-full mt-8 rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-in slide-in-from-bottom-10 fade-in duration-500">
-                  <div className="relative pt-[56.25%] bg-black">
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${selectedMission.video}?autoplay=1`}
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
+            {/* LIENS & BOUTONS */}
+            <div className="flex flex-wrap gap-4 mb-4">
+              {/* Bouton Vidéo (Toggle) */}
+              {selectedMission.video && (
+                <button
+                  onClick={toggleVideo}
+                  className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-md"
+                >
+                  {isVideoPlaying ? (
+                    <>
+                      <X className="w-5 h-5" />
+                      Fermer la vidéo
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-5 h-5 fill-current" />
+                      Voir la vidéo
+                    </>
+                  )}
+                </button>
               )}
 
+              {/* Autres liens */}
+              {selectedMission.links.map((link, idx) => (
+                <a
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-shine flex items-center gap-2 px-6 py-3 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full font-semibold transition-all transform hover:scale-105 border border-gray-200 shadow-sm"
+                >
+                  <ExternalLink className="w-4 h-4 text-orange-600" />
+                  {link.name}
+                </a>
+              ))}
             </div>
+
+            {/* LECTEUR VIDÉO (S'ouvre en bas) */}
+            {isVideoPlaying && selectedMission.video && (
+              <div className="w-full mt-6 rounded-2xl overflow-hidden shadow-xl border border-gray-200 animate-in slide-in-from-bottom-10 fade-in duration-500">
+                <div className="relative pt-[56.25%] bg-black">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${selectedMission.video}?autoplay=1`}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
