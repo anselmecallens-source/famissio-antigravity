@@ -65,20 +65,19 @@ const Navbar = () => {
     return location.pathname === path ? { color: 'var(--ember)' } : {};
   };
 
-  const linksContainerStyle = isHome
-    ? {
-      position: 'absolute',
-      right: '0',
-      top: '0',
-      height: '100%',
-      width: '35%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingRight: '2rem',
-      gap: '1.2rem'
-    }
-    : {};
+  // Shared 35% right-aligned container for exact text superposition on ALL pages
+  const linksContainerStyle = {
+    position: 'absolute',
+    right: '0',
+    top: '0',
+    height: '100%',
+    width: '35%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingRight: '2rem',
+    gap: '1.2rem'
+  };
 
   return (
     <>
@@ -88,7 +87,7 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu} className="smart-nav-logo-link">
             <img src={LOGO_RED} alt="Famissio" className="smart-nav-logo-img" />
           </Link>
-          <ul className="smart-nav-links" style={isHome ? linksContainerStyle : {}}>
+          <ul className="smart-nav-links" style={linksContainerStyle}>
             <li><Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
             <li><Link to="/missions" className={location.pathname === '/missions' ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
             <li><Link to="/formation" className={location.pathname === '/formation' ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>

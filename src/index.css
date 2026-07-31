@@ -1739,7 +1739,7 @@ section {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 6px 14px;
+    padding: 4px 8px;
     border-radius: 6px;
     line-height: 1.2;
     transition: all 0.25s ease;
@@ -1755,6 +1755,7 @@ section {
     color: white;
     background-color: var(--flame);
     box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
+    padding: 4px 10px;
   }
 }
 
