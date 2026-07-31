@@ -122,11 +122,11 @@ const Navbar = () => {
         </div>
 
         <ul className="nav-links" style={linksContainerStyle}>
-          <li><Link to="/" style={getLinkStyle('/')} onClick={closeMenu}>ACCUEIL</Link></li>
-          <li><Link to="/missions" style={getLinkStyle('/missions')} onClick={closeMenu}>NOS MISSIONS</Link></li>
-          <li><Link to="/formation" style={getLinkStyle('/formation')} onClick={closeMenu}>FORMATION</Link></li>
-          <li><Link to="/temoignages" style={getLinkStyle('/temoignages')} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
-          <li><Link to="/contact" style={getLinkStyle('/contact')} onClick={closeMenu}>CONTACT</Link></li>
+          <li><Link to="/" className={isPageActive('/') ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
+          <li><Link to="/missions" className={isPageActive('/missions') ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
+          <li><Link to="/formation" className={isPageActive('/formation') ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>
+          <li><Link to="/temoignages" className={isPageActive('/temoignages') ? 'active' : ''} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
+          <li><Link to="/contact" className={isPageActive('/contact') ? 'active' : ''} onClick={closeMenu}>CONTACT</Link></li>
         </ul>
       </nav>
 

@@ -133,47 +133,38 @@ body {
 .nav-links a {
   color: var(--flame);
   text-decoration: none;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: relative;
-  padding-bottom: 0.3125rem;
-  transition: color 0.3s;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1.2;
+  transition: all 0.25s ease;
   white-space: nowrap;
 }
 
+.navbar-page .nav-links a {
+  color: #ffffff;
+}
+
 .nav-links a:hover {
-  color: var(--ember);
+  color: white;
+  background-color: var(--ember);
 }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: var(--ember);
-  transition: width 0.3s;
+.nav-links a.active {
+  color: white;
+  background-color: var(--flame);
+  box-shadow: 0 2px 10px rgba(200, 41, 4, 0.3);
+  padding: 4px 10px;
 }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-@media (max-width: 1500px) {
-  .nav-logo-img {
-    height: 8.75rem;
-  }
-
-  .nav-links {
-    gap: 1.875rem;
-  }
-
-  .nav-links a {
-    font-size: 1.1rem;
-  }
+.navbar-page .nav-links a.active {
+  color: var(--flame);
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* --- 3. ÉLÉMENTS FIXES --- */
