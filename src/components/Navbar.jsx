@@ -65,6 +65,8 @@ const Navbar = () => {
     return location.pathname === path ? { color: 'var(--ember)' } : {};
   };
 
+  const isPageActive = (path) => location.pathname === path;
+
   // Shared 35% right-aligned container for exact text superposition on ALL pages
   const linksContainerStyle = {
     position: 'absolute',
