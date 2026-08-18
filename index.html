@@ -11,7 +11,9 @@
   <!-- End Google Tag Manager -->
 
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/assets/images/Logo Famissio rouge.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- Google Site Verification for Search Console -->
@@ -23,13 +25,19 @@
   <!-- Canonical URL for Google Indexing -->
   <link rel="canonical" href="https://famissio.pages.dev/" />
 
-  <!-- OpenGraph Meta Tags -->
+  <!-- OpenGraph Meta Tags (Site Name & Social Previews) -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://famissio.pages.dev/" />
+  <meta property="og:site_name" content="Famissio" />
   <meta property="og:title" content="Famissio - Familles Missionnaires au service des Paroisses" />
   <meta property="og:description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
   <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
-  <meta property="og:site_name" content="Famissio" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Famissio - Familles Missionnaires au service des Paroisses" />
+  <meta name="twitter:description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
+  <meta name="twitter:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
 
   <!-- Fonts & Icons -->
   <link
@@ -37,15 +45,31 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <!-- JSON-LD Structured Data for Google Search -->
+  <!-- JSON-LD Structured Data for Google Search (Google Site Name & Organization) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Famissio",
-    "url": "https://famissio.pages.dev/",
-    "logo": "https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png",
-    "description": "Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire."
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://famissio.pages.dev/#website",
+        "url": "https://famissio.pages.dev/",
+        "name": "Famissio",
+        "alternateName": ["Famissio - Familles Missionnaires", "Familles Missionnaires"],
+        "publisher": {
+          "@id": "https://famissio.pages.dev/#organization"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://famissio.pages.dev/#organization",
+        "name": "Famissio",
+        "url": "https://famissio.pages.dev/",
+        "logo": "https://famissio.pages.dev/favicon.png",
+        "image": "https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png",
+        "description": "Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire."
+      }
+    ]
   }
   </script>
 </head>
