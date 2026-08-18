@@ -230,12 +230,12 @@ const Accueil = () => {
     return (
         <div className="home-container">
             <Helmet>
-                <title>Famissio - Accueil | Familles Missionnaires au service des Paroisses</title>
+                <title>Famissio - Missions d'évangélisation</title>
                 <meta name="description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
                 <link rel="canonical" href="https://famissio.pages.dev/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://famissio.pages.dev/" />
-                <meta property="og:title" content="Famissio - Familles Missionnaires au service des Paroisses" />
+                <meta property="og:title" content="Famissio - Missions d'évangélisation" />
                 <meta property="og:description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
