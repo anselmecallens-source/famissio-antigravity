@@ -45,7 +45,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <!-- JSON-LD Structured Data for Google Search (Google Site Name & Organization) -->
+  <!-- JSON-LD Structured Data for Google Search (Google Site Name, Sitelinks Navigation & Organization) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,10 +55,84 @@
         "@id": "https://famissio.pages.dev/#website",
         "url": "https://famissio.pages.dev/",
         "name": "Famissio",
-        "alternateName": ["Famissio - Familles Missionnaires", "Familles Missionnaires"],
+        "alternateName": ["Famissio - Missions d'évangélisation", "Familles Missionnaires"],
         "publisher": {
           "@id": "https://famissio.pages.dev/#organization"
-        }
+        },
+        "hasPart": [
+          {
+            "@type": "WebPage",
+            "@id": "https://famissio.pages.dev/",
+            "name": "Accueil",
+            "url": "https://famissio.pages.dev/"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://famissio.pages.dev/missions",
+            "name": "Nos Missions",
+            "url": "https://famissio.pages.dev/missions"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://famissio.pages.dev/formation",
+            "name": "Formation",
+            "url": "https://famissio.pages.dev/formation"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://famissio.pages.dev/temoignages",
+            "name": "Témoignages",
+            "url": "https://famissio.pages.dev/temoignages"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://famissio.pages.dev/contact",
+            "name": "Contact",
+            "url": "https://famissio.pages.dev/contact"
+          }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://famissio.pages.dev/#navigation",
+        "name": "Navigation principale",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Accueil",
+            "description": "Découvrez le mouvement Famissio et les missions d'évangélisation",
+            "url": "https://famissio.pages.dev/"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Nos Missions",
+            "description": "Découvrez les missions paroissiales Famissio en France",
+            "url": "https://famissio.pages.dev/missions"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Formation",
+            "description": "Catalogue de fiches de formation et questions sur la foi",
+            "url": "https://famissio.pages.dev/formation"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Témoignages",
+            "description": "Récits et retours d'expérience des missionnaires et paroissiens",
+            "url": "https://famissio.pages.dev/temoignages"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "Contact",
+            "description": "Contactez l'association Famissio ou inscrivez-vous en mission",
+            "url": "https://famissio.pages.dev/contact"
+          }
+        ]
       },
       {
         "@type": "Organization",
