@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
+import BrandPageHero from '../components/BrandPageHero';
 
 // Carte locale des diocèses de la mission 2026.
 const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
@@ -292,7 +293,7 @@ const MissionsPage = () => {
   const yearMissions = missions.filter(m => m.category === 'year');
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-orange-500 selection:text-white">
+    <div className="fm-page fm-missions-page min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-orange-500 selection:text-white">
       <Helmet>
         <title>Nos Missions - Famissio | Découvrir nos missions en France</title>
         <meta name="description" content="Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux." />
@@ -304,13 +305,11 @@ const MissionsPage = () => {
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Carte_mission_2026.png" />
       </Helmet>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap');
-        
         .mission-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .mission-card:hover { transform: translateY(-8px) scale(1.02); }
         
-        .year-tag { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
-        .location-text { font-family: 'Space Grotesk', sans-serif; }
+        .year-tag { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.03em; }
+        .location-text { font-family: 'Inter', sans-serif; }
         
         .mission-eyebrow {
           font-size: 0.85rem; font-weight: 800; color: #f46a07;
@@ -373,49 +372,19 @@ const MissionsPage = () => {
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      {/* HERO SECTION */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-          
-          .blob {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            animation: morph 8s ease-in-out infinite;
-          }
-          
-          @keyframes morph {
-            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-          }
-        `}</style>
-
-        {/* Fond animé avec Blobs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        {/* Contenu */}
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1
-            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600"
-            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
-          >
-            Nos Missions
-          </h1>
-
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-            Chaque année à la Toussaint, nous organisons une mission diocésaine. Elle se prépare sur un an avec les paroisses pour adapter le programme à leurs besoins spécifiques.
-          </p>
-        </div>
-
-      </div>
-
-      {/* Bande orange décorative en bas (Style Témoignages) */}
-      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+      <BrandPageHero
+        number="01"
+        label="Les missions"
+        title="Nos missions"
+        description="Chaque année à la Toussaint, nous rejoignons un diocèse pour une semaine construite avec les paroisses et adaptée à leurs besoins."
+        image="/assets/images/Equipe missionnaire.webp"
+        imageAlt="Une famille Famissio à la rencontre d’une habitante"
+        caption="Une Église en sortie · ensemble"
+        anchor="#mission-en-cours"
+      />
 
       {/* MISSION 2026 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#fff8f4] via-white to-orange-50 text-gray-900">
+      <section id="mission-en-cours" className="relative overflow-hidden bg-gradient-to-br from-[#fff8f4] via-white to-orange-50 text-gray-900">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-red-100/70 blur-3xl" />
 

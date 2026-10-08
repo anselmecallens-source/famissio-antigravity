@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, Play, ChevronLeft, ChevronRight, Church, MessageCircle, User, Calendar } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import BrandPageHero from '../components/BrandPageHero';
 
 const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) => {
   const [currentSrc, setCurrentSrc] = useState(src);
@@ -789,7 +790,7 @@ const TemoignagesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="fm-page fm-testimonials-page min-h-screen bg-gray-50">
       <Helmet>
         <title>Témoignages - Famissio | Expériences et récits de mission</title>
         <meta name="description" content="Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio." />
@@ -801,18 +802,6 @@ const TemoignagesPage = () => {
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
       </Helmet>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-        
-        .blob {
-          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-          animation: morph 8s ease-in-out infinite;
-        }
-        
-        @keyframes morph {
-          0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-        }
-
         @keyframes iconRotate {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -822,31 +811,23 @@ const TemoignagesPage = () => {
           animation: iconRotate 0.6s ease-out;
         }
 
-        body.modal-open .hero-navbar,
-        body.modal-open .nav-circle,
+        body.modal-open .fm-site-header,
         body.modal-open .testimony-filters,
-        body.modal-open .site-footer {
+        body.modal-open .fm-site-footer {
           display: none !important;
         }
       `}</style>
 
-      {/* HERO */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-            Témoignages
-          </h1>
-
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-            Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
-          </p>
-        </div>
-      </div>
+      <BrandPageHero
+        number="03"
+        label="Témoignages"
+        title="Témoignages"
+        description="Des histoires de foi, des rencontres inattendues et des gestes simples qui continuent de porter du fruit après la mission."
+        image="/assets/images/Temps de mission (enfant+vieux).webp"
+        imageAlt="Une famille missionnaire prend le temps d’échanger avec une habitante"
+        caption="Les rencontres, racontées par ceux qui les vivent"
+        anchor="#liste-temoignages"
+      />
 
       {/* TÉMOIGNAGE DU JOUR - SE CACHE QUAND MODAL OUVERTE */}
       {testimonyOfDay && !selectedTestimony && (
@@ -913,7 +894,7 @@ const TemoignagesPage = () => {
       )}
 
       {/* FILTRES */}
-      <div className="bg-white border-y-2 border-gray-200 py-8 relative md:sticky md:top-0 z-50 testimony-filters">
+      <div id="liste-temoignages" className="bg-white border-y-2 border-gray-200 py-8 relative md:sticky md:top-[76px] z-40 testimony-filters">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-2 md:gap-4">
             <button

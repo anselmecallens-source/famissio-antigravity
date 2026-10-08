@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import HeroCarousel from '../components/HeroCarousel';
-import MobileHeroV2 from '../components/MobileHeroV2';
+import HomeHero from '../components/HomeHero';
 
 // Custom Hook for Drag-to-Scroll (Mouse)
 const useDraggableScroll = (ref) => {
@@ -138,23 +138,6 @@ const Accueil = () => {
 
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
-
-    // Injection des polices et icônes
-    useEffect(() => {
-        const linkABC = document.createElement("link");
-        linkABC.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
-        linkABC.rel = "stylesheet";
-        document.head.appendChild(linkABC);
-
-        const linkFonts = document.createElement("link");
-        linkFonts.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap";
-        linkFonts.rel = "stylesheet";
-        document.head.appendChild(linkFonts);
-
-        return () => {
-            // Cleanup optional
-        }
-    }, []);
 
     // Données pour "6 Temps Forts"
     const missionBlocks = [
@@ -1335,58 +1318,7 @@ const Accueil = () => {
         }
     `}</style>
 
-            {/* HERO USES TWO VERSIONS: DESKTOP (Old) & MOBILE (New V2) */}
-            <div className="mobile-hero-wrapper">
-                <MobileHeroV2 />
-            </div>
-
-            <style>{`
-                .mobile-hero-wrapper { display: none; }
-                
-                @media (max-width: 1024px) {
-                    .hero { display: none !important; }
-                    .mobile-hero-wrapper { display: block; }
-                }
-            `}</style>
-
-            <div className="hero">
-                <div className="hero-left">
-                    <div className="hero-content">
-
-                        <img
-                            src="/assets/images/Logo Famissio blanc.png"
-                            alt="Famissio Logo"
-                            className="mobile-hero-logo"
-                        />
-                        <h1>Famissio</h1>
-
-                        <div className="underline"></div>
-
-                        <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le curé et donner un élan missionnaire.</p>
-
-                        <div className="mobile-hero-insert">
-                            <div className="image-blob">
-                                <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
-                            </div>
-                            <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
-                            <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
-                            <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
-                        </div>
-
-                        <Link to="/missions#liste-missions" className="cta">
-                            <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </Link>
-                    </div>
-                </div>
-                <div className="hero-right">
-                    <div className="image-blob">
-                        <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
-                    </div>
-                    <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
-                    <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
-                    <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
-                </div>
-            </div>
+            <HomeHero />
 
             {/* CAROUSEL AJOUTÉ */}
             <HeroCarousel />
@@ -1597,8 +1529,6 @@ const Accueil = () => {
             {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
             <>
                 <style>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
-
                     .toussaint-clean {
                     position: relative;
                     min-height: auto;

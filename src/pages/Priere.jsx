@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import BrandPageHero from '../components/BrandPageHero';
 
 export default function Priere() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -92,7 +93,7 @@ export default function Priere() {
     ];
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="fm-page fm-prayer-page min-h-screen bg-white">
             <Helmet>
                 <title>La Prière Famissio - Audio, Paroles & Partition</title>
                 <meta name="description" content="Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique." />
@@ -104,40 +105,21 @@ export default function Priere() {
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
             <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-                
-                .blob {
-                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-                    animation: morph 8s ease-in-out infinite;
-                }
-                
-                @keyframes morph {
-                    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-                    50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-                }
             `}</style>
 
-            {/* HERO */}
-            <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
-                <div className="absolute inset-0">
-                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
-                </div>
-
-                <div className="relative max-w-7xl mx-auto px-6 py-24">
-                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                        Prière
-                    </h1>
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-                        Une prière pour inspirer la mission et la foi dans nos cœurs.
-                    </p>
-                </div>
-            </div>
-
-            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+            <BrandPageHero
+                number="05"
+                label="Prier ensemble"
+                title="La prière Famissio"
+                description="Une prière pour confier la mission, accueillir l’Esprit Saint et garder le cœur ouvert à ceux que nous rencontrerons."
+                image="/assets/images/6 piliers de la mission/Temps de prière.webp"
+                imageAlt="Famissio se rassemble pour prier pendant la mission"
+                caption="La prière porte toute la mission"
+                anchor="#contenu-priere"
+            />
 
             {/* Main Content - Full Width Mobile / Boxed Desktop */}
-            <div className="w-full md:max-w-5xl md:mx-auto md:px-6 py-12 md:py-12 space-y-[135px] md:space-y-24 pb-20">
+            <div id="contenu-priere" className="w-full md:max-w-5xl md:mx-auto md:px-6 py-12 md:py-12 space-y-16 md:space-y-20 pb-20">
 
                 {/* Audio Section */}
                 <div className="bg-white border-b md:border md:rounded-2xl md:shadow-xl md:overflow-hidden border-red-100">

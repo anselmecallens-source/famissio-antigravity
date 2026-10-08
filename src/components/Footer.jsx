@@ -1,27 +1,36 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import '../index.css';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
+
+const LOGO_WHITE = '/assets/images/Logo Famissio blanc détouré.webp';
 
 export default function Footer() {
-    const scrollToTop = () => {
-        window.scrollTo(0, 0);
-    };
-
-    return (
-        <footer className="site-footer">
-            <ul className="footer-nav">
-                <li><Link to="/" onClick={scrollToTop}>ACCUEIL</Link></li>
-                <li><Link to="/missions" onClick={scrollToTop}>NOS MISSIONS</Link></li>
-                <li><Link to="/formation" onClick={scrollToTop}>FORMATION</Link></li>
-                <li><Link to="/temoignages" onClick={scrollToTop}>TÉMOIGNAGES</Link></li>
-                <li><Link to="/contact" onClick={scrollToTop}>CONTACT</Link></li>
-            </ul>
-            <div className="footer-copy">
-                © 2026 Famissio - Tous droits réservés
-                <Link to="/reserve" style={{ fontSize: '10px', opacity: 0.5, textDecoration: 'none', color: 'inherit', marginLeft: '10px' }}>
-                    page réservée
-                </Link>
-            </div>
-        </footer>
-    );
+  return (
+    <footer className="fm-site-footer">
+      <div className="fm-footer-main">
+        <div className="fm-footer-brand-block">
+          <Link to="/" className="fm-footer-brand" aria-label="Famissio, accueil">
+            <img src={LOGO_WHITE} alt="Famissio" />
+          </Link>
+          <p>Des familles en mission,<br />au cœur des paroisses.</p>
+        </div>
+        <div className="fm-footer-links">
+          <p className="fm-footer-label">Continuer le chemin</p>
+          <Link to="/missions">Les missions</Link>
+          <Link to="/formation">Se former</Link>
+          <Link to="/temoignages">Les témoignages</Link>
+          <Link to="/priere">La prière Famissio</Link>
+        </div>
+        <div className="fm-footer-contact">
+          <p className="fm-footer-label">Une question, une envie ?</p>
+          <Link to="/contact" className="fm-footer-contact-link">Écrivons la suite ensemble <ArrowUpRight size={16} /></Link>
+          <a href="mailto:famissio2019@gmail.com">famissio2019@gmail.com</a>
+        </div>
+      </div>
+      <div className="fm-footer-bottom">
+        <span>© {new Date().getFullYear()} Famissio · Des familles en mission</span>
+        <Link to="/reserve" className="fm-footer-private">Espace réservé</Link>
+        <a className="fm-back-top" href="#top" aria-label="Retour en haut">Haut de page <ArrowUp size={14} /></a>
+      </div>
+    </footer>
+  );
 }

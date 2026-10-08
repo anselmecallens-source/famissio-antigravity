@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import BrandPageHero from '../components/BrandPageHero';
 
 const FormationsPage = () => {
     const [activeFormationId, setActiveFormationId] = useState(null);
@@ -134,8 +135,8 @@ const FormationsPage = () => {
             icon: MessageCircle,
             title: 'Rencontres spécifiques',
             count: 7,
-            color: '#f46a07',
-            gradient: 'from-orange-500 to-amber-500',
+            color: '#c82904',
+            gradient: 'from-red-700 to-orange-600',
             image: 'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=600',
             formations: [
                 {
@@ -271,8 +272,8 @@ const FormationsPage = () => {
             icon: Flame,
             title: 'Beaux messages à transmettre',
             count: 5,
-            color: '#1a1a1a',
-            gradient: 'from-gray-900 to-gray-700',
+            color: '#c82904',
+            gradient: 'from-red-700 to-orange-600',
             image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=600',
             formations: [
                 {
@@ -388,7 +389,7 @@ const FormationsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="fm-page fm-formation-page min-h-screen bg-slate-50">
             <Helmet>
                 <title>Catalogue de Formation - Famissio | 18 Fiches & FAQ Mission</title>
                 <meta name="description" content="Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission." />
@@ -400,16 +401,6 @@ const FormationsPage = () => {
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
             <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-                
-                .blob {
-                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-                    animation: morph 8s ease-in-out infinite;
-                }
-                @keyframes morph {
-                    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-                    50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-                }
                 .slide-down {
                     animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 }
@@ -433,26 +424,19 @@ const FormationsPage = () => {
                 }
             `}</style>
 
-            {/* HERO */}
-            <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
-                <div className="absolute inset-0">
-                    <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
-                </div>
-                <div className="relative max-w-7xl mx-auto px-6 py-24">
-                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                        Formations
-                    </h1>
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-                        Des outils concrets pour approfondir votre foi et mieux en témoigner.
-                    </p>
-                </div>
-            </div>
-
-            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+            <BrandPageHero
+                number="02"
+                label="Se former"
+                title="Se former"
+                description="Des outils concrets pour approfondir votre foi et mieux en témoigner, avec justesse et disponibilité à l’Esprit Saint."
+                image="/assets/images/6 piliers de la mission/Formation.webp"
+                imageAlt="Famissionnaires en temps de formation"
+                caption="Se préparer · rester à l’écoute"
+                anchor="#catalogue-intro"
+            />
 
             {/* SECTION INTRODUCTIVE - POURQUOI SE FORMER */}
-            <div className="relative overflow-hidden py-16 lg:py-24">
+            <div id="catalogue-intro" className="relative overflow-hidden py-16 lg:py-24">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>

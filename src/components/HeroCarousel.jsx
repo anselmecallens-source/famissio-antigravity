@@ -24,18 +24,6 @@ const HeroCarousel = () => {
     const [touchEnd, setTouchEnd] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
 
-    useEffect(() => {
-        const linkABC = document.createElement("link");
-        linkABC.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
-        linkABC.rel = "stylesheet";
-        document.head.appendChild(linkABC);
-
-        const linkFonts = document.createElement("link");
-        linkFonts.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800;900&family=Inter:wght@300;400;500;600&display=swap";
-        linkFonts.rel = "stylesheet";
-        document.head.appendChild(linkFonts);
-    }, []);
-
     // GESTION DU SAUT INFINI (Transition End)
     useEffect(() => {
         if (!isTransitioning) return; // Si on vient de faire un saut instantané, ne rien faire

@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.jsx";
 import "./index.css";
+import "./brand-system.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
