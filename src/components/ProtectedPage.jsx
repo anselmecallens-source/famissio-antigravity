@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const ProtectedPage = () => {
     const [password, setPassword] = useState('');
@@ -145,45 +146,57 @@ const ProtectedPage = () => {
 
 
     // 3. Affichage Conditionnel
+    const pageMetadata = (
+        <Helmet>
+            <title>Accès réservé - Famissio</title>
+            <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+    );
 
     // S'il n'est PAS autorisé : Afficher le formulaire de connexion
     if (!isAuthorized) {
         return (
-            <div className="protected-wrapper">
-                <style>{styles}</style>
-                <div className={`login-card ${errorShake ? 'shake' : ''}`}>
-                    <h2 className="login-title">
-                        <i className="fas fa-lock" style={{ marginRight: '15px', opacity: 0.6 }}></i>
-                        Accès Réservé
-                    </h2>
-                    <p style={{ marginBottom: '30px', color: '#666' }}>Veuillez entrer le code d'accès pour voir le contenu.</p>
+            <>
+                {pageMetadata}
+                <div className="protected-wrapper">
+                    <style>{styles}</style>
+                    <div className={`login-card ${errorShake ? 'shake' : ''}`}>
+                        <h2 className="login-title">
+                            <i className="fas fa-lock" style={{ marginRight: '15px', opacity: 0.6 }}></i>
+                            Accès Réservé
+                        </h2>
+                        <p style={{ marginBottom: '30px', color: '#666' }}>Veuillez entrer le code d'accès pour voir le contenu.</p>
 
-                    <form onSubmit={handleLogin}>
-                        <input
-                            type="password"
-                            placeholder="••••"
-                            className="login-input"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            maxLength={4} // Limite à 4 caractères
-                        />
-                        <button type="submit" className="login-btn">
-                            Déverrouiller <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
-                        </button>
-                    </form>
+                        <form onSubmit={handleLogin}>
+                            <input
+                                type="password"
+                                placeholder="••••"
+                                className="login-input"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                maxLength={4} // Limite à 4 caractères
+                            />
+                            <button type="submit" className="login-btn">
+                                Déverrouiller <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
     // S'il EST autorisé : Afficher le contenu secret
     return (
-        <div className="protected-wrapper">
-            <style>{styles}</style>
-            <div className="secret-content">
-                <h1 className="secret-title">Qui êtes vous ?</h1>
+        <>
+            {pageMetadata}
+            <div className="protected-wrapper">
+                <style>{styles}</style>
+                <div className="secret-content">
+                    <h1 className="secret-title">Qui êtes vous ?</h1>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
