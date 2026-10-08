@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import "./Contact.css"; // Gardé pour compatibilité, mais le contenu est scopé et ne devrait pas gêner
-import BrandPageHero from '../components/BrandPageHero';
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
 
@@ -227,7 +226,7 @@ export default function Contact() {
 
 
   return (
-    <div className="fm-page fm-contact-page bg-gray-50">
+    <div className="bg-gray-50">
       <Helmet>
         <title>Contact & Inscription - Famissio | Rejoindre une mission</title>
         <meta name="description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
@@ -239,6 +238,18 @@ export default function Contact() {
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
       </Helmet>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        .blob {
+          border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+          animation: morph 8s ease-in-out infinite;
+        }
+        
+        @keyframes morph {
+          0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+          50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
         .pattern-dots {
           background-image: radial-gradient(circle, rgba(244, 106, 7, 0.1) 1px, transparent 1px);
           background-size: 20px 20px;
@@ -255,19 +266,27 @@ export default function Contact() {
       {/* Container système pour Facebook */}
       <div id="fb-root"></div>
 
-      <BrandPageHero
-        number="04"
-        label="Nous contacter"
-        title="Contact"
-        description="Vous vous sentez appelés à vivre une expérience de mission ? Écrivons-nous pour en parler et trouver le prochain pas."
-        image="/assets/images/Equipe missionnaire.webp"
-        imageAlt="Une famille Famissio échange avec des habitants pendant la mission"
-        caption="Une équipe, des histoires, un même élan"
-        anchor="#formulaire-contact"
-      />
+      {/* HERO - GARDÉ */}
+      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 py-24">
+          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Contact
+          </h1>
+          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+            Vous vous sentez appelés à vivre une expérience de mission ? Contactez-nous pour que nous puissions en parler.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
       {/* SECTION FORMULAIRE */}
-      <div id="formulaire-contact" className="relative py-20 overflow-hidden">
+      <div className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 pattern-dots"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-200 to-red-200 rounded-full blur-3xl opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-red-200 to-orange-200 rounded-full blur-3xl opacity-20"></div>

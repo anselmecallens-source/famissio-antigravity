@@ -25,11 +25,8 @@ function ScrollToTop() {
 }
 
 function App() {
-  const location = useLocation();
-  const currentPage = location.pathname === '/' ? 'accueil' : location.pathname.slice(1).replaceAll('/', '-');
-
   return (
-    <div className="fm-app" id="top" data-page={currentPage}>
+    <>
       {/* 1. La barre de navigation visible partout */}
       <Navbar />
 
@@ -37,24 +34,23 @@ function App() {
       <ScrollToTop />
 
       {/* 2. Le contenu des pages */}
-      <div className="fm-route-content">
-        <Suspense fallback={<main className="fm-loading" aria-busy="true" aria-label="Chargement de la page" />}>
-          <Routes>
-            <Route path="/" element={<Accueil />} />
+      <Suspense fallback={<main className="min-h-[50vh]" aria-busy="true" aria-label="Chargement de la page" />}>
+        <Routes>
+          <Route path="/" element={<Accueil />} />
 
-            <Route path="/missions" element={<Missions />} />
-            <Route path="/formation" element={<Formation />} />
-            <Route path="/temoignages" element={<Temoignages />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/priere" element={<Priere />} />
-            <Route path="/reserve" element={<ProtectedPage />} />
-          </Routes>
-        </Suspense>
-      </div>
+          {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/formation" element={<Formation />} />
+          <Route path="/temoignages" element={<Temoignages />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/priere" element={<Priere />} />
+          <Route path="/reserve" element={<ProtectedPage />} />
+        </Routes>
+      </Suspense>
 
       {/* 3. Le footer visible partout */}
       <Footer />
-    </div>
+    </>
   );
 }
 

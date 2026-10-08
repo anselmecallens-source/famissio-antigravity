@@ -14,15 +14,15 @@ export default function Footer() {
           <p>Des familles en mission,<br />au cœur des paroisses.</p>
         </div>
         <div className="fm-footer-links">
-          <p className="fm-footer-label">Continuer le chemin</p>
+          <p className="fm-footer-label">À découvrir</p>
           <Link to="/missions">Les missions</Link>
           <Link to="/formation">Se former</Link>
           <Link to="/temoignages">Les témoignages</Link>
           <Link to="/priere">La prière Famissio</Link>
         </div>
         <div className="fm-footer-contact">
-          <p className="fm-footer-label">Une question, une envie ?</p>
-          <Link to="/contact" className="fm-footer-contact-link">Écrivons la suite ensemble <ArrowUpRight size={16} /></Link>
+          <p className="fm-footer-label">Une question ?</p>
+          <Link to="/contact" className="fm-footer-contact-link">Nous contacter <ArrowUpRight size={16} /></Link>
           <a href="mailto:famissio2019@gmail.com">famissio2019@gmail.com</a>
         </div>
       </div>
