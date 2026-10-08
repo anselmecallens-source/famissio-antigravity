@@ -2,8 +2,29 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
-// URL de la carte - À REMPLACER par le nouveau lien Dropbox avec fond transparent
+// Carte locale des diocèses de la mission 2026.
 const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
+
+const diocesesMission2026 = [
+  {
+    name: 'La Rochelle',
+    department: 'Charente-Maritime',
+    number: '17',
+    bishop: 'Mgr Pierre-Antoine Bozo'
+  },
+  {
+    name: 'Angoulême',
+    department: 'Charente',
+    number: '16',
+    bishop: 'Mgr Hervé Gosselin'
+  },
+  {
+    name: 'Tulle',
+    department: 'Corrèze',
+    number: '19',
+    bishop: 'Mgr Éric Bidot'
+  }
+];
 
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
@@ -394,56 +415,88 @@ const MissionsPage = () => {
       <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
 
       {/* MISSION 2026 */}
-      <div className="relative bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white overflow-hidden shadow-xl">
-        {/* Blobs d'ambiance lumineuse en arrière-plan */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-16 -left-16 w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-16 -right-16 w-96 h-96 bg-red-400/20 rounded-full blur-3xl"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#fff8f4] via-white to-orange-50 text-gray-900">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-red-100/70 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
             <div>
-              <div className="inline-block mb-4 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-widest text-white border border-white/30 shadow-sm">
-                PROCHAINE MISSION !
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/90 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#c82904] shadow-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#f46a07]" />
+                Prochaine mission
               </div>
-              <h2 className="text-7xl sm:text-8xl font-black mb-6 year-tag leading-none drop-shadow-md">
+
+              <h2 className="mb-4 text-6xl font-black leading-none tracking-tight text-[#c82904] sm:text-7xl">
                 2026
               </h2>
-              <p className="text-2xl mb-8 location-text font-semibold text-orange-100">
-                Diocèse de La Rochelle, Angoulême et Tulle
+              <p className="mb-7 max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
+                Trois diocèses de l'Ouest nous accueillent pour une semaine de mission et de rencontre.
               </p>
-              <div className="flex items-center gap-4 text-3xl font-bold mb-8 text-white">
-                <Calendar className="w-10 h-10 text-amber-300" />
-                <span className="year-tag">24 - 30 OCT 2026</span>
+
+              <div className="mb-8 inline-flex items-center gap-3 rounded-2xl bg-white px-5 py-4 shadow-md ring-1 ring-orange-100">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-[#c82904]">
+                  <Calendar className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span>
+                  <span className="block text-xs font-bold uppercase tracking-wider text-gray-500">Dates de la mission</span>
+                  <span className="block text-lg font-extrabold text-gray-900">24–30 octobre 2026</span>
+                </span>
               </div>
-              <p className="text-lg text-white/90 leading-relaxed font-normal">
-                Monseigneur Bozo nous envoie explorer ces territoires.
-                Inscrivez-vous dès maintenant pour vivre cette aventure extraordinaire !
-              </p>
+
+              <div className="space-y-3">
+                <h3 className="text-sm font-extrabold uppercase tracking-[0.16em] text-gray-500">
+                  Les diocèses qui nous accueillent
+                </h3>
+                {diocesesMission2026.map((diocese) => (
+                  <article
+                    key={diocese.number}
+                    className="flex items-center gap-4 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f46a07] to-[#c82904] text-sm font-black text-white shadow-sm">
+                      {diocese.number}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                        <h4 className="font-extrabold text-gray-900">Diocèse de {diocese.name}</h4>
+                        <span className="text-sm font-semibold text-[#c2410c]">{diocese.department}</span>
+                      </div>
+                      <p className="mt-1 text-sm text-gray-500">{diocese.bishop}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
-            <div className="flex items-center justify-center w-full">
-              <div
-                className="relative overflow-hidden w-full max-w-lg mx-auto rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl p-2"
-                style={{ height: '440px' }}
-              >
-                <iframe
-                  title="Carte Mission 2026"
-                  id="datawrapper-chart-otsD1"
-                  src="https://datawrapper.dwcdn.net/otsD1/2/"
-                  scrolling="no"
-                  frameBorder="0"
-                  style={{
-                    width: '100%',
-                    height: '520px',
-                    border: 'none',
-                    background: 'transparent'
-                  }}
+
+            <div className="relative mx-auto w-full max-w-xl">
+              <div className="absolute -inset-3 rotate-2 rounded-[2rem] bg-gradient-to-br from-orange-200 to-red-100 opacity-70" />
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-orange-100 bg-white p-4 shadow-2xl sm:p-7">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <span className="text-sm font-extrabold text-gray-800">Nos territoires de mission</span>
+                  <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-[#c2410c]">2026</span>
+                </div>
+                <img
+                  src={CARTE_MISSION_2026_URL}
+                  alt="Carte de France avec les diocèses de La Rochelle, Angoulême et Tulle mis en évidence"
+                  width="494"
+                  height="505"
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto h-auto w-full max-w-md object-contain"
                 />
+                <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-orange-100 pt-4 text-xs font-semibold text-gray-600 sm:text-sm">
+                  {diocesesMission2026.map((diocese) => (
+                    <span key={diocese.number} className="inline-flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#f46a07]" />
+                      {diocese.number} · {diocese.name}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* GALLERIE MISSIONS */}
       <div className="max-w-7xl mx-auto px-6 py-24">
