@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 // Main App Component
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -6,14 +6,14 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// Import des pages
-import Accueil from './pages/Accueil';
-import Missions from './pages/Missions';
-import Formation from './pages/Formation';
-import Temoignages from './pages/Temoignages';
-import Contact from './pages/Contact';
-import Priere from './pages/Priere';
-import ProtectedPage from './components/ProtectedPage';
+// Charge chaque page à la demande pour alléger le premier chargement.
+const Accueil = lazy(() => import('./pages/Accueil'));
+const Missions = lazy(() => import('./pages/Missions'));
+const Formation = lazy(() => import('./pages/Formation'));
+const Temoignages = lazy(() => import('./pages/Temoignages'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Priere = lazy(() => import('./pages/Priere'));
+const ProtectedPage = lazy(() => import('./components/ProtectedPage'));
 
 // Petit utilitaire pour remonter en haut de page à chaque changement de lien
 function ScrollToTop() {
@@ -34,17 +34,19 @@ function App() {
       <ScrollToTop />
 
       {/* 2. Le contenu des pages */}
-      <Routes>
-        <Route path="/" element={<Accueil />} />
+      <Suspense fallback={<main className="min-h-[50vh]" aria-busy="true" aria-label="Chargement de la page" />}>
+        <Routes>
+          <Route path="/" element={<Accueil />} />
 
-        {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}
-        <Route path="/missions" element={<Missions />} />
-        <Route path="/formation" element={<Formation />} />
-        <Route path="/temoignages" element={<Temoignages />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/priere" element={<Priere />} />
-        <Route path="/reserve" element={<ProtectedPage />} />
-      </Routes>
+          {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/formation" element={<Formation />} />
+          <Route path="/temoignages" element={<Temoignages />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/priere" element={<Priere />} />
+          <Route path="/reserve" element={<ProtectedPage />} />
+        </Routes>
+      </Suspense>
 
       {/* 3. Le footer visible partout */}
       <Footer />

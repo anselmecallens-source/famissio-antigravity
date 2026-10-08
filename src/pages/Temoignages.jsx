@@ -125,7 +125,7 @@ const TemoignagesPage = () => {
   const categories = [
     {
       id: 'fruits-paroisse',
-      label: 'Fruits pour la paroisse',
+      label: 'Paroissiens',
       icon: Church,
       color: '#b91c1c',
       gradient: 'from-red-700 to-red-800',
@@ -133,7 +133,7 @@ const TemoignagesPage = () => {
     },
     {
       id: 'rencontres',
-      label: 'Fioretti & Rencontres',
+      label: 'Personnes rencontrées',
       icon: MessageCircle,
       color: '#f97316',
       gradient: 'from-orange-500 to-orange-600',
@@ -141,7 +141,7 @@ const TemoignagesPage = () => {
     },
     {
       id: 'fruit-soi',
-      label: 'Fruits pour soi',
+      label: 'Le Famissionnaire',
       icon: User,
       color: '#fbbf24',
       gradient: 'from-amber-400 to-amber-500',
@@ -669,7 +669,9 @@ const TemoignagesPage = () => {
 
   const filteredTestimonies = selectedCategory === 'all'
     ? testimoniesWithImages
-    : testimoniesWithImages.filter(t => t.category === selectedCategory);
+    : selectedCategory === 'fruits-paroisse'
+      ? testimoniesWithImages.filter(t => t.tags?.includes('Paroissiens'))
+      : testimoniesWithImages.filter(t => t.category === selectedCategory);
 
   const displayedTestimonies = filteredTestimonies.filter(t => t.id !== testimonyOfDay?.id).slice(0, visibleCount);
 

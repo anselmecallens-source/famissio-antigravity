@@ -27,7 +27,7 @@ export default function MobileHeroV2() {
         <div className="mobile-hero-text-card">
           <p className="mobile-hero-description">
             Des familles missionnaires au service des paroisses rurales de France,
-            pour entourer le prêtre et donner un élan missionnaire.
+            pour entourer le curé et donner un élan missionnaire.
           </p>
         </div>
 

@@ -218,7 +218,7 @@ const Accueil = () => {
             title: 'VEILLÉES',
             image: '/assets/images/6 piliers de la mission/Veillés.webp',
             items: [
-                "Veillée Miséricorde",
+                "Veillée de prière, de louange et de rencontre ouverte à tous",
                 "Veillée sur le thème de l'au-delà et de nos défunts",
                 "Veillée mariale",
                 "Veillée ciné-débat",
@@ -230,13 +230,13 @@ const Accueil = () => {
     return (
         <div className="home-container">
             <Helmet>
-                <title>Famissio - Missions d'évangélisation</title>
-                <meta name="description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
+                <title>Famissio | Missions paroissiales en famille</title>
+                <meta name="description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
                 <link rel="canonical" href="https://famissio.pages.dev/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://famissio.pages.dev/" />
-                <meta property="og:title" content="Famissio - Missions d'évangélisation" />
-                <meta property="og:description" content="Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire." />
+                <meta property="og:title" content="Famissio | Missions paroissiales en famille" />
+                <meta property="og:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
             <style>{`
@@ -1362,7 +1362,7 @@ const Accueil = () => {
 
                         <div className="underline"></div>
 
-                        <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le prêtre et donner un élan missionnaire.</p>
+                        <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le curé et donner un élan missionnaire.</p>
 
                         <div className="mobile-hero-insert">
                             <div className="image-blob">
@@ -2307,7 +2307,7 @@ const Accueil = () => {
             <section className="after-section" style={{ background: '#fffbf7' }}>
                 <div className="after-content">
                     <div className="after-number">+</div>
-                    <h2 className="after-title">Et après cette semaine ?</h2>
+                    <h2 className="after-title">Que faire après la mission ?</h2>
                     <p className="after-text">
                         Plus les paroissiens sont <span className="after-highlight">mobilisés dans la préparation</span>,
                         plus ils participent aux temps de mission, plus la <span className="after-highlight">communion fraternelle</span> se vit
@@ -2434,6 +2434,3 @@ const Accueil = () => {
 };
 
 export default Accueil;
-
-
-

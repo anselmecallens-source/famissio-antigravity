@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Maximize2, Send } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const FormationsPage = () => {
@@ -132,7 +132,7 @@ const FormationsPage = () => {
         {
             id: 'rencontres',
             icon: MessageCircle,
-            title: 'Rencontres Difficiles',
+            title: 'Rencontres spécifiques',
             count: 7,
             color: '#f46a07',
             gradient: 'from-orange-500 to-amber-500',
@@ -269,7 +269,7 @@ const FormationsPage = () => {
         {
             id: 'spirituel',
             icon: Flame,
-            title: 'Vivre sa foi',
+            title: 'Beaux messages à transmettre',
             count: 5,
             color: '#1a1a1a',
             gradient: 'from-gray-900 to-gray-700',
@@ -277,7 +277,7 @@ const FormationsPage = () => {
             formations: [
                 {
                     id: 14,
-                    title: "Annoncer avec la Parole",
+                    title: "Annoncer avec la Parole de Dieu",
                     intro: "Utiliser la Parole de Dieu",
                     pdf: "https://www.dropbox.com/scl/fi/edywe39fgmjlky8wx2i4j/Mission-avec-la-parole-de-Dieu.pdf?rlkey=o3ucv7ystsgbtdlbdzo3erc09&st=ztcgw8vp&raw=1",
                     faqs: [
@@ -461,10 +461,10 @@ const FormationsPage = () => {
                             </h2>
                             <div className="space-y-6 text-lg text-gray-700 font-medium leading-relaxed">
                                 <p>
-                                    Se former est une responsabilité envers ceux que nous rencontrons. C'est s'assurer que nos paroles restent fidèles au <span className="text-orange-600 font-bold">Credo de l'Église</span> et ne s'égarent pas dans des interprétations personnelles.
+                                    Une formation solide aide à transmettre le <span className="text-orange-600 font-bold">Credo de l'Église</span> avec justesse et fidélité.
                                 </p>
                                 <p>
-                                    La formation nous donne l'assurance nécessaire pour témoigner, mais elle nous apprend aussi l'art de <span className="text-gray-900 font-bold">l'écoute</span>. Avant de vouloir convaincre, il s'agit de rejoindre l'autre là où il en est, avec humilité et respect.
+                                    La formation nous aide aussi à rejoindre l'autre là où il en est, avec humilité, respect et une vraie qualité d'<span className="text-gray-900 font-bold">écoute</span>.
                                 </p>
                             </div>
                         </div>
@@ -477,13 +477,13 @@ const FormationsPage = () => {
                                     <i className="fa-solid fa-dove text-2xl text-orange-600"></i>
                                 </div>
 
-                                <blockquote className="text-xl lg:text-2xl font-bold text-gray-900 leading-snug italic" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                                    Rappelez-vous qu'il n'existe pas de réponses toutes faites. L'Esprit Saint vous soufflera, le moment venu, la parole juste qui saura rejoindre la personne rencontrée.
+                                <blockquote className="text-xl lg:text-2xl font-bold text-gray-900 leading-snug" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                                    <span className="text-orange-600">Se former est indispensable…</span> rester disponible à l'Esprit Saint et à l'écoute de l'autre aussi !
                                 </blockquote>
 
                                 <div className="pt-4 border-t border-gray-100">
                                     <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
-                                        Vous êtes avant tout les <span className="font-bold">instruments du Seigneur</span> : le plus important est de rester à l'écoute de l'autre et de porter cette rencontre dans la prière.
+                                        La formation prépare le cœur ; l'Esprit Saint nous guide dans chaque rencontre.
                                     </p>
                                 </div>
                             </div>
@@ -545,18 +545,21 @@ const FormationsPage = () => {
                                                     <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{formation.intro}</p>
                                                     <div className="flex gap-2 mt-auto">
                                                         <button
-                                                            onClick={() => setActiveFormationId(prev => prev === formation.id ? null : formation.id)}
-                                                            className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 border-none outline-none ring-0 shadow-none"
+                                                            onClick={() => setFullscreenPdf(formation)}
+                                                            className="flex-1 px-4 py-2.5 text-white rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 hover:opacity-90 border-none outline-none ring-0 shadow-none"
+                                                            style={{ backgroundColor: '#c82904' }}
                                                         >
                                                             <BookOpen className="w-4 h-4" />
-                                                            {isOpen ? 'Fermer' : 'Voir'}
+                                                            Voir la fiche
                                                         </button>
                                                         <button
-                                                            onClick={() => setFullscreenPdf(formation)}
-                                                            className="px-4 py-2.5 text-white rounded-xl font-semibold text-sm transition-all flex items-center gap-2 hover:opacity-90 border-none outline-none ring-0 shadow-none"
-                                                            style={{ backgroundColor: theme.color }}
+                                                            onClick={() => setActiveFormationId(prev => prev === formation.id ? null : formation.id)}
+                                                            aria-label={`${isOpen ? 'Fermer' : 'Ouvrir'} la FAQ : ${formation.title}`}
+                                                            aria-expanded={isOpen}
+                                                            className="w-12 h-12 shrink-0 text-white rounded-xl font-bold text-xs tracking-wide transition-all hover:opacity-90 border-none outline-none ring-0 shadow-none"
+                                                            style={{ backgroundColor: '#c82904' }}
                                                         >
-                                                            <Maximize2 className="w-4 h-4" />
+                                                            FAQ
                                                         </button>
                                                     </div>
                                                 </div>
@@ -564,15 +567,6 @@ const FormationsPage = () => {
                                                 {/* Contenu étendu - sous la carte, pleine largeur via col-span */}
                                                 {isOpen && (
                                                     <div className="slide-down border-t-2 p-6 bg-slate-50" style={{ borderColor: theme.color }}>
-                                                        {/* PDF Mini */}
-                                                        <div className="mb-6 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                                            <iframe
-                                                                src={`https://docs.google.com/gview?url=${encodeURIComponent(formation.pdf)}&embedded=true`}
-                                                                className="w-full h-80 border-none bg-white"
-                                                                title={formation.title}
-                                                            />
-                                                        </div>
-
                                                         {/* FAQ avec pagination */}
                                                         {formation.faqs && formation.faqs.length > 0 && (
                                                             <div>
