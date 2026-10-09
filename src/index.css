@@ -199,6 +199,22 @@ body {
   pointer-events: auto;
 }
 
+/* Modal ouvert : masquage strict des barres de navigation, boutons flottants et verrouillage */
+body.modal-open {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+body.modal-open .hero-navbar,
+body.modal-open .smart-scroll-up-nav,
+body.modal-open .nav-circle,
+body.modal-open .site-footer {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .nav-circle {
   position: fixed;
   top: 1.875rem;

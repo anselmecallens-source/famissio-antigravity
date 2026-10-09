@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Send } from 'lucide-react';
+import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Send, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const FormationsPage = () => {
@@ -8,6 +8,35 @@ const FormationsPage = () => {
     const [fullscreenPdf, setFullscreenPdf] = useState(null);
     const [expandedFaqs, setExpandedFaqs] = useState({});
     const [faqPages, setFaqPages] = useState({});
+
+    // Verrouillage du scroll et masquage strict des barres d'onglets / boutons fixes quand le popup est ouvert
+    useEffect(() => {
+        if (fullscreenPdf) {
+            document.body.classList.add('modal-open');
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+
+            const handleKeyDown = (e) => {
+                if (e.key === 'Escape') {
+                    setFullscreenPdf(null);
+                }
+            };
+            window.addEventListener('keydown', handleKeyDown);
+
+            return () => {
+                document.body.classList.remove('modal-open');
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                window.scrollTo(0, scrollY);
+                window.removeEventListener('keydown', handleKeyDown);
+            };
+        }
+    }, [fullscreenPdf]);
 
     const themes = [
         {
@@ -431,6 +460,20 @@ const FormationsPage = () => {
                     0%, 100% { transform: scale(1); opacity: 1; }
                     50% { transform: scale(1.05); opacity: 0.9; }
                 }
+
+                body.modal-open {
+                    overflow: hidden !important;
+                    overscroll-behavior: none !important;
+                }
+                body.modal-open .hero-navbar,
+                body.modal-open .smart-scroll-up-nav,
+                body.modal-open .nav-circle,
+                body.modal-open .site-footer {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                }
             `}</style>
 
             {/* HERO */}
@@ -674,31 +717,47 @@ const FormationsPage = () => {
             </div>
 
             {/* MODAL PLEIN ÉCRAN PDF */}
-            {
-                fullscreenPdf && (
-                    <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col">
-                        <div className="flex items-center justify-between p-6 bg-gray-900">
-                            <div className="flex items-center gap-4">
-                                <BookOpen className="w-6 h-6 text-orange-400" />
-                                <h3 className="text-white font-bold text-xl">{fullscreenPdf.title}</h3>
-                            </div>
+            {fullscreenPdf && (
+                <div
+                    className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col overscroll-contain"
+                    style={{ zIndex: 999999 }}
+                >
+                    <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-gray-900 border-b border-gray-800 shrink-0">
+                        <div className="flex items-center gap-3 min-w-0 pr-4">
+                            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 shrink-0" />
+                            <h3 className="text-white font-bold text-base sm:text-lg truncate">
+                                {fullscreenPdf.title}
+                            </h3>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                            <a
+                                href={fullscreenPdf.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition-all"
+                                title="Télécharger ou ouvrir dans un nouvel onglet"
+                            >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                <span className="hidden sm:inline">Ouvrir</span>
+                            </a>
                             <button
                                 onClick={() => setFullscreenPdf(null)}
-                                className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0"
+                                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border-none outline-none ring-0 text-white"
+                                aria-label="Fermer"
                             >
-                                <X className="w-6 h-6 text-white" />
+                                <X className="w-5 h-5 sm:w-6 sm:h-6" />
                             </button>
                         </div>
-                        <div className="flex-1 bg-gray-100 p-4">
-                            <iframe
-                                src={`${fullscreenPdf.pdf}#view=FitH`}
-                                className="w-full h-full rounded-2xl shadow-2xl border-none bg-white"
-                                title={fullscreenPdf.title}
-                            />
-                        </div>
                     </div>
-                )
-            }
+                    <div className="flex-1 bg-gray-100 p-2 sm:p-4 overflow-hidden relative">
+                        <iframe
+                            src={`${fullscreenPdf.pdf}#view=FitH`}
+                            className="w-full h-full rounded-xl sm:rounded-2xl shadow-2xl border-none bg-white"
+                            title={fullscreenPdf.title}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
