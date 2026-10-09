@@ -145,14 +145,14 @@ const Accueil = () => {
             id: 1,
             title: 'ENVOI EN MISSION',
             image: '/assets/images/6 piliers de la mission/Envoi en mission.webp',
-            summary: "Une journée fraternelle de prière, de louange et de témoignages pour lancer la semaine et envoyer les familles en mission.",
+            summary: "Avant de partir dans les villages, les familles se rassemblent pour se confier au Seigneur et recevoir ensemble la bénédiction de l'Église.",
             content: "La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."
         },
         {
             id: 2,
             title: 'FORMATION',
             image: '/assets/images/6 piliers de la mission/Formation.webp',
-            summary: "Des topos quotidiens, des ateliers pratiques et des temps de relecture pour équiper missionnaires et paroissiens.",
+            summary: "Pour oser témoigner avec simplicité, chacun apprend à revisiter sa propre foi et à trouver les mots justes pour parler de Dieu.",
             items: [
                 "Formation et jeux de rôle pour les Famissionnaires comme pour les Paroissiens le Dimanche après-midi",
                 "Préparation d'un témoignage personnel, pendant laquelle chacun revisite, sous le regard de Dieu, sa propre histoire sainte",
@@ -165,7 +165,7 @@ const Accueil = () => {
             id: 3,
             title: 'TEMPS DE PRIÈRE',
             image: '/assets/images/6 piliers de la mission/Temps de prière.webp',
-            summary: "La prière au cœur de chaque journée : laudes, adoration, messe quotidienne et chapelet pour porter la mission.",
+            summary: "La prière est le souffle secret de la mission : chaque journée s'enracine auprès du Seigneur pour porter toutes les rencontres vécues.",
             items: [
                 "Chaque journée commence par une heure de laudes, louanges, adoration et formation",
                 "Une messe quotidienne",
@@ -177,7 +177,7 @@ const Accueil = () => {
             id: 4,
             title: 'DES TEMPS DE MISSION',
             image: '/assets/images/6 piliers de la mission/Temps d évangélisation.webp',
-            summary: "Dans les rues, sur les marchés, en porte-à-porte et dans les EHPAD pour aller à la rencontre de chacun.",
+            summary: "C'est l'aventure de la rencontre : aller vers ceux qui ne viennent plus à l'église, écouter avec bienveillance et témoigner avec joie.",
             items: [
                 "Visitations dans la rue et sur les marchés",
                 "Porte-à-porte",
@@ -193,7 +193,7 @@ const Accueil = () => {
             id: 5,
             title: 'TEMPS FRATERNELS',
             image: '/assets/images/6 piliers de la mission/Temps fraternel.webp',
-            summary: "Repas partagés, jeux et veillées conviviales pour tisser des liens forts et joyeux avec les paroissiens.",
+            summary: "Vivre la joie simple d'être ensemble : la fraternité partagée au quotidien avec les paroissiens est déjà le plus beau des témoignages.",
             items: [
                 "Repas entre Famissionnaires et Paroissiens",
                 "Soirée jeux pour apprendre à se connaître",
@@ -205,7 +205,7 @@ const Accueil = () => {
             id: 6,
             title: 'VEILLÉES',
             image: '/assets/images/6 piliers de la mission/Veillés.webp',
-            summary: "Des soirées ouvertes à tous dans les églises : prière, ciné-débats, témoignages et réconfort pour les malades.",
+            summary: "Ouvrir grand les portes de l'église le soir pour offrir à tous les habitants, où qu'ils en soient, un temps de paix et d'espérance.",
             items: [
                 "Veillée de prière, de louange et de rencontre ouverte à tous",
                 "Veillée sur le thème de l'au-delà et de nos défunts",
