@@ -145,12 +145,14 @@ const Accueil = () => {
             id: 1,
             title: 'ENVOI EN MISSION',
             image: '/assets/images/6 piliers de la mission/Envoi en mission.webp',
+            summary: "Une journée fraternelle de prière, de louange et de témoignages pour lancer la semaine et envoyer les familles en mission.",
             content: "La semaine de mission commence pour les Famissionaires (seulement) par une journée de rassemblement, de prière, de témoignages, de temps fraternels et d'envoi en mission."
         },
         {
             id: 2,
             title: 'FORMATION',
             image: '/assets/images/6 piliers de la mission/Formation.webp',
+            summary: "Des topos quotidiens, des ateliers pratiques et des temps de relecture pour équiper missionnaires et paroissiens.",
             items: [
                 "Formation et jeux de rôle pour les Famissionnaires comme pour les Paroissiens le Dimanche après-midi",
                 "Préparation d'un témoignage personnel, pendant laquelle chacun revisite, sous le regard de Dieu, sa propre histoire sainte",
@@ -163,6 +165,7 @@ const Accueil = () => {
             id: 3,
             title: 'TEMPS DE PRIÈRE',
             image: '/assets/images/6 piliers de la mission/Temps de prière.webp',
+            summary: "La prière au cœur de chaque journée : laudes, adoration, messe quotidienne et chapelet pour porter la mission.",
             items: [
                 "Chaque journée commence par une heure de laudes, louanges, adoration et formation",
                 "Une messe quotidienne",
@@ -174,6 +177,7 @@ const Accueil = () => {
             id: 4,
             title: 'DES TEMPS DE MISSION',
             image: '/assets/images/6 piliers de la mission/Temps d évangélisation.webp',
+            summary: "Dans les rues, sur les marchés, en porte-à-porte et dans les EHPAD pour aller à la rencontre de chacun.",
             items: [
                 "Visitations dans la rue et sur les marchés",
                 "Porte-à-porte",
@@ -189,6 +193,7 @@ const Accueil = () => {
             id: 5,
             title: 'TEMPS FRATERNELS',
             image: '/assets/images/6 piliers de la mission/Temps fraternel.webp',
+            summary: "Repas partagés, jeux et veillées conviviales pour tisser des liens forts et joyeux avec les paroissiens.",
             items: [
                 "Repas entre Famissionnaires et Paroissiens",
                 "Soirée jeux pour apprendre à se connaître",
@@ -200,6 +205,7 @@ const Accueil = () => {
             id: 6,
             title: 'VEILLÉES',
             image: '/assets/images/6 piliers de la mission/Veillés.webp',
+            summary: "Des soirées ouvertes à tous dans les églises : prière, ciné-débats, témoignages et réconfort pour les malades.",
             items: [
                 "Veillée de prière, de louange et de rencontre ouverte à tous",
                 "Veillée sur le thème de l'au-delà et de nos défunts",
@@ -2347,7 +2353,7 @@ const Accueil = () => {
                                 <div className="timeline-content">
                                     <h3 className="timeline-title">{block.title}</h3>
                                     <p className="timeline-description">
-                                        {block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
+                                        {block.summary || block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
                                     <button
                                         className="timeline-expand-btn"
