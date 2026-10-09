@@ -831,18 +831,25 @@ const TemoignagesPage = () => {
       `}</style>
 
       {/* HERO */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+      <div className="subpage-hero">
+        <div className="subpage-hero-bg">
+          <img
+            src="/assets/images/Caroussel témoignage.webp"
+            alt="Témoignages"
+            className="subpage-hero-img"
+            fetchpriority="high"
+          />
+          <div className="subpage-hero-overlay" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+        <div className="subpage-hero-content">
+          <h1 className="subpage-hero-title">
             Témoignages
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+          <div className="subpage-hero-rule" />
+
+          <p className="subpage-hero-text">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
