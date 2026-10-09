@@ -23,12 +23,6 @@ export default function MobileHeroV2() {
       {/* Contenu centré verticalement */}
       <div className="mhv2-body">
 
-        {/* Eyebrow avec slash distinctif Famissio */}
-        <div className="mhv2-eyebrow">
-          <span className="mhv2-slash" aria-hidden="true" />
-          Missions paroissiales
-        </div>
-
         {/* Titre */}
         <h1 className="mhv2-title">
           Des familles<br />

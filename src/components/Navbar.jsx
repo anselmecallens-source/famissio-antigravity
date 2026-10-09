@@ -67,19 +67,30 @@ const Navbar = () => {
 
   const isPageActive = (path) => location.pathname === path;
 
-  // Shared 35% right-aligned container for exact text superposition on ALL pages
-  const linksContainerStyle = {
-    position: 'absolute',
-    right: '0',
-    top: '0',
-    height: '100%',
-    width: '35%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingRight: '2rem',
-    gap: '1.2rem'
-  };
+  // Right-aligned container for navbar links
+  const linksContainerStyle = isHome
+    ? {
+        position: 'absolute',
+        right: '0',
+        top: '0',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingRight: '2.5rem',
+      }
+    : {
+        position: 'absolute',
+        right: '0',
+        top: '0',
+        height: '100%',
+        width: '35%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingRight: '2rem',
+        gap: '1.2rem'
+      };
 
   return (
     <>
