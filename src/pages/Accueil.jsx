@@ -16,11 +16,8 @@ const useDraggableScroll = (ref) => {
 
         const onMouseDown = (e) => {
             isDown = true;
-            slider.classList.add('active'); // for cursor: grabbing
-
-            // Disable scroll snap for smooth dragging
+            slider.classList.add('active');
             slider.style.scrollSnapType = 'none';
-
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         };
@@ -29,8 +26,6 @@ const useDraggableScroll = (ref) => {
             if (!isDown) return;
             isDown = false;
             slider.classList.remove('active');
-
-            // Re-enable scroll snap after drag
             slider.style.scrollSnapType = 'x mandatory';
         };
 
@@ -41,7 +36,7 @@ const useDraggableScroll = (ref) => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX); // 1:1 movement
+            const walk = (x - startX);
             slider.scrollLeft = scrollLeft - walk;
         };
 
@@ -60,11 +55,10 @@ const useDraggableScroll = (ref) => {
     }, []);
 };
 
-// HELPER TO CENTER CARD ON CLICK (Slow Scroll)
 const scrollToCard = (containerRef, index) => {
     if (containerRef.current) {
         const container = containerRef.current;
-        const cardWidth = container.offsetWidth; // Assuming single card view on mobile
+        const cardWidth = container.offsetWidth;
         container.scrollTo({
             left: cardWidth * index,
             behavior: 'smooth'
@@ -73,73 +67,14 @@ const scrollToCard = (containerRef, index) => {
 };
 
 const Accueil = () => {
-    // Refs for Drag-to-Scroll
     const missionCardsRef = useRef(null);
     const popeGridRef = useRef(null);
-
-    // Manual State for Dots (to force re-render)
     const [activeMissionIndex, setActiveMissionIndex] = useState(0);
+    const [activeMission, setActiveMission] = useState(null);
 
     useDraggableScroll(missionCardsRef);
     useDraggableScroll(popeGridRef);
 
-    // ... existing ...
-
-    // UPDATE RENDER SECTIONS:
-
-    // MISSION CARDS
-    // ...
-    <div
-        ref={missionCardsRef}
-        className="mission-cards"
-        id="mission-carousel"
-        onScroll={(e) => {
-            const scrollLeft = e.target.scrollLeft;
-            const width = e.target.offsetWidth;
-            // More robust calculation
-            const index = Math.round(scrollLeft / width);
-            setActiveMissionIndex(index);
-        }}
-    >
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 0)}>
-            <div className="mission-icon">
-                <i className="fas fa-hands-helping"></i>
-            </div>
-            <h3>Que faisons-nous ?</h3>
-            <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
-        </div>
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 1)}>
-            <div className="mission-icon">
-                <i className="fas fa-calendar-alt"></i>
-            </div>
-            <h3>Préparation</h3>
-            <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
-        </div>
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 2)}>
-            <div className="mission-icon">
-                <i className="fas fa-map-marker-alt"></i>
-            </div>
-            <h3>Où allons-nous ?</h3>
-            <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
-        </div>
-    </div>
-
-    {/* DOTS NAVIGATION (MOBILE ONLY) */ }
-    <div className="mission-dots">
-        {[0, 1, 2].map(idx => (
-            <button
-                key={idx}
-                className={`mission-dot ${activeMissionIndex === idx ? 'active' : ''}`}
-                onClick={() => scrollToCard(missionCardsRef, idx)}
-            />
-        ))}
-    </div>
-
-
-    // State pour la section "6 Temps Forts"
-    const [activeMission, setActiveMission] = useState(null);
-
-    // Données pour "6 Temps Forts"
     const missionBlocks = [
         {
             id: 1,
@@ -222,6 +157,10 @@ const Accueil = () => {
                 <meta property="og:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
             </Helmet>
+
+            {/* ============================================================
+                GLOBAL STYLES
+            ============================================================ */}
             <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -231,189 +170,433 @@ const Accueil = () => {
             --cream: #fff8f4;
             --charcoal: #1a1a1a;
             --off-white-warm: #faf7f5;
-            
-            /* Variables pour la section Pape */
             --spacing-sm: 16px;
             --spacing-md: 24px;
             --spacing-lg: 48px;
             --spacing-xl: 80px;
         }
-        
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; color: var(--charcoal); line-height: 1.7; }
 
-        /* HERO */
-        .hero { 
-            height: 100vh; /* Fallback */
-            height: 100dvh; 
-            max-height: 100dvh;
-            display: grid; 
-            grid-template-columns: 1.3fr 1fr; 
-            position: relative; 
-            overflow: hidden; 
-            background: white; 
-            padding-bottom: 0; 
+        /* ============================================================
+           MOTIF SLASH — élément distinctif Famissio
+           Double barre horizontale décalée, rouge, dans les eyebrows
+        ============================================================ */
+        .fm-slash {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 3px;
+            flex-shrink: 0;
+            margin-right: 2px;
         }
-        
-        .hero-left { 
-            background: linear-gradient(135deg, var(--flame), var(--ember)); 
-            padding: 80px 8%; /* Padding ajusté */
-            display: flex; 
-            align-items: center; 
-            clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%); 
-            position: relative; 
-            height: 100%;
-            z-index: 2; 
+        .fm-slash::before,
+        .fm-slash::after {
+            content: '';
+            display: block;
+            height: 2.5px;
+            border-radius: 1.5px;
         }
-        .hero-left::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23fff' opacity='0.04'/%3E%3C/svg%3E"); }
-        
-        .hero-content { position: relative; z-index: 2; color: white; width: 100%; }
-        
-        .badge { display: none; }
-        
-        /* Titre Hero */
-        .hero h1 { 
-            font-family: 'Playfair Display', serif;
-            font-size: 8.5vw; 
-            font-weight: 900; 
-            line-height: 0.85; 
-            margin-bottom: 30px; 
-            letter-spacing: -3px;
-        }
-        
-        .underline { 
-            width: 120px; 
-            height: 5px; 
-            background: white; 
-            border-radius: 3px; 
-            margin: 25px 0 40px; 
-            position: relative; 
-            overflow: hidden; 
-        }
-        .underline::after { 
-            content: ''; 
-            position: absolute; 
-            width: 40%; 
-            height: 100%; 
-            background: #d4af37; 
-            left: 0; 
-        }
-        
-        .hero p { 
-            font-size: 1.35rem;
-            line-height: 1.6; 
-            opacity: 0.95; 
-            margin-bottom: 50px; 
-            max-width: 850px;
-            font-weight: 300;
-            text-align: left;
-        }
-        
-        .cta {
-            display: flex; 
+        .fm-slash::before { width: 22px; background: var(--flame); }
+        .fm-slash::after  { width: 14px; margin-left: 8px; background: var(--ember); }
+
+        /* Version claire (sur fond sombre) */
+        .fm-slash--light::before { background: rgba(255,255,255,0.9); }
+        .fm-slash--light::after  { background: rgba(255,255,255,0.55); }
+
+        /* ============================================================
+           NOUVEAU HERO — Identité diagonale Famissio
+        ============================================================ */
+        .fam-hero {
+            position: relative;
+            height: 100dvh;
+            min-height: 600px;
+            background: var(--flame);
+            overflow: hidden;
+            display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 90%; 
-            max-width: 900px; 
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 16px 0;
-            border-bottom: 3px solid white;
-            transition: padding-left 0.3s;
-        }
-        
-        .cta span { display: flex; align-items: center; gap: 12px; }
-        .cta:hover span { gap: 20px; transition: gap 0.3s; }
-        
-        .hero-right { 
-            position: relative; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 5%; 
-            height: 100%;
-            margin-top: 0; 
-        }
-        
-        .image-blob { 
-            width: 80%; 
-            height: 70%; 
-            border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; 
-            overflow: hidden; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.3); 
-            animation: morph 10s ease-in-out infinite; 
-        }
-        @keyframes morph { 0%, 100% { border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; } 50% { border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; } }
-        .image-blob img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .float-stat { 
-            position: absolute; 
-            background: white; 
-            padding: 15px 30px; /* Padding latéral augmenté pour la longueur */
-            border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
-            font-weight: 700; 
-            font-size: 0.95rem; 
-            animation: float 4s ease-in-out infinite; 
-            min-width: 180px; /* Force un peu la longueur */
-            text-align: center;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        
-        /* POSITIONS DES BULLES */
-        .float-stat:nth-child(2) { top: 18%; right: 5%; color: var(--ember); animation-delay: 0s; }
-        .float-stat:nth-child(3) { bottom: 20%; right: 8%; color: var(--flame); animation-delay: -2s; }
-        
-        /* Bulle Disciples: Remontée un peu et décalée gauche */
-        .float-stat:nth-child(4) { 
-            bottom: 25%; /* Remontée (était 10-15%) */
-            left: -2%;   /* Légèrement à gauche */
-            color: var(--coral); 
-            animation-delay: -1s; 
         }
 
-        /* SECTIONS GENERAL */
-        /* SECTIONS GENERAL */
+        /* Grande diagonale crème — signature visuelle */
+        .fam-hero-diagonal {
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 52%;
+            height: 130%;
+            background: #fff8f4;
+            clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        /* Photo famille dans la zone crème */
+        .fam-hero-photo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 52%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+            clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .fam-hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            display: block;
+        }
+
+        /* Photo overlay pour foncer légèrement */
+        .fam-hero-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(200,41,4,0.15) 0%, transparent 40%);
+        }
+
+        /* Motif discret sur le fond rouge */
+        .fam-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.04) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        /* Contenu texte */
+        .fam-hero-content {
+            position: relative;
+            z-index: 10;
+            width: 55%;
+            max-width: 780px;
+            padding: 0 6% 0 7%;
+            color: white;
+        }
+
+        .fam-hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 28px;
+        }
+
+        .fam-hero-eyebrow::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: rgba(255,255,255,0.5);
+            display: block;
+        }
+
+        .fam-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -2px;
+            margin-bottom: 32px;
+            color: white;
+        }
+
+        .fam-hero-title em {
+            font-style: italic;
+            color: rgba(255,255,255,0.88);
+        }
+
+        .fam-hero-sub {
+            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.88);
+            margin-bottom: 50px;
+            max-width: 520px;
+        }
+
+        .fam-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: white;
+            color: var(--flame);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 18px 36px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .fam-hero-cta:hover {
+            background: var(--charcoal);
+            color: white;
+            gap: 20px;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+        }
+
+        .fam-hero-cta svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s;
+        }
+
+        .fam-hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Scroll indicator */
+        .fam-hero-scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 7%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .fam-hero-scroll-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* ============================================================
+           BANDE CHIFFRES — sobre et percutante
+        ============================================================ */
+        .fam-stats {
+            background: var(--cream);
+            padding: 0;
+            border-bottom: 1px solid rgba(200,41,4,0.1);
+        }
+
+        .fam-stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 0;
+        }
+
+        .fam-stat-item {
+            padding: 40px 48px;
+            border-right: 1px solid rgba(200,41,4,0.12);
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .fam-stat-item:last-child { border-right: none; }
+
+        .fam-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 4vw, 4rem);
+            font-weight: 900;
+            color: var(--flame);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .fam-stat-label {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #555;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ============================================================
+           SECTION 3 PILIERS — fond charbon
+        ============================================================ */
+        .fam-pillars {
+            background: var(--charcoal);
+            padding: 110px 5%;
+        }
+
+        .fam-pillars-head {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .fam-pillars-eyebrow {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--ember);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .fam-pillars-eyebrow::before,
+        .fam-pillars-eyebrow::after {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--ember);
+        }
+
+        .fam-pillars-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .fam-pillars-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.55);
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .fam-pillars-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .fam-pillar-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .fam-pillar-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(20%);
+        }
+
+        .fam-pillar-card:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        .fam-pillar-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                rgba(26,26,26,0.97) 0%,
+                rgba(26,26,26,0.6) 45%,
+                rgba(26,26,26,0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 36px;
+            transition: background 0.5s;
+        }
+
+        .fam-pillar-card:hover .fam-pillar-overlay {
+            background: linear-gradient(to top,
+                rgba(200,41,4,0.97) 0%,
+                rgba(200,41,4,0.75) 50%,
+                rgba(200,41,4,0.2) 100%);
+        }
+
+        .fam-pillar-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.1);
+            line-height: 1;
+            margin-bottom: 12px;
+            transition: all 0.5s;
+        }
+
+        .fam-pillar-card:hover .fam-pillar-number {
+            color: rgba(255,255,255,0.2);
+            transform: translateY(-8px);
+        }
+
+        .fam-pillar-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .fam-pillar-desc {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.6;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+
+        .fam-pillar-card:hover .fam-pillar-desc {
+            max-height: 120px;
+            opacity: 1;
+        }
+
+        /* ============================================================
+           SECTIONS GLOBALES
+        ============================================================ */
         section { padding: 120px 5%; position: relative; }
         .section-cream { background: var(--cream); }
-        .team-section-white { padding-bottom: 80px !important; } /* Adjusted spacing: perfect balance */
-        
-        /* REPRISE EXACTE DU SCRIPT 1 POUR LES TITRES (Correction bug) */
-        .section-head { 
-            text-align: center; 
-            margin-bottom: 80px; 
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 80px;
         }
-        
-        .eyebrow { 
-            font-size: 0.85rem; 
-            font-weight: 800; 
-            color: var(--ember); 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin-bottom: 15px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 15px; 
+
+        .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--ember);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         .eyebrow::before, .eyebrow::after { content: ''; width: 40px; height: 2px; background: var(--ember); }
-        
-        .title { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(2.5rem, 5vw, 4.5rem); 
-            font-weight: 700; 
-            color: var(--charcoal); 
-            margin-bottom: 20px; 
-            line-height: 1.15; 
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 20px;
+            line-height: 1.15;
         }
-        
-        .subtitle { 
-            font-size: 1.2rem; 
-            color: #666; 
-            max-width: 1000px; 
-            margin: 0 auto; 
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         /* Justification des textes */
@@ -421,15 +604,19 @@ const Accueil = () => {
             text-align: justify;
         }
 
-        /* DIAGONAL STORY */
-        .diagonal { 
-            background: #f8f9fa; 
-            clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%); 
-            margin: 0; /* Marge supprimée pour coller au carrousel */
-            padding: 100px 5%; /* Padding réduit (était 150px) */
-            position: relative; 
-            z-index: 1; 
+        /* ============================================================
+           SECTION HISTOIRE
+        ============================================================ */
+        .diagonal {
+            background: #f8f9fa;
+            margin: 0;
+            padding: 100px 5%;
+            position: relative;
+            z-index: 1;
+            clip-path: none !important;
+            padding-bottom: 10rem !important;
         }
+
         .story-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.3fr; gap: 60px; align-items: center; }
         .image-wrap { position: relative; height: 600px; }
         .main-img { position: absolute; width: 90%; height: 90%; border-radius: 30px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.2); }
@@ -440,27 +627,30 @@ const Accueil = () => {
         .story-text p:first-of-type::first-letter { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700; color: var(--flame); float: left; line-height: 1; margin: -10px 15px 0 0; }
         .highlight-box { background: linear-gradient(135deg, var(--cream), #fff); padding: 35px; border-radius: 25px; border-left: 5px solid var(--ember); margin-top: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
 
-        /* VIDEO */
+        /* ============================================================
+           VIDEO
+        ============================================================ */
         .video-section { background: linear-gradient(135deg, #0f0f0f, #1a1a2e); position: relative; }
         .video-frame { max-width: 800px; margin: 0 auto; padding: 40px; background: rgba(255,255,255,0.03); border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); }
         .video-box { position: relative; padding-bottom: 56.25%; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6); }
         .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; border-radius: inherit; }
-        .video-section .video-box { border: 2px solid white; box-sizing: border-box; } /* Border on container for smooth corners */
-        .video-section .video-box iframe { border: none; } /* No border on iframe */
+        .video-section .video-box { border: 2px solid white; box-sizing: border-box; }
+        .video-section .video-box iframe { border: none; }
 
-
-        /* SECTION MISSION (La Mission en Pratique) */
+        /* ============================================================
+           SECTION MISSION EN PRATIQUE
+        ============================================================ */
         .mission-cards {
-            max-width: 1150px; /* Largeur réduite pour affiner les cartes */
+            max-width: 1150px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
         }
-        
+
         .mission-card {
             background: white;
-            padding: 80px 40px; /* Cartes plus allongées (padding vertical augmenté) */
+            padding: 80px 40px;
             border-radius: 30px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.08);
             text-align: center;
@@ -468,14 +658,14 @@ const Accueil = () => {
             position: relative;
             overflow: hidden;
         }
-        
+
         .mission-card::before { display: none; }
-        
+
         .mission-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 30px 80px rgba(0,0,0,0.15);
         }
-        
+
         .mission-icon {
             width: 100px;
             height: 100px;
@@ -490,17 +680,16 @@ const Accueil = () => {
             animation: morphIcon 8s ease-in-out infinite;
             transition: transform 0.4s;
         }
-        
+
         @keyframes morphIcon {
             0%, 100% { border-radius: 35% 65% 60% 40% / 55% 45% 55% 45%; }
             50% { border-radius: 65% 35% 40% 60% / 45% 55% 45% 55%; }
         }
-        
-        /* Animation Icône sur le côté */
+
         .mission-card:hover .mission-icon {
             transform: scale(1.15) rotate(20deg) translateX(15px);
         }
-        
+
         .mission-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -508,7 +697,7 @@ const Accueil = () => {
             margin-bottom: 20px;
             font-weight: 700;
         }
-        
+
         .mission-card p {
             font-size: 1.05rem;
             line-height: 1.8;
@@ -516,80 +705,102 @@ const Accueil = () => {
             text-align: justify;
         }
 
-        /* SECTION ÉQUIPE MISSIONNAIRE */
+        /* ============================================================
+           SECTION ÉQUIPE
+        ============================================================ */
         .team-section { background: white; }
-        .team-layout { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            display: grid; 
-            grid-template-columns: 500px 1fr; 
-            gap: 60px; 
+        .team-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 500px 1fr;
+            gap: 60px;
             align-items: flex-start;
             position: relative;
         }
-        .team-image-box { 
+        .team-image-box {
             position: -webkit-sticky;
-            position: sticky; 
-            top: 100px; 
+            position: sticky;
+            top: 100px;
             height: fit-content;
             align-self: start;
         }
-        .team-image { 
-            width: 100%; 
-            height: 600px; 
-            border-radius: 35px; 
-            overflow: hidden; 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.3), 0 20px 60px rgba(248, 106, 7, 0.15); 
+        .team-image {
+            width: 100%;
+            height: 600px;
+            border-radius: 35px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3), 0 20px 60px rgba(248, 106, 7, 0.15);
             margin-bottom: 30px;
             transform: translateZ(0);
             will-change: transform;
             transition: box-shadow 0.3s ease;
         }
-
-        /* Responsive Team Image */
-        @media (max-width: 768px) {
-            .team-layout {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            .team-image-box {
-                position: static; /* Désactive le sticky/détachement */
-                width: 100%;
-                top: auto;
-            }
-            .team-image {
-                height: auto;
-                aspect-ratio: 1 / 1; /* Format carré */
-                width: 100%;
-                max-width: 300px; /* Réduit beaucoup la taille */
-                margin: 0 auto 30px auto;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ombre légère */
-            }
-        }
-        
-        .team-content {
-            /* min-height removed so sticky stops exactly at end of content */
-        }
-
-        .team-section-white {
-            background: white;
-            padding-bottom: 20px; /* Reduced padding (space) between Team and Program sections */
-        }
-        
-        .team-image img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            object-position: 25% center; 
-            transition: transform 0.6s;
-        }
+        .team-image img { width: 100%; height: 100%; object-fit: cover; object-position: 25% center; transition: transform 0.6s; }
         .team-image:hover img { transform: scale(1.08); }
-        
         .team-content h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--flame); margin-bottom: 20px; font-weight: 700; }
         .team-content p { font-size: 1.05rem; line-height: 1.7; color: #555; margin-bottom: 25px; }
         .quote-box { background: linear-gradient(135deg, var(--cream), #fff); padding: 40px; border-radius: 30px; margin: 30px 0; position: relative; border: 2px solid rgba(248,106,7,0.1); box-shadow: 0 15px 50px rgba(0,0,0,0.05); }
         .quote-box p { font-style: italic; color: #333; margin-top: 20px; }
         .quote-author { margin-top: 20px; font-weight: 700; color: var(--flame); font-style: normal; text-align: right; }
 
-        /* BANNER */
+        /* ============================================================
+           SECTION "ET APRÈS"
+        ============================================================ */
+        .after-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5% 120px 5%;
+            background: #fafafa;
+            position: relative;
+        }
+
+        .after-content { max-width: 1100px; text-align: center; }
+
+        .after-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(15rem, 25vw, 25rem);
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(200,41,4,0.1);
+            line-height: 0.8;
+            margin-bottom: -100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .after-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 7rem);
+            font-weight: 900;
+            color: #c82904;
+            line-height: 1;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .after-text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .after-highlight {
+            font-weight: 700;
+            color: #f46a07;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* ============================================================
+           BANNER
+        ============================================================ */
         .banner { background: linear-gradient(135deg, var(--flame), var(--ember), var(--coral)); padding: 100px 5%; text-align: center; color: white; position: relative; overflow: hidden; }
         .geo { position: absolute; border: 2px solid rgba(255,255,255,0.1); animation: spin 25s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -597,704 +808,71 @@ const Accueil = () => {
         .geo:nth-child(2) { width: 200px; height: 200px; top: 50%; right: 10%; animation-duration: 30s; }
         .banner h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; text-shadow: 3px 3px 20px rgba(0,0,0,0.3); position: relative; z-index: 2; }
 
-        /* SECTION PÈRE JEAN-PIERRE */
-        .priest-dual {
-            padding: 150px 10%;
-            background: var(--off-white-warm);
-        }
-        .priest-intro-flex {
-            display: flex;
-            gap: 80px;
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            align-items: center;
-        }
-        .priest-circle-img {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid white;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
-            flex-shrink: 0;
-        }
-        .priest-name-zone h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: var(--flame);
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-        .priest-name-zone p {
-            font-size: 1.4rem;
-            color: var(--ember);
-            font-weight: 600;
-            font-style: italic;
-        }
-        .priest-description {
-            max-width: 1000px;
-            margin: 0 auto 100px;
+        /* ============================================================
+           SECTION PÈRE JEAN-PIERRE
+        ============================================================ */
+        .priest-dual { padding: 150px 10%; background: var(--off-white-warm); }
+        .priest-intro-flex { display: flex; gap: 80px; max-width: 1200px; margin: 0 auto 100px; align-items: center; }
+        .priest-circle-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 25px 70px rgba(0,0,0,0.2); flex-shrink: 0; }
+        .priest-name-zone h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--flame); font-weight: 900; margin-bottom: 15px; }
+        .priest-name-zone p { font-size: 1.4rem; color: var(--ember); font-weight: 600; font-style: italic; }
+        .priest-description { max-width: 1000px; margin: 0 auto 100px; text-align: center; }
+        .priest-description h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--charcoal); margin-bottom: 30px; font-weight: 700; }
+        .priest-description p { font-size: 1.2rem; line-height: 2; color: #555; }
+        .pillars-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; max-width: 1300px; margin: 0 auto; }
+        .pillar-box { background: white; padding: 60px 45px; border-top: 8px solid var(--ember); transition: all 0.4s; }
+        .pillar-box:hover { transform: translateY(-20px) scale(1.03); box-shadow: 0 40px 90px rgba(0,0,0,0.15); }
+        .pillar-emoji { font-size: 4rem; margin-bottom: 30px; display: block; }
+        .pillar-box h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--flame); margin-bottom: 25px; font-weight: 700; }
+        .pillar-box p { font-size: 1.05rem; line-height: 2; color: #666; }
+
+        /* ============================================================
+           SECTION PAPE FRANÇOIS
+        ============================================================ */
+        .container { max-width: 1200px; margin: 0 auto; position: relative; }
+        .pope-intro { display: flex; align-items: center; justify-content: center; gap: var(--spacing-lg); margin-bottom: var(--spacing-xl); }
+        .pope-image { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--ember); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+        .pope-intro h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--flame); font-weight: 700; }
+        .rosé-header { text-align: center; margin-bottom: var(--spacing-xl); max-width: 800px; margin-left: auto; margin-right: auto; }
+        .rosé-header .title { font-size: 3rem; color: var(--charcoal); }
+        .pope-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-md); margin-bottom: var(--spacing-xl); }
+        .pope-item { background: white; padding: var(--spacing-lg); border-radius: 16px; border-left: 4px solid var(--ember); box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); transition: all 0.3s; }
+        .pope-item:hover { transform: translateY(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+        .pope-item h4 { font-size: 1.1rem; color: var(--flame); margin-bottom: var(--spacing-sm); font-weight: 700; text-transform: uppercase; }
+        .pope-item p { font-size: 0.98rem; line-height: 1.7; color: #555; }
+        .pope-message-box { background: linear-gradient(135deg, var(--cream), white); padding: var(--spacing-xl); border-radius: 20px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); }
+        .pope-message-box h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--flame); text-align: center; margin-bottom: var(--spacing-md); font-weight: 700; }
+        .pope-message-box p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: var(--spacing-sm); }
+
+        /* ============================================================
+           PRAYER
+        ============================================================ */
+        .prayer {
+            background: #ede0d4;
             text-align: center;
-        }
-        .priest-description h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
             color: var(--charcoal);
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-        .priest-description p {
-            font-size: 1.2rem;
-            line-height: 2;
-            color: #555;
-        }
-        .pillars-three {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-        .pillar-box {
-            background: white;
-            padding: 60px 45px;
-            border-top: 8px solid var(--ember);
-            transition: all 0.4s;
-        }
-        .pillar-box:hover {
-            transform: translateY(-20px) scale(1.03);
-            box-shadow: 0 40px 90px rgba(0,0,0,0.15);
-        }
-        .pillar-emoji {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            display: block;
-        }
-        .pillar-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--flame);
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        .pillar-box p {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: #666;
-        }
-
-        /* SECTION PAPE */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
             position: relative;
+            overflow: hidden;
+            padding: 60px 5%;
         }
-        
-        .pope-intro {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-        .pope-image {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--ember);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-        .pope-intro h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--flame);
-            font-weight: 700;
-        }
-        
-        /* Titre Section Pape (centré et petit) */
-        .rosé-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Titre spécifique au Pape pour qu'il soit "plus petit" comme demandé */
-        .rosé-header .title {
-            font-size: 3rem;
-            color: var(--charcoal); /* Force le noir (au lieu de blanc possiblement hérité) */
-        }
-        
-        .pope-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        @media (max-width: 1024px) {
-            .pope-grid {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 20px;
-                padding-bottom: 30px; /* Space for scroll */
-            }
-            .pope-grid.active {
-                cursor: grabbing;
-                cursor: -webkit-grabbing;
-            }
-            .pope-item {
-                min-width: 85vw;
-                scroll-snap-align: center;
-                flex-shrink: 0;
-            }
-        }
-        
-        .pope-item {
-            background: white;
-            padding: var(--spacing-lg);
-            border-radius: 16px;
-            border-left: 4px solid var(--ember);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
-        }
-        .pope-item:hover {
-            transform: translateY(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        .pope-item h4 {
-            font-size: 1.1rem;
-            color: var(--flame);
-            margin-bottom: var(--spacing-sm);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .pope-item p {
-            font-size: 0.98rem;
-            line-height: 1.7;
-            color: #555;
-        }
-        
-        .pope-message-box {
-            background: linear-gradient(135deg, var(--cream), white);
-            padding: var(--spacing-xl);
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-        }
-        .pope-message-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--flame);
-            text-align: center;
-            margin-bottom: var(--spacing-md);
-            font-weight: 700;
-        }
-        .pope-message-box p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        /* PRAYER SECTION */
-        .prayer { 
-            background: #ede0d4; 
-            text-align: center; 
-            color: var(--charcoal); /* Texte Noir/Charcoal */
-            position: relative; 
-            overflow: hidden; 
-            padding: 60px 5%; 
-        }
-        .prayer-logo { 
-            width: 160px; height: 160px; margin: 0 auto 40px; background: white; 
-            border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-            animation: morph 8s ease-in-out infinite;
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1); /* Ombre plus douce */
-            position: relative; overflow: hidden;
-        }
+        .prayer-logo { width: 160px; height: 160px; margin: 0 auto 40px; background: white; border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; animation: morph 8s ease-in-out infinite; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        @keyframes morph { 0%, 100% { border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; } 50% { border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; } }
         .prayer-logo img { width: 70%; height: 70%; object-fit: contain; transform: scale(1.35); }
-        .prayer h2 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(2.5rem, 5vw, 4rem); 
-            margin-bottom: 25px; 
-            font-weight: 700; 
-            color: var(--flame); /* Titre en Rouge pour le style */
-        }
-        .prayer p { 
-            font-size: 1.3rem; 
-            opacity: 1; 
-            margin-bottom: 45px; 
-            color: var(--charcoal); /* Texte en Noir */
-        }
-        .prayer-cta {
-            display: inline-flex; 
-            align-items: center; 
-            gap: 12px; 
-            color: black; /* Lien en Noir */
-            text-decoration: none; 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            padding: 18px 0; 
-            border-bottom: 3px solid black; /* Soulignement Noir */
-            transition: gap 0.3s;
-        }
+        .prayer h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 25px; font-weight: 700; color: var(--flame); }
+        .prayer p { font-size: 1.3rem; opacity: 1; margin-bottom: 45px; color: var(--charcoal); }
+        .prayer-cta { display: inline-flex; align-items: center; gap: 12px; color: black; text-decoration: none; font-weight: 700; font-size: 1.2rem; padding: 18px 0; border-bottom: 3px solid black; transition: gap 0.3s; }
         .prayer-cta:hover { gap: 20px; }
 
-        /* --- STYLES AJOUTÉS POUR LES SECTIONS RESTAURÉES (CLASSES RENOMMÉES en tf-) --- */
-
-        /* TOUSSAINT SECTION - DESIGN BLANC */
-        .toussaint-section {
-          background: white;
-          color: var(--charcoal);
-          padding: 0;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .toussaint-inner {
-          max-width: 1400px;
-          margin: 0 auto;
-          min-height: auto;
-          padding: 100px 5%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-        }
-
-        .toussaint-content {
-          max-width: 1100px; /* Largeur augmentée */
-          margin: 0 auto;
-          text-align: center;
-          display: block;
-          width: 100%;
-        }
-
-        .toussaint-tag {
-          display: inline-block;
-          background: rgba(248, 106, 7, 0.1);
-          color: #f46a07;
-          padding: 12px 30px;
-          border-radius: 50px;
-          font-size: 0.75rem;
-          font-weight: 800;
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          margin-bottom: 40px;
-        }
-
-        .toussaint-title {
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(2.5rem, 6vw, 4.5rem);
-          font-weight: 900;
-          line-height: 1.1;
-          margin-bottom: 60px;
-          color: var(--charcoal); /* Texte foncé */
-        }
-
-        .questions-cascade {
-          margin-bottom: 60px;
-          text-align: left;
-          background: var(--off-white-warm); /* Légère distinction */
-          padding: 40px;
-          border-radius: 20px;
-        }
-
-        .question-item {
-          font-size: 1.25rem;
-          line-height: 1.6;
-          color: #555; /* Texte foncé */
-          margin-bottom: 25px;
-          padding-left: 40px;
-          position: relative;
-        }
-
-
-
-        .question-item::before {
-          content: '?';
-          position: absolute;
-          left: 0;
-          font-family: 'Playfair Display', serif;
-          font-size: 1.8rem;
-          color: #f46a07;
-          font-weight: 700;
-        }
-
-        .toussaint-answer {
-          font-size: 1.35rem;
-          line-height: 1.9;
-          color: #333; /* Texte foncé */
-          border-left: 4px solid #f46a07;
-          padding-left: 40px;
-          margin-top: 60px;
-          font-weight: 400;
-          text-align: left;
-        }
-
-        /* SECTION 6 TEMPS FORTS - Grid innovante avec images (RENOMMÉ EN tf-*) */
-        .tf-showcase {
-          background: white;
-          padding: 120px 0 0 0; /* Plus d'espace blanc en bas */
-        }
-
-        .tf-header {
-          text-align: center;
-          max-width: 900px;
-          margin: 0 auto 100px;
-          padding: 0 5%;
-        }
-
-        .tf-super {
-          font-size: 0.8rem;
-          letter-spacing: 4px;
-          text-transform: uppercase;
-          color: #f46a07;
-          font-weight: 800;
-          margin-bottom: 20px;
-        }
-
-        .tf-title {
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          font-weight: 900;
-          color: #1a1a1a;
-          line-height: 1;
-          margin-bottom: 30px;
-        }
-
-        .tf-subtitle {
-          font-size: 1.15rem;
-          color: #666;
-          line-height: 1.7;
-        }
-
-        .tf-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0;
-          max-width: 100%;
-          margin: 0 auto;
-        }
-
-        .tf-card {
-          position: relative;
-          aspect-ratio: 1;
-          overflow: hidden;
-          cursor: pointer;
-          border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .tf-card-image {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .tf-card-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-          filter: grayscale(30%);
-        }
-
-        .tf-card:hover .tf-card-image img {
-          transform: scale(1.1);
-          filter: grayscale(0%);
-        }
-
-        .tf-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 40px;
-          transition: all 0.4s;
-        }
-
-        .tf-card:hover .tf-overlay {
-          background: linear-gradient(to top, rgba(200,41,4,0.95) 0%, rgba(200,41,4,0.7) 70%, rgba(200,41,4,0.3) 100%);
-        }
-
-        .tf-number {
-          font-family: 'Playfair Display', serif;
-          font-size: 5rem;
-          font-weight: 900;
-          color: rgba(255,255,255,0.15);
-          line-height: 1;
-          margin-bottom: 15px;
-          transition: all 0.4s;
-        }
-
-        .tf-card:hover .tf-number {
-          color: rgba(255,255,255,0.3);
-          transform: translateY(-10px);
-        }
-
-        .tf-card-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: white;
-          margin-bottom: 15px;
-          line-height: 1.2;
-          transition: all 0.4s;
-        }
-
-        .tf-card:hover .tf-card-title {
-          transform: translateY(-5px);
-        }
-
-        .tf-preview {
-          font-size: 0.9rem;
-          color: rgba(255,255,255,0.7);
-          line-height: 1.5;
-          max-height: 0;
-          opacity: 0;
-          overflow: hidden;
-          transition: all 0.4s;
-        }
-
-        .tf-card:hover .tf-preview {
-          max-height: 200px;
-          opacity: 1;
-        }
-
-        /* Panel latéral pour détails */
-        .tf-panel {
-          position: fixed;
-          right: -600px;
-          top: 0;
-          width: 600px;
-          height: 100vh;
-          background: white;
-          box-shadow: -10px 0 50px rgba(0,0,0,0.2);
-          z-index: 1000;
-          transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          overflow-y: auto;
-          padding: 80px 60px;
-        }
-
-        .tf-panel.active {
-          right: 0;
-        }
-
-        .panel-close {
-          position: absolute;
-          top: 30px;
-          right: 30px;
-          width: 50px;
-          height: 50px;
-          border: none;
-          background: #f46a07;
-          color: white;
-          font-size: 1.5rem;
-          cursor: pointer;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s;
-        }
-
-        .panel-close:hover {
-          background: #c82904;
-          transform: rotate(90deg);
-        }
-
-        .panel-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 2.5rem;
-          font-weight: 900;
-          color: #c82904;
-          margin-bottom: 30px;
-          line-height: 1.2;
-        }
-
-        .panel-content {
-          font-size: 1.05rem;
-          line-height: 1.9;
-          color: #333;
-          margin-bottom: 20px;
-        }
-
-        .panel-list {
-          list-style: none;
-          margin-top: 30px;
-        }
-
-        .panel-list li {
-          padding: 20px 0 20px 30px;
-          border-left: 3px solid #f46a07;
-          margin-bottom: 15px;
-          color: #555;
-          line-height: 1.7;
-          position: relative;
-          transition: all 0.3s;
-        }
-
-        .panel-list li:hover {
-          border-left-color: #c82904;
-          padding-left: 40px;
-        }
-
-        .panel-list li::before {
-          content: '→';
-          position: absolute;
-          left: 10px;
-          color: #f46a07;
-          font-weight: bold;
-        }
-
-        /* SECTION "ET APRÈS" - Typographie bold */
-        .after-section {
-          min-height: 80vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 5% 120px 5%; /* Plus d'espace en haut */
-          background: #fafafa;
-          position: relative;
-        }
-
-        .after-content {
-          max-width: 1100px;
-          text-align: center;
-        }
-
-        .after-number {
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(15rem, 25vw, 25rem);
-          font-weight: 900;
-          color: transparent;
-          -webkit-text-stroke: 2px rgba(200,41,4,0.1);
-          line-height: 0.8;
-          margin-bottom: -100px;
-          position: relative;
-          z-index: 1;
-        }
-
-        .after-title {
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(3rem, 7vw, 7rem);
-          font-weight: 900;
-          color: #c82904;
-          line-height: 1;
-          margin-bottom: 60px;
-          position: relative;
-          z-index: 2;
-        }
-
-        .after-text {
-          font-size: 1.5rem;
-          line-height: 1.8;
-          color: #333;
-          max-width: 900px;
-          margin: 0 auto;
-          font-weight: 300;
-        }
-
-        .after-highlight {
-          font-weight: 700;
-          color: #f46a07;
-          position: relative;
-          display: inline-block;
-        }
-
-        /* OVERRIDE pour la section "Notre Histoire" (Comment tout a commencé) */
-        .diagonal {
-            margin-top: 0 !important; /* On colle au slider */
-            padding-top: 60px !important;
-            clip-path: none !important; /* REMOVED SLOPE COMPLETELY */
-            padding-bottom: 10rem !important;
-        }
-        
-        /* RESPONSIVE ADDITIONS */
-         @media (max-width: 1200px) {
-            .hero { grid-template-columns: 1fr; }
-            .hero-left { clip-path: none; padding: 80px 5%; }
-            .hero-right { display: none; }
-            .story-grid { grid-template-columns: 1fr; gap: 60px; }
-            .mission-cards { grid-template-columns: repeat(2, 1fr); }
-            .team-layout { grid-template-columns: 1fr; }
-            .pope-grid { grid-template-columns: 1fr; }
-            .pillars-three { grid-template-columns: 1fr; }
-            .masonry { columns: 2; }
-            .priest-intro-flex { flex-direction: column; text-align: center; }
-            .tf-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .diagonal { clip-path: none !important; padding: 80px 5% !important; }
-            
-            /* FIXED: Adjusted height (400px) and Full Width for "Comment tout a commencé" on mobile */
-            .image-wrap { height: 400px !important; margin-bottom: 30px; }
-            .main-img { width: 100% !important; height: 100% !important; }
-            
-            /* FIXED: Qui sommes-nous adjustments - more separation */
-            .video-section .subtitle { text-align: justify !important; }
-            .video-frame { margin-top: 80px !important; }
-
-            .mission-cards { grid-template-columns: 1fr; }
-            
-            /* FIXED: More space for "Que faisons-nous" content by reducing padding */
-            .mission-card { padding: 40px 25px !important; }
-            
-            .masonry { columns: 1; }
-            .tf-grid { grid-template-columns: 1fr; padding: 0 !important; margin: 0 !important; width: 100% !important; }
-            .tf-overlay { padding: 15px !important; } /* Widen text area (40px -> 15px) */
-            .tf-card-title { font-size: 1.3rem !important; }
-            .after-number { font-size: 10rem; margin-bottom: -50px; }
-            .after-text { text-align: justify !important; }
-            
-            /* Widen Priest Section (Photo + Text) ONLY - Zoom effect keeping ROW layout */
-            .priest-dual { overflow-x: hidden; } 
-            .priest-intro-flex {
-                width: 120% !important; /* Wider than screen */
-                max-width: 120% !important; 
-                margin-left: -10% !important; /* Centered visually */
-                display: flex !important;
-                flex-direction: row !important; /* Keep side by side */
-                align-items: center !important;
-                justify-content: center !important;
-                gap: 15px !important; /* Reduced gap */
-                margin-bottom: 20px !important; /* Reduce space below photo/name (was 100px) */
-            }
-            .priest-circle-img {
-                width: 25vw !important; /* Responsive width */
-                height: 25vw !important;
-                border: 4px solid white !important;
-            }
-            .priest-name-zone h2 {
-                white-space: nowrap !important;
-                font-size: 5.5vw !important; /* Responsive text size */
-            }
-            .priest-name-zone p {
-                font-size: 3.5vw !important;
-                text-align: left !important;
-            }
-            /* Reset Global Padding override I added previously */
-        }
-
-        /* --- STYLES SPÉCIFIQUES POUR LA TRANSITION MISSION -> ÉQUIPE --- */
-
-        /* 1. La section Mission en GRIS CLAIR */
+        /* ============================================================
+           SECTION MISSION-SECTION GRAY + TEAM TRANSITION
+        ============================================================ */
         .mission-section-gray {
-            background-color: #f4f6f8; /* Gris clair */
+            background-color: #f4f6f8;
             position: relative;
             z-index: 1;
-            padding-bottom: 220px; /* Beaucoup plus d'espace gris en bas */
+            padding-bottom: 220px;
         }
 
-        /* 2. La section Équipe en BLANC avec le TRIANGLE VERS LE HAUT */
         .team-section-white {
             background-color: white;
             position: relative;
@@ -1303,81 +881,309 @@ const Accueil = () => {
             overflow: visible !important;
         }
 
-        /* LE TRIANGLE : pseudo-élément sur la section BLANCHE qui pointe vers le HAUT */
         .team-section-white::before {
             content: '';
             position: absolute;
-            top: -60px; /* On le remonte de sa hauteur */
+            top: -60px;
             left: 0;
             width: 100%;
             height: 60px;
-            background-color: white; /* Même couleur que la section équipe */
-            /* Forme : Triangle pointant vers le haut */
+            background-color: white;
             clip-path: polygon(0 100%, 50% 0, 100% 100%);
             z-index: 3;
         }
-    `}</style>
 
-            {/* HERO USES TWO VERSIONS: DESKTOP (Old) & MOBILE (New V2) */}
-            <div className="mobile-hero-wrapper">
+        /* ============================================================
+           PANEL 6 TEMPS FORTS
+        ============================================================ */
+        .tf-panel {
+            position: fixed;
+            right: -600px;
+            top: 0;
+            width: 600px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 50px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding: 80px 60px;
+        }
+        .tf-panel.active { right: 0; }
+        .panel-close { position: absolute; top: 30px; right: 30px; width: 50px; height: 50px; border: none; background: #f46a07; color: white; font-size: 1.5rem; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .panel-close:hover { background: #c82904; transform: rotate(90deg); }
+        .panel-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: #c82904; margin-bottom: 30px; line-height: 1.2; }
+        .panel-content { font-size: 1.05rem; line-height: 1.9; color: #333; margin-bottom: 20px; }
+        .panel-list { list-style: none; margin-top: 30px; }
+        .panel-list li { padding: 20px 0 20px 30px; border-left: 3px solid #f46a07; margin-bottom: 15px; color: #555; line-height: 1.7; position: relative; transition: all 0.3s; }
+        .panel-list li:hover { border-left-color: #c82904; padding-left: 40px; }
+        .panel-list li::before { content: '→'; position: absolute; left: 10px; color: #f46a07; font-weight: bold; }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 1024px) {
+            .fam-hero-diagonal,
+            .fam-hero-photo { display: none; }
+            .fam-hero {
+                background: linear-gradient(135deg, var(--flame) 0%, #a82003 100%);
+            }
+            .fam-hero-content {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 6%;
+                text-align: left;
+            }
+            .fam-pillars-grid { grid-template-columns: 1fr 1fr; }
+            .fam-pillar-card { aspect-ratio: 1; }
+            .fam-pillars-grid .fam-pillar-card:last-child {
+                grid-column: 1 / -1;
+                aspect-ratio: 2/1;
+            }
+            .pope-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 30px; }
+            .pope-grid.active { cursor: grabbing; }
+            .pope-item { min-width: 85vw; scroll-snap-align: center; flex-shrink: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .fam-hero { min-height: 100dvh; align-items: flex-end; padding-bottom: 80px; }
+            .fam-hero-content { padding: 0 5%; }
+            .fam-hero-title { font-size: clamp(3rem, 12vw, 4.5rem); }
+            .fam-hero-scroll { display: none; }
+            .fam-stats-inner { grid-template-columns: 1fr; }
+            .fam-stat-item { border-right: none; border-bottom: 1px solid rgba(200,41,4,0.12); padding: 28px 24px; }
+            .fam-stat-item:last-child { border-bottom: none; }
+            .fam-pillars { padding: 60px 5%; }
+            .fam-pillars-grid { grid-template-columns: 1fr; gap: 4px; }
+            .fam-pillar-card,
+            .fam-pillars-grid .fam-pillar-card:last-child { aspect-ratio: 4/3; grid-column: auto; }
+            .fam-pillar-desc { max-height: 120px; opacity: 1; }
+            .diagonal { clip-path: none !important; padding: 80px 5% !important; }
+            .image-wrap { height: 400px !important; margin-bottom: 30px; }
+            .main-img { width: 100% !important; height: 100% !important; }
+            .video-section .subtitle { text-align: justify !important; }
+            .video-frame { margin-top: 80px !important; }
+            .mission-cards { grid-template-columns: 1fr; }
+            .mission-card { padding: 40px 25px !important; }
+            .team-layout { grid-template-columns: 1fr; gap: 30px; }
+            .team-image-box { position: static; width: 100%; top: auto; }
+            .team-image { height: auto; aspect-ratio: 1/1; width: 100%; max-width: 300px; margin: 0 auto 30px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            .priest-dual { overflow-x: hidden; }
+            .priest-intro-flex { flex-direction: column; text-align: center; gap: 20px; margin-bottom: 40px; }
+            .priest-circle-img { width: 120px; height: 120px; }
+            .priest-name-zone h2 { font-size: 1.8rem; white-space: normal; }
+            .pillars-three { grid-template-columns: 1fr; }
+            .after-number { font-size: 10rem; margin-bottom: -50px; }
+            .after-text { text-align: justify !important; }
+        }
+
+        /* ── Hero : mobile / desktop toggle ── */
+        .fam-mobile-hero-wrapper { display: none; }
+        .fam-desktop-hero { display: flex; }
+
+        @media (max-width: 1024px) {
+            .fam-mobile-hero-wrapper { display: block; }
+            .fam-desktop-hero { display: none !important; }
+        }
+
+        /* Missions dots (mobile) */
+        .mission-dots { display: none; justify-content: center; gap: 10px; margin-top: 0; padding-top: 10px; padding-bottom: 30px; }
+        .mission-dot { width: 10px; height: 10px; background: rgba(0,0,0,0.2); border-radius: 50%; border: none; padding: 0; cursor: pointer; transition: background-color 0.3s ease; }
+        .mission-dot.active { background: var(--flame); }
+
+        @media (max-width: 768px) {
+            .mission-cards { display: flex; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 5% 40px 5%; margin: 0 -5%; gap: 20px; -ms-overflow-style: none; scrollbar-width: none; cursor: grab; }
+            .mission-cards:active { cursor: grabbing; }
+            .mission-cards::-webkit-scrollbar { display: none; }
+            .mission-card { min-width: 85vw; scroll-snap-align: center; margin: 0; user-select: none; box-shadow: none !important; }
+            .mission-dots { display: flex; }
+        }
+
+        /* TIMELINE — inchangé */
+        .timeline-showcase { max-width: 1300px; margin: 0 auto; position: relative; }
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--ember) 0%, var(--coral) 90%, transparent); transform: translateX(-50%); z-index: 1; }
+        .timeline-track { display: flex; flex-direction: column; gap: 60px; position: relative; z-index: 2; }
+        .timeline-item { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; position: relative; }
+        .timeline-item:nth-child(2n+1) .timeline-content { padding-right: 40px; }
+        .timeline-item:nth-child(2n) .timeline-content { padding-left: 40px; }
+        .timeline-item:nth-child(even) { direction: rtl; }
+        .timeline-item:nth-child(even) > * { direction: ltr; }
+        .timeline-dot { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; background: var(--ember); border: 4px solid white; border-radius: 50%; z-index: 3; box-shadow: 0 0 0 8px rgba(248, 106, 7, 0.15); cursor: pointer; transition: all 0.4s ease; }
+        .timeline-item:hover .timeline-dot { transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 0 15px rgba(248, 106, 7, 0.25); }
+        .timeline-blob { position: relative; width: 100%; max-width: 450px; height: 350px; margin: 0 auto; }
+        .blob-shape { width: 100%; height: 100%; border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.18); position: relative; cursor: pointer; transition: box-shadow 0.5s ease, transform 0.5s ease; }
+        .timeline-item:hover .blob-shape { transform: none; box-shadow: 0 35px 80px rgba(200, 41, 4, 0.25); }
+        .blob-shape img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+        .timeline-item:hover .blob-shape img { transform: none; }
+        .timeline-item:nth-child(3) .blob-shape img { object-position: 40% 15%; }
+        .timeline-item:nth-child(1) .blob-shape img { object-position: 50% 25%; }
+        .timeline-content { position: relative; }
+        .timeline-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--flame); margin-bottom: 20px; line-height: 1.2; position: relative; }
+        .timeline-title::before { content: ''; position: absolute; left: 0; bottom: -8px; width: 70px; height: 3px; background: linear-gradient(90deg, var(--ember), var(--coral)); border-radius: 2px; }
+        .timeline-description { font-size: 1.1rem; line-height: 1.8; color: #555; margin: 25px 0; text-align: justify; }
+        .timeline-expand-btn { display: inline-flex; align-items: center; gap: 12px; padding: 14px 32px; background: linear-gradient(135deg, var(--flame), var(--ember)); color: white; border: none; border-radius: 50px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.4s ease; box-shadow: 0 8px 25px rgba(200, 41, 4, 0.3); }
+        .timeline-expand-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(200, 41, 4, 0.4); gap: 16px; }
+
+        /* Modal */
+        .timeline-modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 40px; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .timeline-modal-backdrop.active { opacity: 1; visibility: visible; }
+        .timeline-modal { background: white; border-radius: 30px; max-width: 1100px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5); display: grid; grid-template-columns: 45% 55%; transform: scale(0.8) translateY(50px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .timeline-modal-backdrop.active .timeline-modal { transform: scale(1) translateY(0); }
+        .modal-image-section { position: relative; overflow: hidden; background: var(--charcoal); }
+        .modal-image-section img { width: 100%; height: 100%; object-fit: cover; transition: none !important; transform: none !important; }
+        .modal-content-section { padding: 50px; overflow-y: auto; }
+        .modal-close-btn { position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--flame); cursor: pointer; transition: all 0.3s ease; z-index: 10; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .modal-close-btn:hover { transform: rotate(90deg) scale(1.1); background: var(--flame); color: white; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--flame); margin-bottom: 30px; line-height: 1.2; }
+        .modal-main-text { font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 30px; text-align: justify; }
+        .modal-list { list-style: none; padding: 0; margin: 0; }
+        .modal-list li { padding: 15px 0 15px 35px; position: relative; font-size: 1.05rem; line-height: 1.7; color: #555; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .modal-list li:last-child { border-bottom: none; }
+        .modal-list li::before { content: '✦'; position: absolute; left: 0; color: var(--ember); font-size: 1.3rem; font-weight: bold; }
+
+        @media (max-width: 1200px) {
+            .timeline-item { grid-template-columns: 1fr; gap: 35px; padding-left: 50px; }
+            .timeline-item:nth-child(even) { direction: ltr; }
+            .timeline-line { left: 20px; }
+            .timeline-dot { left: 20px; }
+            .timeline-content { padding-left: 60px; position: relative; z-index: 10; }
+            .timeline-blob { max-width: 100%; height: 300px; }
+            .timeline-modal { grid-template-columns: 1fr; max-height: 95vh; }
+            .modal-image-section { min-height: 250px; max-height: 300px; }
+            .modal-content-section { padding: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-track { gap: 50px; }
+            .timeline-blob { height: 280px; }
+            .timeline-title { font-size: 1.8rem; }
+            .timeline-description { font-size: 1rem; }
+            .timeline-content { padding-left: 0 !important; padding-right: 0 !important; }
+            .modal-title { font-size: 1.8rem; }
+        }
+            `}</style>
+
+            {/* ============================================================
+                HERO — identité Famissio (desktop + mobile)
+            ============================================================ */}
+
+            {/* MOBILE (≤1024px) */}
+            <div className="fam-mobile-hero-wrapper">
                 <MobileHeroV2 />
             </div>
 
-            <style>{`
-                .mobile-hero-wrapper { display: none; }
-                
-                @media (max-width: 1024px) {
-                    .hero { display: none !important; }
-                    .mobile-hero-wrapper { display: block; }
-                }
-            `}</style>
+            {/* DESKTOP (>1024px) */}
+            <div className="fam-hero fam-desktop-hero" id="top">
+                {/* Diagonale crème */}
+                <div className="fam-hero-diagonal" />
 
-            <div className="hero">
-                <div className="hero-left">
-                    <div className="hero-content">
-
-                        <img
-                            src="/assets/images/Logo Famissio blanc.png"
-                            alt="Famissio Logo"
-                            className="mobile-hero-logo"
-                        />
-                        <h1>Famissio</h1>
-
-                        <div className="underline"></div>
-
-                        <p>Des familles missionnaires au service des paroisses rurales de France, pour entourer le curé et donner un élan missionnaire.</p>
-
-                        <div className="mobile-hero-insert">
-                            <div className="image-blob">
-                                <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
-                            </div>
-                            <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
-                            <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
-                            <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
-                        </div>
-
-                        <Link to="/missions#liste-missions" className="cta">
-                            <span>Découvrir nos missions <i className="fas fa-arrow-right"></i></span>
-                        </Link>
-                    </div>
+                {/* Photo famille */}
+                <div className="fam-hero-photo">
+                    <img
+                        src="/assets/images/Famissio-252.jpg"
+                        alt="Familles Famissio en mission"
+                        fetchpriority="high"
+                    />
                 </div>
-                <div className="hero-right">
-                    <div className="image-blob">
-                        <img src="/assets/images/Famissio-252.jpg" alt="Équipe Famissio" />
-                    </div>
-                    <div className="float-stat"><i className="fas fa-users"></i> Aventure familiale</div>
-                    <div className="float-stat"><i className="fas fa-heart"></i> Service des paroisses</div>
-                    <div className="float-stat"><i className="fas fa-bible"></i> Disciples missionnaires</div>
+
+                {/* Contenu */}
+                <div className="fam-hero-content">
+                    <p className="fam-hero-eyebrow">
+                        <span className="fm-slash fm-slash--light" aria-hidden="true" />
+                        Missions paroissiales
+                    </p>
+
+                    <h1 className="fam-hero-title">
+                        Des familles<br />
+                        <em>en mission.</em>
+                    </h1>
+
+                    <p className="fam-hero-sub">
+                        Au service des curés et de leurs paroisses rurales,<br />
+                        chaque année à la Toussaint.
+                    </p>
+
+                    <Link to="/missions#liste-missions" className="fam-hero-cta">
+                        Découvrir nos missions
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </Link>
+                </div>
+
+                <div className="fam-hero-scroll">
+                    <span className="fam-hero-scroll-line" />
+                    Défiler
                 </div>
             </div>
 
-            {/* CAROUSEL AJOUTÉ */}
+            {/* ============================================================
+                BANDE CHIFFRES
+            ============================================================ */}
+            <div className="fam-stats">
+                <div className="fam-stats-inner">
+                    <div className="fam-stat-item">
+                        <span className="fam-stat-number">7</span>
+                        <span className="fam-stat-label">ans de<br />missions</span>
+                    </div>
+                    <div className="fam-stat-item">
+                        <span className="fam-stat-number">+50</span>
+                        <span className="fam-stat-label">familles<br />missionnaires</span>
+                    </div>
+                    <div className="fam-stat-item">
+                        <span className="fam-stat-number">+15</span>
+                        <span className="fam-stat-label">paroisses<br />touchées</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* CAROUSEL */}
             <HeroCarousel />
 
-            {/* NOTRE HISTOIRE */}
+            {/* ============================================================
+                SECTION 3 PILIERS — La mission c'est quoi ?
+            ============================================================ */}
+            <div className="fam-pillars">
+                <div className="fam-pillars-head">
+                    <p className="fam-pillars-eyebrow">Une semaine de mission</p>
+                    <h2 className="fam-pillars-title">La mission, c'est quoi ?</h2>
+                    <p className="fam-pillars-sub">Trois dimensions au cœur de chaque semaine Famissio — prier ensemble, aller vers les autres, partager la vie fraternelle.</p>
+                </div>
+
+                <div className="fam-pillars-grid">
+                    <div className="fam-pillar-card">
+                        <img src="/assets/images/6 piliers de la mission/Temps de prière.webp" alt="Prier ensemble" loading="lazy" />
+                        <div className="fam-pillar-overlay">
+                            <div className="fam-pillar-number">01</div>
+                            <div className="fam-pillar-name">Prier<br />ensemble</div>
+                            <p className="fam-pillar-desc">Laudes, messe quotidienne, chapelet, adoration — la prière est le socle de toute la semaine.</p>
+                        </div>
+                    </div>
+                    <div className="fam-pillar-card">
+                        <img src="/assets/images/6 piliers de la mission/Temps d évangélisation.webp" alt="Aller vers les autres" loading="lazy" />
+                        <div className="fam-pillar-overlay">
+                            <div className="fam-pillar-number">02</div>
+                            <div className="fam-pillar-name">Aller vers<br />les autres</div>
+                            <p className="fam-pillar-desc">Dans les rues, les maisons, les cimetières, les EHPAD — à la rencontre de ceux qui attendent.</p>
+                        </div>
+                    </div>
+                    <div className="fam-pillar-card">
+                        <img src="/assets/images/6 piliers de la mission/Temps fraternel.webp" alt="Partager la vie fraternelle" loading="lazy" />
+                        <div className="fam-pillar-overlay">
+                            <div className="fam-pillar-number">03</div>
+                            <div className="fam-pillar-name">Partager la<br />vie fraternelle</div>
+                            <p className="fam-pillar-desc">Repas, veillées, jeux — la fraternité entre familles et paroissiens est un témoin en soi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* ============================================================
+                NOTRE HISTOIRE
+            ============================================================ */}
             <div className="diagonal">
                 <div className="section-head">
-                    <div className="eyebrow">Notre Histoire</div>
+                    <div className="eyebrow"><span className="fm-slash" aria-hidden="true" />Notre Histoire</div>
                     <h2 className="title">Comment tout a commencé</h2>
                     <p className="subtitle">Une aventure familiale devenue mouvement missionnaire</p>
                 </div>
@@ -1398,10 +1204,12 @@ const Accueil = () => {
                 </div>
             </div>
 
-            {/* QUI SOMMES NOUS - VIDEO */}
-            <section className="video-section"> {/* Reverted bottom padding reduction */}
+            {/* ============================================================
+                QUI SOMMES-NOUS — VIDÉO
+            ============================================================ */}
+            <section className="video-section">
                 <div className="section-head">
-                    <div className="eyebrow" style={{ color: 'var(--ember)' }}>Découvrez-nous</div>
+                    <div className="eyebrow" style={{ color: 'var(--ember)' }}><span className="fm-slash fm-slash--light" aria-hidden="true" />Découvrez-nous</div>
                     <h2 className="title" style={{ color: 'white' }}>Qui sommes-nous ?</h2>
                     <p className="subtitle" style={{ color: 'rgba(255,255,255,0.8)' }}>Nous sommes des familles missionnaires venues de toute la France, accompagnées de consacrés, qui se rassemblent chaque année pendant une semaine autour de La Toussaint, pour entourer un curé et ses paroissiens, en vue de faire avec eux de la mission.</p>
                 </div>
@@ -1412,20 +1220,15 @@ const Accueil = () => {
                 </div>
             </section>
 
-
-
-            {/* LA MISSION EN PRATIQUE (SECTION GRISE AVEC TRIANGLE HAUT) */}
+            {/* ============================================================
+                LA MISSION EN PRATIQUE
+            ============================================================ */}
             <section id="mission" className="mission-section-gray">
                 <div className="section-head">
-                    <div className="eyebrow">Notre Mission</div>
+                    <div className="eyebrow"><span className="fm-slash" aria-hidden="true" />Notre Mission</div>
                     <h2 className="title">La mission en pratique</h2>
                 </div>
 
-                {/* 
-                    MOBILE CAROUSEL LOGIC:
-                    - Uses CSS scroll-snap on mobile.
-                    - Uses JS to track active slide for dots.
-                */}
                 <div
                     ref={missionCardsRef}
                     className="mission-cards"
@@ -1460,7 +1263,6 @@ const Accueil = () => {
                     </div>
                 </div>
 
-                {/* DOTS NAVIGATION (MOBILE ONLY) */}
                 <div className="mission-dots">
                     {[0, 1, 2].map(idx => (
                         <button
@@ -1470,73 +1272,14 @@ const Accueil = () => {
                         />
                     ))}
                 </div>
-
-                <style>{`
-                    .mission-dots {
-                        display: none; /* Hidden on Desktop */
-                        justify-content: center;
-                        gap: 10px;
-                        margin-top: 0; 
-                        padding-top: 10px;
-                        padding-bottom: 30px; 
-                    }
-                    .mission-dot {
-                        width: 10px; height: 10px;
-                        background: rgba(0,0,0,0.2);
-                        border-radius: 50%;
-                        border: none;
-                        padding: 0;
-                        cursor: pointer;
-                        transition: background-color 0.3s ease; /* Only animate color, not scale */
-                    }
-                    .mission-dot.active {
-                        background: var(--flame);
-                        /* No scale transform */
-                    }
-
-                    @media (max-width: 768px) {
-                        .mission-cards {
-                            display: flex; 
-                            grid-template-columns: none; 
-                            overflow-x: auto;
-                            scroll-snap-type: x mandatory;
-                            padding: 20px 5% 40px 5%; 
-                            margin: 0 -5%; 
-                            gap: 20px;
-                            -ms-overflow-style: none;
-                            scrollbar-width: none;
-                            cursor: grab; /* Cursor indication */
-                        }
-                        .mission-cards:active {
-                            cursor: grabbing;
-                        }
-                        .mission-cards::-webkit-scrollbar {
-                            display: none;
-                        }
-
-                        .mission-card {
-                            min-width: 85vw; 
-                            scroll-snap-align: center;
-                            margin: 0;
-                            /* Prevent text selection during drag */
-                            user-select: none; 
-                        }
-
-                        .mission-dots {
-                            display: flex; 
-                        }
-                        
-                        .mission-card {
-                            box-shadow: none !important;
-                        }
-                    }
-                `}</style>
             </section>
 
-            {/* TEAM SECTION (SECTION BLANCHE SUIVANTE) */}
+            {/* ============================================================
+                TEAM SECTION
+            ============================================================ */}
             <section className="team-section-white">
                 <div className="section-head">
-                    <div className="eyebrow">L'Équipe Missionnaire</div>
+                    <div className="eyebrow"><span className="fm-slash" aria-hidden="true" />L'Équipe Missionnaire</div>
                     <h2 className="title">Missionnaires à tout âge</h2>
                 </div>
                 <div className="team-layout">
@@ -1553,9 +1296,9 @@ const Accueil = () => {
                         <p><strong>À tout âge !</strong> Les enfants ont une grâce particulière pour ouvrir et toucher les cœurs. Ils nous évangélisent !!</p>
 
                         <div className="quote-box">
-                            <p>Comme nous avons besoin de grands missionnaires ! Mais qui peut réveiller l’ardeur d’une chrétienté endormie ? Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n’est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère...</p>
-                            <p style={{ marginTop: '20px' }}>Je me souviens de ce monsieur très courtois avec qui nous discutions depuis un bon quart d’heure déjà de la foi sans parvenir à toucher sa pensée rationnelle. Alors qu’il n’avait encore prononcé aucune parole, le petit Henri interrompt soudainement notre discussion « de grands » pour proposer à cet homme de prier pour lui : cette simple parole l’a bouleversé, et il lui a demandé avec le plus grand sérieux de prier pour son âme !</p>
-                            <p style={{ marginTop: '20px' }}>Ou d’Athanase qui avait ému une aïeule aux larmes après l’avoir bénie d’une croix sur le front alors qu’elle venait de refuser tout échange. Donner la chance aux personnes qui ne connaissent pas Dieu de recevoir des enfants un sourire, une parole d’encouragement, une prière, c’est leur offrir le Christ. Alors chers parents, guidez vos enfants vers la mission ! Ils mèneront beaucoup d’âmes vers le Père...</p>
+                            <p>Comme nous avons besoin de grands missionnaires ! Mais qui peut réveiller l'ardeur d'une chrétienté endormie ? Les grands missionnaires que nous désirons tant je crois que ce sont les enfants. Car évangéliser ce n'est pas asséner une vérité comme une évidence, mais la présenter en tremblant comme un mystère...</p>
+                            <p style={{ marginTop: '20px' }}>Je me souviens de ce monsieur très courtois avec qui nous discutions depuis un bon quart d'heure déjà de la foi sans parvenir à toucher sa pensée rationnelle. Alors qu'il n'avait encore prononcé aucune parole, le petit Henri interrompt soudainement notre discussion « de grands » pour proposer à cet homme de prier pour lui : cette simple parole l'a bouleversé, et il lui a demandé avec le plus grand sérieux de prier pour son âme !</p>
+                            <p style={{ marginTop: '20px' }}>Ou d'Athanase qui avait ému une aïeule aux larmes après l'avoir bénie d'une croix sur le front alors qu'elle venait de refuser tout échange. Donner la chance aux personnes qui ne connaissent pas Dieu de recevoir des enfants un sourire, une parole d'encouragement, une prière, c'est leur offrir le Christ. Alors chers parents, guidez vos enfants vers la mission ! Ils mèneront beaucoup d'âmes vers le Père...</p>
                             <div className="quote-author">— Pierre-Alexandre Ludwig</div>
                         </div>
 
@@ -1564,7 +1307,9 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* LE PROGRAMME (Inserted) - FOND BLANC MAINTENANT */}
+            {/* ============================================================
+                LE PROGRAMME — VIDÉO
+            ============================================================ */}
             <section style={{ background: 'white', padding: '0px 5% 60px 5%' }}>
                 <div className="section-head">
                     <h2 className="title">Le Programme</h2>
@@ -1576,701 +1321,106 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* POURQUOI LA MISSION A LA TOUSSAINT (Depuis Source B) - FOND CRÈME MAINTENANT */}
-            {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
+            {/* ============================================================
+                SECTION TOUSSAINT
+            ============================================================ */}
             <>
                 <style>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
-
-                    .toussaint-clean {
-                    position: relative;
-                    min-height: auto;
-                    display: flex;
-                    align-items: center;
-                    background: #1a1a1a;
-                    overflow: hidden;
-                    padding: 0 !important;
-                    }
-
-                    /* L'IMAGE EN ARRIÈRE-PLAN */
-                    .toussaint-bg {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                    }
-
-                    .toussaint-bg img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    display: block;
-                    }
-
-                    /* Overlay renforcé pour couvrir la zone de texte élargie */
-                    .toussaint-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(
-                        to right,
-                        rgba(0, 0, 0, 0.85) 0%,
-                        rgba(0, 0, 0, 0.6) 50%,
-                        rgba(0, 0, 0, 0.4) 100%
-                    );
-                    z-index: 2;
-                    }
-
-                    /* Container du contenu */
-                    .toussaint-wrapper {
-                    position: relative;
-                    z-index: 10;
-                    max-width: 1400px;
-                    margin: 0 auto;
-                    padding: 5px 8%;
-                    width: 100%;
-                    }
-
-                    /* Largeur élargie à 1100px */
-                    .toussaint-inner {
-                    max-width: 1100px;
-                    }
-
-                    /* EYEBROW */
-                    .toussaint-eyebrow {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 0.85rem;
-                    font-weight: 800;
-                    color: #f46a07;
-                    text-transform: uppercase;
-                    letter-spacing: 3px;
-                    margin-bottom: 15px;
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    }
-
-                    .toussaint-eyebrow::before,
-                    .toussaint-eyebrow::after {
-                    content: '';
-                    width: 40px;
-                    height: 2px;
-                    background: #f46a07;
-                    }
-
-                    /* TITLE */
-                    .toussaint-h2 {
-                    font-family: 'Playfair Display', serif;
-                    font-size: clamp(2.5rem, 5vw, 4.5rem);
-                    font-weight: 700;
-                    color: #ffffff;
-                    margin-bottom: 20px;
-                    line-height: 1.15;
-                    }
-
-                    /* Texte */
-                    .toussaint-text {
-                    font-family: 'Inter', sans-serif;
-                    margin-top: 15px;
-                    }
-
-                    .toussaint-text p {
-                    font-size: 1.25rem;
-                    line-height: 1.9;
-                    color: rgba(255, 255, 255, 0.92);
-                    margin-bottom: 15px;
-                    text-align: justify;
-                    }
-
-                    .toussaint-text p:last-of-type {
-                    margin-bottom: 0;
-                    }
-
-                    .toussaint-text p:first-of-type {
-                    font-size: 1.4rem;
-                    font-weight: 500;
-                    color: #ffffff;
-                    border-left: 5px solid #f46a07;
-                    padding-left: 25px;
-                    background: rgba(248, 106, 7, 0.08);
-                    padding-top: 20px;
-                    padding-bottom: 20px;
-                    padding-right: 30px;
-                    border-radius: 0 8px 8px 0;
-                    }
-
-                    /* Responsive */
-                    @media (max-width: 1024px) {
-                        .toussaint-overlay {
-                            background: rgba(0, 0, 0, 0.75);
-                        }
-                    }
-
+                    .toussaint-clean { position: relative; min-height: auto; display: flex; align-items: center; background: #1a1a1a; overflow: hidden; padding: 0 !important; }
+                    .toussaint-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+                    .toussaint-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+                    .toussaint-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%); z-index: 2; }
+                    .toussaint-wrapper { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 5px 8%; width: 100%; }
+                    .toussaint-inner { max-width: 1100px; }
+                    .toussaint-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 800; color: #f46a07; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
+                    .toussaint-eyebrow::before, .toussaint-eyebrow::after { content: ''; width: 40px; height: 2px; background: #f46a07; }
+                    .toussaint-h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; color: #ffffff; margin-bottom: 20px; line-height: 1.15; }
+                    .toussaint-text { font-family: 'Inter', sans-serif; margin-top: 15px; }
+                    .toussaint-text p { font-size: 1.25rem; line-height: 1.9; color: rgba(255,255,255,0.92); margin-bottom: 15px; text-align: justify; }
+                    .toussaint-text p:last-of-type { margin-bottom: 0; }
+                    .toussaint-text p:first-of-type { font-size: 1.4rem; font-weight: 500; color: #ffffff; border-left: 5px solid #f46a07; padding-left: 25px; background: rgba(248, 106, 7, 0.08); padding-top: 20px; padding-bottom: 20px; padding-right: 30px; border-radius: 0 8px 8px 0; }
                     @media (max-width: 768px) {
-                        .toussaint-wrapper {
-                            padding-left: 8px !important;
-                            padding-right: 8px !important;
-                            padding-top: 40px !important;
-                            padding-bottom: 40px !important;
-                            width: 100% !important;
-                            max-width: 100% !important;
-                            box-sizing: border-box;
-                        }
-                        .toussaint-inner {
-                            max-width: 100% !important;
-                            width: 100% !important;
-                        }
-                        /* Toussaint text - smaller for more space */
-                        .toussaint-h2 {
-                            font-size: 1.6rem !important;
-                            line-height: 1.25 !important;
-                            margin-bottom: 15px !important;
-                        }
-                        .toussaint-text p {
-                            font-size: 0.9rem !important;
-                            line-height: 1.6 !important;
-                            margin-bottom: 10px !important;
-                        }
-                        .toussaint-text p:first-of-type {
-                            font-size: 0.95rem !important;
-                            padding: 12px !important;
-                        }
-                        .toussaint-eyebrow {
-                            font-size: 0.65rem !important;
-                        }
-                        
-                        /* Hero mobile styles now in index.css FINAL block */
-                    }
-
-                    /* FRAMING FIXES */
-                    /* Desktop Prayer Image (ID 3) - Match Mobile Focus */
-                    @media (min-width: 769px) {
-                        .timeline-item:nth-child(3) .blob-shape img {
-                             object-position: 40% 15% !important;
-                        }
-                    }
-                        background: rgba(0, 0, 0, 0.75);
-                    }
-                    }
-
-                    @media (max-width: 768px) {
-                    .toussaint-wrapper {
-                        padding: 70px 5%;
-                    }
-                    .toussaint-text p {
-                        font-size: 1.1rem;
-                        text-align: left;
-                    }
-                    .toussaint-text p:first-of-type {
-                        font-size: 1.2rem;
-                    }
+                        .toussaint-wrapper { padding-left: 8px !important; padding-right: 8px !important; padding-top: 40px !important; padding-bottom: 40px !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box; }
+                        .toussaint-inner { max-width: 100% !important; width: 100% !important; }
+                        .toussaint-h2 { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 15px !important; }
+                        .toussaint-text p { font-size: 0.9rem !important; line-height: 1.6 !important; margin-bottom: 10px !important; }
+                        .toussaint-text p:first-of-type { font-size: 0.95rem !important; padding: 12px !important; }
+                        .toussaint-eyebrow { font-size: 0.65rem !important; }
                     }
                 `}</style>
 
                 <section className="toussaint-clean">
                     <div className="toussaint-bg">
-                        <img
-                            src="/assets/images/IMGP2672.JPG"
-                            alt="Mission Toussaint"
-                            loading="lazy"
-                        />
+                        <img src="/assets/images/IMGP2672.JPG" alt="Mission Toussaint" loading="lazy" />
                     </div>
-
                     <div className="toussaint-overlay"></div>
-
                     <div className="toussaint-wrapper">
                         <div className="toussaint-inner">
                             <div className="toussaint-eyebrow">La Toussaint</div>
-
-                            <h2 className="toussaint-h2">
-                                Le choix de la Toussaint
-                            </h2>
-
+                            <h2 className="toussaint-h2">Le choix de la Toussaint</h2>
                             <div className="toussaint-text">
-                                <p>
-                                    Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.
-                                </p>
-
-                                <p>
-                                    C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.
-                                </p>
-
-                                <p>
-                                    À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.
-                                </p>
-
-                                <p>
-                                    Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.
-                                </p>
+                                <p>Partir en mission à ce moment-là, c'est suivre l'exemple des saints et annoncer l'Évangile à notre tour.</p>
+                                <p>C'est aussi une occasion unique de rencontre. Chacun a déjà connu la perte d'un être cher ou s'est interrogé sur la vie après la mort. Parfois, on garde en soi un merci ou un pardon qu'on n'a pas exprimé à temps.</p>
+                                <p>À la Toussaint, beaucoup de personnes se rendent dans les cimetières et s'interrogent sur le sens de la vie. Nous y allons pour échanger avec elles, les écouter et témoigner de notre espérance chrétienne.</p>
+                                <p>Ce temps est propice à des cœurs à cœurs, à des rencontres profondes pour guider chacun vers le Seigneur.</p>
                             </div>
                         </div>
                     </div>
                 </section>
             </>
 
-
-
-            {/* SECTION 6 TEMPS FORTS - TIMELINE COMPACTE */}
+            {/* ============================================================
+                6 TEMPS FORTS — TIMELINE
+            ============================================================ */}
             <section style={{ background: 'white', padding: '100px 5%', position: 'relative', overflow: 'hidden' }}>
-                <style>{`
-                    /* Timeline Container */
-                    .timeline-showcase {
-                        max-width: 1300px;
-                        margin: 0 auto;
-                        position: relative;
-                    }
-
-                    /* Timeline Line */
-                    .timeline-line {
-                        position: absolute;
-                        left: 50%;
-                        top: 0; 
-                        bottom: 0;
-                        width: 3px;
-                        /* Only bottom fade - no top fade */
-                        background: linear-gradient(180deg, var(--ember) 0%, var(--coral) 90%, transparent);
-                        transform: translateX(-50%);
-                        z-index: 1;
-                    }
-
-                    /* Timeline Items */
-                    .timeline-track {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 60px;
-                        position: relative;
-                        z-index: 2;
-                    }
-
-                    .timeline-item {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 100px; /* INCREASED GAP for Desktop Overlap (was 60px) */
-                        align-items: center;
-                        position: relative;
-                    }
-                    
-                    /* OFFSET TEXT to ensure no overlap with blob animation */
-                    .timeline-item:nth-child(2n+1) .timeline-content {
-                        padding-right: 40px; 
-                    }
-                    .timeline-item:nth-child(2n) .timeline-content {
-                        padding-left: 40px;
-                    }
-
-                    .timeline-item:nth-child(even) {
-                        direction: rtl;
-                    }
-
-                    .timeline-item:nth-child(even) > * {
-                        direction: ltr;
-                    }
-
-                    /* Timeline Dot */
-                    .timeline-dot {
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        width: 24px;
-                        height: 24px;
-                        background: var(--ember);
-                        border: 4px solid white;
-                        border-radius: 50%;
-                        z-index: 3;
-                        box-shadow: 0 0 0 8px rgba(248, 106, 7, 0.15);
-                        cursor: pointer;
-                        transition: all 0.4s ease;
-                    }
-
-                    .timeline-item:hover .timeline-dot {
-                        transform: translate(-50%, -50%) scale(1.4);
-                        box-shadow: 0 0 0 15px rgba(248, 106, 7, 0.25);
-                    }
-
-                    /* Image Blob - FIXÉ */
-                    .timeline-blob {
-                        position: relative;
-                        width: 100%;
-                        max-width: 450px;
-                        height: 350px;
-                        margin: 0 auto;
-                    }
-
-                    .blob-shape {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-                        overflow: hidden;
-                        box-shadow: 0 25px 60px rgba(0,0,0,0.18);
-                        position: relative;
-                        cursor: pointer;
-                        transition: box-shadow 0.5s ease, transform 0.5s ease;
-                    }
-
-                    .timeline-item:hover .blob-shape {
-                        transform: none;
-                        box-shadow: 0 35px 80px rgba(200, 41, 4, 0.25);
-                    }
-
-                    .blob-shape img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        display: block;
-                        transition: transform 0.6s ease;
-                    }
-
-                    .timeline-item:hover .blob-shape img {
-                        transform: none;
-                    }
-
-                    /* AJUSTEMENT SPÉCIFIQUE IMAGE TEMPS DE PRIÈRE (ID 3) */
-                    /* La 3ème div .timeline-item correspond à ID 3 dans la liste renderée */
-                    .timeline-item:nth-child(3) .blob-shape img {
-                        object-position: 40% 15%; /* Monte encore plus (15% top) */
-                    }
-
-                    /* AJUSTEMENT SPÉCIFIQUE IMAGE TÉMOIGNAGES / ENVOI (ID 1) */
-                    .timeline-item:nth-child(1) .blob-shape img {
-                        object-position: 50% 25%; /* Lève l'image (25%) */
-                    }
-
-
-
-                    /* Content */
-                    .timeline-content {
-                        position: relative;
-                    }
-
-                    .timeline-title {
-                        font-family: 'Playfair Display', serif;
-                        font-size: 2.2rem;
-                        font-weight: 900;
-                        color: var(--flame);
-                        margin-bottom: 20px;
-                        line-height: 1.2;
-                        position: relative;
-                    }
-
-                    .timeline-title::before {
-                        content: '';
-                        position: absolute;
-                        left: 0;
-                        bottom: -8px;
-                        width: 70px;
-                        height: 3px;
-                        background: linear-gradient(90deg, var(--ember), var(--coral));
-                        border-radius: 2px;
-                    }
-
-                    .timeline-description {
-                        font-size: 1.1rem;
-                        line-height: 1.8;
-                        color: #555;
-                        margin: 25px 0;
-                        text-align: justify;
-                    }
-
-                    .timeline-expand-btn {
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 12px;
-                        padding: 14px 32px;
-                        background: linear-gradient(135deg, var(--flame), var(--ember));
-                        color: white;
-                        border: none;
-                        border-radius: 50px;
-                        font-weight: 700;
-                        font-size: 0.95rem;
-                        cursor: pointer;
-                        transition: all 0.4s ease;
-                        box-shadow: 0 8px 25px rgba(200, 41, 4, 0.3);
-                    }
-
-                    .timeline-expand-btn:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 12px 35px rgba(200, 41, 4, 0.4);
-                        gap: 16px;
-                    }
-
-                    /* Modal Fullscreen */
-                    .timeline-modal-backdrop {
-                        position: fixed;
-                        inset: 0;
-                        background: rgba(0, 0, 0, 0.85);
-                        backdrop-filter: blur(10px);
-                        z-index: 9999;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 40px;
-                        opacity: 0;
-                        visibility: hidden;
-                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                    }
-
-                    .timeline-modal-backdrop.active {
-                        opacity: 1;
-                        visibility: visible;
-                    }
-
-                    .timeline-modal {
-                        background: white;
-                        border-radius: 30px;
-                        max-width: 1100px;
-                        width: 100%;
-                        max-height: 90vh;
-                        overflow: hidden;
-                        box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
-                        display: grid;
-                        grid-template-columns: 45% 55%;
-                        transform: scale(0.8) translateY(50px);
-                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                    }
-
-                    .timeline-modal-backdrop.active .timeline-modal {
-                        transform: scale(1) translateY(0);
-                    }
-
-                    .modal-image-section {
-                        position: relative;
-                        overflow: hidden;
-                        background: var(--charcoal);
-                    }
-
-                    .modal-image-section img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        transition: none !important;
-                        transform: none !important;
-                    }
-
-                    .modal-content-section {
-                        padding: 50px;
-                        overflow-y: auto;
-                    }
-
-                    .modal-close-btn {
-                        position: absolute;
-                        top: 20px;
-                        right: 20px;
-                        width: 50px;
-                        height: 50px;
-                        background: rgba(255, 255, 255, 0.9);
-                        border: none;
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 1.8rem;
-                        color: var(--flame);
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        z-index: 10;
-                        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-                    }
-
-                    .modal-close-btn:hover {
-                        transform: rotate(90deg) scale(1.1);
-                        background: var(--flame);
-                        color: white;
-                    }
-
-                    .modal-title {
-                        font-family: 'Playfair Display', serif;
-                        font-size: 2.5rem;
-                        font-weight: 900;
-                        color: var(--flame);
-                        margin-bottom: 30px;
-                        line-height: 1.2;
-                    }
-
-                    .modal-main-text {
-                        font-size: 1.1rem;
-                        line-height: 1.9;
-                        color: #444;
-                        margin-bottom: 30px;
-                        text-align: justify;
-                    }
-
-                    .modal-list {
-                        list-style: none;
-                        padding: 0;
-                        margin: 0;
-                    }
-
-                    .modal-list li {
-                        padding: 15px 0 15px 35px;
-                        position: relative;
-                        font-size: 1.05rem;
-                        line-height: 1.7;
-                        color: #555;
-                        border-bottom: 1px solid rgba(0,0,0,0.06);
-                    }
-
-                    .modal-list li:last-child {
-                        border-bottom: none;
-                    }
-
-                    .modal-list li::before {
-                        content: '✦';
-                        position: absolute;
-                        left: 0;
-                        color: var(--ember);
-                        font-size: 1.3rem;
-                        font-weight: bold;
-                    }
-
-                    /* Responsive */
-                    @media (max-width: 1200px) {
-                        .timeline-item {
-                            grid-template-columns: 1fr;
-                            gap: 35px;
-                            padding-left: 50px; /* Shift EVERYTHING (Image + Text) right of line */
-                        }
-
-                        .timeline-item:nth-child(even) {
-                            direction: ltr;
-                        }
-
-                        .timeline-line {
-                            left: 20px; /* Aligned left */
-                        }
-
-                        .timeline-dot {
-                            left: 20px; /* Aligned left with line */
-                        }
-                        
-                        .timeline-content {
-                            padding-left: 60px; /* PUSH TEXT RIGHT to clear line/dot */
-                            position: relative;
-                            z-index: 10;
-                        }
-
-                        .timeline-blob {
-                            max-width: 100%;
-                            height: 300px;
-                        }
-
-                        .timeline-modal {
-                            grid-template-columns: 1fr;
-                            max-height: 95vh;
-                        }
-
-                        .modal-image-section {
-                            min-height: 250px;
-                            max-height: 300px;
-                        }
-
-                        .modal-content-section {
-                            padding: 30px;
-                        }
-                    }
-
-                    @media (max-width: 768px) {
-                        .timeline-track {
-                            gap: 50px;
-                        }
-
-                        .timeline-blob {
-                            height: 280px;
-                        }
-
-                        .timeline-title {
-                            font-size: 1.8rem;
-                        }
-
-
-                        .timeline-description {
-                            font-size: 1rem;
-                        }
-                        /* Align text with image (remove extra 60px padding) */
-                        .timeline-content {
-                            padding-left: 0 !important; 
-                            padding-right: 0 !important;
-                        }
-
-
-                        .modal-title {
-                            font-size: 1.8rem;
-                        }
-                    }
-                `}</style>
-
-                {/* Section Header */}
                 <div className="section-head">
-                    <div className="eyebrow">Une Semaine de Mission</div>
+                    <div className="eyebrow"><span className="fm-slash" aria-hidden="true" />Une Semaine de Mission</div>
                     <h2 className="title">Les 6 Temps Forts</h2>
                     <p className="subtitle">Découvrez le déroulement d'une semaine missionnaire avec Famissio</p>
                 </div>
 
-                {/* Timeline Container */}
                 <div className="timeline-showcase">
                     <div className="timeline-line"></div>
-
                     <div className="timeline-track">
                         {missionBlocks.map((block) => (
                             <div key={block.id} className="timeline-item">
-                                {/* Image Blob */}
                                 <div className="timeline-blob" onClick={() => setActiveMission(block)}>
                                     <div className="blob-shape">
                                         <img src={block.image} alt={block.title} loading="lazy" />
                                     </div>
                                 </div>
-
-                                {/* Content */}
                                 <div className="timeline-content">
                                     <h3 className="timeline-title">{block.title}</h3>
                                     <p className="timeline-description">
                                         {block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
-                                    <button
-                                        className="timeline-expand-btn"
-                                        onClick={() => setActiveMission(block)}
-                                    >
+                                    <button className="timeline-expand-btn" onClick={() => setActiveMission(block)}>
                                         <span>En savoir plus</span>
                                         <i className="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
-
-                                {/* Timeline Dot */}
                                 <div className="timeline-dot" onClick={() => setActiveMission(block)}></div>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Modal Fullscreen */}
                 <div
                     className={`timeline-modal-backdrop ${activeMission ? 'active' : ''}`}
                     onClick={() => setActiveMission(null)}
                 >
                     <div className="timeline-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setActiveMission(null)}>
-                            ×
-                        </button>
-
+                        <button className="modal-close-btn" onClick={() => setActiveMission(null)}>×</button>
                         {activeMission && (
                             <>
-                                {/* Image Section */}
                                 <div className="modal-image-section">
                                     <img src={activeMission.image} alt={activeMission.title} />
                                 </div>
-
-                                {/* Content Section */}
                                 <div className="modal-content-section">
                                     <h3 className="modal-title">{activeMission.title}</h3>
-
                                     {activeMission.content && (
                                         <p className="modal-main-text">{activeMission.content}</p>
                                     )}
-
                                     {activeMission.items && (
                                         <ul className="modal-list">
                                             {activeMission.items.map((item, idx) => (
@@ -2283,10 +1433,11 @@ const Accueil = () => {
                         )}
                     </div>
                 </div>
-
             </section>
 
-            {/* ET APRES CETTE SEMAINE (Depuis Source B) */}
+            {/* ============================================================
+                ET APRÈS CETTE SEMAINE
+            ============================================================ */}
             <section className="after-section" style={{ background: '#fffbf7' }}>
                 <div className="after-content">
                     <div className="after-number">+</div>
@@ -2300,15 +1451,17 @@ const Accueil = () => {
                 </div>
             </section>
 
-
-
-            {/* BANNER */}
+            {/* ============================================================
+                BANNER
+            ============================================================ */}
             <div className="banner">
                 <div className="geo"></div><div className="geo"></div>
                 <h2>La mission nous presse !</h2>
             </div>
 
-            {/* PRIEST */}
+            {/* ============================================================
+                PÈRE JEAN-PIERRE
+            ============================================================ */}
             <section className="priest-dual">
                 <div className="priest-intro-flex">
                     <img src="/assets/images/Père Jean Pierre Barrière.webp" alt="Père Barrière" className="priest-circle-img" loading="lazy" />
@@ -2344,7 +1497,9 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* POPE */}
+            {/* ============================================================
+                PAPE FRANÇOIS
+            ============================================================ */}
             <section className="section-cream">
                 <div className="container">
                     <div className="pope-intro">
@@ -2359,12 +1514,7 @@ const Accueil = () => {
                     <div
                         className="pope-grid"
                         ref={popeGridRef}
-                        onScroll={(e) => {
-                            // Optional: track active item logic if needed in future
-                            // const scrollLeft = e.target.scrollLeft;
-                            // const width = e.target.offsetWidth;
-                            // const index = Math.round(scrollLeft / width);
-                        }}
+                        onScroll={(e) => {}}
                     >
                         <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 0)}>
                             <h4>1. Aller aux périphéries</h4>
@@ -2400,7 +1550,9 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* PRAYER */}
+            {/* ============================================================
+                PRIÈRE
+            ============================================================ */}
             <div className="prayer">
                 <div className="prayer-logo">
                     <img src="/assets/images/Logo Famissio rouge.webp" alt="Logo Prière" loading="lazy" />
@@ -2412,7 +1564,7 @@ const Accueil = () => {
                     <i className="fas fa-arrow-right"></i>
                 </Link>
             </div>
-        </div >
+        </div>
     );
 };
 

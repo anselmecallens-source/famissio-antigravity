@@ -1,258 +1,230 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
+/**
+ * MobileHeroV2 — Hero mobile aligné sur la nouvelle identité Famissio
+ * Fond rouge, diagonale crème, logo blanc, titre serif, CTA pill.
+ */
 export default function MobileHeroV2() {
   return (
-    <div className="mobile-hero">
-      {/* Formes organiques en arrière-plan */}
-      <div className="mobile-hero-blob-bg mobile-hero-blob-1"></div>
-      <div className="mobile-hero-blob-bg mobile-hero-blob-2"></div>
+    <div className="mhv2">
 
-      {/* Logo en haut à droite */}
-      <div className="mobile-hero-logo-wrapper">
+      {/* Diagonale crème en bas à droite — même signature que desktop */}
+      <div className="mhv2-diagonal" />
+
+      {/* Logo en haut à gauche */}
+      <div className="mhv2-logo">
         <img
-          src="/assets/images/Logo Famissio rouge.webp"
+          src="/assets/images/Logo Famissio blanc.png"
           alt="Famissio"
-          className="mobile-hero-logo-img"
         />
       </div>
 
-      {/* Contenu */}
-      <div className="mobile-hero-content">
-        <div className="mobile-hero-title-group">
-          <h1 className="mobile-hero-title">Famissio</h1>
-          <div className="mobile-hero-underline"></div>
+      {/* Contenu centré verticalement */}
+      <div className="mhv2-body">
+
+        {/* Eyebrow avec slash distinctif Famissio */}
+        <div className="mhv2-eyebrow">
+          <span className="mhv2-slash" aria-hidden="true" />
+          Missions paroissiales
         </div>
 
-        <div className="mobile-hero-text-card">
-          <p className="mobile-hero-description">
-            Des familles missionnaires au service des paroisses rurales de France,
-            pour entourer le curé et donner un élan missionnaire.
-          </p>
-        </div>
+        {/* Titre */}
+        <h1 className="mhv2-title">
+          Des familles<br />
+          <em>en mission.</em>
+        </h1>
 
-        <a href="#missions" className="mobile-hero-cta">
-          <span>Découvrir nos missions <ArrowRight size={18} strokeWidth={2.5} /></span>
-        </a>
+        {/* Ligne décorative */}
+        <div className="mhv2-rule" />
+
+        {/* Sous-titre */}
+        <p className="mhv2-sub">
+          Au service des curés et de leurs paroisses rurales, chaque année à la Toussaint.
+        </p>
+
+        {/* CTA */}
+        <Link to="/missions#liste-missions" className="mhv2-cta">
+          Découvrir nos missions
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </Link>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap');
-
-        /* SCOPED STYLES ONLY - NO GLOBAL RESET */
-
-        .mobile-hero {
+        /* ── CONTAINER ── */
+        .mhv2 {
           position: relative;
           height: 100dvh;
-          min-height: 100dvh;
-          max-height: 100dvh;
+          min-height: 580px;
           width: 100%;
-          background: linear-gradient(135deg, #e74c3c 0%, #d35400 100%);
+          background: #c82904;
           overflow: hidden;
           display: flex;
-          align-items: center;
-          padding: 0; /* Removing vertical padding to let flexbox center perfectly within 100dvh */
+          flex-direction: column;
+          justify-content: center;
         }
 
-        /* Blobs organiques animés */
-        .mobile-hero-blob-bg {
+        /* ── DIAGONALE — signature visuelle ── */
+        .mhv2-diagonal {
           position: absolute;
-          border-radius: 40% 60% 50% 70% / 60% 40% 70% 50%;
-          opacity: 0.15;
-          animation: mobile-hero-morph-blob 20s ease-in-out infinite;
+          bottom: -20%;
+          right: -10%;
+          width: 70%;
+          height: 80%;
+          background: #fff8f4;
+          clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+          opacity: 0.08;
+          pointer-events: none;
         }
 
-        .mobile-hero-blob-1 {
-          width: 400px;
-          height: 400px;
-          background: white;
-          top: -100px;
-          right: -100px;
-          animation-delay: 0s;
-        }
-
-        .mobile-hero-blob-2 {
-          width: 300px;
-          height: 300px;
-          background: white;
-          bottom: -80px;
-          left: -80px;
-          animation-delay: -10s;
-        }
-
-        @keyframes mobile-hero-morph-blob {
-          0%, 100% {
-            border-radius: 40% 60% 50% 70% / 60% 40% 70% 50%;
-            transform: rotate(0deg) scale(1);
-          }
-          33% {
-            border-radius: 70% 30% 50% 50% / 50% 60% 40% 60%;
-            transform: rotate(120deg) scale(1.1);
-          }
-          66% {
-            border-radius: 50% 70% 60% 40% / 70% 50% 50% 60%;
-            transform: rotate(240deg) scale(0.95);
-          }
-        }
-
-        /* Logo */
-        .mobile-hero-logo-wrapper {
+        /* ── LOGO ── */
+        .mhv2-logo {
           position: absolute;
-          top: 80px;
-          right: 28px;
+          top: 28px;
+          left: 24px;
           z-index: 10;
-          width: 110px; /* Increased from 95px */
-          height: 110px; /* Increased from 95px */
-          background: white;
-          border-radius: 50%;
+          width: 52px;
+          height: 52px;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-          animation: mobile-hero-gentle-pulse 4s ease-in-out infinite;
         }
 
-        @keyframes mobile-hero-gentle-pulse {
-          0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-          }
-          50% {
-            transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-          }
-        }
-
-        .mobile-hero-logo-img {
-          width: 90px; /* Increased from 80px */
+        .mhv2-logo img {
+          width: 100%;
           height: auto;
+          object-fit: contain;
           display: block;
+          filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
         }
 
-        /* Contenu */
-        .mobile-hero-content {
+        /* ── BODY ── */
+        .mhv2-body {
           position: relative;
           z-index: 5;
-          padding: 0 28px;
-          width: 100%;
-          margin-top: 20vh; /* Pushes content effectively down from the vertical center */
+          padding: 0 6% 0 6%;
+          margin-top: 60px;
         }
 
-        /* Groupe titre */
-        .mobile-hero-title-group {
-          margin-bottom: 50px;
+        /* ── EYEBROW avec slash ── */
+        .mhv2-eyebrow {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.72rem;
+          font-weight: 800;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.65);
+          margin-bottom: 24px;
         }
 
-        .mobile-hero-title {
+        /* Le slash distinctif Famissio (double barre décalée) */
+        .mhv2-slash {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 3px;
+          flex-shrink: 0;
+        }
+
+        .mhv2-slash::before,
+        .mhv2-slash::after {
+          content: '';
+          display: block;
+          height: 2px;
+          border-radius: 1px;
+          background: rgba(255,255,255,0.6);
+        }
+
+        .mhv2-slash::before { width: 18px; }
+        .mhv2-slash::after  { width: 12px; margin-left: 6px; }
+
+        /* ── TITRE ── */
+        .mhv2-title {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(4rem, 15vw, 6rem); /* Reduced max size slightly to prevent overflow */
+          font-size: clamp(3.2rem, 13vw, 5rem);
           font-weight: 900;
+          line-height: 0.92;
+          letter-spacing: -2px;
           color: white;
-          line-height: 0.85;
-          letter-spacing: -3px;
-          margin-bottom: 25px;
-          text-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+          margin-bottom: 28px;
         }
 
-        .mobile-hero-underline {
-          width: 110px;
-          height: 5px;
-          background: white;
-          border-radius: 3px;
+        .mhv2-title em {
+          font-style: italic;
+          color: rgba(255,255,255,0.85);
+        }
+
+        /* ── RÈGLE DÉCO ── */
+        .mhv2-rule {
+          width: 48px;
+          height: 3px;
+          background: rgba(255,255,255,0.4);
+          border-radius: 2px;
+          margin-bottom: 24px;
           position: relative;
           overflow: hidden;
         }
 
-        .mobile-hero-underline::after {
+        .mhv2-rule::after {
           content: '';
           position: absolute;
+          left: 0;
+          top: 0;
           width: 40%;
           height: 100%;
-          background: #d4af37;
-          left: 0;
+          background: white;
+          border-radius: inherit;
         }
 
-        /* Carte de texte */
-        .mobile-hero-text-card {
-          background: rgba(255, 255, 255, 0.12);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          border-radius: 24px;
-          padding: 32px 28px;
-          margin-bottom: 45px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .mobile-hero-description {
-          color: white;
-          font-size: 1.2rem;
-          line-height: 1.75;
-          font-weight: 300;
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* CTA */
-        .mobile-hero-cta {
-          display: flex;
-          align-items: center;
-          color: white;
-          text-decoration: none;
-          font-weight: 700;
+        /* ── SOUS-TITRE ── */
+        .mhv2-sub {
+          font-family: 'Inter', sans-serif;
           font-size: 1.05rem;
-          padding: 16px 0;
-          border-bottom: 3px solid white;
-          transition: padding-left 0.3s ease;
-          max-width: 480px;
+          font-weight: 300;
+          line-height: 1.65;
+          color: rgba(255,255,255,0.82);
+          margin-bottom: 40px;
+          max-width: 380px;
         }
 
-        .mobile-hero-cta span {
-          display: flex;
+        /* ── CTA ── */
+        .mhv2-cta {
+          display: inline-flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
+          background: white;
+          color: #c82904;
+          text-decoration: none;
+          font-family: 'Inter', sans-serif;
+          font-weight: 800;
+          font-size: 0.95rem;
+          padding: 16px 28px;
+          border-radius: 50px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+          transition: background 0.25s, color 0.25s, gap 0.25s;
         }
 
-        .mobile-hero-cta:active {
-          padding-left: 12px;
+        .mhv2-cta:active {
+          background: #1a1a1a;
+          color: white;
+          gap: 18px;
         }
 
-        /* Responsive */
-        @media (max-height: 700px) {
-          .mobile-hero {
-            padding: 0; /* Keep padding 0 */
-          }
-
-          .mobile-hero-content {
-            margin-top: 10vh; /* Reduced from 20vh on short screens to prevent cutoff */
-          }
-
-          .mobile-hero-logo-wrapper {
-            width: 80px;
-            height: 80px;
-            top: 40px; /* Adjusted top position for logo on short screens */
-          }
-
-          .mobile-hero-logo-img {
-            width: 58px;
-          }
-
-          .mobile-hero-title-group {
-            margin-bottom: 40px;
-          }
-
-          .mobile-hero-text-card {
-            padding: 28px 24px;
-            margin-bottom: 35px;
-          }
-
-          .mobile-hero-description {
-            font-size: 1.1rem;
-          }
+        .mhv2-cta svg {
+          width: 16px;
+          height: 16px;
+          flex-shrink: 0;
         }
 
-        @media (max-width: 360px) {
-          .mobile-hero-text-card {
-            padding: 24px 20px;
-          }
+        /* ── SHORT SCREENS ── */
+        @media (max-height: 650px) {
+          .mhv2-body { margin-top: 30px; }
+          .mhv2-title { font-size: clamp(2.5rem, 11vw, 3.8rem); }
+          .mhv2-sub { margin-bottom: 28px; font-size: 0.95rem; }
         }
       `}</style>
     </div>
