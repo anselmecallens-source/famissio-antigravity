@@ -1399,6 +1399,26 @@ const Accueil = () => {
             color: white;
         }
 
+        .fam-hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 28px;
+        }
+
+        .fam-hero-eyebrow::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: rgba(255,255,255,0.5);
+            display: block;
+        }
+
         .fam-hero-title {
             font-family: 'Playfair Display', serif;
             font-size: clamp(3.2rem, 7vw, 6.5rem);
@@ -1455,6 +1475,27 @@ const Accueil = () => {
         .fam-hero-cta:hover svg {
             transform: translateX(4px);
         }
+
+        /* Scroll indicator */
+        .fam-hero-scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 7%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .fam-hero-scroll-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(255,255,255,0.4);
+        }
 `}</style>
 
             {/* HERO — NOUVELLE IDENTITÉ FAMISSIO (Desktop & Mobile) */}
@@ -1477,6 +1518,10 @@ const Accueil = () => {
 
                 {/* Contenu */}
                 <div className="fam-hero-content">
+                    <p className="fam-hero-eyebrow">
+                        Missions paroissiales
+                    </p>
+
                     <h1 className="fam-hero-title">
                         Des familles<br />
                         <em>en mission.</em>
@@ -1493,6 +1538,12 @@ const Accueil = () => {
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </Link>
+                </div>
+
+                {/* Scroll indicator */}
+                <div className="fam-hero-scroll">
+                    <span className="fam-hero-scroll-line" />
+                    Défiler
                 </div>
             </div>
 

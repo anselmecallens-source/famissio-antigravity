@@ -84,35 +84,32 @@ body {
   position: relative;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+
   /* HIDE RED BANNER ON TABLET/MOBILE (Non-Home Pages) */
   .navbar-page {
     display: none !important;
   }
 
-  /* On HOME (<1024px), MobileHeroV2 handles the hero */
-  .navbar-home {
-    display: none !important;
-  }
-
-  /* Hide desktop text links on tablet/mobile */
+  /* Hide text links to avoid crowding / overlap with circle menu */
   .nav-links {
     display: none !important;
   }
 
-  /* Ensure floating menu toggle is visible on tablet/mobile */
-  .nav-circle {
-    display: flex !important;
-    position: fixed !important;
-    top: 1.25rem !important;
-    right: 1.25rem !important;
-    left: auto !important;
-    width: 3.5rem !important;
-    height: 3.5rem !important;
-    transform: scale(1) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 9999 !important;
+  /* Between 1024px and 1200px (Desktop Hero active):
+     - Show Navbar (so Desktop Logo is visible)
+     - Align Logo to RIGHT to balance the Left Circle Menu */
+  .hero-navbar {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  /* On HOME (<1024px), we use MobileHeroV2 which has its own logo.
+     So we hide the main Navbar entirely to prevent double logos. */
+  .navbar-home {
+    display: none !important;
   }
 }
 
@@ -146,50 +143,6 @@ body {
   line-height: 1.2;
   transition: all 0.25s ease;
   white-space: nowrap;
-}
-
-/* NAVBAR HOME : ONGLETS HAUTE VISIBILITÉ (Capsule verre dépoli sur le hero) */
-.navbar-home .nav-links {
-  display: flex !important;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.42);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 5px 10px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  list-style: none;
-}
-
-.navbar-home .nav-links a {
-  color: #ffffff !important;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700 !important;
-  font-size: 0.88rem !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 8px 15px !important;
-  border-radius: 9999px !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  display: inline-block;
-  line-height: 1.2;
-}
-
-.navbar-home .nav-links a:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
-  color: #ffffff !important;
-}
-
-.navbar-home .nav-links a.active {
-  background: #ffffff !important;
-  color: var(--flame, #c82904) !important;
-  font-weight: 800 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
-  text-shadow: none !important;
 }
 
 .navbar-page .nav-links a {
