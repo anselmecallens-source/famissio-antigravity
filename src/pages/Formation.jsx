@@ -461,10 +461,10 @@ const FormationsPage = () => {
                             </h2>
                             <div className="space-y-6 text-lg text-gray-700 font-medium leading-relaxed">
                                 <p>
-                                    Une formation solide aide à transmettre le <span className="text-orange-600 font-bold">Credo de l'Église</span> avec justesse et fidélité.
+                                    Se former est une responsabilité envers ceux que nous rencontrons. C'est s'assurer que nos paroles restent fidèles au <span className="text-orange-600 font-bold">Credo de l'Église</span>.
                                 </p>
                                 <p>
-                                    La formation nous aide aussi à rejoindre l'autre là où il en est, avec humilité, respect et une vraie qualité d'<span className="text-gray-900 font-bold">écoute</span>.
+                                    Mais avant de vouloir convaincre, il s'agit de rejoindre l'autre là où il en est et de porter cette rencontre dans la <span className="text-gray-900 font-bold">prière</span>, afin que l'Esprit Saint vous souffle, le moment venu, la parole juste qui saura rejoindre la personne rencontrée.
                                 </p>
                             </div>
                         </div>
@@ -480,12 +480,6 @@ const FormationsPage = () => {
                                 <blockquote className="text-xl lg:text-2xl font-bold text-gray-900 leading-snug" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                                     <span className="text-orange-600">Se former est indispensable…</span> rester disponible à l'Esprit Saint et à l'écoute de l'autre aussi !
                                 </blockquote>
-
-                                <div className="pt-4 border-t border-gray-100">
-                                    <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
-                                        La formation prépare le cœur ; l'Esprit Saint nous guide dans chaque rencontre.
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -556,9 +550,12 @@ const FormationsPage = () => {
                                                             onClick={() => setActiveFormationId(prev => prev === formation.id ? null : formation.id)}
                                                             aria-label={`${isOpen ? 'Fermer' : 'Ouvrir'} la FAQ : ${formation.title}`}
                                                             aria-expanded={isOpen}
-                                                            className="w-12 h-12 shrink-0 text-white rounded-xl font-bold text-xs tracking-wide transition-all hover:opacity-90 border-none outline-none ring-0 shadow-none"
-                                                            style={{ backgroundColor: '#c82904' }}
+                                                            className={`px-3.5 py-2.5 rounded-xl font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 border shrink-0 ${isOpen
+                                                                ? 'bg-orange-50 text-orange-700 border-orange-200 shadow-sm'
+                                                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 border-gray-200 hover:border-gray-300'
+                                                            }`}
                                                         >
+                                                            <MessageCircle className="w-4 h-4" />
                                                             FAQ
                                                         </button>
                                                     </div>
