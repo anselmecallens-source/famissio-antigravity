@@ -421,34 +421,34 @@ export default function Contact() {
           </div>
 
           <div className="flex justify-center w-full">
-            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden w-full max-w-[760px] ring-1 ring-black/5">
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden w-full max-w-[500px] ring-1 ring-black/5">
               <iframe
-                src="https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545"
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffamissio&tabs=timeline&width=500&height=780&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
                 title="Dernières publications de Famissio sur Facebook"
-                width="100%"
-                height="760"
+                width="500"
+                height="780"
                 loading="lazy"
                 allowFullScreen
-                referrerPolicy="strict-origin-when-cross-origin"
-                style={{ display: 'block', width: '100%', height: 'clamp(520px, 78vh, 760px)', border: 0 }}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                style={{ display: 'block', width: '100%', height: '780px', border: 0 }}
               />
             </div>
           </div>
 
-          <p className="mt-6 text-center text-gray-600">
-            Le fil Facebook ne s’affiche pas ?{' '}
+          <div className="mt-6 flex flex-col items-center gap-3 text-center text-gray-600">
+            <p>Le fil Facebook ne s’affiche pas ?</p>
             <a
               href="https://www.facebook.com/Famissio-108524034407006/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-bold text-orange-700 underline decoration-orange-300 underline-offset-4 hover:text-red-700"
+              className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full bg-orange-600 px-5 py-3 text-center font-bold text-white shadow-md transition-colors hover:bg-red-700"
             >
-              Retrouvez Famissio sur Facebook
+              <span>Voir la page Famissio sur Facebook</span>
               <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5h5v5m0-5L10 14M19 13v6H5V5h6" />
               </svg>
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </div>
