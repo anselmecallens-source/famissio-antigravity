@@ -141,8 +141,8 @@ const MissionsPage = () => {
       Cette semaine a été parsemée de rencontres improbables et émouvantes. Beaucoup de cœurs se sont ouverts. Tous ceux qui expérimentaient la mission ont eu ce bonheur immense de voir le Seigneur à l'œuvre.`,
       video: null,
       links: [
-        { name: 'Famille chrétienne (Jan)', url: 'https://www.dropbox.com/scl/fi/7tfkf8hjwjql4ss3a36ur/2024-01-Famille-chr-tienne.pdf?rlkey=3hnxcjn39vek1rhlga9d9ujd8&st=ov97dp8z&raw=1' },
-        { name: 'Famille chrétienne (Nov)', url: 'https://www.dropbox.com/scl/fi/7md04n7v91a2wlw45ohsp/2023-11-Famille-chr-tienne.pdf?rlkey=5fm1vb5j76vhv84mhhic0ofls&st=addhdujw&raw=1' },
+        { name: 'Famille chrétienne (Jan)', url: '/assets/Articles%20missions/2024%2001%20Famille%20chr%C3%A9tienne.pdf' },
+        { name: 'Famille chrétienne (Nov)', url: '/assets/Articles%20missions/2023%2011%20Famille%20chr%C3%A9tienne.pdf' },
         { name: 'La Montagne', url: 'http://www.lamontagne.fr/bonnat-23220/actualites/famissio-a-la-rencontre-du-relais-paroissial_14394969/' }
       ],
       size: 'medium'

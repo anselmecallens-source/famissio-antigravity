@@ -2,6 +2,10 @@ import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 
+const prayerPdfAsset = (filename) => `/assets/Pri%C3%A8re%20Famissio/${encodeURIComponent(filename)}`;
+const parolesPdf = prayerPdfAsset('Paroles - Prière de Famissio.pdf');
+const partitionPdf = prayerPdfAsset('Partition - Prière de Famissio .pdf');
+
 export default function Priere() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -287,9 +291,17 @@ export default function Priere() {
                                     </React.Fragment>
                                 ))}
 
+                                <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm h-[72vh] min-h-[420px] max-h-[800px]">
+                                    <iframe
+                                        className="w-full h-full"
+                                        title="Paroles – Prière de Famissio"
+                                        src={`${parolesPdf}#view=FitH`}
+                                        loading="lazy"
+                                    />
+                                </div>
                                 <div className="flex justify-center pt-8 md:pt-0">
                                     <button
-                                        onClick={() => window.open('https://www.dropbox.com/scl/fi/9mtui0z00cblc6zzmk1m2/Paroles-Pri-re-de-Famissio.pdf?rlkey=ux2phadjuhkglogijgbxgvm62&st=9oso3jhe&raw=1', '_blank')}
+                                        onClick={() => window.open(parolesPdf, '_blank', 'noopener,noreferrer')}
                                         className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
                                     >
                                         <Download className="w-5 h-5" />
@@ -330,12 +342,12 @@ export default function Priere() {
                                     <iframe
                                         className="w-full h-[80vh] md:h-[600px]"
                                         title="Partition – Prière de Famissio"
-                                        src="https://www.dropbox.com/scl/fi/c1h0blprgjxokwjxmjhqv/Partition-Pri-re-de-Famissio.pdf?rlkey=2mfpev3xx17dptwx1pn8nwl85&st=q0ntoisa&raw=1#view=FitH&toolbar=0"
+                                        src={`${partitionPdf}#view=FitH`}
                                     />
                                 </div>
                                 <div className="flex justify-center pt-8 md:pt-4">
                                     <button
-                                        onClick={() => window.open('https://www.dropbox.com/scl/fi/c1h0blprgjxokwjxmjhqv/Partition-Pri-re-de-Famissio.pdf?rlkey=2mfpev3xx17dptwx1pn8nwl85&st=q0ntoisa&raw=1', '_blank')}
+                                        onClick={() => window.open(partitionPdf, '_blank', 'noopener,noreferrer')}
                                         className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
                                     >
                                         <Download className="w-5 h-5" />

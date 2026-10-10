@@ -139,6 +139,31 @@ const Accueil = () => {
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
 
+    useEffect(() => {
+        if (!activeMission) return undefined;
+
+        const scrollY = window.scrollY;
+        const body = document.body;
+        body.classList.add('modal-open');
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollY}px`;
+        body.style.width = '100%';
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') setActiveMission(null);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            body.classList.remove('modal-open');
+            body.style.position = '';
+            body.style.top = '';
+            body.style.width = '';
+            window.scrollTo(0, scrollY);
+        };
+    }, [activeMission]);
+
     // Données pour "6 Temps Forts"
     const missionBlocks = [
         {
@@ -2178,8 +2203,8 @@ const Accueil = () => {
                     .timeline-modal-backdrop {
                         position: fixed;
                         inset: 0;
-                        background: rgba(0, 0, 0, 0.85);
-                        backdrop-filter: blur(10px);
+                        background: #151515;
+                        overscroll-behavior: none;
                         z-index: 9999;
                         display: flex;
                         align-items: center;
@@ -2230,6 +2255,7 @@ const Accueil = () => {
                     .modal-content-section {
                         padding: 50px;
                         overflow-y: auto;
+                        overscroll-behavior: contain;
                     }
 
                     .modal-close-btn {

@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { X, ChevronRight, ChevronDown, BookOpen, MessageCircle, Flame, Send, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const formationPdfAsset = (filename) => `/assets/PDF%20formations/${encodeURIComponent(filename)}`;
+
 const FormationsPage = () => {
     const [activeFormationId, setActiveFormationId] = useState(null);
     const [fullscreenPdf, setFullscreenPdf] = useState(null);
@@ -52,7 +54,7 @@ const FormationsPage = () => {
                     id: 1,
                     title: "Dieu existe-t-il ?",
                     intro: "Arguments rationnels et philosophiques pour soutenir l'existence de Dieu",
-                    pdf: "https://www.dropbox.com/scl/fi/gxeuxskdawmc8h1sa1lgx/10-Quels-sont-les-preuves-de-l-existence-de-Dieu.pdf?rlkey=wsr4rl5gyy98gw0w9fg7lt8n2&st=ugcak1yi&raw=1",
+                    pdf: formationPdfAsset('10- Quels sont les preuves de l’existence de Dieu.pdf'),
                     faqs: [
                         { q: "La science peut-elle attester l'existence de Dieu ?", a: "Non, il s'agit d'une approche philosophique et non d'une expérience de laboratoire. C'est une certitude de l'esprit basée sur l'observation logique du monde." },
                         { q: "Pourquoi tout le monde n'est-il pas convaincu ?", a: "Le péché peut brouiller la vue et empêcher de voir nettement les signes divins. Ces preuves donnent une certitude mais ne forcent pas l'adhésion de tous." },
@@ -70,7 +72,7 @@ const FormationsPage = () => {
                     id: 2,
                     title: "La Trinité",
                     intro: "Un Dieu unique en trois personnes : Père, Fils et Saint-Esprit",
-                    pdf: "https://www.dropbox.com/scl/fi/hi7cwj9h93xrlk6fdyt3h/12-Comment-expliquer-simplement-la-Trinit.pdf?rlkey=uwm8idppua8ydsncrofy30j6n&st=fj6v0waf&raw=1",
+                    pdf: formationPdfAsset('12- Comment expliquer simplement la Trinité.pdf'),
                     faqs: [
                         { q: "Comment un seul Dieu peut-il être trois personnes à la fois ?", a: "Dieu est unique par sa nature divine mais existe en trois personnes distinctes : le Père, le Fils et le Saint-Esprit. Tous les trois possèdent entièrement la même et unique nature divine." },
                         { q: "Quelle est la différence entre la \"nature\" et la \"personne\" ?", a: "La nature indique ce que l'on est, comme le fait d'être humain, tandis que la personne indique qui l'on est spécifiquement. En Dieu, il n'y a qu'une seule nature partagée par trois personnes." },
@@ -88,7 +90,7 @@ const FormationsPage = () => {
                     id: 3,
                     title: "Dieu fait Homme",
                     intro: "Pourquoi Dieu a choisi de partager notre condition humaine",
-                    pdf: "https://www.dropbox.com/scl/fi/cxxsrs6unfscii0hxv3ug/11-Pourquoi-Dieu-s-est-fait-homme.pdf?rlkey=citj0u78m84pqe82ioymn5gtt&st=up04c10b&raw=1",
+                    pdf: formationPdfAsset('11- Pourquoi Dieu s’est fait homme.pdf'),
                     faqs: [
                         { q: "Pourquoi Dieu a-t-il choisi de devenir un homme ?", a: "Dieu s'est fait homme pour nous sauver et nous réconcilier avec lui. Sans l'incarnation du Fils de Dieu, l'humanité n'aurait pas pu être sauvée." },
                         { q: "Qu’est-ce que cela veut dire que l'homme peut \"devenir Dieu\" ?", a: "Cela signifie que nous sommes appelés à participer à la nature divine en devenant enfants de Dieu. En entrant en communion avec le Christ, l'homme reçoit la filiation divine." },
@@ -106,7 +108,7 @@ const FormationsPage = () => {
                     id: 4,
                     title: "Véracité des Évangiles",
                     intro: "Prouver la fiabilité des textes sacrés",
-                    pdf: "https://www.dropbox.com/scl/fi/1t3it5m8blri0m9qlyrc0/14-Comment-prouver-la-v-racit-des-vangiles.pdf?rlkey=lcnmsqxjx7okgk1v1pqjv2r0z&st=xpxqusbv&raw=1",
+                    pdf: formationPdfAsset('14- Comment prouver la véracité des évangiles.pdf'),
                     faqs: [
                         { q: "La Bible raconte-t-elle la vérité ou sont-ce juste des histoires ?", a: "La Bible dit la vérité, mais cette vérité s'exprime de différentes manières selon qu'il s'agisse d'un poème, d'une lettre ou d'un récit historique. L'essentiel du message porte sur la volonté de Dieu et sa relation d'amour avec les êtres humains." },
                         { q: "Pourquoi y a-t-il des contradictions sur les détails, comme pour le passage de la Mer Rouge ?", a: "Les auteurs bibliques ne cherchaient pas à faire un compte-rendu scientifique, mais à transmettre la certitude que Dieu a sauvé son peuple. Les divergences de descriptions servent à mettre en avant le sens spirituel de l'événement plutôt que sa précision technique." },
@@ -124,7 +126,7 @@ const FormationsPage = () => {
                     id: 5,
                     title: "La Miséricorde",
                     intro: "Témoigner d'un amour qui pardonne",
-                    pdf: "https://www.dropbox.com/scl/fi/6x4oz51p2ar3a4gggz4s5/9-Comment-t-moigner-de-la-mis-ricorde-de-Dieu.pdf?rlkey=3eek1gb3warec8tl69o40cvdy&st=e9o3lu4u&raw=1",
+                    pdf: formationPdfAsset('9- Comment témoigner de la miséricorde de Dieu.pdf'),
                     faqs: [
                         { q: "C’est quoi exactement la miséricorde de Dieu ?", a: "C'est l'immensité d'un amour qui ne condamne personne mais se penche sur la douleur des autres pour la guérir. Jésus a expliqué qu'il est \"tout Amour et Miséricorde\" et qu'il souhaite offrir un temps de grâce à l'humanité." },
                         { q: "Qui est Sainte Faustine et quel est son rôle ?", a: "C’est une religieuse polonaise du XXe siècle à qui Jésus a confié la mission de transmettre le message de la Miséricorde Divine au monde entier. Ses échanges avec le Christ sont consignés dans son ouvrage intitulé le \"Petit Journal\"." },
@@ -142,7 +144,7 @@ const FormationsPage = () => {
                     id: 6,
                     title: "La Vie Éternelle",
                     intro: "Notre destinée ultime",
-                    pdf: "https://www.dropbox.com/scl/fi/388cdic3scxdjwfon62wu/1-Comment-annoncer-la-vie-ternelle.pdf?rlkey=7rplgl8i76h13bwt8u5qz3vgx&st=pw9xzni7&raw=1",
+                    pdf: formationPdfAsset('1- Comment annoncer la vie éternelle.pdf'),
                     faqs: [
                         { q: "La mort, c'est quoi finalement ?", a: "La mort est la séparation de l'âme et du corps, marquant le terme de notre vie sur terre. Pour les chrétiens, c'est avant tout un \"retour à la maison du Père\" pour vivre avec Dieu pour toujours." },
                         { q: "On fait quoi exactement au Ciel ?", a: "Le Ciel consiste à partager la vie intime de Dieu dans une circulation d'amour infinie entre le Père, le Fils et le Saint-Esprit. C'est voir Dieu face à face et retrouver la joie d'être avec nos proches défunts." },
@@ -171,7 +173,7 @@ const FormationsPage = () => {
                     id: 7,
                     title: "Répondre à l'Indifférent",
                     intro: "Celui qui n'a pas besoin de Dieu",
-                    pdf: "https://www.dropbox.com/scl/fi/sistxpoev7z65xt2racgt/5-Que-r-pondre-l-indiff-rent-qui-n-a-pas-besoin-de-Dieu.pdf?rlkey=bdjc0yvfqtlkm2axxe2q74s6e&st=vlrb3spf&raw=1",
+                    pdf: formationPdfAsset('5- Que répondre à l’indifférent qui n’a pas besoin de Dieu.pdf'),
                     faqs: [
                         { q: "Pourquoi s'intéresser à la religion si on est déjà heureux ?", a: "La foi comble une soif de bonheur que les objets ou les activités du monde ne peuvent jamais satisfaire totalement. Elle ancre votre joie dans une relation d'amour avec Dieu qui est impossible à détruire, même par la mort." },
                         { q: "Qu'est-ce que ça m'apporte concrètement d'être chrétien ?", a: "Cela donne des réponses claires sur votre origine et ce qui se passe après votre dernier souffle. Vous n'êtes plus le simple résultat d'un hasard mais quelqu'un qui a une mission précise sur cette terre." },
@@ -189,7 +191,7 @@ const FormationsPage = () => {
                     id: 8,
                     title: "Celui qui souffre",
                     intro: "Accompagner la douleur",
-                    pdf: "https://www.dropbox.com/scl/fi/4jg617ap9ean6nbrcejrk/4-Que-r-pondre-celui-qui-souffre.pdf?rlkey=2zipvtosv7btbl5iwk4ts2cv7&st=wlg2c5cd&raw=1",
+                    pdf: formationPdfAsset('4- Que répondre à celui qui souffre.pdf'),
                     faqs: [
                         { q: "Pourquoi Dieu laisse-t-il souffrir s'il nous aime ?", a: "Dieu n'est pas venu supprimer la souffrance ou l'expliquer par de grands discours, mais il est venu la remplir de sa propre présence. Il reste à nos côtés dans l'épreuve sans jamais s'imposer." },
                         { q: "Quels sont les bons mots à dire à quelqu'un qui a mal ?", a: "Les mots ne peuvent souvent pas exprimer l'indicible, l'essentiel est donc d'établir une relation sincère pour rapprocher les cœurs. On ne peut pas effacer la peine, mais on peut choisir de marcher humblement avec la personne." },
@@ -207,7 +209,7 @@ const FormationsPage = () => {
                     id: 9,
                     title: "Dialogue avec les Musulmans",
                     intro: "Témoigner avec respect",
-                    pdf: "https://www.dropbox.com/scl/fi/0mxwoqkxlfc6ml1d196uw/13-Que-r-pondre-un-musulman.pdf?rlkey=016t41w0vbcgrqnsx7hmsbsci&st=a3av3qfe&raw=1",
+                    pdf: formationPdfAsset('13- Que répondre à un musulman.pdf'),
                     faqs: [
                         { q: "Quelle doit être mon intention principale avant d'entamer la discussion ?", a: "L'annonce ne doit pas être une \"croisade\" ou un débat d'idées pour prouver que l'autre a tort, mais un acte de charité pour partager un trésor par amour. Le but est d'aider l'autre à poser un acte libre avec douceur, car c'est Dieu seul qui convertit les cœurs." },
                         { q: "Est-il utile de parler des \"trois religions du Livre\" ?", a: "Il est conseillé d'éviter cette expression car les chrétiens sont avant tout la religion du Christ. De même, interroger l'autre sur ses pratiques comme le Ramadan ou le nombre de prières quotidiennes mène rarement à un échange profond sur la foi." },
@@ -225,7 +227,7 @@ const FormationsPage = () => {
                     id: 10,
                     title: "L'Église : Sainte mais pécheresse",
                     intro: "Sainte mais imparfaite",
-                    pdf: "https://www.dropbox.com/scl/fi/8fystg103uj375yen44pz/6-Que-r-pondre-celui-qui-rejette-l-Eglise-sainte-mais-imparfaite.pdf?rlkey=wh1jsmwcvpiqqixo14l2pmpng&st=hhavtdpa&raw=1",
+                    pdf: formationPdfAsset('6- Que répondre à celui qui rejette l’Eglise sainte mais imparfaite.pdf'),
                     faqs: [
                         { q: "Comment l'Église peut-elle se dire \"sainte\" avec tous les scandales qu'on connaît ?", a: "Sa sainteté ne vient pas de la perfection des hommes qui la composent, mais de son union avec le Christ qui est son époux. Quand les chrétiens chantent qu'elle est sainte, ils proclament en réalité la fidélité de Dieu malgré leurs propres fautes." },
                         { q: "Est-ce vrai que même le Pape peut finir au Purgatoire ?", a: "Absolument, car l'Église reconnaît que tous ses membres sont des pécheurs ayant besoin de purification. C'est d'ailleurs pour cela qu'on célèbre des messes pour le repos de l'âme d'un pape dès son décès, même s'il est mort en \"odeur de sainteté\"." },
@@ -243,7 +245,7 @@ const FormationsPage = () => {
                     id: 11,
                     title: "Je prie seul, sans l'Église",
                     intro: "L'importance de la communauté",
-                    pdf: "https://www.dropbox.com/scl/fi/pzi69x7u3k3r5j7wsegsz/7-Que-r-pondre-celui-qui-prie-seul-et-n-a-pas-besoin-de-l-Eglise.pdf?rlkey=nqhn10gy5axzszuwbffqstlcn&st=9tii22v4&raw=1",
+                    pdf: formationPdfAsset('7- Que répondre à celui qui prie seul et n’a pas besoin de l’Eglise.pdf'),
                     faqs: [
                         { q: "Pourquoi s'encombrer d'une institution si je prie déjà très bien tout seul dans mon salon ?", a: "La prière personnelle est essentielle, mais l'Église offre des outils uniques comme les sept sacrements qui permettent une union intime avec Dieu et une purification que la solitude ne procure pas. Elle est aussi là pour nous soutenir et nous relever quand notre foi personnelle commence à chanceler." },
                         { q: "Le mot \"Église\" sonne un peu vieux jeu, qu'est-ce que ça veut dire au juste ?", a: "À l'origine, le terme grec Ecclésia signifie « appelé hors » : c'est l'invitation à quitter l'isolement du monde pour suivre le Christ ensemble. C'est avant tout une communauté de personnes liées par la foi, l'espérance et l'amour, et non un simple bâtiment." },
@@ -261,7 +263,7 @@ const FormationsPage = () => {
                     id: 12,
                     title: "Divorcés - Remariés",
                     intro: "Accueillir avec vérité",
-                    pdf: "https://www.dropbox.com/scl/fi/8i83msy562og2s81gv252/8-Que-dire-des-personnes-s-par-es-remari-es.pdf?rlkey=yxgt51ofz5tiqnsafadgv6dzp&st=3amln5uf&raw=1",
+                    pdf: formationPdfAsset('8- Que dire à des personnes séparées, remariées.pdf'),
                     faqs: [
                         { q: "Est-ce que je suis viré de l’Église si je divorce ?", a: "Non, les personnes divorcées ne sont pas excommuniées et restent des membres à part entière du corps du Christ par la force de leur baptême. Elles ont toujours une place active dans la communauté, par exemple pour le catéchisme, les lectures ou l'évangélisation." },
                         { q: "Pourquoi l’Église fait-elle tout un plat pour m’empêcher de communier ?", a: "L’Eucharistie est le signe de la fidélité absolue de Dieu, et le mariage en est l'image terrestre indissoluble. Donner la communion automatiquement donnerait l'idée fausse que l'engagement ne dure qu’autant que les sentiments." },
@@ -279,7 +281,7 @@ const FormationsPage = () => {
                     id: 13,
                     title: "Sciences Occultes",
                     intro: "Les dangers cachés",
-                    pdf: "https://www.dropbox.com/scl/fi/z85vwsygdfqtt6o3cpnxs/17-Quel-sont-les-dangers-des-sciences-occultes.pdf?rlkey=mi9ukcn3wbuj7bcmly1eiy8yl&st=75xbo8pi&raw=1",
+                    pdf: formationPdfAsset('17- Quel sont les dangers des sciences occultes.pdf'),
                     faqs: [
                         { q: "Horoscope, voyance, soins énergétiques... est-ce vraiment si grave d'essayer ?", a: "Ces pratiques ne sont pas neutres et créent souvent une dépendance ou des angoisses au lieu du bonheur promis. On ne se livre pas impunément à des forces occultes ; il y a toujours un prix à payer car ces pratiques ouvrent la porte à un monde obscur au lieu de s'en remettre à la confiance en Dieu." },
                         { q: "Si Dieu nous aime, pourquoi nous laisse-t-il galérer autant avec la souffrance ?", a: "Dieu n'est pas venu supprimer la douleur ou l'expliquer, mais il est venu la remplir de sa présence pour que personne ne la porte seul. La foi n'efface pas la peine, mais elle agit comme un rempart qui empêche de sombrer dans le désespoir total." },
@@ -308,7 +310,7 @@ const FormationsPage = () => {
                     id: 14,
                     title: "Annoncer avec la Parole de Dieu",
                     intro: "Utiliser la Parole de Dieu",
-                    pdf: "https://www.dropbox.com/scl/fi/edywe39fgmjlky8wx2i4j/Mission-avec-la-parole-de-Dieu.pdf?rlkey=o3ucv7ystsgbtdlbdzo3erc09&st=ztcgw8vp&raw=1",
+                    pdf: formationPdfAsset('Mission avec la parole de Dieu.pdf'),
                     faqs: [
                         { q: "Dieu existe-t-il vraiment ou est-ce une invention pour se rassurer ?", a: "L'existence de Dieu est une certitude philosophique : tout ce qui existe a une cause, et cette \"cause première\" incausée est Dieu. De plus, la complexité et la beauté de l'univers laissent voir avec l'intelligence les traces d'un dessein intelligent derrière le mystère des choses." },
                         { q: "Si Dieu est tout-puissant, pourquoi laisse-t-il le mal et la souffrance gagner ?", a: "Dieu n'est pas venu supprimer la souffrance ou l'expliquer, mais il est venu la remplir de sa présence pour que personne ne la porte seul. Il respecte notre liberté et sait tirer un plus grand bien du mal, même si cette logique dépasse totalement notre intelligence actuelle." },
@@ -326,7 +328,7 @@ const FormationsPage = () => {
                     id: 15,
                     title: "Couple et Mission",
                     intro: "Le mariage comme socle",
-                    pdf: "https://www.dropbox.com/scl/fi/62nd3rwd4vvksi2jmafpz/16-Quels-fruits-pour-la-mission-en-couple.pdf?rlkey=u8kcwjnsm6p0vx0vaw7xxh2c9&st=icad0a71&raw=1",
+                    pdf: formationPdfAsset('16- Quels fruits pour la mission en couple.pdf'),
                     faqs: [
                         { q: "Pourquoi mon couple est-il si important pour l'avenir de l'Église ?", a: "L'avenir de l'évangélisation dépend en grande partie de la \"famille domestique\". Le couple est placé au cœur de l'enjeu missionnaire car il est la cellule de base d'où découle toute la mission de la famille." },
                         { q: "Peut-on être missionnaire si notre couple n'est pas parfait ?", a: "Il ne faut pas témoigner de sa propre perfection, mais de la façon dont Dieu vient visiter et restaurer nos faiblesses. Ce sont précisément nos crises et nos manques qui nous permettent de faire l'expérience du salut et de devenir des témoins crédibles." },
@@ -344,7 +346,7 @@ const FormationsPage = () => {
                     id: 16,
                     title: "La Gratitude",
                     intro: "Transformer son regard",
-                    pdf: "https://www.dropbox.com/scl/fi/sgdnsvxzaulfz6ocgqwfe/15-Comment-vivre-de-la-gratitude.pdf?rlkey=o77tachq7mo02jpwvkcpi5naw&st=lrxustq8&raw=1",
+                    pdf: formationPdfAsset('15- Comment vivre de la gratitude.pdf'),
                     faqs: [
                         { q: "Quel est le véritable secret d'une vie réussie ?", a: "La gratitude est le secret de l'existence car remercier pour tout permet de pénétrer le mystère profond de la vie. Celui qui apprend cette attitude comprend enfin ce que signifie réellement vivre." },
                         { q: "Est-ce que dire merci peut vraiment améliorer ma santé ?", a: "La science montre que la gratitude améliore la qualité du sommeil et protège le cœur comme le système sanguin face au diabète. Cette habitude permettrait même de gagner environ sept années de vie en plus." },
@@ -362,7 +364,7 @@ const FormationsPage = () => {
                     id: 17,
                     title: "Le Pardon",
                     intro: "Un chemin de libération",
-                    pdf: "https://www.dropbox.com/scl/fi/gjeam66o0nt3pzytja4gq/3-Pourquoi-et-comment-pardonner.pdf?rlkey=d934fv994tgi73e9chaaumhaf&st=w1n95j9v&raw=1",
+                    pdf: formationPdfAsset('3- Pourquoi et comment pardonner.pdf'),
                     faqs: [
                         { q: "Que dire à quelqu'un qui affirme que la foi ne l'intéresse pas ?", a: "Il est bon de se rappeler que Dieu se tient à la porte et frappe, attendant simplement qu'on lui ouvre pour entrer et partager un repas. Il se laisse souvent trouver par ceux qui ne le cherchaient pas, car il nous a aimés le premier." },
                         { q: "Quel message apporter à une personne qui souffre et a besoin de consolation ?", a: "Le Seigneur est proche du cœur brisé et promet de procurer le repos à ceux qui ploient sous le poids du fardeau. Sa puissance donne toute sa mesure dans la faiblesse, et il promet d'essuyer toute larme en supprimant la douleur." },
@@ -380,7 +382,7 @@ const FormationsPage = () => {
                     id: 18,
                     title: "Comment Dieu nous guide",
                     intro: "Reconnaître les signes",
-                    pdf: "https://www.dropbox.com/scl/fi/024ir8x8m6cx476zkmqs4/2-Comment-Dieu-nous-guide-t-il.pdf?rlkey=wprqiszi0amwzu2wnalslrm8c&st=hirb085n&raw=1",
+                    pdf: formationPdfAsset('2- Comment Dieu nous guide-t-il.pdf'),
                     faqs: [
                         { q: "Dieu a-t-il un plan précis pour ma vie ou suis-je livré au hasard ?", a: "Chacun possède une mission personnelle que Dieu révèle discrètement par de multiples signes dans le quotidien. On n'est jamais le fruit d'un hasard indifférent, car Dieu nous guide sans cesse à travers les Écritures et les événements de notre vie." },
                         { q: "Comment savoir si c'est Dieu qui me parle ou juste ma propre imagination ?", a: "L'Esprit Saint parle au cœur par des \"motions intérieures\" qui sont perçues comme de véritables certitudes intimes. Pour faire la différence, il est essentiel d'écouter et de garder des temps de silence réguliers pendant la prière." },
