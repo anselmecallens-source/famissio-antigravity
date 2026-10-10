@@ -132,9 +132,9 @@ const Navbar = () => {
         </ul>
       </nav>
 
-      {/* Floating menu button (Mobile only) */}
-      <div className="nav-circle show-on-mobile" style={{ zIndex: 9999 }}>
-        <button className="nav-toggle" id="menuToggle" onClick={toggleMenu}>
+      {/* Floating menu button (Mobile only - En haut à droite) */}
+      <div className="nav-circle show-on-mobile" style={{ zIndex: 9999, right: '1.25rem', left: 'auto' }}>
+        <button className="nav-toggle" id="menuToggle" onClick={toggleMenu} aria-label="Menu de navigation">
           <i className={`fas ${menuActive ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
       </div>
