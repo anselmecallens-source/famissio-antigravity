@@ -125,7 +125,7 @@ body {
     right: 0;
     bottom: 0.15rem;
     height: 2px;
-    background: #fff;
+    background: var(--flame);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.2s ease;
