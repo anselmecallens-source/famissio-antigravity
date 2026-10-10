@@ -123,7 +123,18 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <ul className="nav-links" style={linksContainerStyle}>
+        <ul
+          className="nav-links"
+          style={isHome ? {
+            ...linksContainerStyle,
+            left: '58%',
+            right: '3.125rem',
+            width: 'auto',
+            justifyContent: 'space-between',
+            paddingRight: 0,
+            gap: 'clamp(0.25rem, 0.65vw, 0.8rem)'
+          } : linksContainerStyle}
+        >
           <li><Link to="/" className={isPageActive('/') ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
           <li><Link to="/missions" className={isPageActive('/missions') ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
           <li><Link to="/formation" className={isPageActive('/formation') ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>

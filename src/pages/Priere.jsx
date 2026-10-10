@@ -133,7 +133,7 @@ export default function Priere() {
                         Prière
                     </h1>
                     <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-                        Une prière pour inspirer la mission et la foi dans nos cœurs.
+                        La prière qui nous accompagne avant chaque départ en mission.
                     </p>
                 </div>
             </div>

@@ -435,20 +435,6 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col items-center gap-3 text-center text-gray-600">
-            <p>Le fil Facebook ne s’affiche pas ?</p>
-            <a
-              href="https://www.facebook.com/Famissio-108524034407006/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full bg-orange-600 px-5 py-3 text-center font-bold text-white shadow-md transition-colors hover:bg-red-700"
-            >
-              <span>Voir la page Famissio sur Facebook</span>
-              <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5h5v5m0-5L10 14M19 13v6H5V5h6" />
-              </svg>
-            </a>
-          </div>
         </div>
       </div>
     </div>

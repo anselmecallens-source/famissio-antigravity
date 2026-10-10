@@ -84,6 +84,47 @@ body {
   position: relative;
 }
 
+/* Keep the home navigation entirely over the photo at wide desktop sizes. */
+@media (min-width: 1201px) {
+  .navbar-home .nav-links {
+    left: 58%;
+    right: 3.125rem;
+    width: auto;
+    justify-content: space-between;
+    gap: clamp(0.2rem, 0.65vw, 0.7rem);
+    padding-right: 0;
+  }
+
+  .navbar-home .nav-links a {
+    color: #fff;
+    font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+    letter-spacing: 0.04em;
+    padding: 0.4rem clamp(0.2rem, 0.45vw, 0.5rem);
+    background: rgba(26, 26, 26, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .navbar-home .nav-links a:hover {
+    color: #fff;
+    background: var(--ember);
+  }
+
+  .navbar-home .nav-links a.active {
+    color: #fff;
+    background: var(--flame);
+  }
+}
+
+/* Keep a menu button available in the narrow desktop range where the
+   horizontal links are hidden to avoid overlap. */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .navbar-home ~ .nav-circle {
+    display: flex !important;
+  }
+}
+
 @media (max-width: 1200px) {
 
   /* HIDE RED BANNER ON TABLET/MOBILE (Non-Home Pages) */

@@ -138,12 +138,19 @@ const Accueil = () => {
 
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
+    const missionModalTriggerRef = useRef(null);
+
+    const openMission = (block, event) => {
+        missionModalTriggerRef.current = event.currentTarget;
+        setActiveMission(block);
+    };
 
     useEffect(() => {
         if (!activeMission) return undefined;
 
         const scrollY = window.scrollY;
         const body = document.body;
+        const root = document.documentElement;
         body.classList.add('modal-open');
         body.style.position = 'fixed';
         body.style.top = `-${scrollY}px`;
@@ -160,7 +167,11 @@ const Accueil = () => {
             body.style.position = '';
             body.style.top = '';
             body.style.width = '';
-            window.scrollTo(0, scrollY);
+            missionModalTriggerRef.current?.focus({ preventScroll: true });
+            const previousScrollBehavior = root.style.scrollBehavior;
+            root.style.scrollBehavior = 'auto';
+            window.scrollTo({ left: 0, top: scrollY, behavior: 'auto' });
+            root.style.scrollBehavior = previousScrollBehavior;
         };
     }, [activeMission]);
 
@@ -1543,10 +1554,6 @@ const Accueil = () => {
 
                 {/* Contenu */}
                 <div className="fam-hero-content">
-                    <p className="fam-hero-eyebrow">
-                        Missions paroissiales
-                    </p>
-
                     <h1 className="fam-hero-title">
                         Des familles<br />
                         <em>en mission.</em>
@@ -1565,11 +1572,6 @@ const Accueil = () => {
                     </Link>
                 </div>
 
-                {/* Scroll indicator */}
-                <div className="fam-hero-scroll">
-                    <span className="fam-hero-scroll-line" />
-                    Défiler
-                </div>
             </div>
 
             {/* CAROUSEL AJOUTÉ */}
@@ -2420,7 +2422,7 @@ const Accueil = () => {
                         {missionBlocks.map((block) => (
                             <div key={block.id} className="timeline-item">
                                 {/* Image Blob */}
-                                <div className="timeline-blob" onClick={() => setActiveMission(block)}>
+                                <div className="timeline-blob" onClick={(event) => openMission(block, event)}>
                                     <div className="blob-shape">
                                         <img src={block.image} alt={block.title} loading="lazy" />
                                     </div>
@@ -2434,7 +2436,7 @@ const Accueil = () => {
                                     </p>
                                     <button
                                         className="timeline-expand-btn"
-                                        onClick={() => setActiveMission(block)}
+                                        onClick={(event) => openMission(block, event)}
                                     >
                                         <span>En savoir plus</span>
                                         <i className="fas fa-arrow-right"></i>
@@ -2442,7 +2444,7 @@ const Accueil = () => {
                                 </div>
 
                                 {/* Timeline Dot */}
-                                <div className="timeline-dot" onClick={() => setActiveMission(block)}></div>
+                                <div className="timeline-dot" onClick={(event) => openMission(block, event)}></div>
                             </div>
                         ))}
                     </div>
