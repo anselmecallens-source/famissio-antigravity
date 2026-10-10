@@ -99,21 +99,41 @@ body {
     color: #fff;
     font-size: clamp(0.72rem, 0.9vw, 0.9rem);
     letter-spacing: 0.04em;
-    padding: 0.4rem clamp(0.2rem, 0.45vw, 0.5rem);
-    background: rgba(26, 26, 26, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 999px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    position: relative;
+    padding: 0.55rem 0.15rem;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
   }
 
   .navbar-home .nav-links a:hover {
     color: #fff;
-    background: var(--ember);
+    background: transparent;
   }
 
   .navbar-home .nav-links a.active {
     color: #fff;
-    background: var(--flame);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar-home .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.15rem;
+    height: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  .navbar-home .nav-links a:hover::after,
+  .navbar-home .nav-links a.active::after {
+    transform: scaleX(1);
   }
 }
 

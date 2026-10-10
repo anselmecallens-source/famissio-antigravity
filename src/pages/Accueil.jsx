@@ -1432,6 +1432,7 @@ const Accueil = () => {
             width: 55%;
             max-width: 780px;
             padding: 0 6% 0 7%;
+            transform: translateY(clamp(2rem, 7vh, 4.5rem));
             color: white;
         }
 
