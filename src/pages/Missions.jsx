@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
 
@@ -29,6 +29,7 @@ const diocesesMission2026 = [
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const isMissionModalOpen = Boolean(selectedMission);
 
   // Fonction pour ouvrir une mission et reset la vidéo
   const handleOpenMission = (mission) => {
@@ -41,6 +42,37 @@ const MissionsPage = () => {
     setSelectedMission(null);
     setIsVideoPlaying(false);
   };
+
+  useEffect(() => {
+    if (!isMissionModalOpen) return undefined;
+
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const root = document.documentElement;
+    body.classList.add('modal-open');
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') handleCloseMission();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      body.classList.remove('modal-open');
+      body.style.position = '';
+      body.style.top = '';
+      body.style.width = '';
+      body.style.overflow = '';
+      const previousScrollBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo({ left: 0, top: scrollY, behavior: 'auto' });
+      root.style.scrollBehavior = previousScrollBehavior;
+    };
+  }, [isMissionModalOpen]);
 
   // Toggle vidéo
   const toggleVideo = () => {
@@ -208,6 +240,7 @@ const MissionsPage = () => {
       diocese: 'Séez',
       participants: '90',
       image: '/assets/images/Groupe 2020.webp',
+      imageZoom: 'native',
       cities: ['Alençon', 'Ecouché', 'L\'Aigle', 'Le Mêle-sur-Sarthe'],
       story: `4 paroisses devaient accueillir Famissio... jusqu'à l'arrivée du COVID qui a perturbé le projet initial !
       
@@ -360,6 +393,14 @@ const MissionsPage = () => {
         .img-zoom-large {
             object-position: center;
             transform: scale(1.55);
+        }
+        .mission-image-native {
+            width: auto !important;
+            height: auto !important;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain !important;
+            transform: none !important;
         }
         .group:hover .img-zoom-large {
             transform: scale(1.65) !important;
@@ -610,20 +651,20 @@ const MissionsPage = () => {
       {/* MISSION OVERLAY (POPUP) */}
       {selectedMission && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 overflow-y-auto no-scrollbar flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 bg-black/70 backdrop-blur-md z-[10000] overflow-y-auto no-scrollbar flex items-center justify-center p-4 sm:p-6"
           onClick={handleCloseMission}
         >
           {/* FLÈCHES NAVIGATION (Desktop) */}
           <button
             onClick={(e) => navigateMission('prev', e)}
-            className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
           >
             <ChevronLeft className="w-8 h-8 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.5} />
           </button>
 
           <button
             onClick={(e) => navigateMission('next', e)}
-            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
           >
             <ChevronRight className="w-8 h-8 transition-transform group-hover:translate-x-0.5" strokeWidth={2.5} />
           </button>
@@ -631,7 +672,7 @@ const MissionsPage = () => {
           {/* BOUTON FERMER */}
           <button
             onClick={handleCloseMission}
-            className="fixed top-6 right-6 bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 p-3 rounded-full transition-all z-[60] shadow-xl border border-gray-200"
+            className="fixed top-6 right-6 bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 p-3 rounded-full transition-all z-[10001] shadow-xl border border-gray-200"
           >
             <X className="w-6 h-6" strokeWidth={2.5} />
           </button>
@@ -690,12 +731,13 @@ const MissionsPage = () => {
               </div>
 
               {/* COLONNE DROITE : IMAGE */}
-              <div className="rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[360px] border border-gray-100 relative group">
+              <div className={`rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[360px] border border-gray-100 relative group ${selectedMission.imageZoom === 'native' ? 'flex items-center justify-center' : ''}`}>
                 <img
                   src={selectedMission.image}
                   alt={selectedMission.year}
                   className={`w-full h-full object-cover rounded-2xl 
-                    ${selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
+                    ${selectedMission.imageZoom === 'native' ? 'mission-image-native' :
+                      selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
                       selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
                         selectedMission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />

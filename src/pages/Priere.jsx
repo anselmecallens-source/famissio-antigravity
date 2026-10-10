@@ -295,7 +295,7 @@ export default function Priere() {
                                     <iframe
                                         className="w-full h-full"
                                         title="Paroles – Prière de Famissio"
-                                        src={`${parolesPdf}#view=FitH`}
+                                        src={`${parolesPdf}#page=1&view=FitH&navpanes=0&pagemode=none`}
                                         loading="lazy"
                                     />
                                 </div>
@@ -342,7 +342,7 @@ export default function Priere() {
                                     <iframe
                                         className="w-full h-[80vh] md:h-[600px]"
                                         title="Partition – Prière de Famissio"
-                                        src={`${partitionPdf}#view=FitH`}
+                                        src={`${partitionPdf}#page=1&view=FitH&navpanes=0&pagemode=none`}
                                     />
                                 </div>
                                 <div className="flex justify-center pt-8 md:pt-4">

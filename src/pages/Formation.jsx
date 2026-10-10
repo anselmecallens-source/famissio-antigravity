@@ -753,7 +753,7 @@ const FormationsPage = () => {
                     </div>
                     <div className="flex-1 bg-gray-100 p-2 sm:p-4 overflow-hidden relative">
                         <iframe
-                            src={`${fullscreenPdf.pdf}#view=FitH`}
+                            src={`${fullscreenPdf.pdf}#page=1&view=Fit&navpanes=0&pagemode=none`}
                             className="w-full h-full rounded-xl sm:rounded-2xl shadow-2xl border-none bg-white"
                             title={fullscreenPdf.title}
                         />
