@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const HeroCarousel = () => {
@@ -64,10 +64,11 @@ const HeroCarousel = () => {
         if (!isAutoPlaying) return;
         const duration = 8000;
         const slideTimer = setTimeout(() => {
-            nextSlide();
+            setIsTransitioning(true);
+            setCurrentSlide(current => current >= slides.length - 1 ? current : current + 1);
         }, duration);
         return () => clearTimeout(slideTimer);
-    }, [currentSlide, isAutoPlaying]); // Dépend de currentSlide pour relancer
+    }, [currentSlide, isAutoPlaying, slides.length]); // Dépend de currentSlide pour relancer
 
     const nextSlide = () => {
         if (currentSlide >= slides.length - 1) return; // Sécurité

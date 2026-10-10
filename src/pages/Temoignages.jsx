@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, Play, ChevronLeft, ChevronRight, Church, MessageCircle, User, Calendar } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) => {
   const [currentSrc, setCurrentSrc] = useState(src);
@@ -92,9 +92,6 @@ const TemoignagesPage = () => {
   const [selectedTestimony, setSelectedTestimony] = useState(null);
   const [testimonyOfDay, setTestimonyOfDay] = useState(null);
   const [visibleCount, setVisibleCount] = useState(9);
-  const touchStartRef = React.useRef(null);
-
-
   useEffect(() => {
     if (selectedTestimony) {
       document.body.style.overflow = 'hidden';
@@ -106,7 +103,7 @@ const TemoignagesPage = () => {
     };
   }, [selectedTestimony]);
 
-  const imagePool = [
+  const imagePool = useMemo(() => [
     "/assets/images/IMGP2729.JPG",
     "/assets/images/20221104_220907.jpg",
     "/assets/images/3149446C-CE04-40A4-A33A-DA19E37C0EB3.jpeg",
@@ -120,7 +117,7 @@ const TemoignagesPage = () => {
     "/assets/images/Famissio-262.jpg",
     "/assets/images/Famissio-264.jpg",
     "/assets/images/Famissio-274.jpg"
-  ];
+  ], []);
 
   const categories = [
     {
@@ -149,7 +146,7 @@ const TemoignagesPage = () => {
     }
   ];
 
-  const testimonies = [
+  const testimonies = useMemo(() => [
     // 2025 - Fruits pour la paroisse
     {
       id: 1,
@@ -625,7 +622,7 @@ const TemoignagesPage = () => {
       content: "J'ai eu l'occasion d'apprendre à un garçon de mon âge comment faire le signe de croix. C'était un geste simple, mais voir son sérieux et son désir d'apprendre m'a profondément touché. Cela m'a donné confiance en ma capacité à transmettre ma foi, même avec des mots modestes. Je me suis rendu compte que le Seigneur utilise ma jeunesse pour toucher des cœurs, ce qui a beaucoup affermi ma propre confiance en Lui.",
       year: "2021"
     }
-  ];
+  ], []);
 
   const testimoniesWithImages = useMemo(() => {
     const shuffledTestimonies = [...testimonies].sort(() => Math.random() - 0.5);
@@ -648,7 +645,7 @@ const TemoignagesPage = () => {
       return { ...testimony, displayImage, fallbackList };
     });
     return withImages;
-  }, []);
+  }, [testimonies, imagePool]);
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * testimoniesWithImages.length);
@@ -711,12 +708,6 @@ const TemoignagesPage = () => {
   const [isLocked, setIsLocked] = useState(false); // New lock state
   const cardRef = useRef(null);
 
-  // Custom hook to detect if at bottom of scroll
-  const isAtBottom = (element) => {
-    if (!element) return false;
-    return Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 5;
-  };
-
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -742,27 +733,6 @@ const TemoignagesPage = () => {
         // Exit modal if swiping next on the last item
         setSelectedTestimony(null);
       }
-    }
-  };
-
-  const [exitX, setExitX] = useState(0);
-
-  const handleDragEnd = (event, info) => {
-    const swipeThreshold = 100;
-    const { offset, velocity } = info;
-
-    if (offset.x > swipeThreshold || velocity.x > 500) {
-      setExitX(1000);
-      setTimeout(() => {
-        navigateTestimony('prev');
-        setExitX(0);
-      }, 200);
-    } else if (offset.x < -swipeThreshold || velocity.x < -500) {
-      setExitX(-1000);
-      setTimeout(() => {
-        navigateTestimony('next');
-        setExitX(0);
-      }, 200);
     }
   };
 

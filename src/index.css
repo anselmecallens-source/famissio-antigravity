@@ -123,9 +123,10 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.15rem;
-    height: 2px;
-    background: var(--flame);
+    bottom: 0.05rem;
+    height: 3px;
+    background: var(--ember);
+    box-shadow: 0 0 7px rgba(244, 106, 7, 0.85);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.2s ease;

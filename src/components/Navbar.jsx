@@ -48,19 +48,6 @@ const Navbar = () => {
 
   const navClass = isHome ? 'navbar-home' : 'navbar-page';
 
-  const linkTextStyle = isHome
-    ? { fontSize: '1rem', color: 'var(--flame)', fontWeight: '800' }
-    : { fontSize: '1.1rem', color: '#ffffff', textShadow: '0 1px 2px rgba(0,0,0,0.1)' };
-
-  const getLinkStyle = (path) => {
-    const isActive = location.pathname === path;
-    const activeColor = 'var(--ember)';
-    return {
-      ...linkTextStyle,
-      color: isActive ? activeColor : linkTextStyle.color
-    };
-  };
-
   const getSideLinkStyle = (path) => {
     return location.pathname === path ? { color: 'var(--ember)' } : {};
   };

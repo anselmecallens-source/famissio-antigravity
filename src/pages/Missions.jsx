@@ -395,11 +395,11 @@ const MissionsPage = () => {
             transform: scale(1.55);
         }
         .mission-image-native {
-            width: auto !important;
-            height: auto !important;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none;
+            max-height: none;
+            object-fit: cover !important;
             transform: none !important;
         }
         .group:hover .img-zoom-large {

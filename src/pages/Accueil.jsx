@@ -57,7 +57,7 @@ const useDraggableScroll = (ref) => {
             slider.removeEventListener('mouseup', onMouseUp);
             slider.removeEventListener('mousemove', onMouseMove);
         };
-    }, []);
+    }, [ref]);
 };
 
 // HELPER TO CENTER CARD ON CLICK (Slow Scroll)
@@ -2564,12 +2564,6 @@ const Accueil = () => {
                     <div
                         className="pope-grid"
                         ref={popeGridRef}
-                        onScroll={(e) => {
-                            // Optional: track active item logic if needed in future
-                            // const scrollLeft = e.target.scrollLeft;
-                            // const width = e.target.offsetWidth;
-                            // const index = Math.round(scrollLeft / width);
-                        }}
                     >
                         <div className="pope-item" onClick={() => scrollToCard(popeGridRef, 0)}>
                             <h4>1. Aller aux périphéries</h4>
