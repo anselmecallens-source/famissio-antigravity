@@ -27,6 +27,7 @@ function ScrollToTop() {
 function App() {
   return (
     <>
+      <div id="top" tabIndex={-1} aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0, overflow: 'hidden' }} />
       {/* 1. La barre de navigation visible partout */}
       <Navbar />
 

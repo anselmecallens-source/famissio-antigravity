@@ -4,6 +4,47 @@ import { ArrowUp, ArrowUpRight } from 'lucide-react';
 const LOGO_WHITE = '/assets/images/Logo Famissio blanc détouré.webp';
 
 export default function Footer() {
+  const scrollToTop = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const scrollOptions = {
+      top: 0,
+      left: 0,
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    };
+
+    try {
+      window.scrollTo(scrollOptions);
+    } catch {
+      window.scrollTo(0, 0);
+    }
+
+    if (document.documentElement) {
+      try {
+        document.documentElement.scrollTo(scrollOptions);
+      } catch {
+        document.documentElement.scrollTop = 0;
+      }
+    }
+    if (document.body) {
+      try {
+        document.body.scrollTo(scrollOptions);
+      } catch {
+        document.body.scrollTop = 0;
+      }
+    }
+
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <footer className="fm-site-footer">
       <div className="fm-footer-main">
@@ -29,7 +70,14 @@ export default function Footer() {
       <div className="fm-footer-bottom">
         <span>© {new Date().getFullYear()} Famissio · Des familles en mission</span>
         <Link to="/reserve" className="fm-footer-private">Espace réservé</Link>
-        <a className="fm-back-top" href="#top" aria-label="Retour en haut">Haut de page <ArrowUp size={14} /></a>
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="fm-back-top"
+          aria-label="Retour en haut de page"
+        >
+          Haut de page <ArrowUp size={14} />
+        </button>
       </div>
     </footer>
   );

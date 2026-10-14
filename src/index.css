@@ -3310,6 +3310,24 @@ iframe {
   color: #ffbd83;
   font-weight: 700;
   text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.fm-back-top:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.fm-back-top:focus-visible {
+  outline: 2px solid #ffbd83;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 /* Accueil : une carte par écran sur téléphone, une vidéo à la bonne échelle. */

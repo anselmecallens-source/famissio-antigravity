@@ -253,7 +253,7 @@ const Accueil = () => {
     ];
 
     return (
-        <div className="home-container">
+        <div className="home-container" id="top">
             <Helmet>
                 <title>Famissio | Missions paroissiales en famille</title>
                 <meta name="description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
@@ -1540,7 +1540,7 @@ const Accueil = () => {
                 <MobileHeroV2 />
             </div>
 
-            <div className="fam-hero fam-desktop-hero" id="top">
+            <div className="fam-hero fam-desktop-hero">
                 {/* Diagonale crème */}
                 <div className="fam-hero-diagonal" />
 
