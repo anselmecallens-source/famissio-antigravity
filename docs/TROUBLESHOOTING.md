@@ -14,10 +14,18 @@
 * **Cause** : Présence d'un `overflow-x: hidden` sur `html`, `body` ou un conteneur ancêtre (désactive nativement `position: sticky`).
 * **Solution** : Ne jamais mettre `overflow-x: hidden` sur les éléments parents. Utiliser la classe `.overflow-clip-x` (`overflow-x: clip`) qui empêche les débordements sans bloquer le sticky.
 
-### 3. Flux Facebook bloqué ou vide sur la page Contact
-* **Symptôme** : Le cadre Facebook affiche une erreur ou reste blanc.
-* **Cause** : Le plugin iframe direct de Facebook est bloqué par les bloqueurs de pub et les politiques anti-pistage des navigateurs récents. De plus, l'URL `facebook.com/famissio` est invalide.
-* **Solution** : Conserver l'iframe **SociableKIT** (`https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545`) qui assure l'affichage sans blocage tiers.
+### 3. Intégration du flux Facebook (résolue définitivement)
+* **Symptôme initial** : Widget instable, images d'actualités brisées (erreur 403 CDN Facebook expiré), logo absent, publications en double, iframe lente et boutons de repli indésirables ("si ça ne marche pas, cliquez ici").
+* **Causes techniques identifiées** :
+  1. Les widgets tiers (SociableKIT ou similaires) s'appuient sur des URL éphémères du CDN Facebook (`scontent.*.fbcdn.net`) dont les jetons d'accès expirent rapidement, provoquant des erreurs HTTP 403.
+  2. Les iframes externes sont soumises aux bloqueurs de pub, politiques anti-pistage (Safari ITP, Firefox, Brave) et aux consentements cookies tiers.
+  3. L'API externe renvoyait des publications en doublon et sans profil d'auteur.
+* **Solution définitive** :
+  - Remplacement de l'iframe par un composant React 100% natif : `src/components/FacebookFeed.jsx`.
+  - Base de données structurée et typée des publications : `src/data/facebookPosts.js`.
+  - Hébergement local des médias optimisés en WebP dans `public/assets/images/facebook/` : 0 dépendance CDN externe, 0 erreur 403, chargement instantané.
+  - Intégration du logo officiel Famissio avec badge officiel, interaction directe vers les publications Facebook réelles et visionneuse photo intégrée (lightbox accessible).
+  - Suppression totale des messages de secours / repli dégradés.
 
 ### 4. Chargement extrêmement lent / cartes blanches dans Témoignages
 * **Symptôme** : Les témoignages mettent 10 secondes à afficher leurs images avec un spinner.

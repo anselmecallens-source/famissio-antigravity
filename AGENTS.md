@@ -26,4 +26,4 @@
 
 ## 4. Documentation Spécialisée (À consulter uniquement si besoin)
 Pour économiser vos tokens de contexte, ne lisez ce fichier **qu'en cas de bug, de doute ou d'anomalie** :
-- **[`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)** : Répertoire des 6 pièges résolus (boutons étirés par Tailwind `flex`, perte du navbar sticky avec `overflow`, widget Facebook SociableKIT, lenteur des images, redirections SPA).
+- **[`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)** : Répertoire des 6 pièges résolus (boutons étirés par Tailwind `flex`, perte du navbar sticky avec `overflow`, flux Facebook natif et robuste, lenteur des images, redirections SPA).

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import FacebookFeed from "../components/FacebookFeed";
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
 
@@ -417,49 +418,8 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* SECTION FACEBOOK (SociableKIT) */}
-      <div className="bg-gray-100 py-12 sm:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8 sm:mb-10">
-            <h2 className="text-4xl font-black mb-4 gradient-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              Notre actualité Facebook
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Découvrez nos dernières publications
-            </p>
-          </div>
-
-          <div className="flex justify-center w-full">
-            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden w-full max-w-[760px] ring-1 ring-black/5">
-              <iframe
-                src="https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545"
-                title="Dernières publications de Famissio sur Facebook"
-                width="100%"
-                height="760"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="strict-origin-when-cross-origin"
-                style={{ display: 'block', width: '100%', height: 'clamp(520px, 78vh, 760px)', border: 0 }}
-              />
-            </div>
-          </div>
-
-          <p className="mt-6 text-center text-gray-600">
-            Le fil Facebook ne s’affiche pas ?{' '}
-            <a
-              href="https://www.facebook.com/Famissio-108524034407006/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-bold text-orange-700 underline decoration-orange-300 underline-offset-4 hover:text-red-700"
-            >
-              <span>Retrouvez Famissio sur Facebook</span>
-              <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5h5v5m0-5L10 14M19 13v6H5V5h6" />
-              </svg>
-            </a>
-          </p>
-        </div>
-      </div>
+      {/* FLUX ACTUALITÉS FACEBOOK NATIF */}
+      <FacebookFeed />
     </div>
   );
 }
