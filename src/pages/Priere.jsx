@@ -147,8 +147,9 @@ export default function Priere() {
                 {/* Audio Section */}
                 <div className="bg-white border-b md:border md:rounded-2xl md:shadow-xl md:overflow-hidden border-red-100">
                     <button
+                        type="button"
                         onClick={() => toggleSection('audio')}
-                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-red-50 transition-colors md:rounded-t-2xl ${expandedSections.audio ? '' : 'md:rounded-b-2xl'
+                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-red-50 transition-colors md:rounded-t-2xl border-none outline-none focus:outline-none ${expandedSections.audio ? '' : 'md:rounded-b-2xl'
                             }`}
                     >
                         <div className="w-full flex items-center justify-between">
@@ -187,8 +188,10 @@ export default function Priere() {
 
                                     <div className="flex items-center gap-4 md:gap-6">
                                         <button
+                                            type="button"
                                             onClick={togglePlay}
-                                            className="flex-shrink-0 w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                                            aria-label={isPlaying ? "Mettre en pause la prière" : "Lancer la lecture de la prière"}
+                                            className="flex-shrink-0 w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 border-none outline-none focus:outline-none ring-0"
                                         >
                                             {isPlaying ? (
                                                 <Pause className="w-7 h-7" fill="currentColor" />
@@ -243,8 +246,9 @@ export default function Priere() {
                 {/* Paroles Section */}
                 <div className="bg-white border-b md:border md:rounded-2xl md:shadow-xl md:overflow-hidden border-orange-100">
                     <button
+                        type="button"
                         onClick={() => toggleSection('paroles')}
-                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-orange-50 transition-colors md:rounded-t-2xl ${expandedSections.paroles ? '' : 'md:rounded-b-2xl'
+                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-orange-50 transition-colors md:rounded-t-2xl border-none outline-none focus:outline-none ${expandedSections.paroles ? '' : 'md:rounded-b-2xl'
                             }`}
                     >
                         <div className="w-full flex items-center justify-between">
@@ -302,8 +306,9 @@ export default function Priere() {
                                 </div>
                                 <div className="flex justify-center pt-8 md:pt-0">
                                     <button
+                                        type="button"
                                         onClick={() => window.open(parolesPdf, '_blank', 'noopener,noreferrer')}
-                                        className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                                        className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 border-none outline-none focus:outline-none ring-0"
                                     >
                                         <Download className="w-5 h-5" />
                                         Télécharger le PDF des paroles
@@ -317,8 +322,9 @@ export default function Priere() {
                 {/* Partition Section */}
                 <div className="bg-white border-b md:border md:rounded-2xl md:shadow-xl md:overflow-hidden border-amber-100">
                     <button
+                        type="button"
                         onClick={() => toggleSection('partition')}
-                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-amber-50 transition-colors md:rounded-t-2xl ${expandedSections.partition ? '' : 'md:rounded-b-2xl'
+                        className={`w-full flex items-center justify-between py-6 px-6 md:p-6 hover:bg-amber-50 transition-colors md:rounded-t-2xl border-none outline-none focus:outline-none ${expandedSections.partition ? '' : 'md:rounded-b-2xl'
                             }`}
                     >
                         <div className="w-full flex items-center justify-between">
@@ -348,8 +354,9 @@ export default function Priere() {
                                 </div>
                                 <div className="flex justify-center pt-8 md:pt-4">
                                     <button
+                                        type="button"
                                         onClick={() => window.open(partitionPdf, '_blank', 'noopener,noreferrer')}
-                                        className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                                        className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 md:px-6 md:py-3 bg-red-600 hover:bg-red-700 text-white font-bold md:font-semibold rounded-full md:rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 border-none outline-none focus:outline-none ring-0"
                                     >
                                         <Download className="w-5 h-5" />
                                         Télécharger la partition PDF

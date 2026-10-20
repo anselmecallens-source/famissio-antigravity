@@ -662,23 +662,26 @@ const MissionsPage = () => {
         >
           {/* FLÈCHES NAVIGATION (Desktop) */}
           <button
+            type="button"
             onClick={(e) => navigateMission('prev', e)}
-            className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-solid border-gray-200 outline-none focus:outline-none transition-all hover:scale-110 group"
           >
             <ChevronLeft className="w-8 h-8 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.5} />
           </button>
 
           <button
+            type="button"
             onClick={(e) => navigateMission('next', e)}
-            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-gray-200 transition-all hover:scale-110 group"
+            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[10001] w-14 h-14 bg-white hover:bg-orange-50 text-gray-800 hover:text-orange-600 rounded-full items-center justify-center shadow-xl border border-solid border-gray-200 outline-none focus:outline-none transition-all hover:scale-110 group"
           >
             <ChevronRight className="w-8 h-8 transition-transform group-hover:translate-x-0.5" strokeWidth={2.5} />
           </button>
 
           {/* BOUTON FERMER */}
           <button
+            type="button"
             onClick={handleCloseMission}
-            className="fixed top-6 right-6 bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 p-3 rounded-full transition-all z-[10001] shadow-xl border border-gray-200"
+            className="fixed top-6 right-6 bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 p-3 rounded-full transition-all z-[10001] shadow-xl border border-solid border-gray-200 outline-none focus:outline-none"
           >
             <X className="w-6 h-6" strokeWidth={2.5} />
           </button>

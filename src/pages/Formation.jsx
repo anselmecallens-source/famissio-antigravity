@@ -605,10 +605,11 @@ const FormationsPage = () => {
                                                             Voir la fiche
                                                         </button>
                                                         <button
+                                                            type="button"
                                                             onClick={() => setActiveFormationId(prev => prev === formation.id ? null : formation.id)}
                                                             aria-label={`${isOpen ? 'Fermer' : 'Ouvrir'} la FAQ : ${formation.title}`}
                                                             aria-expanded={isOpen}
-                                                            className={`px-3.5 py-2.5 rounded-xl font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 border shrink-0 ${isOpen
+                                                            className={`px-3.5 py-2.5 rounded-xl font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-1.5 border border-solid shrink-0 outline-none focus:outline-none ring-0 ${isOpen
                                                                 ? 'bg-orange-50 text-orange-700 border-orange-200 shadow-sm'
                                                                 : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 border-gray-200 hover:border-gray-300'
                                                             }`}
