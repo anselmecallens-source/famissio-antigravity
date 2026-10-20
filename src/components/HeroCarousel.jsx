@@ -394,7 +394,7 @@ const HeroCarousel = () => {
                                 {slide.type === 'formation' && (
                                     <div className="formation-slide">
                                         <div className="slide-content-wrapper">
-                                            <div className="formation-icon-group flex items-center justify-center gap-3">
+                                            <div className="formation-icon-group">
                                                 <BookOpen className="w-8 h-8" />
                                                 <Heart className="w-8 h-8" />
                                             </div>
@@ -405,7 +405,7 @@ const HeroCarousel = () => {
                                             <div className="formation-highlight">
                                                 18 Formations + FAQ Mission
                                             </div>
-                                            <Link to={slide.link} className="slide-cta-btn flex items-center justify-center gap-2">
+                                            <Link to={slide.link} className="slide-cta-btn">
                                                 Découvrir le catalogue <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
@@ -422,14 +422,14 @@ const HeroCarousel = () => {
                                                 "Que l'Esprit nous insuffle l'audace et l'humilité,<br />
                                                 La foi, la joie et l'amour..."
                                             </p>
-                                            <div className="priere-infos flex items-center justify-center gap-3">
-                                                <span className="flex items-center gap-1"><Music className="w-4 h-4 inline-block" /> Audio</span>
+                                            <div className="priere-infos">
+                                                <span><Music className="w-4 h-4 inline-block mr-1" /> Audio</span>
                                                 <span>•</span>
-                                                <span className="flex items-center gap-1"><FileText className="w-4 h-4 inline-block" /> Paroles</span>
+                                                <span><FileText className="w-4 h-4 inline-block mr-1" /> Paroles</span>
                                                 <span>•</span>
-                                                <span className="flex items-center gap-1"><Music className="w-4 h-4 inline-block" /> Partition</span>
+                                                <span><Music className="w-4 h-4 inline-block mr-1" /> Partition</span>
                                             </div>
-                                            <Link to={slide.link} className="slide-cta-btn flex items-center justify-center gap-2">
+                                            <Link to={slide.link} className="slide-cta-btn">
                                                 Prier maintenant <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
@@ -449,7 +449,7 @@ const HeroCarousel = () => {
                                                 <span className="diocese-pill">Angoulême</span>
                                                 <span className="diocese-pill">Tulle</span>
                                             </div>
-                                            <Link to={slide.link} className="mission-btn flex items-center justify-center gap-2">
+                                            <Link to={slide.link} className="mission-btn">
                                                 Rejoindre l'aventure <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
@@ -459,8 +459,8 @@ const HeroCarousel = () => {
                         ))}
                     </div>
 
-                    <button className="carousel-arrow prev flex items-center justify-center" onClick={prevSlide} aria-label="Slide précédente"><ChevronLeft className="w-6 h-6" /></button>
-                    <button className="carousel-arrow next flex items-center justify-center" onClick={nextSlide} aria-label="Slide suivante"><ChevronRight className="w-6 h-6" /></button>
+                    <button className="carousel-arrow prev" onClick={prevSlide} aria-label="Slide précédente"><ChevronLeft className="w-6 h-6" /></button>
+                    <button className="carousel-arrow next" onClick={nextSlide} aria-label="Slide suivante"><ChevronRight className="w-6 h-6" /></button>
 
                     <div className={`carousel-nav ${isDarkNav ? 'nav-theme-dark' : 'nav-theme-light'}`}>
                         {originalSlides.map((_, index) => (

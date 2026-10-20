@@ -168,8 +168,8 @@ const ProtectedPage = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 maxLength={4} // Limite à 4 caractères
                             />
-                            <button type="submit" className="login-btn flex items-center justify-center gap-2">
-                                Déverrouiller <ArrowRight className="w-5 h-5 inline-block" />
+                            <button type="submit" className="login-btn">
+                                Déverrouiller <ArrowRight className="w-5 h-5 inline-block ml-2 -mt-0.5" />
                             </button>
                         </form>
                     </div>

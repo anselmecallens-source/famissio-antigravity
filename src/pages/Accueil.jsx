@@ -2382,11 +2382,11 @@ const Accueil = () => {
                                         {block.summary || block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
                                     <button
-                                        className="timeline-expand-btn flex items-center gap-1"
+                                        className="timeline-expand-btn"
                                         onClick={(event) => openMission(block, event)}
                                     >
                                         <span>En savoir plus</span>
-                                        <ArrowRight className="w-4 h-4 inline-block ml-1" />
+                                        <ArrowRight className="w-4 h-4 inline-block" />
                                     </button>
                                 </div>
 
@@ -2476,19 +2476,19 @@ const Accueil = () => {
 
                 <div className="pillars-three">
                     <div className="pillar-box">
-                        <span className="pillar-emoji flex justify-center"><Church className="w-16 h-16 text-[var(--flame)]" /></span>
+                        <span className="pillar-emoji"><Church className="w-16 h-16 mx-auto text-[var(--flame)]" /></span>
                         <h3>Je suis Prêtre</h3>
                         <p>Seul Jésus est le "grand prêtre par Excellence". Mais par notre baptême nous rendons vivant le sacerdoce du Christ. Jésus offre au Père toute prière. Nous participons à cette offrande par notre sacerdoce baptismal.</p>
                     </div>
 
                     <div className="pillar-box">
-                        <span className="pillar-emoji flex justify-center"><Megaphone className="w-16 h-16 text-[var(--flame)]" /></span>
+                        <span className="pillar-emoji"><Megaphone className="w-16 h-16 mx-auto text-[var(--flame)]" /></span>
                         <h3>Je suis Prophète</h3>
                         <p>Le prophète est le "porte-parole" de Dieu. Comme je participe à cette dignité, je suis un prophète qui annonce et vit la Parole. Nous annonçons la Bonne nouvelle à nos frères et sœurs en humanité.</p>
                     </div>
 
                     <div className="pillar-box">
-                        <span className="pillar-emoji flex justify-center"><Crown className="w-16 h-16 text-[var(--flame)]" /></span>
+                        <span className="pillar-emoji"><Crown className="w-16 h-16 mx-auto text-[var(--flame)]" /></span>
                         <h3>Je suis Roi</h3>
                         <p>Être roi pour un baptisé, c'est être au service. La fonction royale des baptisés consiste à mettre en œuvre le commandement du frère comme Jésus a pu le faire lors du lavement des pieds.</p>
                     </div>
@@ -2552,9 +2552,9 @@ const Accueil = () => {
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
-                <Link to="/priere" className="prayer-cta flex items-center justify-center gap-2">
+                <Link to="/priere" className="prayer-cta">
                     Accéder à la prière
-                    <ArrowRight className="w-4 h-4 inline-block" />
+                    <ArrowRight className="w-5 h-5 inline-block" />
                 </Link>
             </div>
         </div >

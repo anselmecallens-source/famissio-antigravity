@@ -5,61 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) => {
   const [currentSrc, setCurrentSrc] = useState(src);
-  const [status, setStatus] = useState(() => {
-    // Synchronous check to prevent flash on initial render if cached
-    if (typeof window !== 'undefined') {
-      const img = new Image();
-      img.src = src;
-      if (img.complete) return 'loaded';
-    }
-    return 'loading';
-  });
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     setCurrentSrc(src);
     setRetryCount(0);
-
-    const img = new Image();
-    img.src = src;
-    if (img.complete) {
-      setStatus('loaded');
-    } else {
-      setStatus('loading');
-    }
+    setIsLoaded(false);
+    setHasError(false);
   }, [src]);
 
-  useEffect(() => {
-    if (status === 'loaded') return;
-
-    const img = new Image();
-    img.src = currentSrc;
-
-    // Double check in case it loaded between renders
-    if (img.complete) {
-      setStatus('loaded');
-      return;
+  const handleError = () => {
+    if (fallbackImages.length > 0 && retryCount < fallbackImages.length) {
+      const nextImage = fallbackImages[retryCount % fallbackImages.length];
+      setRetryCount(prev => prev + 1);
+      setCurrentSrc(nextImage);
+    } else {
+      setHasError(true);
     }
+  };
 
-    img.onload = () => {
-      setStatus('loaded');
-    };
-
-    img.onerror = () => {
-      // If we have fallback images and haven't tried too many times
-      if (fallbackImages.length > 0 && retryCount < fallbackImages.length) {
-        console.log(`Image failed: ${currentSrc}, trying backup...`);
-        // Try the next image in the fallback list (using retryCount as index)
-        const nextImage = fallbackImages[retryCount % fallbackImages.length];
-        setRetryCount(prev => prev + 1);
-        setCurrentSrc(nextImage);
-      } else {
-        setStatus('error');
-      }
-    };
-  }, [currentSrc, fallbackImages, retryCount, status]);
-
-  if (status === 'error') {
+  if (hasError) {
     return (
       <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
         <div className="text-gray-400 flex flex-col items-center">
@@ -72,7 +39,7 @@ const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) =
 
   return (
     <div className={`relative ${className} overflow-hidden bg-gray-100`}>
-      {status === 'loading' && (
+      {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-100">
           <div className="w-8 h-8 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
         </div>
@@ -80,7 +47,11 @@ const ImageWithFallback = ({ src, alt, className, type, fallbackImages = [] }) =
       <img
         src={currentSrc}
         alt={alt}
-        className={`block w-full h-full object-cover ${status === 'loaded' ? '' : 'opacity-0'}`}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setIsLoaded(true)}
+        onError={handleError}
+        className={`block w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ objectPosition: '50% 35%' }}
       />
     </div>
