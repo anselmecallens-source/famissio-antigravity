@@ -9,6 +9,9 @@ Le site a été développé par plusieurs IA successives. Pour travailler effica
 * **Toujours explorer l'existant avant de créer** : Si vous cherchez un style, une image, une icône ou une fonction, vérifiez d'abord s'il existe déjà dans `src/components/`, `src/index.css` ou `public/assets/`.
 * **Respecter la cohérence globale tout en restant créatif** : Vous avez toute liberté pour améliorer l'UI, proposer de nouvelles animations ou peaufiner les textes, tant que l'identité chaleureuse et missionnaire de Famissio est préservée.
 * **Ne jamais laisser de brouillons dans le dépôt** : Pas de copies temporaires (`temp_*.jsx`, `*.bak`, fichiers `.txt` de commande, scripts de test). Le dépôt doit rester propre à 100%.
+* **Compléter ce guide avec discernement (Règle Anti-Surcharge)** :
+  * Si vous découvrez une information structurelle pérenne, vous avez toute liberté d'enrichir ce document.
+  * **ATTENTION** : Ne transformez **JAMAIS** une demande niche ou ponctuelle de l'utilisateur en règle générale pesante. Ce n'est pas parce qu'une session a passé 30 minutes sur un cas particulier qu'il faut en faire une contrainte globale qui bridera tout le monde par la suite. Gardez ce guide centré sur l'essentiel, le solide et l'utile.
 
 ---
 
@@ -77,7 +80,42 @@ Famissio/
 
 ---
 
-## 6. Règle Absolue de Déploiement (Workflow Obligatoire)
+## 6. Journal des Pannes Résolues & Pièges Évités (Troubleshooting)
+Consultez ce répertoire dès qu'un problème survient afin d'éviter de perdre du temps sur des pièges déjà identifiés et résolus :
+
+1. **Boutons qui s'étirent sur toute la largeur (`prayer-cta`, `timeline-expand-btn`, boutons du carrousel...)** :
+   * *Symptôme* : Un bouton prend 100% de la largeur de l'écran avec un trait noir ou fond démesuré.
+   * *Cause* : L'ajout de la classe Tailwind `flex` écrase le style CSS `display: inline-flex` en `display: flex;`.
+   * *Solution* : Ne pas mettre `flex` sur ces boutons. Laisser leur classe dédiée gérer l'`inline-flex`, ou spécifier explicitement `inline-flex`.
+
+2. **Navbar qui ne colle plus au scroll (perte du sticky)** :
+   * *Symptôme* : La barre de navigation ne reste plus fixée lors du défilement.
+   * *Cause* : Présence d'un `overflow-x: hidden` sur `html`, `body` ou un conteneur ancêtre.
+   * *Solution* : Ne jamais mettre `overflow-x: hidden` sur les éléments parents. Utiliser la classe `.overflow-clip-x` (`overflow-x: clip`) qui empêche les débordements sans bloquer le sticky.
+
+3. **Flux Facebook bloqué ou vide sur la page Contact** :
+   * *Symptôme* : Le cadre Facebook affiche une erreur ou reste blanc.
+   * *Cause* : Le plugin iframe direct de Facebook est bloqué par les bloqueurs de pub et les politiques anti-pistage des navigateurs récents. De plus, l'URL `facebook.com/famissio` est invalide.
+   * *Solution* : Conserver l'iframe **SociableKIT** (`https://widgets.sociablekit.com/facebook-page-posts/iframe/25643545`) qui assure l'affichage sans blocage tiers.
+
+4. **Chargement extrêmement lent / cartes blanches dans Témoignages** :
+   * *Symptôme* : Les témoignages mettent 10 secondes à afficher leurs images avec un spinner.
+   * *Cause* : Photos brutes d'appareil photo non compressées (jusqu'à 6,3 Mo l'unité, soit plus de 22 Mo à charger simultanément) + composant bloquant avec `opacity: 0`.
+   * *Solution* : Compresser les photos à 1280px max en JPEG/WebP (< 250 Ko) et utiliser `loading="lazy"` et `decoding="async"` natifs.
+
+5. **Erreur 404 au rechargement (F5) d'une page (`/missions`, `/formation`...)** :
+   * *Symptôme* : La navigation fonctionne en cliquant, mais F5 renvoie une page 404 Cloudflare.
+   * *Cause* : Mauvais format ou absence de la règle SPA.
+   * *Solution* : Le fichier `public/_redirects` doit contenir exactement `/* /index.html 200` avec une seule espace.
+
+6. **Erreur HTTP 523 à la publication sur Cloudflare Pages** :
+   * *Symptôme* : Échec d'upload lors du build Cloudflare.
+   * *Cause* : Présence d'un média lourd (> 15 Mo) dans `public/assets/`.
+   * *Solution* : Réduire et compresser les vidéos et fichiers sous 10 Mo.
+
+---
+
+## 7. Règle Absolue de Déploiement (Workflow Obligatoire)
 À chaque intervention demandée par l'utilisateur :
 1. **Tester la compilation** : Exécuter `npm.cmd run build` et `npm.cmd run lint`.
 2. **Pousser immédiatement dès le succès** :
