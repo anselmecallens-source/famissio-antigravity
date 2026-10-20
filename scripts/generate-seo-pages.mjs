@@ -10,35 +10,35 @@ const distDir = path.resolve(rootDir, 'dist');
 export const SEO_PAGES = [
   {
     path: '/formation',
-    title: 'Catalogue de Formation - Famissio | 18 Fiches & FAQ Mission',
+    title: 'Famissio - Formation | 18 Fiches & FAQ Mission',
     description: 'Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission.',
     canonical: 'https://famissio.pages.dev/formation',
     image: 'https://famissio.pages.dev/og-image.png'
   },
   {
     path: '/missions',
-    title: 'Nos Missions - Famissio | Découvrir nos missions en France',
+    title: 'Famissio - Nos Missions en France',
     description: 'Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux.',
     canonical: 'https://famissio.pages.dev/missions',
     image: 'https://famissio.pages.dev/assets/images/Carte_mission_2026.png'
   },
   {
     path: '/temoignages',
-    title: 'Témoignages - Famissio | Expériences et récits de mission',
+    title: 'Famissio - Témoignages de mission',
     description: 'Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio.',
     canonical: 'https://famissio.pages.dev/temoignages',
     image: 'https://famissio.pages.dev/og-image.png'
   },
   {
     path: '/contact',
-    title: 'Contact & Inscription - Famissio | Rejoindre une mission',
+    title: 'Famissio - Contact & Inscription',
     description: "Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales.",
     canonical: 'https://famissio.pages.dev/contact',
     image: 'https://famissio.pages.dev/og-image.png'
   },
   {
     path: '/priere',
-    title: 'La Prière Famissio - Audio, Paroles & Partition',
+    title: 'Famissio - La Prière | Audio, Paroles & Partition',
     description: 'Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique.',
     canonical: 'https://famissio.pages.dev/priere',
     image: 'https://famissio.pages.dev/og-image.png'

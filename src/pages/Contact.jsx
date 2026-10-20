@@ -224,12 +224,12 @@ export default function Contact() {
   return (
     <div className="bg-gray-50">
       <Helmet>
-        <title>Contact & Inscription - Famissio | Rejoindre une mission</title>
+        <title>Famissio - Contact & Inscription</title>
         <meta name="description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
         <link rel="canonical" href="https://famissio.pages.dev/contact" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://famissio.pages.dev/contact" />
-        <meta property="og:title" content="Contact & Inscription - Famissio | Rejoindre une mission" />
+        <meta property="og:title" content="Famissio - Contact & Inscription" />
         <meta property="og:description" content="Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales." />
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
       </Helmet>
