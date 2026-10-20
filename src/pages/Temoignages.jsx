@@ -761,13 +761,13 @@ const TemoignagesPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>Famissio - Témoignages de mission</title>
-        <meta name="description" content="Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio." />
+        <title>Témoignages - Famissio</title>
+        <meta name="description" content="Récits et retours d'expérience des familles missionnaires, paroissiens et curés ayant vécu une semaine de mission Famissio." />
         <link rel="canonical" href="https://famissio.pages.dev/temoignages" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://famissio.pages.dev/temoignages" />
-        <meta property="og:title" content="Famissio - Témoignages de mission" />
-        <meta property="og:description" content="Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio." />
+        <meta property="og:title" content="Témoignages - Famissio" />
+        <meta property="og:description" content="Récits et retours d'expérience des familles missionnaires, paroissiens et curés ayant vécu une semaine de mission Famissio." />
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
       </Helmet>
       <style>{`

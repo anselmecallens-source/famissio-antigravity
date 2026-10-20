@@ -327,13 +327,13 @@ const MissionsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-orange-500 selection:text-white">
       <Helmet>
-        <title>Famissio - Nos Missions en France</title>
-        <meta name="description" content="Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux." />
+        <title>Nos Missions - Famissio</title>
+        <meta name="description" content="Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser." />
         <link rel="canonical" href="https://famissio.pages.dev/missions" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://famissio.pages.dev/missions" />
-        <meta property="og:title" content="Famissio - Nos Missions en France" />
-        <meta property="og:description" content="Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux." />
+        <meta property="og:title" content="Nos Missions - Famissio" />
+        <meta property="og:description" content="Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser." />
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Carte_mission_2026.png" />
       </Helmet>
       <style>{`

@@ -9,36 +9,36 @@ const distDir = path.resolve(rootDir, 'dist');
 
 export const SEO_PAGES = [
   {
-    path: '/formation',
-    title: 'Famissio - Formation | 18 Fiches & FAQ Mission',
-    description: 'Découvrez le catalogue complet de formations Famissio : fiches téléchargeables et réponses aux questions fondamentales de la foi et de la mission.',
-    canonical: 'https://famissio.pages.dev/formation',
-    image: 'https://famissio.pages.dev/og-image.png'
-  },
-  {
     path: '/missions',
-    title: 'Famissio - Nos Missions en France',
-    description: 'Découvrez les missions paroissiales Famissio à travers la France : Limoges, La Rochelle, Angoulême, Tulle et dans les diocèses ruraux.',
+    title: 'Nos Missions - Famissio',
+    description: 'Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser.',
     canonical: 'https://famissio.pages.dev/missions',
     image: 'https://famissio.pages.dev/assets/images/Carte_mission_2026.png'
   },
   {
+    path: '/formation',
+    title: 'Formation - Famissio',
+    description: 'Fiches de formation pour approfondir sa foi et se préparer à la mission : fondamentaux, témoignage, objections courantes et bien plus.',
+    canonical: 'https://famissio.pages.dev/formation',
+    image: 'https://famissio.pages.dev/og-image.png'
+  },
+  {
     path: '/temoignages',
-    title: 'Famissio - Témoignages de mission',
-    description: 'Découvrez les témoignages émouvants des Famissionnaires, paroissiens et prêtres touchés par les semaines de mission Famissio.',
+    title: 'Témoignages - Famissio',
+    description: "Récits et retours d'expérience des familles missionnaires, paroissiens et curés ayant vécu une semaine de mission Famissio.",
     canonical: 'https://famissio.pages.dev/temoignages',
     image: 'https://famissio.pages.dev/og-image.png'
   },
   {
     path: '/contact',
-    title: 'Famissio - Contact & Inscription',
-    description: "Contactez l'association Famissio ou inscrivez votre famille / paroisse pour rejoindre les prochaines missions rurales.",
+    title: 'Contact - Famissio',
+    description: "Contactez l'association Famissio pour en savoir plus, vous inscrire en mission ou inviter des missionnaires dans votre paroisse.",
     canonical: 'https://famissio.pages.dev/contact',
     image: 'https://famissio.pages.dev/og-image.png'
   },
   {
     path: '/priere',
-    title: 'Famissio - La Prière | Audio, Paroles & Partition',
+    title: 'La Prière - Famissio',
     description: 'Écoutez la prière Famissio, découvrez ses paroles et téléchargez la partition pour accompagner les missions en musique.',
     canonical: 'https://famissio.pages.dev/priere',
     image: 'https://famissio.pages.dev/og-image.png'

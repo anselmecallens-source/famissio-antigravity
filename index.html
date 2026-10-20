@@ -54,39 +54,54 @@
         "url": "https://famissio.pages.dev/",
         "name": "Famissio",
         "alternateName": ["Famissio - Missions d'évangélisation", "Familles Missionnaires"],
+        "description": "Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales.",
+        "inLanguage": "fr-FR",
         "publisher": {
           "@id": "https://famissio.pages.dev/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://famissio.pages.dev/?s={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
         },
         "hasPart": [
           {
             "@type": "WebPage",
             "@id": "https://famissio.pages.dev/",
             "name": "Accueil",
-            "url": "https://famissio.pages.dev/"
+            "url": "https://famissio.pages.dev/",
+            "description": "Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales."
           },
           {
             "@type": "WebPage",
             "@id": "https://famissio.pages.dev/missions",
             "name": "Nos Missions",
-            "url": "https://famissio.pages.dev/missions"
+            "url": "https://famissio.pages.dev/missions",
+            "description": "Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser."
           },
           {
             "@type": "WebPage",
             "@id": "https://famissio.pages.dev/formation",
             "name": "Formation",
-            "url": "https://famissio.pages.dev/formation"
+            "url": "https://famissio.pages.dev/formation",
+            "description": "Fiches de formation pour approfondir sa foi et se préparer à la mission : fondamentaux, témoignage, objections courantes et bien plus."
           },
           {
             "@type": "WebPage",
             "@id": "https://famissio.pages.dev/temoignages",
             "name": "Témoignages",
-            "url": "https://famissio.pages.dev/temoignages"
+            "url": "https://famissio.pages.dev/temoignages",
+            "description": "Récits et retours d'expérience des familles missionnaires, paroissiens et curés ayant vécu une semaine de mission Famissio."
           },
           {
             "@type": "WebPage",
             "@id": "https://famissio.pages.dev/contact",
             "name": "Contact",
-            "url": "https://famissio.pages.dev/contact"
+            "url": "https://famissio.pages.dev/contact",
+            "description": "Contactez l'association Famissio pour en savoir plus, vous inscrire en mission ou inviter des missionnaires dans votre paroisse."
           }
         ]
       },
@@ -98,36 +113,29 @@
           {
             "@type": "SiteNavigationElement",
             "position": 1,
-            "name": "Accueil",
-            "description": "Découvrez le mouvement Famissio et les missions d'évangélisation",
-            "url": "https://famissio.pages.dev/"
-          },
-          {
-            "@type": "SiteNavigationElement",
-            "position": 2,
             "name": "Nos Missions",
-            "description": "Découvrez les missions paroissiales Famissio en France",
+            "description": "Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser.",
             "url": "https://famissio.pages.dev/missions"
           },
           {
             "@type": "SiteNavigationElement",
-            "position": 3,
+            "position": 2,
             "name": "Formation",
-            "description": "Catalogue de fiches de formation et questions sur la foi",
+            "description": "Fiches de formation pour approfondir sa foi et se préparer à la mission : fondamentaux, témoignage, objections courantes et bien plus.",
             "url": "https://famissio.pages.dev/formation"
           },
           {
             "@type": "SiteNavigationElement",
-            "position": 4,
+            "position": 3,
             "name": "Témoignages",
-            "description": "Récits et retours d'expérience des missionnaires et paroissiens",
+            "description": "Récits et retours d'expérience des familles missionnaires, paroissiens et curés ayant vécu une semaine de mission Famissio.",
             "url": "https://famissio.pages.dev/temoignages"
           },
           {
             "@type": "SiteNavigationElement",
-            "position": 5,
+            "position": 4,
             "name": "Contact",
-            "description": "Contactez l'association Famissio ou inscrivez-vous en mission",
+            "description": "Contactez l'association Famissio pour en savoir plus, vous inscrire en mission ou inviter des missionnaires dans votre paroisse.",
             "url": "https://famissio.pages.dev/contact"
           }
         ]
@@ -137,9 +145,16 @@
         "@id": "https://famissio.pages.dev/#organization",
         "name": "Famissio",
         "url": "https://famissio.pages.dev/",
-        "logo": "https://famissio.pages.dev/favicon.png",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://famissio.pages.dev/favicon.png",
+          "width": 512,
+          "height": 512
+        },
         "image": "https://famissio.pages.dev/og-image.png",
-        "description": "Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales."
+        "description": "Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales.",
+        "email": "famissio2019@gmail.com",
+        "sameAs": []
       }
     ]
   }
