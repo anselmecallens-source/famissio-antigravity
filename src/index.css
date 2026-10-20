@@ -277,6 +277,7 @@ body {
 }
 
 /* Modal ouvert : masquage strict des barres de navigation, boutons flottants et verrouillage */
+html.modal-open,
 body.modal-open {
   overflow: hidden !important;
   overscroll-behavior: none !important;

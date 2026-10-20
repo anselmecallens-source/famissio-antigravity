@@ -14,12 +14,16 @@ const FormationsPage = () => {
     // Verrouillage du scroll et masquage strict des barres d'onglets / boutons fixes quand le popup est ouvert
     useEffect(() => {
         if (fullscreenPdf) {
-            document.body.classList.add('modal-open');
+            const body = document.body;
+            const root = document.documentElement;
+            body.classList.add('modal-open');
+            root.classList.add('modal-open');
             const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflow = 'hidden';
+            body.style.position = 'fixed';
+            body.style.top = `-${scrollY}px`;
+            body.style.width = '100%';
+            body.style.overflow = 'hidden';
+            root.style.overflow = 'hidden';
 
             const handleKeyDown = (e) => {
                 if (e.key === 'Escape') {
@@ -29,13 +33,22 @@ const FormationsPage = () => {
             window.addEventListener('keydown', handleKeyDown);
 
             return () => {
-                document.body.classList.remove('modal-open');
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                document.body.style.overflow = '';
-                window.scrollTo(0, scrollY);
                 window.removeEventListener('keydown', handleKeyDown);
+                body.classList.remove('modal-open');
+                root.classList.remove('modal-open');
+                body.style.position = '';
+                body.style.top = '';
+                body.style.width = '';
+                body.style.overflow = '';
+                root.style.overflow = '';
+
+                // Restauration instantanée de la position de scroll (sans défilement visible)
+                const previousScrollBehavior = root.style.scrollBehavior;
+                root.style.setProperty('scroll-behavior', 'auto', 'important');
+                window.scrollTo({ left: 0, top: scrollY, behavior: 'instant' });
+                requestAnimationFrame(() => {
+                    root.style.scrollBehavior = previousScrollBehavior;
+                });
             };
         }
     }, [fullscreenPdf]);

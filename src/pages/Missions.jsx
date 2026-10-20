@@ -50,10 +50,12 @@ const MissionsPage = () => {
     const body = document.body;
     const root = document.documentElement;
     body.classList.add('modal-open');
+    root.classList.add('modal-open');
     body.style.position = 'fixed';
     body.style.top = `-${scrollY}px`;
     body.style.width = '100%';
     body.style.overflow = 'hidden';
+    root.style.overflow = 'hidden';
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') handleCloseMission();
@@ -63,14 +65,18 @@ const MissionsPage = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       body.classList.remove('modal-open');
+      root.classList.remove('modal-open');
       body.style.position = '';
       body.style.top = '';
       body.style.width = '';
       body.style.overflow = '';
+      root.style.overflow = '';
       const previousScrollBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
-      window.scrollTo({ left: 0, top: scrollY, behavior: 'auto' });
-      root.style.scrollBehavior = previousScrollBehavior;
+      root.style.setProperty('scroll-behavior', 'auto', 'important');
+      window.scrollTo({ left: 0, top: scrollY, behavior: 'instant' });
+      requestAnimationFrame(() => {
+        root.style.scrollBehavior = previousScrollBehavior;
+      });
     };
   }, [isMissionModalOpen]);
 

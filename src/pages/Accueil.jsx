@@ -100,9 +100,12 @@ const Accueil = () => {
         const body = document.body;
         const root = document.documentElement;
         body.classList.add('modal-open');
+        root.classList.add('modal-open');
         body.style.position = 'fixed';
         body.style.top = `-${scrollY}px`;
         body.style.width = '100%';
+        body.style.overflow = 'hidden';
+        root.style.overflow = 'hidden';
 
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') setActiveMission(null);
@@ -112,14 +115,21 @@ const Accueil = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             body.classList.remove('modal-open');
+            root.classList.remove('modal-open');
             body.style.position = '';
             body.style.top = '';
             body.style.width = '';
-            missionModalTriggerRef.current?.focus({ preventScroll: true });
+            body.style.overflow = '';
+            root.style.overflow = '';
+
+            // Restauration instantanée de la position de scroll (sans animation de défilement)
             const previousScrollBehavior = root.style.scrollBehavior;
-            root.style.scrollBehavior = 'auto';
-            window.scrollTo({ left: 0, top: scrollY, behavior: 'auto' });
-            root.style.scrollBehavior = previousScrollBehavior;
+            root.style.setProperty('scroll-behavior', 'auto', 'important');
+            window.scrollTo({ left: 0, top: scrollY, behavior: 'instant' });
+            missionModalTriggerRef.current?.focus({ preventScroll: true });
+            requestAnimationFrame(() => {
+                root.style.scrollBehavior = previousScrollBehavior;
+            });
         };
     }, [activeMission]);
 
@@ -2153,7 +2163,8 @@ const Accueil = () => {
                         position: fixed;
                         inset: 0;
                         background: #151515;
-                        overscroll-behavior: none;
+                        overscroll-behavior: contain;
+                        touch-action: none;
                         z-index: 9999;
                         display: flex;
                         align-items: center;
@@ -2161,7 +2172,7 @@ const Accueil = () => {
                         padding: 40px;
                         opacity: 0;
                         visibility: hidden;
-                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                        transition: opacity 0.4s ease, visibility 0.4s ease;
                     }
 
                     .timeline-modal-backdrop.active {
@@ -2175,12 +2186,16 @@ const Accueil = () => {
                         max-width: 1100px;
                         width: 100%;
                         max-height: 90vh;
+                        max-height: 90dvh;
                         overflow: hidden;
                         box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
                         display: grid;
                         grid-template-columns: 45% 55%;
-                        transform: scale(0.8) translateY(50px);
-                        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                        position: relative;
+                        overscroll-behavior: contain;
+                        touch-action: pan-y;
+                        transform: scale(0.9) translateY(30px);
+                        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                     }
 
                     .timeline-modal-backdrop.active .timeline-modal {
@@ -2205,6 +2220,9 @@ const Accueil = () => {
                         padding: 50px;
                         overflow-y: auto;
                         overscroll-behavior: contain;
+                        min-height: 0;
+                        touch-action: pan-y;
+                        -webkit-overflow-scrolling: touch;
                     }
 
                     .modal-close-btn {
@@ -2213,7 +2231,7 @@ const Accueil = () => {
                         right: 20px;
                         width: 50px;
                         height: 50px;
-                        background: rgba(255, 255, 255, 0.9);
+                        background: rgba(255, 255, 255, 0.95);
                         border: none;
                         border-radius: 50%;
                         display: flex;
@@ -2278,6 +2296,29 @@ const Accueil = () => {
                         font-weight: bold;
                     }
 
+                    .modal-bottom-close-btn {
+                        display: none;
+                        width: 100%;
+                        margin-top: 28px;
+                        padding: 14px 20px;
+                        background: #f8fafc;
+                        color: #334155;
+                        font-size: 0.95rem;
+                        font-weight: 700;
+                        border: 1.5px solid #e2e8f0;
+                        border-radius: 16px;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        text-align: center;
+                    }
+
+                    .modal-bottom-close-btn:hover,
+                    .modal-bottom-close-btn:active {
+                        background: var(--flame);
+                        color: white;
+                        border-color: var(--flame);
+                    }
+
                     /* Responsive */
                     @media (max-width: 1200px) {
                         .timeline-item {
@@ -2308,19 +2349,86 @@ const Accueil = () => {
                             max-width: 100%;
                             height: 300px;
                         }
+                    }
+
+                    @media (max-width: 1024px) {
+                        .timeline-modal-backdrop {
+                            padding: 16px 12px;
+                            overscroll-behavior: contain;
+                            touch-action: none;
+                        }
 
                         .timeline-modal {
+                            display: flex;
+                            flex-direction: column;
                             grid-template-columns: 1fr;
-                            max-height: 95vh;
+                            max-height: 90vh;
+                            max-height: 90dvh;
+                            width: 100%;
+                            max-width: 600px;
+                            overflow-y: auto;
+                            -webkit-overflow-scrolling: touch;
+                            overscroll-behavior: contain;
+                            touch-action: pan-y;
+                            border-radius: 24px;
+                            position: relative;
                         }
 
                         .modal-image-section {
-                            min-height: 250px;
-                            max-height: 300px;
+                            height: 220px;
+                            min-height: 200px;
+                            max-height: 240px;
+                            width: 100%;
+                            flex-shrink: 0;
+                            position: relative;
+                        }
+
+                        .modal-image-section img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
                         }
 
                         .modal-content-section {
-                            padding: 30px;
+                            padding: 26px 22px 32px;
+                            overflow-y: visible;
+                            flex: 1 0 auto;
+                            min-height: 0;
+                        }
+
+                        .modal-close-btn {
+                            position: sticky;
+                            top: 12px;
+                            align-self: flex-end;
+                            margin-right: 12px;
+                            margin-bottom: -46px;
+                            width: 42px;
+                            height: 42px;
+                            font-size: 1.6rem;
+                            z-index: 30;
+                            background: rgba(255, 255, 255, 0.95);
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+                        }
+
+                        .modal-bottom-close-btn {
+                            display: block;
+                        }
+
+                        .modal-title {
+                            font-size: 1.8rem;
+                            margin-bottom: 18px;
+                        }
+
+                        .modal-main-text {
+                            font-size: 1rem;
+                            line-height: 1.7;
+                            margin-bottom: 20px;
+                        }
+
+                        .modal-list li {
+                            padding: 12px 0 12px 30px;
+                            font-size: 0.95rem;
+                            line-height: 1.6;
                         }
                     }
 
@@ -2337,19 +2445,61 @@ const Accueil = () => {
                             font-size: 1.8rem;
                         }
 
-
                         .timeline-description {
                             font-size: 1rem;
                         }
+
                         /* Align text with image (remove extra 60px padding) */
                         .timeline-content {
                             padding-left: 0 !important; 
                             padding-right: 0 !important;
                         }
+                    }
 
+                    @media (max-width: 640px) {
+                        .timeline-modal-backdrop {
+                            padding: 12px 8px;
+                        }
+
+                        .timeline-modal {
+                            max-height: 92vh;
+                            max-height: 92dvh;
+                            border-radius: 20px;
+                        }
+
+                        .modal-image-section {
+                            height: 180px;
+                            min-height: 170px;
+                            max-height: 190px;
+                        }
+
+                        .modal-content-section {
+                            padding: 20px 16px 28px;
+                        }
 
                         .modal-title {
-                            font-size: 1.8rem;
+                            font-size: 1.5rem;
+                            margin-bottom: 14px;
+                        }
+
+                        .modal-main-text {
+                            font-size: 0.95rem;
+                            line-height: 1.6;
+                            margin-bottom: 16px;
+                        }
+
+                        .modal-list li {
+                            padding: 10px 0 10px 26px;
+                            font-size: 0.9rem;
+                        }
+
+                        .modal-close-btn {
+                            top: 10px;
+                            margin-right: 10px;
+                            margin-bottom: -42px;
+                            width: 38px;
+                            height: 38px;
+                            font-size: 1.4rem;
                         }
                     }
                 `}</style>
@@ -2403,7 +2553,12 @@ const Accueil = () => {
                     onClick={() => setActiveMission(null)}
                 >
                     <div className="timeline-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setActiveMission(null)}>
+                        <button
+                            type="button"
+                            className="modal-close-btn"
+                            onClick={() => setActiveMission(null)}
+                            aria-label="Fermer"
+                        >
                             ×
                         </button>
 
@@ -2429,6 +2584,14 @@ const Accueil = () => {
                                             ))}
                                         </ul>
                                     )}
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveMission(null)}
+                                        className="modal-bottom-close-btn"
+                                    >
+                                        Fermer
+                                    </button>
                                 </div>
                             </>
                         )}
