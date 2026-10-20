@@ -1,23 +1,46 @@
-# Famissio - Web Application (Vite + React)
+# Famissio - Application Web (React + Vite)
 
-Site web officiel de l'association **Famissio** - Familles Missionnaires au service des Paroisses.
+Site web officiel de l'association **Famissio** — Familles Missionnaires au service des paroisses rurales.
+
+## Architecture & Technologies
+
+- **Frontend** : React 18, Vite 6, Tailwind CSS 3, React Router DOM 6.
+- **Icônes** : `lucide-react` (système unifié vectoriel).
+- **SEO & Métadonnées** : `react-helmet-async`, données structurées Schema.org (JSON-LD), et génération automatique de snapshots HTML statiques pour les 5 routes principales lors du build.
+- **Formulaire de contact** : Intégration Formspree avec protection anti-spam bot.
+
+## Structure du Codebase
+
+```text
+Famissio/
+├── public/                 # Assets statiques distribués par Cloudflare Pages
+│   ├── assets/             # Images, vidéos presse, audios et fiches PDF
+│   ├── _redirects          # Règle SPA Cloudflare Pages (/* /index.html 200)
+│   ├── robots.txt          # Directives d'indexation
+│   ├── sitemap.xml         # Plan du site
+│   └── site.webmanifest    # Manifest PWA / mobile
+├── scripts/
+│   ├── generate-seo-pages.mjs   # Générateur de pages statiques SEO pour le build
+│   └── generate-favicons.ps1    # Utilitaire de génération d'icônes
+├── src/
+│   ├── components/         # Navbar, Footer, HeroCarousel, MobileHeroV2, ProtectedPage
+│   ├── pages/              # Accueil, Missions, Formation, Temoignages, Contact, Priere
+│   ├── App.jsx             # Configuration des routes
+│   ├── main.jsx            # Point d'entrée de l'application
+│   └── index.css           # Feuille de styles globale
+└── vite.config.js          # Configuration Vite avec plugin SEO
+```
 
 ## Déploiement sur Cloudflare Pages
 
-Ce projet est configuré pour être déployé facilement sur **Cloudflare Pages**.
+Le projet est hébergé sur le dépôt GitHub `anselmecallens-source/famissio-antigravity` (branche `main`) et connecté à **Cloudflare Pages** (`https://famissio.pages.dev/`).
 
-### Paramètres de build Cloudflare Pages
-- **Framework preset** : `Vite` (ou `None`)
+- **Preset** : Vite
 - **Build command** : `npm run build`
-- **Build output directory** : `dist`
-- **Root directory** : `/` (par défaut)
+- **Output directory** : `dist`
 
 ### Routage SPA (Single Page Application)
-Le routage est géré automatiquement via le fichier [`public/_redirects`](public/_redirects) :
-```
-/* /index.html 200
-```
-Ce fichier est copié dans le dossier `dist/` lors du build et garantit le bon fonctionnement des sous-pages (ex: `/missions`, `/formation`, `/contact`) au rafraîchissement.
+Le fichier `public/_redirects` (`/* /index.html 200`) garantit que toutes les routes directes (`/missions`, `/formation`, `/contact`, `/temoignages`, `/priere`) se rechargent sans erreur 404.
 
 ## Développement Local
 
@@ -25,9 +48,12 @@ Ce fichier est copié dans le dossier `dist/` lors du build et garantit le bon f
 # Installation des dépendances
 npm install
 
-# Lancer le serveur de développement
+# Serveur de développement avec Hot Reload
 npm run dev
 
-# Compiler le projet pour la production
+# Vérification du code (linter)
+npm run lint
+
+# Compilation de production
 npm run build
 ```

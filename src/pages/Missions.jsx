@@ -122,9 +122,9 @@ const MissionsPage = () => {
       Nous rendons grâce ! La mission remplit les coeurs de joie. Nous rentrons tous la tête dans le Ciel !`,
       video: null,
       links: [
-        { name: 'France Catholique', url: 'https://www.dropbox.com/scl/fi/l61ud2v1uvous2w9zhx0x/France-Catholique-2025.png?rlkey=0fivyuakazugiohuvns6szj5m&st=h39sa23x&raw=1' },
-        { name: 'Le Limousin', url: 'https://www.dropbox.com/scl/fi/20fkktvhh1l41n56ug28v/Le-Limousin-2025.png?rlkey=vxdvny9b3yj8kbmlidtm2j649&st=a6weal2a&raw=1' },
-        { name: 'France 3', url: 'https://www.dropbox.com/scl/fi/ncw3158cw1ye0gpap8n0z/France-3-2025.mp4?rlkey=pk88bww8uqlovzflfi3mdj015&st=8uvraiit&raw=1' }
+        { name: 'France Catholique', url: '/assets/Articles%20missions/France%20Catholique%202025.png' },
+        { name: 'Le Limousin', url: '/assets/Articles%20missions/Le%20Limousin%202025.png' },
+        { name: 'France 3', url: '/assets/Articles%20missions/France%203%20-%202025.mp4' }
       ],
       size: 'large'
     },
@@ -150,7 +150,7 @@ const MissionsPage = () => {
         { name: 'Midi Libre', url: 'https://www.midilibre.fr/2024/10/11/la-mission-famissio-de-la-paroisse-saint-jacques-12253698.php' },
         { name: 'Diocèse de Mende', url: 'https://www.diocese-mende.fr/des-familles-missionnaires-dans-nos-paroisses/' },
         { name: 'Diocèse de Saint-Flour', url: 'https://diocese15.fr/blog/2024/09/allons-donc-de-toutes-les-nations-faites-des-disciples-famissio-familles-en-mission/' },
-        { name: 'La Lozère Nouvelle', url: 'https://www.dropbox.com/scl/fi/qz0m7kbhhbcll5ggs5zhd/La-Lozerre-Nouvelle-2024.jpeg?rlkey=8f16ho9sskxmgntgpffyjkxkh&st=yihn47cp&raw=1' }
+        { name: 'La Lozère Nouvelle', url: '/assets/Articles%20missions/La%20Lozerre%20Nouvelle%202024.jpeg' }
       ],
       size: 'medium'
     },
@@ -225,7 +225,7 @@ const MissionsPage = () => {
       Vive la mission... Et vivement l'édition 2022 dans les Alpes-de-Haute-Provence !`,
       video: 'n74BNF8fPcw',
       links: [
-        { name: 'La Nef', url: 'https://www.dropbox.com/scl/fi/xt36sb1gp9kd8caomtopa/La-Nef-page-42-2021.PNG?rlkey=ju7yhhwahy47n6r92oj78mjf0&st=ijezvnp6&raw=1' },
+        { name: 'La Nef', url: '/assets/Articles%20missions/La%20Nef%20(%20page%2042)%20-%202021.PNG' },
         { name: 'RCF (audio)', url: 'https://youtu.be/yQQwKf2tJ2A' }
       ],
       size: 'small',

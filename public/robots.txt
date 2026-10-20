@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /reserve
 
 Sitemap: https://famissio.pages.dev/sitemap.xml

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import "./Contact.css"; // Gardé pour compatibilité, mais le contenu est scopé et ne devrait pas gêner
 
 const FORM_ENDPOINT = "https://formspree.io/f/xrebwwjk";
 
@@ -11,7 +10,8 @@ function ContactForm() {
     phone: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    _gotcha: ''
   });
 
   const handleChange = (e) => {
@@ -25,11 +25,16 @@ function ContactForm() {
     e.preventDefault();
     if (status === "sending") return;
 
+    // Protection anti-spam par champ honeypot
+    if (formData._gotcha) {
+      setStatus("success");
+      return;
+    }
+
     setStatus("sending");
 
     try {
       const data = new FormData();
-      // Champs textes
       data.append('name', formData.name);
       data.append('phone', formData.phone);
       data.append('email', formData.email);
@@ -44,14 +49,8 @@ function ContactForm() {
 
       if (res.ok) {
         setStatus("success");
-        // Reset total du formulaire
-        setFormData({ name: '', phone: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', phone: '', email: '', subject: '', message: '', _gotcha: '' });
       } else {
-        // --- Code de débuggage ---
-        const errorData = await res.json();
-        console.error("Erreur Formspree détaillée :", errorData);
-        alert("Erreur technique : " + (errorData.error || "Inconnue"));
-        // -------------------------
         setStatus("error");
       }
     } catch {
@@ -93,6 +92,16 @@ function ContactForm() {
 
   return (
     <div className="space-y-6">
+      <input
+        type="text"
+        name="_gotcha"
+        value={formData._gotcha}
+        onChange={handleChange}
+        style={{ display: 'none' }}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">

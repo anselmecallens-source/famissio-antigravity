@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Lock, ArrowRight } from 'lucide-react';
 
 const ProtectedPage = () => {
     const [password, setPassword] = useState('');
@@ -10,15 +11,6 @@ const ProtectedPage = () => {
 
     // 1. Au chargement, on vérifie si le navigateur a déjà le "badge" d'accès
     useEffect(() => {
-        // On injecte les polices si elles ne sont pas déjà chargées dans index.html
-        if (!document.getElementById('google-fonts')) {
-            const linkFonts = document.createElement("link");
-            linkFonts.id = "google-fonts";
-            linkFonts.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap";
-            linkFonts.rel = "stylesheet";
-            document.head.appendChild(linkFonts);
-        }
-
         // VÉRIFICATION DE SÉCURITÉ (Persistence)
         const sessionAuth = localStorage.getItem('famissio_secure_access');
         if (sessionAuth === 'granted') {
@@ -161,8 +153,8 @@ const ProtectedPage = () => {
                 <div className="protected-wrapper">
                     <style>{styles}</style>
                     <div className={`login-card ${errorShake ? 'shake' : ''}`}>
-                        <h2 className="login-title">
-                            <i className="fas fa-lock" style={{ marginRight: '15px', opacity: 0.6 }}></i>
+                        <h2 className="login-title flex items-center justify-center gap-3">
+                            <Lock className="w-8 h-8 opacity-60 inline-block" />
                             Accès Réservé
                         </h2>
                         <p style={{ marginBottom: '30px', color: '#666' }}>Veuillez entrer le code d'accès pour voir le contenu.</p>
@@ -176,8 +168,8 @@ const ProtectedPage = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 maxLength={4} // Limite à 4 caractères
                             />
-                            <button type="submit" className="login-btn">
-                                Déverrouiller <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                            <button type="submit" className="login-btn flex items-center justify-center gap-2">
+                                Déverrouiller <ArrowRight className="w-5 h-5 inline-block" />
                             </button>
                         </form>
                     </div>

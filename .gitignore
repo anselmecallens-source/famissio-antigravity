@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary and build artifacts
+.vercel
+*.bak
+*.tmp
+temp_*.jsx
+vite.config.js.timestamp-*
+check_output_verbose.txt
+check_results.txt

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BookOpen, Heart, ArrowRight, Music, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
+
+function IconDove(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M21.5 5.5c-.8.2-1.7.3-2.5.3.9-.6 1.6-1.5 1.9-2.5-.9.5-1.9.9-2.9 1.1A4.1 4.1 0 0 0 15 3.1c-2.3 0-4.1 1.9-4.1 4.2 0 .3 0 .7.1 1C7.6 8.1 4.5 6.4 2.5 3.8a4.2 4.2 0 0 0 1.3 5.6c-.7 0-1.4-.2-2-.5 0 2 1.4 3.7 3.3 4.1-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.5 1.7 2.1 2.9 4 3A8.3 8.3 0 0 1 2 17.8a11.7 11.7 0 0 0 6.3 1.9c7.6 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1-.7.3-1.5.5-2.3.6z" />
+        </svg>
+    );
+}
 
 const HeroCarousel = () => {
     // On duplique les slides pour l'effet infini : [Last, 1, 2, 3, First]
@@ -385,9 +394,9 @@ const HeroCarousel = () => {
                                 {slide.type === 'formation' && (
                                     <div className="formation-slide">
                                         <div className="slide-content-wrapper">
-                                            <div className="formation-icon-group">
-                                                <i className="fas fa-book-open"></i>
-                                                <i className="fas fa-heart"></i>
+                                            <div className="formation-icon-group flex items-center justify-center gap-3">
+                                                <BookOpen className="w-8 h-8" />
+                                                <Heart className="w-8 h-8" />
                                             </div>
                                             <h2 className="formation-title">Se Préparer pour la Mission</h2>
                                             <p className="formation-subtitle">
@@ -396,8 +405,8 @@ const HeroCarousel = () => {
                                             <div className="formation-highlight">
                                                 18 Formations + FAQ Mission
                                             </div>
-                                            <Link to={slide.link} className="slide-cta-btn">
-                                                Découvrir le catalogue <i className="fas fa-arrow-right"></i>
+                                            <Link to={slide.link} className="slide-cta-btn flex items-center justify-center gap-2">
+                                                Découvrir le catalogue <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
                                     </div>
@@ -407,21 +416,21 @@ const HeroCarousel = () => {
                                 {slide.type === 'priere' && (
                                     <div className="priere-slide">
                                         <div className="slide-content-wrapper">
-                                            <i className="fas fa-dove priere-icon-top"></i>
+                                            <IconDove className="priere-icon-top mx-auto" width="40" height="40" />
                                             <h2 className="priere-title">La Prière du Famissionnaire</h2>
                                             <p className="priere-quote">
                                                 "Que l'Esprit nous insuffle l'audace et l'humilité,<br />
                                                 La foi, la joie et l'amour..."
                                             </p>
-                                            <div className="priere-infos">
-                                                <span><i className="fas fa-music"></i> Audio</span>
+                                            <div className="priere-infos flex items-center justify-center gap-3">
+                                                <span className="flex items-center gap-1"><Music className="w-4 h-4 inline-block" /> Audio</span>
                                                 <span>•</span>
-                                                <span><i className="fas fa-file-lines"></i> Paroles</span>
+                                                <span className="flex items-center gap-1"><FileText className="w-4 h-4 inline-block" /> Paroles</span>
                                                 <span>•</span>
-                                                <span><i className="fas fa-music"></i> Partition</span>
+                                                <span className="flex items-center gap-1"><Music className="w-4 h-4 inline-block" /> Partition</span>
                                             </div>
-                                            <Link to={slide.link} className="slide-cta-btn">
-                                                Prier maintenant <i className="fas fa-arrow-right"></i>
+                                            <Link to={slide.link} className="slide-cta-btn flex items-center justify-center gap-2">
+                                                Prier maintenant <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
                                     </div>
@@ -440,8 +449,8 @@ const HeroCarousel = () => {
                                                 <span className="diocese-pill">Angoulême</span>
                                                 <span className="diocese-pill">Tulle</span>
                                             </div>
-                                            <Link to={slide.link} className="mission-btn">
-                                                Rejoindre l'aventure <i className="fas fa-arrow-right"></i>
+                                            <Link to={slide.link} className="mission-btn flex items-center justify-center gap-2">
+                                                Rejoindre l'aventure <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
                                     </div>
@@ -450,8 +459,8 @@ const HeroCarousel = () => {
                         ))}
                     </div>
 
-                    <button className="carousel-arrow prev" onClick={prevSlide}><i className="fas fa-chevron-left"></i></button>
-                    <button className="carousel-arrow next" onClick={nextSlide}><i className="fas fa-chevron-right"></i></button>
+                    <button className="carousel-arrow prev flex items-center justify-center" onClick={prevSlide} aria-label="Slide précédente"><ChevronLeft className="w-6 h-6" /></button>
+                    <button className="carousel-arrow next flex items-center justify-center" onClick={nextSlide} aria-label="Slide suivante"><ChevronRight className="w-6 h-6" /></button>
 
                     <div className={`carousel-nav ${isDarkNav ? 'nav-theme-dark' : 'nav-theme-light'}`}>
                         {originalSlides.map((_, index) => (

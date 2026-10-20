@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight } from 'lucide-react';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -82,59 +83,6 @@ const Accueil = () => {
 
     useDraggableScroll(missionCardsRef);
     useDraggableScroll(popeGridRef);
-
-    // ... existing ...
-
-    // UPDATE RENDER SECTIONS:
-
-    // MISSION CARDS
-    // ...
-    <div
-        ref={missionCardsRef}
-        className="mission-cards"
-        id="mission-carousel"
-        onScroll={(e) => {
-            const scrollLeft = e.target.scrollLeft;
-            const width = e.target.offsetWidth;
-            // More robust calculation
-            const index = Math.round(scrollLeft / width);
-            setActiveMissionIndex(index);
-        }}
-    >
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 0)}>
-            <div className="mission-icon">
-                <i className="fas fa-hands-helping"></i>
-            </div>
-            <h3>Que faisons-nous ?</h3>
-            <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
-        </div>
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 1)}>
-            <div className="mission-icon">
-                <i className="fas fa-calendar-alt"></i>
-            </div>
-            <h3>Préparation</h3>
-            <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
-        </div>
-        <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 2)}>
-            <div className="mission-icon">
-                <i className="fas fa-map-marker-alt"></i>
-            </div>
-            <h3>Où allons-nous ?</h3>
-            <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
-        </div>
-    </div>
-
-    {/* DOTS NAVIGATION (MOBILE ONLY) */ }
-    <div className="mission-dots">
-        {[0, 1, 2].map(idx => (
-            <button
-                key={idx}
-                className={`mission-dot ${activeMissionIndex === idx ? 'active' : ''}`}
-                onClick={() => scrollToCard(missionCardsRef, idx)}
-            />
-        ))}
-    </div>
-
 
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
@@ -1643,21 +1591,21 @@ const Accueil = () => {
                 >
                     <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 0)}>
                         <div className="mission-icon">
-                            <i className="fas fa-hands-helping"></i>
+                            <HelpingHand className="w-12 h-12 text-white" />
                         </div>
                         <h3>Que faisons-nous ?</h3>
                         <p>Nous nous mettons au service de paroisses pour mener avec elles une mission. Nous arrivons à plusieurs groupes de missionnaires pour accompagner différentes paroisses d'un même diocèse.</p>
                     </div>
                     <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 1)}>
                         <div className="mission-icon">
-                            <i className="fas fa-calendar-alt"></i>
+                            <Calendar className="w-12 h-12 text-white" />
                         </div>
                         <h3>Préparation</h3>
                         <p>La mission se prépare un an en avance avec un noyau de paroissiens et un groupe de missionnaires qui se retrouvent régulièrement par visioconférences pour élaborer le programme ensemble.</p>
                     </div>
                     <div className="mission-card" onClick={() => scrollToCard(missionCardsRef, 2)}>
                         <div className="mission-icon">
-                            <i className="fas fa-map-marker-alt"></i>
+                            <MapPin className="w-12 h-12 text-white" />
                         </div>
                         <h3>Où allons-nous ?</h3>
                         <p>Dans le diocèse vers lequel Monseigneur Bozo, évêque de Limoges nous envoie en mission, en accord avec le diocèse local. Nous nous adaptons aux besoins de chaque communauté.</p>
@@ -1784,8 +1732,6 @@ const Accueil = () => {
             {/* SECTION TOUSSAINT - NOUVEAU DESIGN (CLEAN V2) */}
             <>
                 <style>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap');
-
                     .toussaint-clean {
                     position: relative;
                     min-height: auto;
@@ -2436,11 +2382,11 @@ const Accueil = () => {
                                         {block.summary || block.content || (block.items && block.items[0]) || 'Découvrez les détails de cette activité'}
                                     </p>
                                     <button
-                                        className="timeline-expand-btn"
+                                        className="timeline-expand-btn flex items-center gap-1"
                                         onClick={(event) => openMission(block, event)}
                                     >
                                         <span>En savoir plus</span>
-                                        <i className="fas fa-arrow-right"></i>
+                                        <ArrowRight className="w-4 h-4 inline-block ml-1" />
                                     </button>
                                 </div>
 
@@ -2530,19 +2476,19 @@ const Accueil = () => {
 
                 <div className="pillars-three">
                     <div className="pillar-box">
-                        <span className="pillar-emoji"><i className="fas fa-church"></i></span>
+                        <span className="pillar-emoji flex justify-center"><Church className="w-16 h-16 text-[var(--flame)]" /></span>
                         <h3>Je suis Prêtre</h3>
                         <p>Seul Jésus est le "grand prêtre par Excellence". Mais par notre baptême nous rendons vivant le sacerdoce du Christ. Jésus offre au Père toute prière. Nous participons à cette offrande par notre sacerdoce baptismal.</p>
                     </div>
 
                     <div className="pillar-box">
-                        <span className="pillar-emoji"><i className="fas fa-bullhorn"></i></span>
+                        <span className="pillar-emoji flex justify-center"><Megaphone className="w-16 h-16 text-[var(--flame)]" /></span>
                         <h3>Je suis Prophète</h3>
                         <p>Le prophète est le "porte-parole" de Dieu. Comme je participe à cette dignité, je suis un prophète qui annonce et vit la Parole. Nous annonçons la Bonne nouvelle à nos frères et sœurs en humanité.</p>
                     </div>
 
                     <div className="pillar-box">
-                        <span className="pillar-emoji"><i className="fas fa-crown"></i></span>
+                        <span className="pillar-emoji flex justify-center"><Crown className="w-16 h-16 text-[var(--flame)]" /></span>
                         <h3>Je suis Roi</h3>
                         <p>Être roi pour un baptisé, c'est être au service. La fonction royale des baptisés consiste à mettre en œuvre le commandement du frère comme Jésus a pu le faire lors du lavement des pieds.</p>
                     </div>
@@ -2606,9 +2552,9 @@ const Accueil = () => {
                 </div>
                 <h2>Prière du Famissionnaire</h2>
                 <p>Retrouvez la prière qui nous accompagne durant cette semaine missionnaire.</p>
-                <Link to="/priere" className="prayer-cta">
+                <Link to="/priere" className="prayer-cta flex items-center justify-center gap-2">
                     Accéder à la prière
-                    <i className="fas fa-arrow-right"></i>
+                    <ArrowRight className="w-4 h-4 inline-block" />
                 </Link>
             </div>
         </div >

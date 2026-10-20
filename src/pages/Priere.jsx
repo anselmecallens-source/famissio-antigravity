@@ -5,6 +5,7 @@ import { Play, Pause, Download, Music, BookOpen, ChevronDown, ChevronUp } from '
 const prayerPdfAsset = (filename) => `/assets/Pri%C3%A8re%20Famissio/${encodeURIComponent(filename)}`;
 const parolesPdf = prayerPdfAsset('Paroles - Prière de Famissio.pdf');
 const partitionPdf = prayerPdfAsset('Partition - Prière de Famissio .pdf');
+const audioMp3 = prayerPdfAsset('Audio - prière de famissio.mp3');
 
 export default function Priere() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -179,7 +180,7 @@ export default function Priere() {
                                         className="hidden"
                                     >
                                         <source
-                                            src="https://www.dropbox.com/scl/fi/rfe9jg3wfuz5md6an1imo/Audio-pri-re-de-famissio.mp3?rlkey=xpoq3vwmmc5mjngd1alty6hro&st=rdmaslcu&raw=1"
+                                            src={audioMp3}
                                             type="audio/mpeg"
                                         />
                                     </audio>
