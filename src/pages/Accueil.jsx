@@ -217,10 +217,22 @@ const Accueil = () => {
                 <meta name="description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
                 <link rel="canonical" href="https://famissio.pages.dev/" />
                 <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Famissio" />
                 <meta property="og:url" content="https://famissio.pages.dev/" />
                 <meta property="og:title" content="Famissio - Missions paroissiales en famille" />
                 <meta property="og:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
-                <meta property="og:image" content="https://famissio.pages.dev/assets/images/Logo%20Famissio%20rouge.png" />
+                <meta property="og:image" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
+                <meta property="og:image:secure_url" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:width" content="692" />
+                <meta property="og:image:height" content="1038" />
+                <meta property="og:image:alt" content="Familles Famissio en mission" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Famissio - Missions paroissiales en famille" />
+                <meta name="twitter:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
+                <meta name="twitter:image" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
+                <meta name="thumbnail" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
+                <link rel="image_src" href="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
             </Helmet>
             <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
