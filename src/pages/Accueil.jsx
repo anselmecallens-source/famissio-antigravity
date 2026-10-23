@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight } from 'lucide-react';
+import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play, ExternalLink } from 'lucide-react';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -681,6 +681,101 @@ const Accueil = () => {
             font-size: 1.05rem;
             line-height: 2;
             color: #666;
+        }
+
+        /* SECTION MONSEIGNEUR BOZO */
+        .bozo-section {
+            background: #ffffff;
+            padding: 100px 5%;
+            position: relative;
+            scroll-margin-top: 100px;
+        }
+        .bozo-frame {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+            background: var(--cream);
+            border-radius: 32px;
+            border: 1px solid rgba(200, 41, 4, 0.12);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+        }
+        .bozo-video-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            background: #000;
+        }
+        .bozo-video-box iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: inherit;
+        }
+        .bozo-footer {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 0 6px;
+        }
+        .bozo-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--flame);
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(200, 41, 4, 0.15);
+        }
+        .bozo-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--flame), var(--ember));
+            color: #ffffff !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(200, 41, 4, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bozo-link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 41, 4, 0.35);
+        }
+        @media (max-width: 768px) {
+            .bozo-section {
+                padding: 70px 5%;
+            }
+            .bozo-frame {
+                padding: 16px;
+                border-radius: 24px;
+            }
+            .bozo-video-box {
+                border-radius: 14px;
+            }
+            .bozo-footer {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                gap: 12px;
+            }
+            .bozo-pill, .bozo-link-btn {
+                justify-content: center;
+                width: 100%;
+            }
         }
 
         /* SECTION PAPE */
@@ -1555,6 +1650,14 @@ const Accueil = () => {
                         <p>Des amis ont accepté de les rejoindre dans cette aventure pour découvrir la belle paroisse du père Jean-Pierre Barrière dans la Creuse. Cette semaine les a tous beaucoup nourris et remplis de joie puis confirmés dans cette intuition initiale.</p>
                         <div className="highlight-box">
                             <p><strong>Famissio est alors née.</strong> Le père Jean-Pierre en devenait l'aumônier. Monseigneur Bozo acceptait de suivre cette initiative.</p>
+                            <a
+                                href="#mgr-bozo"
+                                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '16px', fontSize: '0.95rem', fontWeight: 600, color: 'var(--flame)', textDecoration: 'none' }}
+                                className="hover:underline"
+                            >
+                                <Play className="w-4 h-4 fill-current" />
+                                <span>Voir le témoignage en vidéo de Monseigneur Bozo ↓</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -2654,6 +2757,46 @@ const Accueil = () => {
                         <span className="pillar-emoji"><Crown className="w-16 h-16 mx-auto text-[var(--flame)]" /></span>
                         <h3>Je suis Roi</h3>
                         <p>Être roi pour un baptisé, c'est être au service. La fonction royale des baptisés consiste à mettre en œuvre le commandement du frère comme Jésus a pu le faire lors du lavement des pieds.</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* MONSEIGNEUR BOZO */}
+            <section id="mgr-bozo" className="bozo-section">
+                <div className="section-head">
+                    <div className="eyebrow">Témoignage de l'Église</div>
+                    <h2 className="title">Monseigneur Bozo en parle</h2>
+                    <p className="subtitle">
+                        Dès les premiers pas de Famissio, <strong>Monseigneur Pierre-Antoine Bozo</strong> a accompagné, encouragé et envoyé les familles missionnaires. Retrouvez son regard chaleureux sur la mission au micro de RCF.
+                    </p>
+                </div>
+
+                <div className="bozo-frame">
+                    <div className="bozo-video-box">
+                        <iframe
+                            src="https://www.youtube.com/embed/SskypDiEr0c?start=876"
+                            title="Interview de Mgr Bozo sur RCF 17 - Famissio"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+
+                    <div className="bozo-footer">
+                        <div className="bozo-pill">
+                            <Play className="w-4 h-4 fill-current text-[var(--flame)]" />
+                            <span>Départ automatique de la vidéo à 14:36</span>
+                        </div>
+
+                        <a
+                            href="https://youtu.be/SskypDiEr0c?t=876"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bozo-link-btn"
+                        >
+                            <span>Regarder sur YouTube (14:36)</span>
+                            <ExternalLink className="w-4 h-4" />
+                        </a>
                     </div>
                 </div>
             </section>
