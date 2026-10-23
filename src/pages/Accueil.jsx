@@ -214,13 +214,13 @@ const Accueil = () => {
         <div className="home-container" id="top">
             <Helmet>
                 <title>Famissio - Missions paroissiales en famille</title>
-                <meta name="description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
+                <meta name="description" content="Famissio rassemble des familles missionnaires venues de toute la France pour entourer les curés de campagne, raviver la foi au cœur de nos villages et partager une aventure spirituelle bouleversante." />
                 <link rel="canonical" href="https://famissio.pages.dev/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Famissio" />
                 <meta property="og:url" content="https://famissio.pages.dev/" />
                 <meta property="og:title" content="Famissio - Missions paroissiales en famille" />
-                <meta property="og:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
+                <meta property="og:description" content="Famissio rassemble des familles missionnaires venues de toute la France pour entourer les curés de campagne, raviver la foi au cœur de nos villages et partager une aventure spirituelle bouleversante." />
                 <meta property="og:image" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
                 <meta property="og:image:secure_url" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
                 <meta property="og:image:type" content="image/jpeg" />
@@ -229,7 +229,7 @@ const Accueil = () => {
                 <meta property="og:image:alt" content="Familles Famissio en mission" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Famissio - Missions paroissiales en famille" />
-                <meta name="twitter:description" content="Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales. Découvrez nos missions." />
+                <meta name="twitter:description" content="Famissio rassemble des familles missionnaires venues de toute la France pour entourer les curés de campagne, raviver la foi au cœur de nos villages et partager une aventure spirituelle bouleversante." />
                 <meta name="twitter:image" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
                 <meta name="thumbnail" content="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />
                 <link rel="image_src" href="https://famissio.pages.dev/assets/images/Famissio-252.jpg" />

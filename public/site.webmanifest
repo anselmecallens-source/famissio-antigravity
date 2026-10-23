@@ -1,7 +1,7 @@
 {
   "name": "Famissio",
   "short_name": "Famissio",
-  "description": "Famissio rassemble des familles missionnaires pour soutenir les curés et faire vivre l'évangélisation dans les paroisses rurales.",
+  "description": "Famissio rassemble des familles missionnaires venues de toute la France pour entourer les curés de campagne, raviver la foi au cœur de nos villages et partager une aventure spirituelle bouleversante.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f46a07",
