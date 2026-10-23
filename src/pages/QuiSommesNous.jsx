@@ -26,7 +26,7 @@ export default function QuiSommesNous() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 overflow-clip-x">
+    <div className="min-h-screen bg-[#faf7f5] text-[#1a1a1a] overflow-clip-x">
       <Helmet>
         <title>Qui sommes-nous ? - Famissio</title>
         <meta
@@ -37,95 +37,95 @@ export default function QuiSommesNous() {
       </Helmet>
 
       {/* =========================================================================
-          HERO — STRICTEMENT IDENTIQUE AUX 4 AUTRES PAGES (Missions, Formation, Témoignages, Prière)
+          HERO HARMONISÉ — ÉLÉGANT, DÉGAGÉ, À ÉCHELLE HUMAINE
           ========================================================================= */}
-      <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
+      <div className="relative bg-gray-50 text-gray-900 overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14">
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
           
           .blob {
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            animation: morph 8s ease-in-out infinite;
+            animation: morph 10s ease-in-out infinite;
           }
           
           @keyframes morph {
             0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            50% { border-radius: 70% 30% 50% 50% / 50% 60% 40% 50%; }
           }
         `}</style>
 
-        {/* Fond animé avec Blobs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+        {/* Blobs doux en arrière-plan */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-10 left-1/4 w-80 h-80 bg-orange-200/40 blob filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-red-200/30 blob filter blur-3xl" style={{ animationDelay: '3s' }}></div>
         </div>
 
-        {/* Contenu Hero */}
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
+        {/* Contenu Hero compact et lisible */}
+        <div className="relative max-w-4xl mx-auto px-6 sm:px-8 text-center">
           <h1
-            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600"
+            className="text-4xl sm:text-6xl md:text-7xl font-black text-orange-600 tracking-tight leading-tight mb-4"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
             Qui sommes-nous ?
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
-            Des familles missionnaires venues de toute la France, rassemblées chaque année à la Toussaint pour entourer les curés ruraux et porter l'Évangile au cœur des villages.
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto font-normal">
+            Des familles venues de toute la France, rassemblées chaque année à la Toussaint pour entourer les curés ruraux et porter l'Évangile au cœur des villages.
           </p>
         </div>
       </div>
 
-      {/* BANDEAU DE TRANSITION ORANGE SIGNATURE DES PAGES DU SITE */}
-      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+      {/* Ligne de transition harmonisée */}
+      <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
       {/* =========================================================================
-          CONTENU PRINCIPAL — ENCADRÉ & SOBRE DANS LE MOOD DES AUTRES PAGES
+          CONTENU PRINCIPAL — GRANDES MARGES LATÉRALES & CARTES ÉPURÉES
           ========================================================================= */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24 space-y-20 sm:space-y-28">
+      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-12 py-12 sm:py-16 space-y-12 sm:space-y-16">
 
         {/* -----------------------------------------------------------------------
             SECTION 1 : L'HISTORIQUE & L'INTUITION FONDATRICE
             ----------------------------------------------------------------------- */}
-        <section className="bg-white rounded-3xl p-8 sm:p-14 shadow-xl border border-orange-100/90 relative">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs uppercase font-extrabold tracking-widest text-orange-600 mb-2">
+        <section className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-orange-100/80">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-orange-600">
               L'histoire de Famissio
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-black text-gray-900 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mt-1 leading-snug"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
-              Une étincelle venue de loin, ancrée dans nos campagnes
+              Une étincelle venue d'Inde, enracinée en Creuse
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="grid md:grid-cols-12 gap-8 items-center">
             {/* Colonne Image */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="md:col-span-5 space-y-3">
+              <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100">
                 <img
                   src={FOUNDING_IMG}
                   alt="Les familles fondatrices de Famissio"
                   fetchpriority="high"
-                  className="w-full h-72 sm:h-80 object-cover"
+                  className="w-full h-64 sm:h-72 object-cover"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100 hidden sm:block">
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 hidden sm:block">
                 <img
                   src={FAMILY_PHOTO_IMG}
                   alt="Une famille en mission sur le terrain"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-56 object-cover"
+                  className="w-full h-44 object-cover"
                 />
               </div>
               <p className="text-xs text-gray-500 italic text-center">
-                Des parents et leurs enfants, premiers témoins de la joie de l'Évangile.
+                Des parents et leurs enfants, premiers témoins de la foi.
               </p>
             </div>
 
             {/* Colonne Récit */}
-            <div className="lg:col-span-7 space-y-5 text-gray-700 leading-relaxed text-base sm:text-lg">
+            <div className="md:col-span-7 space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
               <p>
                 Tout a commencé en <strong>2018</strong>. Une famille catholique française décide de vivre une expérience
                 marquante : partir pendant deux mois suivre des missionnaires en Inde, dans les contreforts de l'Himalaya
@@ -137,9 +137,9 @@ export default function QuiSommesNous() {
                 À leur retour en France, une question ne cesse de résonner : <em>pourquoi traverser les océans alors que nos propres campagnes souffrent en silence de la déchristianisation et de la solitude ?</em>
               </p>
 
-              <div className="p-6 bg-orange-50/70 border-l-4 border-orange-500 rounded-r-2xl my-6">
-                <p className="text-gray-900 font-semibold italic text-lg leading-snug">
-                  « Nos villages ruraux ont soif. Des curés dévoués portent parfois seuls trente ou quarante clochers. Si des familles entières venaient passer une semaine avec eux pour réchauffer les cœurs ? »
+              <div className="p-5 bg-orange-50/60 border-l-4 border-orange-500 rounded-r-xl my-4">
+                <p className="text-gray-900 font-medium italic text-base leading-snug">
+                  « Nos villages ont soif. Des curés dévoués portent parfois seuls trente clochers. Si des familles entières venaient passer une semaine avec eux pour réchauffer les cœurs ? »
                 </p>
               </div>
 
@@ -161,26 +161,26 @@ export default function QuiSommesNous() {
         {/* -----------------------------------------------------------------------
             SECTION 2 : LE PÈRE JEAN-PIERRE BARRIÈRE
             ----------------------------------------------------------------------- */}
-        <section className="bg-white rounded-3xl p-8 sm:p-14 shadow-xl border border-orange-100/90">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs uppercase font-extrabold tracking-widest text-orange-600 mb-2">
+        <section className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-orange-100/80">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-orange-600">
               Aumônier spirituel national
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-black text-gray-900 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mt-1 leading-snug"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               Le Père Jean-Pierre Barrière
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg mt-3">
-              Curé enraciné dans la Creuse et berger bienveillant de la famille Famissio.
+            <p className="text-gray-600 text-sm sm:text-base mt-2">
+              Curé enraciné dans la Creuse et pasteur bienveillant de Famissio.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="grid md:grid-cols-12 gap-8 items-center">
             {/* Portrait */}
-            <div className="lg:col-span-4 text-center flex flex-col items-center">
-              <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-full overflow-hidden shadow-2xl border-4 border-orange-200 p-1 bg-white">
+            <div className="md:col-span-4 text-center flex flex-col items-center">
+              <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-full overflow-hidden shadow-lg border-4 border-orange-100 p-1 bg-white">
                 <img
                   src={PERE_BARRIERE_IMG}
                   alt="Père Jean-Pierre Barrière, aumônier de Famissio"
@@ -190,21 +190,21 @@ export default function QuiSommesNous() {
                 />
               </div>
 
-              <div className="mt-5">
-                <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              <div className="mt-4">
+                <h3 className="text-xl font-bold text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                   Père Jean-Pierre Barrière
                 </h3>
-                <p className="text-sm font-semibold text-orange-600">
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-wide">
                   Aumônier de Famissio
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-0.5">
                   Curé de Gouzon & Saint-Pardoux-en-Marche
                 </p>
               </div>
             </div>
 
             {/* Description & Cœur pastoral */}
-            <div className="lg:col-span-8 space-y-5 text-gray-700 leading-relaxed text-base sm:text-lg">
+            <div className="md:col-span-8 space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
               <p>
                 Prêtre du diocèse de Limoges, le Père Jean-Pierre Barrière est une figure emblématique de la pastorale rurale.
                 Homme d'écoute et de prière, il connaît intimement la réalité des bourgs et des hameaux creusois, les joies
@@ -218,10 +218,10 @@ export default function QuiSommesNous() {
                 la prière et la vie sacramentelle des participants.
               </p>
 
-              <div className="p-6 bg-red-50/60 rounded-2xl border-l-4 border-red-500 my-4">
-                <div className="flex gap-3">
-                  <Quote className="w-8 h-8 text-red-500 shrink-0 opacity-40" />
-                  <p className="text-gray-900 font-medium italic text-base sm:text-lg leading-relaxed">
+              <div className="p-4 bg-orange-50/50 rounded-xl border-l-4 border-orange-500 my-3">
+                <div className="flex gap-2.5">
+                  <Quote className="w-5 h-5 text-orange-600 shrink-0 opacity-50" />
+                  <p className="text-gray-900 font-medium italic text-sm sm:text-base leading-snug">
                     « Quand une famille sonne à la porte d'un habitant avec un enfant par la main, ce n'est pas une leçon de théologie :
                     c'est la joie de la Visitation. La mission redonne à nos clochers leur pleine vocation. »
                   </p>
@@ -236,45 +236,42 @@ export default function QuiSommesNous() {
           </div>
 
           {/* Les 3 piliers baptismaux */}
-          <div className="mt-14 pt-10 border-t border-gray-100">
+          <div className="mt-10 pt-8 border-t border-gray-100">
             <h3
-              className="text-2xl sm:text-3xl font-black text-gray-900 text-center mb-8"
+              className="text-xl sm:text-2xl font-bold text-gray-900 text-center mb-6"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               L'enseignement du Père Jean-Pierre : Prêtre, Prophète et Roi
             </h3>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm text-orange-600 flex items-center justify-center mb-4">
-                  <Church className="w-6 h-6" />
+            <div className="grid md:grid-cols-3 gap-5">
+              <div className="bg-orange-50/40 p-5 rounded-2xl border border-orange-100/70">
+                <div className="w-10 h-10 bg-white rounded-xl shadow-xs text-orange-600 flex items-center justify-center mb-3">
+                  <Church className="w-5 h-5" />
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">1. Prêtre</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Par notre baptême, nous participons au sacerdoce du Christ. Nous offrons au Père chaque rencontre,
-                  nous prions avec et pour les habitants, transformant chaque maison visitée en lieu de bénédiction.
+                <h4 className="text-base font-bold text-gray-900 mb-1.5">1. Prêtre</h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Par notre baptême, nous offrons au Père chaque rencontre. Nous prions avec et pour les habitants, transformant chaque maison en lieu de bénédiction.
                 </p>
               </div>
 
-              <div className="bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm text-orange-600 flex items-center justify-center mb-4">
-                  <Megaphone className="w-6 h-6" />
+              <div className="bg-orange-50/40 p-5 rounded-2xl border border-orange-100/70">
+                <div className="w-10 h-10 bg-white rounded-xl shadow-xs text-orange-600 flex items-center justify-center mb-3">
+                  <Megaphone className="w-5 h-5" />
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">2. Prophète</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Le prophète est le porte-parole de Dieu. En mission, parents et enfants annoncent l'Évangile avec simplicité,
-                  en témoignant de ce que Jésus éclaire et guérit dans leur propre quotidien familial.
+                <h4 className="text-base font-bold text-gray-900 mb-1.5">2. Prophète</h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Le prophète est le porte-parole de Dieu. En mission, parents et enfants annoncent l'Évangile avec simplicité, en témoignant de l'Amour de Dieu dans leur vie.
                 </p>
               </div>
 
-              <div className="bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm text-orange-600 flex items-center justify-center mb-4">
-                  <Crown className="w-6 h-6" />
+              <div className="bg-orange-50/40 p-5 rounded-2xl border border-orange-100/70">
+                <div className="w-10 h-10 bg-white rounded-xl shadow-xs text-orange-600 flex items-center justify-center mb-3">
+                  <Crown className="w-5 h-5" />
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">3. Roi</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Être roi pour un baptisé, c’est se mettre au service de ses frères, à l'exemple du lavement des pieds.
-                  C'est aller vers les personnes âgées isolées, les malades et tous ceux qui se sentent oubliés.
+                <h4 className="text-base font-bold text-gray-900 mb-1.5">3. Roi</h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Être roi pour un baptisé, c’est servir à l'exemple du lavement des pieds. C'est aller vers les plus isolés, les aînés et les âmes éprouvées.
                 </p>
               </div>
             </div>
@@ -284,28 +281,28 @@ export default function QuiSommesNous() {
         {/* -----------------------------------------------------------------------
             SECTION 3 : MONSEIGNEUR PIERRE-ANTOINE BOZO
             ----------------------------------------------------------------------- */}
-        <section className="bg-white rounded-3xl p-8 sm:p-14 shadow-xl border border-orange-100/90">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs uppercase font-extrabold tracking-widest text-orange-600 mb-2">
+        <section className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-orange-100/80">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-orange-600">
               Bénédiction & Soutien Épiscopal
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-black text-gray-900 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mt-1 leading-snug"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               Monseigneur Pierre-Antoine Bozo
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg mt-3">
-              L'évêque qui a cru en cette initiative dès la première heure et continue de la porter.
+            <p className="text-gray-600 text-sm sm:text-base mt-2">
+              L'évêque qui a cru en cette initiative dès la première heure.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-10 items-center mb-12">
+          <div className="grid md:grid-cols-12 gap-8 items-center mb-8">
             {/* Récit de son soutien */}
-            <div className="lg:col-span-7 space-y-5 text-gray-700 leading-relaxed text-base sm:text-lg">
+            <div className="md:col-span-7 space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
               <p>
                 Évêque de Limoges de 2017 à 2025, puis nommé évêque de La Rochelle et Saintes, <strong>Monseigneur Pierre-Antoine Bozo</strong> est
-                un pasteur habité par le souci d'une Église missionnaire de plein vent, proche du terrain et attentive à la ruralité.
+                un pasteur habité par le souci d'une Église de plein vent, proche du terrain et attentive à la ruralité.
               </p>
 
               <p>
@@ -319,11 +316,10 @@ export default function QuiSommesNous() {
                 au sein de ses diocèses successifs.
               </p>
 
-              <div className="p-6 bg-orange-50/70 rounded-2xl border-l-4 border-orange-500 my-4">
-                <Quote className="w-8 h-8 text-orange-500 opacity-40 mb-2" />
-                <p className="text-gray-900 font-medium italic text-base sm:text-lg leading-relaxed">
-                  « Voir des familles complètes, des parents investis et des enfants joyeux consacrer leurs vacances de la Toussaint
-                  pour apporter le témoignage de leur foi dans nos bourgs et entourer nos prêtres, c'est une bénédiction inestimable. »
+              <div className="p-4 bg-orange-50/50 rounded-xl border-l-4 border-orange-500 my-3">
+                <Quote className="w-5 h-5 text-orange-600 opacity-50 mb-1.5" />
+                <p className="text-gray-900 font-medium italic text-sm sm:text-base leading-snug">
+                  « Voir des familles complètes, des parents investis et des enfants joyeux consacrer leurs vacances pour apporter le témoignage de leur foi dans nos bourgs et entourer nos prêtres, c'est une bénédiction inestimable. »
                 </p>
                 <p className="text-xs font-bold text-orange-600 uppercase tracking-wider mt-2">
                   — Monseigneur Pierre-Antoine Bozo
@@ -332,48 +328,48 @@ export default function QuiSommesNous() {
             </div>
 
             {/* Photos de Mgr Bozo */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="md:col-span-5 space-y-3">
+              <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100">
                 <img
                   src={MGR_BOZO_IMG}
                   alt="Monseigneur Pierre-Antoine Bozo"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-80 object-cover object-top"
+                  className="w-full h-64 sm:h-72 object-cover object-top"
                 />
               </div>
 
-              <div className="bg-orange-50/60 p-4 rounded-2xl border border-orange-100 flex items-center gap-4">
+              <div className="bg-orange-50/50 p-3.5 rounded-xl border border-orange-100/70 flex items-center gap-3">
                 <img
                   src={MGR_BOZO_PRAYER_IMG}
                   alt="Mgr Bozo en prière avec les enfants et les familles"
                   loading="lazy"
                   decoding="async"
-                  className="w-20 h-20 rounded-xl object-cover shrink-0 shadow-sm"
+                  className="w-16 h-16 rounded-lg object-cover shrink-0 shadow-xs"
                 />
                 <p className="text-xs text-gray-600 leading-snug">
-                  <strong className="text-gray-900 block mb-0.5">Proximité pastorale</strong>
-                  Monseigneur Bozo priant et bénissant les familles au cours d'une semaine de mission Famissio.
+                  <strong className="text-gray-900 block mb-0.5">Proximité fraternelle</strong>
+                  Monseigneur Bozo priant avec les missionnaires et bénissant les enfants au cours d'une mission.
                 </p>
               </div>
             </div>
           </div>
 
           {/* Intégration de la vidéo RCF */}
-          <div className="mt-10 pt-10 border-t border-gray-100 max-w-4xl mx-auto">
-            <div className="text-center mb-6">
+          <div className="mt-8 pt-8 border-t border-gray-100 max-w-3xl mx-auto">
+            <div className="text-center mb-5">
               <h3
-                className="text-2xl font-bold text-gray-900"
+                className="text-lg sm:text-xl font-bold text-gray-900"
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               >
                 Monseigneur Bozo présente Famissio sur RCF
               </h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 mt-1">
                 L'évêque explique au micro de RCF pourquoi la présence des familles est un trésor pour les villages.
               </p>
             </div>
 
-            <div className="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-xl bg-black">
+            <div className="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-lg bg-black">
               <iframe
                 src="https://www.youtube-nocookie.com/embed/SskypDiEr0c?start=878"
                 title="Monseigneur Bozo présente Famissio sur RCF"
@@ -389,62 +385,62 @@ export default function QuiSommesNous() {
         {/* -----------------------------------------------------------------------
             SECTION 4 : CE QUI SE VIT PENDANT UNE SEMAINE DE MISSION
             ----------------------------------------------------------------------- */}
-        <section className="bg-white rounded-3xl p-8 sm:p-14 shadow-xl border border-orange-100/90">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs uppercase font-extrabold tracking-widest text-orange-600 mb-2">
-              Au cœur de la réalité
+        <section className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-orange-100/80">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-orange-600">
+              Au cœur de la mission
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-black text-gray-900 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mt-1 leading-snug"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               Le quotidien d'une semaine Famissio
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg mt-3">
+            <p className="text-gray-600 text-sm sm:text-base mt-2">
               Comment se déroule concrètement la mission sur le terrain, du matin au soir.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 text-gray-700 leading-relaxed text-base">
-            <div className="bg-gray-50 p-7 rounded-2xl border border-gray-100 space-y-3">
-              <div className="flex items-center gap-3 text-orange-600 font-bold text-lg">
-                <Flame className="w-5 h-5" />
+          <div className="grid md:grid-cols-2 gap-5 text-gray-700 leading-relaxed text-sm">
+            <div className="bg-orange-50/30 p-5 rounded-2xl border border-orange-100/60 space-y-2">
+              <div className="flex items-center gap-2.5 text-orange-600 font-bold text-base">
+                <Flame className="w-4 h-4" />
                 <span>Laudes & Louange du matin</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Chaque journée commence dans l'église par la louange partagée, la prière des laudes et une courte formation
                 spirituelle adaptée aux enfants comme aux adultes. C'est le cœur battant d'où jaillit toute notre énergie missionnaire.
               </p>
             </div>
 
-            <div className="bg-gray-50 p-7 rounded-2xl border border-gray-100 space-y-3">
-              <div className="flex items-center gap-3 text-orange-600 font-bold text-lg">
-                <Compass className="w-5 h-5" />
+            <div className="bg-orange-50/30 p-5 rounded-2xl border border-orange-100/60 space-y-2">
+              <div className="flex items-center gap-2.5 text-orange-600 font-bold text-base">
+                <Compass className="w-4 h-4" />
                 <span>Le porte-à-porte doux</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 L'après-midi, les équipes partent par deux dans les bourgs et les fermes isolées. Souvent un parent avec son enfant :
                 pas d'arguments compliqués, simplement saluer, prendre des nouvelles, écouter les peines, proposer une intention de prière et bénir.
               </p>
             </div>
 
-            <div className="bg-gray-50 p-7 rounded-2xl border border-gray-100 space-y-3">
-              <div className="flex items-center gap-3 text-orange-600 font-bold text-lg">
-                <Heart className="w-5 h-5" />
+            <div className="bg-orange-50/30 p-5 rounded-2xl border border-orange-100/60 space-y-2">
+              <div className="flex items-center gap-2.5 text-orange-600 font-bold text-base">
+                <Heart className="w-4 h-4" />
                 <span>Présence aux cimetières à la Toussaint</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Le 1er et le 2 novembre, les familles se rendent dans les cimetières de village. Elles offrent une parole de paix,
                 aident à fleurir les tombes, prient avec les proches en deuil et rappellent l'Espérance chrétienne de la Résurrection.
               </p>
             </div>
 
-            <div className="bg-gray-50 p-7 rounded-2xl border border-gray-100 space-y-3">
-              <div className="flex items-center gap-3 text-orange-600 font-bold text-lg">
-                <Smile className="w-5 h-5" />
+            <div className="bg-orange-50/30 p-5 rounded-2xl border border-orange-100/60 space-y-2">
+              <div className="flex items-center gap-2.5 text-orange-600 font-bold text-base">
+                <Smile className="w-4 h-4" />
                 <span>Veillées ouvertes & Réconciliation</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Le soir, les églises s'illuminent de centaines de bougies. Chants, témoignages, temps de silence et présence de prêtres
                 pour ceux qui désirent se confesser ou simplement déposer un fardeau après des années d'éloignement.
               </p>
@@ -452,20 +448,20 @@ export default function QuiSommesNous() {
           </div>
 
           {/* Vidéo de présentation officielle */}
-          <div className="mt-14 pt-10 border-t border-gray-100 max-w-4xl mx-auto">
-            <div className="text-center mb-6">
+          <div className="mt-8 pt-8 border-t border-gray-100 max-w-3xl mx-auto">
+            <div className="text-center mb-5">
               <h3
-                className="text-2xl font-bold text-gray-900"
+                className="text-lg sm:text-xl font-bold text-gray-900"
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}
               >
                 Immersion en images
               </h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 mt-1">
                 La présentation officielle de Famissio en vidéo.
               </p>
             </div>
 
-            <div className="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-xl bg-black">
+            <div className="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-lg bg-black">
               <iframe
                 src="https://www.youtube-nocookie.com/embed/bYFu-nvDDHI"
                 title="Présentation de Famissio"
@@ -481,29 +477,29 @@ export default function QuiSommesNous() {
         {/* -----------------------------------------------------------------------
             SECTION 5 : GALERIE DES ÉDITIONS HISTORIQUES
             ----------------------------------------------------------------------- */}
-        <section className="bg-white rounded-3xl p-8 sm:p-14 shadow-xl border border-orange-100/90">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs uppercase font-extrabold tracking-widest text-orange-600 mb-2">
+        <section className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-orange-100/80">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-orange-600">
               Mémoire & Continuité
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-black text-gray-900 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mt-1 leading-snug"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               Au fil des années
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg mt-3">
+            <p className="text-gray-600 text-sm sm:text-base mt-2">
               Chaque édition rassemble de nouveaux foyers et renforce la communion fraternelle.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {editions.map((item, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50 flex flex-col justify-between"
+                className="rounded-2xl overflow-hidden border border-gray-100 shadow-xs bg-[#faf7f5] flex flex-col justify-between"
               >
-                <div className="h-52 overflow-hidden">
+                <div className="h-44 overflow-hidden">
                   <img
                     src={item.img}
                     alt={`Famissio édition ${item.year} à ${item.location}`}
@@ -512,13 +508,13 @@ export default function QuiSommesNous() {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-5">
+                <div className="p-4">
                   <div className="flex items-center justify-between text-xs font-bold text-orange-600 mb-1">
                     <span>Édition {item.year}</span>
                     <span className="text-gray-400">•</span>
                     <span className="text-gray-600">{item.location}</span>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed mt-2">
+                  <p className="text-xs text-gray-600 leading-relaxed mt-1.5">
                     {item.description}
                   </p>
                 </div>

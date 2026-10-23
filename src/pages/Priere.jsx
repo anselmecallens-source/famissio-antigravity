@@ -129,20 +129,20 @@ export default function Priere() {
                     <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
                 </div>
 
-                <div className="relative max-w-7xl mx-auto px-6 py-24">
-                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                         Prière
                     </h1>
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+                    <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
                         La prière qui nous accompagne avant chaque départ en mission.
                     </p>
                 </div>
             </div>
 
-            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+            <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
             {/* Main Content - Full Width Mobile / Boxed Desktop */}
-            <div className="w-full md:max-w-5xl md:mx-auto md:px-6 py-12 md:py-12 space-y-[135px] md:space-y-24 pb-20">
+            <div className="w-full md:max-w-4xl md:mx-auto px-6 sm:px-10 py-12 space-y-12 sm:space-y-16 pb-20">
 
                 {/* Audio Section */}
                 <div className="bg-white border-b md:border md:rounded-2xl md:shadow-xl md:overflow-hidden border-red-100">

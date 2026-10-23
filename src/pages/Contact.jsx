@@ -276,36 +276,36 @@ export default function Contact() {
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+        <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Contact
           </h1>
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+          <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
             Vous vous sentez appelés à vivre une expérience de mission ? Contactez-nous pour que nous puissions en parler.
           </p>
         </div>
       </div>
 
-      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+      <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
       {/* SECTION FORMULAIRE */}
-      <div className="relative py-20 overflow-hidden">
+      <div className="relative py-14 sm:py-18 overflow-hidden">
         <div className="absolute inset-0 pattern-dots"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-200 to-red-200 rounded-full blur-3xl opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-red-200 to-orange-200 rounded-full blur-3xl opacity-20"></div>
 
-        <div className="relative max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
+        <div className="relative max-w-4xl mx-auto px-6 sm:px-10">
+          <div className="text-center mb-10">
 
-            <h2 className="text-5xl font-black mb-4 gradient-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            <h2 className="text-3xl sm:text-4xl font-black mb-3 gradient-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
               Envoyez-nous un message
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 text-base sm:text-lg max-w-xl mx-auto">
               Nous sommes là pour répondre à vos questions et vous accompagner dans votre projet de mission.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
+          <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-10 border border-orange-100/80">
             <ContactForm />
           </div>
         </div>

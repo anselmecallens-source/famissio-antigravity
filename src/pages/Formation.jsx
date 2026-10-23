@@ -497,27 +497,27 @@ const FormationsPage = () => {
                     <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
                     <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
                 </div>
-                <div className="relative max-w-7xl mx-auto px-6 py-24">
-                    <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                         Formations
                     </h1>
-                    <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+                    <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
                         Des outils concrets pour approfondir votre foi et mieux en témoigner.
                     </p>
                 </div>
             </div>
 
-            <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+            <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
             {/* SECTION INTRODUCTIVE - POURQUOI SE FORMER */}
-            <div className="relative overflow-hidden py-16 lg:py-24">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative overflow-hidden py-12 lg:py-16">
+                <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-8 leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                            <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6 leading-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                                 Pourquoi se former avec <span className="text-orange-600">Famissio ?</span>
                             </h2>
-                            <div className="space-y-6 text-lg text-gray-700 font-medium leading-relaxed">
+                            <div className="space-y-5 text-base sm:text-lg text-gray-700 font-medium leading-relaxed">
                                 <p>
                                     Se former est une responsabilité envers ceux que nous rencontrons. C'est s'assurer que nos paroles restent fidèles au <span className="text-orange-600 font-bold">Credo de l'Église</span>.
                                 </p>
@@ -545,8 +545,8 @@ const FormationsPage = () => {
             </div>
 
             {/* CONTENU - GRILLE PAR THÈME */}
-            <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
-                <div className="space-y-20 mb-[100px] lg:mb-[200px]">
+            <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 pt-10 pb-16">
+                <div className="space-y-16 mb-16">
                     {themes.map((theme) => {
                         return (
                             <div key={theme.id}>

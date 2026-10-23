@@ -443,30 +443,30 @@ const MissionsPage = () => {
         </div>
 
         {/* Contenu */}
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
+        <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
           <h1
-            className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600"
+            className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
             Nos Missions
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+          <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
             Chaque année à la Toussaint, nous organisons une mission diocésaine. Elle se prépare sur un an avec les paroisses pour adapter le programme à leurs besoins spécifiques.
           </p>
         </div>
 
       </div>
 
-      {/* Bande orange décorative en bas (Style Témoignages) */}
-      <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+      {/* Bande orange décorative en bas (Style harmonisé) */}
+      <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
       {/* MISSION 2026 */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#fff8f4] via-white to-orange-50 text-gray-900">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-red-100/70 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="relative mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 py-12 md:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
             <div>
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/90 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#c82904] shadow-sm">
@@ -546,12 +546,12 @@ const MissionsPage = () => {
       </section>
 
       {/* GALLERIE MISSIONS */}
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="text-center mb-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-16">
+        <div className="text-center mb-12">
           <div className="mission-eyebrow">
             L'HISTORIQUE
           </div>
-          <h2 id="liste-missions" className="text-6xl font-black mb-4 year-tag text-gray-900 scroll-mt-32">
+          <h2 id="liste-missions" className="text-4xl sm:text-5xl font-black mb-3 year-tag text-gray-900 scroll-mt-32">
             9 MISSIONS
           </h2>
           <p className="text-xl text-gray-600">

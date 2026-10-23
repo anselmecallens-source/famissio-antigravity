@@ -778,12 +778,12 @@ const TemoignagesPage = () => {
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-24">
-          <h1 className="text-7xl sm:text-9xl font-black mb-8 leading-none text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+        <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             Témoignages
           </h1>
 
-          <p className="text-xl text-center max-w-3xl mx-auto text-gray-700 leading-relaxed font-medium min-h-[110px] flex items-center justify-center">
+          <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
             Découvrez les histoires qui ont transformé des vies, des rencontres qui ont touché les cœurs, et des moments de grâce partagés à travers nos missions.
           </p>
         </div>
@@ -792,14 +792,14 @@ const TemoignagesPage = () => {
       {/* TÉMOIGNAGE DU JOUR - SE CACHE QUAND MODAL OUVERTE */}
       {testimonyOfDay && !selectedTestimony && (
         <>
-          <div className="bg-orange-100 h-12 border-y border-orange-200"></div>
+          <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
 
-          <div className="max-w-7xl mx-auto px-6 -mt-12 mb-16 relative">
+          <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 mt-8 mb-12 relative">
             <div
-              className="bg-white rounded-3xl shadow-2xl overflow-hidden cursor-pointer hover:scale-[1.01] transition-all duration-500"
+              className="bg-white rounded-3xl shadow-xl overflow-hidden cursor-pointer hover:scale-[1.01] transition-all duration-500 border border-orange-100/80"
               onClick={() => setSelectedTestimony(testimonyOfDay)}
             >
-              <div className="p-12">
+              <div className="p-8 sm:p-10">
                 <div className="flex flex-col md:block relative gap-12">
                   {/* HAUTEUR FIXE MOBILE, ABSOLUTE DESKTOP */}
                   <div className="w-full md:absolute md:top-0 md:left-0 md:bottom-0 md:w-[calc(50%-24px)] h-80 md:h-auto rounded-2xl overflow-hidden shadow-lg group flex-shrink-0">
@@ -884,7 +884,7 @@ const TemoignagesPage = () => {
       </div>
 
       {/* GRILLE DE TÉMOIGNAGES */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedTestimonies.map((testimony, index) => {
             const rotation = (index % 3 === 0 ? 1.5 : index % 3 === 1 ? -1.5 : 0);
