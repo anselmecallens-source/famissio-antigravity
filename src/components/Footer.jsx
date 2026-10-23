@@ -56,7 +56,6 @@ export default function Footer() {
         </div>
         <div className="fm-footer-links">
           <p className="fm-footer-label">À découvrir</p>
-          <Link to="/qui-sommes-nous">Qui sommes-nous ?</Link>
           <Link to="/missions">Les missions</Link>
           <Link to="/formation">Se former</Link>
           <Link to="/temoignages">Les témoignages</Link>
@@ -71,6 +70,14 @@ export default function Footer() {
       <div className="fm-footer-bottom">
         <span>© {new Date().getFullYear()} Famissio · Des familles en mission</span>
         <Link to="/reserve" className="fm-footer-private">Espace réservé</Link>
+        <Link
+          to="/qui-sommes-nous"
+          style={{ opacity: 0.18, fontSize: '0.75rem', color: 'inherit', textDecoration: 'none', marginLeft: '6px', cursor: 'pointer' }}
+          aria-label="Aperçu privé Qui sommes-nous"
+          title="Brouillon Qui sommes-nous (privé)"
+        >
+          ⚙
+        </Link>
         <button
           type="button"
           onClick={scrollToTop}

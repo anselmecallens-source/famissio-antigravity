@@ -9,13 +9,6 @@ const distDir = path.resolve(rootDir, 'dist');
 
 export const SEO_PAGES = [
   {
-    path: '/qui-sommes-nous',
-    title: 'Qui sommes-nous ? - Famissio',
-    description: "Découvrez l'histoire de Famissio, née d'une intuition familiale en Inde, notre aumônier le Père Jean-Pierre Barrière et le soutien de Mgr Bozo pour les paroisses rurales.",
-    canonical: 'https://famissio.pages.dev/qui-sommes-nous',
-    image: 'https://famissio.pages.dev/assets/images/Mgr-Pierre-Antoine-Bozo.jpg'
-  },
-  {
     path: '/missions',
     title: 'Nos Missions - Famissio',
     description: 'Découvrez les diocèses et paroisses où Famissio envoie ses familles missionnaires pour accompagner les curés et évangéliser.',

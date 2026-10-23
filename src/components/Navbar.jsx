@@ -55,18 +55,18 @@ const Navbar = () => {
 
   const isPageActive = (path) => location.pathname === path;
 
-  // Shared right-aligned container for exact text superposition on ALL pages
+  // Shared 35% right-aligned container for exact text superposition on ALL pages
   const linksContainerStyle = {
     position: 'absolute',
     right: '0',
     top: '0',
     height: '100%',
-    width: 'auto',
+    width: '35%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingRight: '2rem',
-    gap: 'clamp(0.4rem, 0.8vw, 1.1rem)'
+    gap: '1.2rem'
   };
 
   return (
@@ -79,7 +79,6 @@ const Navbar = () => {
           </Link>
           <ul className="smart-nav-links" style={linksContainerStyle}>
             <li><Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
-            <li><Link to="/qui-sommes-nous" className={location.pathname === '/qui-sommes-nous' ? 'active' : ''} onClick={closeMenu}>QUI SOMMES-NOUS ?</Link></li>
             <li><Link to="/missions" className={location.pathname === '/missions' ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
             <li><Link to="/formation" className={location.pathname === '/formation' ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>
             <li><Link to="/temoignages" className={location.pathname === '/temoignages' ? 'active' : ''} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
@@ -116,16 +115,15 @@ const Navbar = () => {
           className="nav-links"
           style={isHome ? {
             ...linksContainerStyle,
-            left: '52%',
-            right: '2.5rem',
+            left: '58%',
+            right: '3.125rem',
             width: 'auto',
             justifyContent: 'space-between',
             paddingRight: 0,
-            gap: 'clamp(0.2rem, 0.5vw, 0.75rem)'
+            gap: 'clamp(0.25rem, 0.65vw, 0.8rem)'
           } : linksContainerStyle}
         >
           <li><Link to="/" className={isPageActive('/') ? 'active' : ''} onClick={closeMenu}>ACCUEIL</Link></li>
-          <li><Link to="/qui-sommes-nous" className={isPageActive('/qui-sommes-nous') ? 'active' : ''} onClick={closeMenu}>QUI SOMMES-NOUS ?</Link></li>
           <li><Link to="/missions" className={isPageActive('/missions') ? 'active' : ''} onClick={closeMenu}>NOS MISSIONS</Link></li>
           <li><Link to="/formation" className={isPageActive('/formation') ? 'active' : ''} onClick={closeMenu}>FORMATION</Link></li>
           <li><Link to="/temoignages" className={isPageActive('/temoignages') ? 'active' : ''} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
@@ -144,7 +142,6 @@ const Navbar = () => {
       <div className={`side-menu ${menuActive ? 'active' : ''}`} id="sideMenu">
         <ul className="side-links">
           <li><Link to="/" className="side-link" style={getSideLinkStyle('/')} onClick={closeMenu}>ACCUEIL</Link></li>
-          <li><Link to="/qui-sommes-nous" className="side-link" style={getSideLinkStyle('/qui-sommes-nous')} onClick={closeMenu}>QUI SOMMES-NOUS ?</Link></li>
           <li><Link to="/missions" className="side-link" style={getSideLinkStyle('/missions')} onClick={closeMenu}>NOS MISSIONS</Link></li>
           <li><Link to="/formation" className="side-link" style={getSideLinkStyle('/formation')} onClick={closeMenu}>FORMATION</Link></li>
           <li><Link to="/temoignages" className="side-link" style={getSideLinkStyle('/temoignages')} onClick={closeMenu}>TÉMOIGNAGES</Link></li>
