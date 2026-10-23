@@ -56,6 +56,7 @@ export default function Footer() {
         </div>
         <div className="fm-footer-links">
           <p className="fm-footer-label">À découvrir</p>
+          <Link to="/qui-sommes-nous">Qui sommes-nous ?</Link>
           <Link to="/missions">Les missions</Link>
           <Link to="/formation">Se former</Link>
           <Link to="/temoignages">Les témoignages</Link>

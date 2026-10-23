@@ -1624,14 +1624,26 @@ const Accueil = () => {
                         <p>Des amis ont accepté de les rejoindre dans cette aventure pour découvrir la belle paroisse du père Jean-Pierre Barrière dans la Creuse. Cette semaine les a tous beaucoup nourris et remplis de joie puis confirmés dans cette intuition initiale.</p>
                         <div className="highlight-box">
                             <p><strong>Famissio est alors née.</strong> Le père Jean-Pierre en devenait l'aumônier. Monseigneur Bozo acceptait de suivre cette initiative.</p>
-                            <a
-                                href="#mgr-bozo"
-                                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '16px', fontSize: '0.95rem', fontWeight: 600, color: 'var(--flame)', textDecoration: 'none' }}
-                                className="hover:underline"
-                            >
-                                <Play className="w-4 h-4 fill-current" />
-                                <span>Voir le témoignage en vidéo de Monseigneur Bozo ↓</span>
-                            </a>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', marginTop: '16px' }}>
+                                <Link
+                                    to="/qui-sommes-nous"
+                                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 18px', background: 'var(--flame)', color: 'white', borderRadius: '12px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none' }}
+                                    className="hover:opacity-90 transition-opacity"
+                                >
+                                    <span>Découvrir toute notre histoire & nos pasteurs</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '16px', height: '16px' }}>
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </Link>
+                                <a
+                                    href="#mgr-bozo"
+                                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', fontWeight: 600, color: 'var(--flame)', textDecoration: 'none' }}
+                                    className="hover:underline"
+                                >
+                                    <Play className="w-4 h-4 fill-current" />
+                                    <span>Voir le témoignage en vidéo de Monseigneur Bozo ↓</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
