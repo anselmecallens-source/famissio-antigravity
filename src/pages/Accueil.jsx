@@ -702,6 +702,18 @@ const Accueil = () => {
             position: relative;
             scroll-margin-top: 100px;
         }
+        .bozo-section .title {
+            font-size: clamp(2rem, 3.8vw, 3.4rem);
+            line-height: 1.25;
+        }
+        .bozo-rcf {
+            display: inline-block;
+            font-size: 0.72em;
+            font-weight: 600;
+            color: var(--flame);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
         .bozo-frame {
             max-width: 900px;
             margin: 0 auto;
@@ -1635,6 +1647,30 @@ const Accueil = () => {
                 <div className="video-frame">
                     <div className="video-box">
                         <iframe src="https://www.youtube.com/embed/bYFu-nvDDHI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            {/* MONSEIGNEUR BOZO */}
+            <section id="mgr-bozo" className="bozo-section">
+                <div className="section-head">
+                    <h2 className="title">
+                        Monseigneur Bozo présente Famissio <span className="bozo-rcf">(sur RCF)</span>
+                    </h2>
+                    <p className="subtitle">
+                        Monseigneur Pierre-Antoine Bozo accompagne Famissio depuis sa 1<sup>e</sup> édition en 2019
+                    </p>
+                </div>
+
+                <div className="bozo-frame">
+                    <div className="bozo-video-box">
+                        <iframe
+                            src="https://www.youtube.com/embed/SskypDiEr0c?start=878"
+                            title="Monseigneur Bozo présente Famissio sur RCF"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            loading="lazy"
+                        ></iframe>
                     </div>
                 </div>
             </section>
@@ -2719,29 +2755,6 @@ const Accueil = () => {
                         <span className="pillar-emoji"><Crown className="w-16 h-16 mx-auto text-[var(--flame)]" /></span>
                         <h3>Je suis Roi</h3>
                         <p>Être roi pour un baptisé, c'est être au service. La fonction royale des baptisés consiste à mettre en œuvre le commandement du frère comme Jésus a pu le faire lors du lavement des pieds.</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* MONSEIGNEUR BOZO */}
-            <section id="mgr-bozo" className="bozo-section">
-                <div className="section-head">
-                    <div className="eyebrow">L'évêque accompagnateur</div>
-                    <h2 className="title">Monseigneur Bozo en parle</h2>
-                    <p className="subtitle">
-                        Évêque accompagnateur de Famissio depuis ses débuts, <strong>Monseigneur Pierre-Antoine Bozo</strong> évoque l'aventure des familles missionnaires et la joie partagée dans les paroisses rurales.
-                    </p>
-                </div>
-
-                <div className="bozo-frame">
-                    <div className="bozo-video-box">
-                        <iframe
-                            src="https://www.youtube.com/embed/SskypDiEr0c?start=878"
-                            title="Interview de Mgr Bozo sur RCF 17 - Famissio"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            loading="lazy"
-                        ></iframe>
                     </div>
                 </div>
             </section>
