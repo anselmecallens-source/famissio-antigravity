@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play, ExternalLink } from 'lucide-react';
+import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play } from 'lucide-react';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -727,46 +727,6 @@ const Accueil = () => {
             border: none;
             border-radius: inherit;
         }
-        .bozo-footer {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            padding: 0 6px;
-        }
-        .bozo-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: #ffffff;
-            color: var(--flame);
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid rgba(200, 41, 4, 0.15);
-        }
-        .bozo-link-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 22px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--flame), var(--ember));
-            color: #ffffff !important;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(200, 41, 4, 0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .bozo-link-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(200, 41, 4, 0.35);
-        }
         @media (max-width: 768px) {
             .bozo-section {
                 padding: 70px 5%;
@@ -777,16 +737,6 @@ const Accueil = () => {
             }
             .bozo-video-box {
                 border-radius: 14px;
-            }
-            .bozo-footer {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-                gap: 12px;
-            }
-            .bozo-pill, .bozo-link-btn {
-                justify-content: center;
-                width: 100%;
             }
         }
 
@@ -2776,10 +2726,10 @@ const Accueil = () => {
             {/* MONSEIGNEUR BOZO */}
             <section id="mgr-bozo" className="bozo-section">
                 <div className="section-head">
-                    <div className="eyebrow">Témoignage de l'Église</div>
+                    <div className="eyebrow">L'évêque accompagnateur</div>
                     <h2 className="title">Monseigneur Bozo en parle</h2>
                     <p className="subtitle">
-                        Dès les premiers pas de Famissio, <strong>Monseigneur Pierre-Antoine Bozo</strong> a accompagné, encouragé et envoyé les familles missionnaires. Retrouvez son regard chaleureux sur la mission au micro de RCF.
+                        Évêque accompagnateur de Famissio depuis ses débuts, <strong>Monseigneur Pierre-Antoine Bozo</strong> évoque l'aventure des familles missionnaires et la joie partagée dans les paroisses rurales.
                     </p>
                 </div>
 
@@ -2792,23 +2742,6 @@ const Accueil = () => {
                             allowFullScreen
                             loading="lazy"
                         ></iframe>
-                    </div>
-
-                    <div className="bozo-footer">
-                        <div className="bozo-pill">
-                            <Play className="w-4 h-4 fill-current text-[var(--flame)]" />
-                            <span>Départ automatique de la vidéo à 14:36</span>
-                        </div>
-
-                        <a
-                            href="https://youtu.be/SskypDiEr0c?t=876"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bozo-link-btn"
-                        >
-                            <span>Regarder sur YouTube (14:36)</span>
-                            <ExternalLink className="w-4 h-4" />
-                        </a>
                     </div>
                 </div>
             </section>
