@@ -2736,7 +2736,7 @@ const Accueil = () => {
                 <div className="bozo-frame">
                     <div className="bozo-video-box">
                         <iframe
-                            src="https://www.youtube.com/embed/SskypDiEr0c?start=876"
+                            src="https://www.youtube.com/embed/SskypDiEr0c?start=878"
                             title="Interview de Mgr Bozo sur RCF 17 - Famissio"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
