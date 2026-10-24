@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 
 // Charge chaque page à la demande pour alléger le premier chargement.
 const Accueil = lazy(() => import('./pages/Accueil'));
+const AccueilV2 = lazy(() => import('./pages/AccueilV2'));
 const QuiSommesNous = lazy(() => import('./pages/QuiSommesNous'));
 const Missions = lazy(() => import('./pages/Missions'));
 const Formation = lazy(() => import('./pages/Formation'));
@@ -39,6 +40,9 @@ function App() {
       <Suspense fallback={<main className="min-h-[50vh]" aria-busy="true" aria-label="Chargement de la page" />}>
         <Routes>
           <Route path="/" element={<Accueil />} />
+          {/* Version preview nouvelle identité (privée, non présente dans la barre de navigation) */}
+          <Route path="/preview-accueil" element={<AccueilV2 />} />
+          <Route path="/accueil-v2" element={<AccueilV2 />} />
           <Route path="/qui-sommes-nous" element={<QuiSommesNous />} />
 
           {/* Ajout d'un padding-top pour que le menu fixe ne cache pas le contenu */}

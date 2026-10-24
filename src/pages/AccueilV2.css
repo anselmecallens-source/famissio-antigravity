@@ -1,0 +1,1475 @@
+/* ==========================================================================
+   ACCUEIL V2 — NOUVELLE IDENTITÉ FAMISSIO
+   Charte graphique :
+   - Palette : Orange tee-shirt (#ee5b0a) + Brun encre (#22100a) + Crème (#fff6ee) + Pêche (#ffe4d0)
+   - Typographie : Fraunces (titres avec accent en italique `em`) + Inter (corps)
+   - Formes signatures : Arches fenêtres d'église (.fam-arch), boutons pilules, ombres chaudes
+   ========================================================================== */
+
+.fam-v2 {
+  --fam-tee: #ee5b0a;        /* Orange tee-shirt Famissio */
+  --fam-flame: #c82904;      /* Rouge flamme pour fort contraste */
+  --fam-ink: #22100a;        /* Brun encre profond (remplace le noir neutre) */
+  --fam-cream: #fff6ee;      /* Crème chaud chaleureux (fond de page) */
+  --fam-peach: #ffe4d0;      /* Pêche doux pour cartes et bordures */
+  --fam-white: #ffffff;
+  --fam-gold: #d4af37;
+  
+  --fam-radius-pill: 9999px;
+  --fam-radius-arch: 999px 999px 0 0;
+  --fam-radius-card: 24px;
+  --fam-radius-box: 20px;
+  
+  --fam-shadow-subtle: 0 4px 20px rgba(34, 16, 10, 0.04);
+  --fam-shadow-card: 0 12px 36px rgba(34, 16, 10, 0.08);
+  --fam-shadow-hover: 0 20px 48px rgba(34, 16, 10, 0.14);
+  --fam-shadow-glow: 0 10px 40px rgba(238, 91, 10, 0.22);
+
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--fam-ink);
+  background-color: var(--fam-cream);
+  line-height: 1.7;
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Typographie Headings */
+.fam-v2 h1,
+.fam-v2 h2,
+.fam-v2 h3,
+.fam-v2 h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  letter-spacing: -0.02em;
+  color: var(--fam-ink);
+  line-height: 1.15;
+}
+
+.fam-v2 h1 em,
+.fam-v2 h2 em,
+.fam-v2 h3 em {
+  font-style: italic;
+  font-weight: 700;
+  color: var(--fam-tee);
+}
+
+/* Arch Signature */
+.fam-v2 .fam-arch {
+  border-radius: 999px 999px 0 0 !important;
+  overflow: hidden;
+}
+
+/* Eyebrows / Badges */
+.fam-v2-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fam-tee);
+  background: rgba(238, 91, 10, 0.1);
+  padding: 6px 16px;
+  border-radius: var(--fam-radius-pill);
+  margin-bottom: 16px;
+  border: 1px solid rgba(238, 91, 10, 0.2);
+}
+
+.fam-v2-eyebrow.white {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.fam-v2-eyebrow.dark {
+  color: var(--fam-cream);
+  background: rgba(34, 16, 10, 0.85);
+  border-color: var(--fam-tee);
+}
+
+/* Section Headers */
+.fam-v2-section-head {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+}
+
+.fam-v2-section-title {
+  font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.fam-v2-section-subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: #634f47;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Containers */
+.fam-v2-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   PREVIEW BANNER (Barre privée de relecture)
+   ========================================================================== */
+.fam-v2-preview-bar {
+  background: var(--fam-ink);
+  color: var(--fam-cream);
+  border-bottom: 3px solid var(--fam-tee);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 0.88rem;
+  position: relative;
+  z-index: 100;
+}
+
+.fam-v2-preview-pill {
+  background: var(--fam-tee);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: var(--fam-radius-pill);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.fam-v2-preview-link {
+  color: var(--fam-peach);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.fam-v2-preview-link:hover {
+  color: #fff;
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.fam-v2-hero {
+  position: relative;
+  background: var(--fam-cream);
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 60px 0 80px 0;
+}
+
+.fam-v2-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+}
+
+.fam-v2-hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+.fam-v2-hero-title {
+  font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+  font-weight: 900;
+  line-height: 0.98;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+  color: var(--fam-ink);
+}
+
+.fam-v2-hero-title em {
+  color: var(--fam-tee);
+  display: inline-block;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.fam-v2-hero-rule {
+  width: 72px;
+  height: 4px;
+  background: var(--fam-tee);
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+
+.fam-v2-hero-sub {
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  line-height: 1.6;
+  color: #553e36;
+  margin-bottom: 38px;
+  max-width: 540px;
+  font-weight: 400;
+}
+
+.fam-v2-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.fam-v2-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--fam-tee);
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: var(--fam-radius-pill);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(238, 91, 10, 0.35);
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.fam-v2-btn-primary:hover {
+  background: #db4f05;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(238, 91, 10, 0.45);
+  color: #ffffff;
+}
+
+.fam-v2-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--fam-ink);
+  padding: 15px 28px;
+  border-radius: var(--fam-radius-pill);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid rgba(34, 16, 10, 0.2);
+  transition: all 0.25s ease;
+}
+
+.fam-v2-btn-secondary:hover {
+  border-color: var(--fam-ink);
+  background: rgba(34, 16, 10, 0.05);
+  color: var(--fam-ink);
+}
+
+/* Hero Media with church arch */
+.fam-v2-hero-media-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fam-v2-hero-arch-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 540px;
+  border-radius: 220px 220px 24px 24px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-hover);
+  border: 6px solid #ffffff;
+  background: var(--fam-peach);
+}
+
+.fam-v2-hero-arch-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.fam-v2-hero-arch-card:hover img {
+  transform: scale(1.04);
+}
+
+.fam-v2-hero-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  left: -20px;
+  background: #ffffff;
+  color: var(--fam-ink);
+  padding: 14px 22px;
+  border-radius: 18px;
+  box-shadow: var(--fam-shadow-card);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 4px solid var(--fam-tee);
+  max-width: 260px;
+  z-index: 4;
+}
+
+.fam-v2-hero-floating-badge-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--fam-tee);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fam-v2-hero-floating-badge-text {
+  font-size: 0.88rem;
+  color: #44322c;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+/* Background decorative geometry */
+.fam-v2-hero-backdrop-shape {
+  position: absolute;
+  top: -10%;
+  right: -8%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(238, 91, 10, 0.09) 0%, rgba(255, 230, 214, 0.2) 60%, transparent 70%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CAROUSEL SECTION WRAPPER
+   ========================================================================== */
+.fam-v2-carousel-wrap {
+  background: #ffffff;
+  border-top: 1px solid rgba(238, 91, 10, 0.12);
+  border-bottom: 1px solid rgba(238, 91, 10, 0.12);
+  padding: 0;
+}
+
+/* ==========================================================================
+   NOTRE HISTOIRE
+   ========================================================================== */
+.fam-v2-story-section {
+  padding: 110px 0;
+  background: var(--fam-cream);
+  position: relative;
+}
+
+.fam-v2-story-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 65px;
+  align-items: center;
+}
+
+.fam-v2-story-photo-wrap {
+  position: relative;
+}
+
+.fam-v2-story-arch {
+  width: 100%;
+  max-width: 460px;
+  height: 520px;
+  border-radius: 230px 230px 24px 24px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-card);
+  border: 5px solid #ffffff;
+  background: var(--fam-peach);
+  position: relative;
+}
+
+.fam-v2-story-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fam-v2-story-accent-card {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--fam-tee);
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 20px;
+  box-shadow: var(--fam-shadow-card);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.fam-v2-story-text {
+  font-size: 1.12rem;
+  line-height: 1.85;
+  color: #4b3831;
+}
+
+.fam-v2-dropcap::first-letter {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 4.6rem;
+  font-weight: 800;
+  color: var(--fam-flame);
+  float: left;
+  line-height: 0.85;
+  margin: 6px 16px 0 0;
+}
+
+.fam-v2-story-highlight {
+  background: #ffffff;
+  border-left: 5px solid var(--fam-tee);
+  border-radius: 0 20px 20px 0;
+  padding: 28px 32px;
+  margin-top: 32px;
+  box-shadow: var(--fam-shadow-subtle);
+  border-top: 1px solid rgba(238, 91, 10, 0.08);
+  border-right: 1px solid rgba(238, 91, 10, 0.08);
+  border-bottom: 1px solid rgba(238, 91, 10, 0.08);
+}
+
+.fam-v2-story-highlight p {
+  margin: 0;
+  font-size: 1.08rem;
+  color: var(--fam-ink);
+}
+
+.fam-v2-story-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--fam-flame);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.fam-v2-story-video-link:hover {
+  color: var(--fam-tee);
+  text-decoration: underline;
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   QUI SOMMES-NOUS ? (VIDEO SECTION)
+   ========================================================================== */
+.fam-v2-video-section {
+  background: var(--fam-ink);
+  color: var(--fam-cream);
+  padding: 110px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.fam-v2-video-section .fam-v2-section-title {
+  color: #ffffff;
+}
+
+.fam-v2-video-section .fam-v2-section-title em {
+  color: var(--fam-tee);
+}
+
+.fam-v2-video-section .fam-v2-section-subtitle {
+  color: rgba(255, 246, 238, 0.85);
+}
+
+.fam-v2-video-container {
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(238, 91, 10, 0.2);
+  border: 3px solid rgba(238, 91, 10, 0.35);
+  background: #000;
+  position: relative;
+}
+
+.fam-v2-video-aspect {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+
+.fam-v2-video-aspect iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ==========================================================================
+   MONSEIGNEUR BOZO SECTION
+   ========================================================================== */
+.fam-v2-bozo-section {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.fam-v2-bozo-box {
+  max-width: 920px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-card);
+  border: 2px solid rgba(238, 91, 10, 0.15);
+  background: #000;
+}
+
+/* ==========================================================================
+   LA MISSION EN PRATIQUE (CARDS)
+   ========================================================================== */
+.fam-v2-practice-section {
+  padding: 110px 0;
+  background: var(--fam-cream);
+}
+
+.fam-v2-practice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.fam-v2-practice-card {
+  background: #ffffff;
+  border-radius: var(--fam-radius-card);
+  padding: 44px 34px;
+  box-shadow: var(--fam-shadow-subtle);
+  border: 1px solid rgba(238, 91, 10, 0.12);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.fam-v2-practice-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--fam-shadow-hover);
+  border-color: rgba(238, 91, 10, 0.3);
+}
+
+.fam-v2-practice-icon-wrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--fam-tee), var(--fam-flame));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;
+  box-shadow: 0 10px 22px rgba(238, 91, 10, 0.3);
+}
+
+.fam-v2-practice-card h3 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--fam-ink);
+}
+
+.fam-v2-practice-card p {
+  font-size: 1.04rem;
+  line-height: 1.7;
+  color: #55413a;
+  margin: 0;
+}
+
+/* Pagination Dots for mobile */
+.fam-v2-dots {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.fam-v2-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(34, 16, 10, 0.2);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.fam-v2-dot.active {
+  background: var(--fam-tee);
+  width: 26px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   MISSIONNAIRES À TOUT ÂGE (ÉQUIPE)
+   ========================================================================== */
+.fam-v2-team-section {
+  padding: 110px 0;
+  background: #ffffff;
+}
+
+.fam-v2-team-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 65px;
+  align-items: center;
+}
+
+.fam-v2-team-photo-wrap {
+  position: relative;
+}
+
+.fam-v2-team-arch {
+  width: 100%;
+  max-width: 480px;
+  height: 560px;
+  border-radius: 240px 240px 24px 24px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-card);
+  border: 6px solid var(--fam-cream);
+  background: var(--fam-peach);
+}
+
+.fam-v2-team-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fam-v2-team-content h3 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--fam-flame);
+  margin-top: 26px;
+  margin-bottom: 12px;
+}
+
+.fam-v2-team-content h3:first-of-type {
+  margin-top: 0;
+}
+
+.fam-v2-team-content p {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: #4b3831;
+}
+
+.fam-v2-team-quote-card {
+  background: var(--fam-cream);
+  border-radius: var(--fam-radius-card);
+  padding: 36px 36px;
+  margin-top: 32px;
+  border: 1px solid rgba(238, 91, 10, 0.15);
+  box-shadow: var(--fam-shadow-subtle);
+  position: relative;
+}
+
+.fam-v2-quote-mark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 4rem;
+  color: var(--fam-tee);
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: -15px;
+}
+
+.fam-v2-team-quote-card p {
+  font-style: italic;
+  font-size: 1.04rem;
+  line-height: 1.8;
+  color: #3f2e28;
+  margin-bottom: 14px;
+}
+
+.fam-v2-team-quote-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   LE PROGRAMME
+   ========================================================================== */
+.fam-v2-program-section {
+  padding: 100px 0;
+  background: var(--fam-cream);
+}
+
+.fam-v2-program-box {
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-card);
+  border: 2px solid rgba(238, 91, 10, 0.18);
+  background: #000;
+}
+
+/* ==========================================================================
+   LE CHOIX DE LA TOUSSAINT
+   ========================================================================== */
+.fam-v2-toussaint-section {
+  position: relative;
+  padding: 130px 0;
+  background: var(--fam-ink);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.fam-v2-toussaint-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.fam-v2-toussaint-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+  filter: contrast(1.1);
+}
+
+.fam-v2-toussaint-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(34, 16, 10, 0.94) 0%, rgba(34, 16, 10, 0.85) 100%);
+  z-index: 2;
+}
+
+.fam-v2-toussaint-content {
+  position: relative;
+  z-index: 3;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.fam-v2-toussaint-title {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 900;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.fam-v2-toussaint-title em {
+  color: var(--fam-tee);
+}
+
+.fam-v2-toussaint-lead {
+  font-size: 1.35rem;
+  line-height: 1.8;
+  font-weight: 500;
+  color: #ffffff;
+  border-left: 5px solid var(--fam-tee);
+  padding: 20px 28px;
+  background: rgba(238, 91, 10, 0.12);
+  border-radius: 0 16px 16px 0;
+  margin-bottom: 32px;
+}
+
+.fam-v2-toussaint-body p {
+  font-size: 1.14rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   LES 6 TEMPS FORTS (PILIERS DE LA MISSION)
+   ========================================================================== */
+.fam-v2-pillars-section {
+  padding: 120px 0;
+  background: #ffffff;
+}
+
+.fam-v2-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.fam-v2-pillar-card {
+  background: var(--fam-cream);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-subtle);
+  border: 1px solid rgba(238, 91, 10, 0.12);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.fam-v2-pillar-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--fam-shadow-hover);
+  border-color: rgba(238, 91, 10, 0.35);
+}
+
+.fam-v2-pillar-image-wrap {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  position: relative;
+  background: var(--fam-peach);
+}
+
+.fam-v2-pillar-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.fam-v2-pillar-card:hover .fam-v2-pillar-image-wrap img {
+  transform: scale(1.06);
+}
+
+.fam-v2-pillar-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--fam-ink);
+  color: var(--fam-cream);
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 6px 14px;
+  border-radius: var(--fam-radius-pill);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--fam-tee);
+}
+
+.fam-v2-pillar-body {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fam-v2-pillar-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--fam-ink);
+  margin-bottom: 12px;
+}
+
+.fam-v2-pillar-summary {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #5d4840;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.fam-v2-pillar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--fam-tee);
+  transition: gap 0.2s ease;
+}
+
+.fam-v2-pillar-card:hover .fam-v2-pillar-cta {
+  gap: 12px;
+  color: var(--fam-flame);
+}
+
+/* ==========================================================================
+   MODAL DIALOG (6 TEMPS FORTS)
+   ========================================================================== */
+.fam-v2-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(34, 16, 10, 0.78);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: famFadeIn 0.25s ease forwards;
+}
+
+.fam-v2-modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 820px;
+  max-height: 90vh;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(238, 91, 10, 0.2);
+  position: relative;
+  animation: famModalPop 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.fam-v2-modal-close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--fam-ink);
+  color: #ffffff;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.fam-v2-modal-close-icon:hover {
+  background: var(--fam-tee);
+  transform: rotate(90deg);
+}
+
+.fam-v2-modal-hero-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.fam-v2-modal-scroll-body {
+  padding: 34px 38px;
+  overflow-y: auto;
+}
+
+.fam-v2-modal-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: var(--fam-flame);
+  margin-bottom: 16px;
+}
+
+.fam-v2-modal-summary {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--fam-ink);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(238, 91, 10, 0.15);
+}
+
+.fam-v2-modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.fam-v2-modal-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #4b3831;
+}
+
+.fam-v2-modal-list li::before {
+  content: "•";
+  color: var(--fam-tee);
+  font-size: 1.8rem;
+  position: absolute;
+  left: 6px;
+  top: -4px;
+}
+
+.fam-v2-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+@keyframes famFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes famModalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ==========================================================================
+   ET APRÈS CETTE SEMAINE ?
+   ========================================================================== */
+.fam-v2-after-section {
+  padding: 120px 0;
+  background: var(--fam-cream);
+  text-align: center;
+}
+
+.fam-v2-after-box {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 36px;
+  padding: 60px 48px;
+  box-shadow: var(--fam-shadow-card);
+  border: 1px solid rgba(238, 91, 10, 0.15);
+  position: relative;
+}
+
+.fam-v2-after-plus {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 900;
+  color: var(--fam-tee);
+  line-height: 0.8;
+  margin-bottom: 16px;
+}
+
+.fam-v2-after-title {
+  font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  margin-bottom: 24px;
+}
+
+.fam-v2-after-text {
+  font-size: 1.22rem;
+  line-height: 1.9;
+  color: #4c3730;
+}
+
+.fam-v2-after-highlight {
+  font-weight: 700;
+  color: var(--fam-flame);
+  background: rgba(238, 91, 10, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   BANNIÈRE PLEIN ÉCRAN "LA MISSION NOUS PRESSE !"
+   ========================================================================== */
+.fam-v2-banner-section {
+  background: linear-gradient(135deg, var(--fam-tee) 0%, var(--fam-flame) 100%);
+  color: #ffffff;
+  padding: 70px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fam-v2-banner-title {
+  font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   PÈRE JEAN-PIERRE BARRIÈRE
+   ========================================================================== */
+.fam-v2-priest-section {
+  padding: 110px 0;
+  background: #ffffff;
+}
+
+.fam-v2-priest-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.fam-v2-priest-img-arch {
+  width: 140px;
+  height: 170px;
+  border-radius: 70px 70px 18px 18px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-card);
+  border: 4px solid var(--fam-cream);
+  background: var(--fam-peach);
+  flex-shrink: 0;
+}
+
+.fam-v2-priest-img-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fam-v2-priest-title {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.fam-v2-priest-role {
+  font-size: 1.1rem;
+  color: var(--fam-tee);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.fam-v2-priest-lead-box {
+  max-width: 820px;
+  margin: 0 auto 60px auto;
+  text-align: center;
+}
+
+.fam-v2-priest-lead-box h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--fam-flame);
+  margin-bottom: 14px;
+}
+
+.fam-v2-priest-lead-box p {
+  font-size: 1.12rem;
+  line-height: 1.8;
+  color: #554038;
+}
+
+.fam-v2-pillars-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.fam-v2-pillar-box {
+  background: var(--fam-cream);
+  border-radius: var(--fam-radius-card);
+  padding: 42px 32px;
+  text-align: center;
+  border: 1px solid rgba(238, 91, 10, 0.12);
+  transition: all 0.3s ease;
+}
+
+.fam-v2-pillar-box:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--fam-shadow-card);
+  border-color: rgba(238, 91, 10, 0.3);
+}
+
+.fam-v2-pillar-box-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba(238, 91, 10, 0.1);
+  color: var(--fam-flame);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px auto;
+}
+
+.fam-v2-pillar-box h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--fam-ink);
+}
+
+.fam-v2-pillar-box p {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #554038;
+  margin: 0;
+}
+
+/* ==========================================================================
+   PAPE FRANÇOIS (7 POINTS CLÉS)
+   ========================================================================== */
+.fam-v2-pape-section {
+  padding: 110px 0;
+  background: var(--fam-cream);
+}
+
+.fam-v2-pape-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.fam-v2-pape-img-arch {
+  width: 90px;
+  height: 115px;
+  border-radius: 45px 45px 14px 14px;
+  overflow: hidden;
+  box-shadow: var(--fam-shadow-subtle);
+  border: 3px solid #ffffff;
+  background: var(--fam-peach);
+  flex-shrink: 0;
+}
+
+.fam-v2-pape-img-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fam-v2-pape-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.fam-v2-pape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 45px;
+}
+
+.fam-v2-pape-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: var(--fam-shadow-subtle);
+  border: 1px solid rgba(238, 91, 10, 0.1);
+  transition: all 0.25s ease;
+}
+
+.fam-v2-pape-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--fam-shadow-card);
+  border-color: rgba(238, 91, 10, 0.25);
+}
+
+.fam-v2-pape-card h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fam-tee);
+  margin-bottom: 12px;
+}
+
+.fam-v2-pape-card p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #554038;
+  margin: 0;
+}
+
+.fam-v2-pape-highlight-card {
+  background: linear-gradient(135deg, var(--fam-ink) 0%, #3a1c12 100%);
+  color: var(--fam-cream);
+  border-radius: 28px;
+  padding: 44px 44px;
+  margin-top: 40px;
+  border: 2px solid var(--fam-tee);
+  box-shadow: var(--fam-shadow-card);
+}
+
+.fam-v2-pape-highlight-card h3 {
+  color: #ffffff;
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.fam-v2-pape-highlight-card p {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: rgba(255, 246, 238, 0.95);
+  margin: 0;
+}
+
+.fam-v2-pape-pagaille {
+  display: inline-block;
+  margin-top: 18px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--fam-tee);
+}
+
+/* ==========================================================================
+   PRIÈRE DU FAMISSIONNAIRE
+   ========================================================================== */
+.fam-v2-prayer-section {
+  padding: 120px 0;
+  background: #ffffff;
+  text-align: center;
+}
+
+.fam-v2-prayer-box {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--fam-cream);
+  border-radius: 36px;
+  padding: 56px 40px;
+  box-shadow: var(--fam-shadow-card);
+  border: 1px solid rgba(238, 91, 10, 0.15);
+}
+
+.fam-v2-prayer-logo {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 24px auto;
+}
+
+.fam-v2-prayer-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fam-v2-prayer-title {
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.fam-v2-prayer-sub {
+  font-size: 1.15rem;
+  color: #554038;
+  margin-bottom: 32px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .fam-v2-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .fam-v2-hero-rule {
+    margin: 0 auto 24px auto;
+  }
+  
+  .fam-v2-hero-sub {
+    margin: 0 auto 32px auto;
+  }
+  
+  .fam-v2-hero-actions {
+    justify-content: center;
+  }
+  
+  .fam-v2-hero-floating-badge {
+    left: 20px;
+    bottom: -15px;
+  }
+  
+  .fam-v2-story-grid,
+  .fam-v2-team-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  
+  .fam-v2-story-arch,
+  .fam-v2-team-arch {
+    margin: 0 auto;
+  }
+  
+  .fam-v2-practice-grid,
+  .fam-v2-pillars-grid,
+  .fam-v2-pillars-three,
+  .fam-v2-pape-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .fam-v2-hero {
+    padding: 35px 0 60px 0;
+    min-height: auto;
+  }
+  
+  .fam-v2-hero-arch-card {
+    height: 420px;
+    border-radius: 170px 170px 20px 20px;
+  }
+  
+  .fam-v2-hero-floating-badge {
+    display: none;
+  }
+  
+  .fam-v2-practice-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 18px;
+    padding-bottom: 15px;
+    margin: 0 -20px;
+    padding: 10px 20px 25px 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .fam-v2-practice-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .fam-v2-practice-card {
+    min-width: 85vw;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+  
+  .fam-v2-dots {
+    display: flex;
+  }
+  
+  .fam-v2-pillars-grid,
+  .fam-v2-pillars-three,
+  .fam-v2-pape-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fam-v2-story-section,
+  .fam-v2-video-section,
+  .fam-v2-bozo-section,
+  .fam-v2-practice-section,
+  .fam-v2-team-section,
+  .fam-v2-program-section,
+  .fam-v2-toussaint-section,
+  .fam-v2-pillars-section,
+  .fam-v2-after-section,
+  .fam-v2-priest-section,
+  .fam-v2-pape-section,
+  .fam-v2-prayer-section {
+    padding: 70px 0;
+  }
+  
+  .fam-v2-after-box,
+  .fam-v2-prayer-box,
+  .fam-v2-pape-highlight-card {
+    padding: 36px 22px;
+  }
+  
+  .fam-v2-modal-card {
+    border-radius: 20px;
+  }
+  
+  .fam-v2-modal-scroll-body {
+    padding: 24px 20px;
+  }
+  
+  .fam-v2-priest-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
