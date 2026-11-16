@@ -926,7 +926,12 @@ const Accueil = () => {
             font-weight: 500;
             color: #666;
             text-decoration: none;
+            background: none;
+            border: none;
             border-bottom: 1px dotted #ccc;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
             transition: color 0.2s, border-color 0.2s;
         }
         .fam-press-pill-link:hover {
@@ -948,67 +953,134 @@ const Accueil = () => {
             gap: 12px;
         }
 
-        /* Modal Vidéo */
+        /* Modal Documents & Vidéos (Très large, aéré, croix bien visible) */
         .fam-modal-overlay {
             position: fixed;
             inset: 0;
-            z-index: 99999;
-            background: rgba(0, 0, 0, 0.82);
+            z-index: 999999;
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px;
         }
         .fam-modal-container {
-            background: #111111;
+            background: #181818;
             border-radius: 20px;
-            max-width: 880px;
-            width: 100%;
+            width: min(96vw, 1320px);
+            height: 92vh;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: famModalIn 0.22s ease-out;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: famModalIn 0.2s ease-out;
         }
         @keyframes famModalIn {
-            from { opacity: 0; transform: scale(0.97) translateY(12px); }
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
             to   { opacity: 1; transform: scale(1) translateY(0); }
         }
         .fam-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 22px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 24px;
+            background: #202020;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        .fam-modal-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
         }
         .fam-modal-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .fam-modal-download-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--coral);
+            text-decoration: underline;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+        .fam-modal-download-link:hover {
+            color: #ffffff;
         }
         .fam-modal-close {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
+            background: #333333;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
             cursor: pointer;
-            padding: 6px;
-            border-radius: 8px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+        .fam-modal-close:hover {
+            background: var(--flame);
+            border-color: var(--flame);
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(200, 41, 4, 0.5);
+        }
+        .fam-modal-body {
+            flex: 1;
+            min-height: 0;
+            background: #0d0d0d;
+            overflow: auto;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
-        }
-        .fam-modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
         }
         .fam-modal-video {
             width: 100%;
-            display: block;
-            max-height: 75vh;
-            outline: none;
+            height: 100%;
+            max-height: 82vh;
+            object-fit: contain;
             background: #000;
+            outline: none;
+        }
+        .fam-modal-doc-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #525659;
+            display: block;
+        }
+        .fam-modal-img-wrap {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .fam-modal-img-wrap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            display: block;
+            margin: 0 auto;
         }
 
         @media (max-width: 1024px) {
@@ -1017,6 +1089,19 @@ const Accueil = () => {
             }
         }
         @media (max-width: 768px) {
+            .fam-modal-container {
+                width: 100vw;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                border: none;
+            }
+            .fam-modal-overlay {
+                padding: 0;
+            }
+            .fam-modal-header {
+                padding: 12px 16px;
+            }
             .fam-medias-section {
                 padding: 65px 5%;
             }
@@ -2037,7 +2122,7 @@ const Accueil = () => {
                                     onClick={() => setActiveVideoModal({
                                         title: 'France 3 — Famissio 2025',
                                         url: '/assets/Articles missions/France 3 - 2025.mp4',
-                                        isVideo: true
+                                        type: 'video'
                                     })}
                                 >
                                     <span>Voir le reportage</span>
@@ -2054,15 +2139,18 @@ const Accueil = () => {
                                 <p className="fam-press-title">
                                     En Creuse, la mission au rythme des familles et des paroissiens
                                 </p>
-                                <a
-                                    href="/assets/Articles%20missions/2024%2001%20Famille%20chr%C3%A9tienne.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button
+                                    type="button"
                                     className="fam-press-action"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'Famille Chrétienne — Famissio 2024',
+                                        url: '/assets/Articles missions/2024 01 Famille chrétienne.pdf',
+                                        type: 'pdf'
+                                    })}
                                 >
-                                    <span>Lire l'article (PDF)</span>
-                                    <ExternalLink className="w-3.5 h-3.5" />
-                                </a>
+                                    <span>Consulter l'article</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
                             </div>
 
                             {/* FRANCE CATHOLIQUE */}
@@ -2074,49 +2162,87 @@ const Accueil = () => {
                                 <p className="fam-press-title">
                                     Une présence rayonnante au chevet des clochers ruraux
                                 </p>
-                                <a
-                                    href="/assets/Articles%20missions/France%20Catholique%202025.webp"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button
+                                    type="button"
                                     className="fam-press-action"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'France Catholique — Famissio 2025',
+                                        url: '/assets/Articles missions/France Catholique 2025.webp',
+                                        type: 'image'
+                                    })}
                                 >
                                     <span>Consulter l'article</span>
-                                    <ExternalLink className="w-3.5 h-3.5" />
-                                </a>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
                             </div>
 
-                            {/* ALETEIA */}
+                            {/* LE SILLON LIMOUSIN */}
                             <div className="fam-press-card">
                                 <div className="fam-press-media">
-                                    <span className="fam-press-name">Aleteia</span>
-                                    <span className="fam-press-date">Reportage</span>
+                                    <span className="fam-press-name">Le Sillon Limousin</span>
+                                    <span className="fam-press-date">2025</span>
                                 </div>
                                 <p className="fam-press-title">
-                                    Dans l'Orne, la mission se vit aussi avec un verre de calva
+                                    Échos de la mission et des rencontres en Creuse
                                 </p>
-                                <a
-                                    href="https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button
+                                    type="button"
                                     className="fam-press-action"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'Le Sillon Limousin — Famissio 2025',
+                                        url: '/assets/Articles missions/Le Limousin 2025.webp',
+                                        type: 'image'
+                                    })}
                                 >
-                                    <span>Lire sur Aleteia</span>
-                                    <ExternalLink className="w-3.5 h-3.5" />
-                                </a>
+                                    <span>Consulter l'article</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
                             </div>
                         </div>
 
                         <div className="fam-press-footer">
                             <div className="fam-press-pills">
                                 <span className="fam-press-pills-label">Autres parutions :</span>
-                                <a href="/assets/Articles%20missions/Le%20Limousin%202025.png" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
-                                    Le Sillon Limousin (2025)
-                                </a>
-                                <a href="/assets/Articles%20missions/La%20Lozerre%20Nouvelle%202024.webp" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
+                                <button
+                                    type="button"
+                                    className="fam-press-pill-link"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'La Lozère Nouvelle — Famissio 2024',
+                                        url: '/assets/Articles missions/La Lozerre Nouvelle 2024.webp',
+                                        type: 'image'
+                                    })}
+                                >
                                     La Lozère Nouvelle (2024)
-                                </a>
-                                <a href="/assets/Articles%20missions/La%20Nef%20(%20page%2042)%20-%202021.webp" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
+                                </button>
+                                <button
+                                    type="button"
+                                    className="fam-press-pill-link"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'La Nef — Famissio 2021',
+                                        url: '/assets/Articles missions/La Nef ( page 42) - 2021.webp',
+                                        type: 'image'
+                                    })}
+                                >
                                     La Nef (2021)
+                                </button>
+                                <button
+                                    type="button"
+                                    className="fam-press-pill-link"
+                                    onClick={() => setActiveVideoModal({
+                                        title: 'Famille Chrétienne — Famissio 2023',
+                                        url: '/assets/Articles missions/2023 11 Famille chrétienne.pdf',
+                                        type: 'pdf'
+                                    })}
+                                >
+                                    Famille Chrétienne (2023)
+                                </button>
+                                <a
+                                    href="https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="fam-press-pill-link"
+                                >
+                                    Aleteia (2020) ↗
                                 </a>
                             </div>
                             <Link to="/missions#liste-missions" className="fam-press-all-link">
@@ -2128,30 +2254,64 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* MODAL VIDÉO FRANCE 3 */}
+            {/* MODAL MULTIMÉDIA (VIDÉO & DOCUMENTS) */}
             {activeVideoModal && (
                 <div
                     className="fam-modal-overlay"
                     onClick={() => setActiveVideoModal(null)}
                     role="dialog"
                     aria-modal="true"
+                    aria-label={activeVideoModal.title}
                 >
                     <div className="fam-modal-container" onClick={e => e.stopPropagation()}>
                         <div className="fam-modal-header">
-                            <span className="fam-modal-title">{activeVideoModal.title}</span>
+                            <div className="fam-modal-header-left">
+                                <span className="fam-modal-title">{activeVideoModal.title}</span>
+                                {activeVideoModal.type === 'pdf' && (
+                                    <a
+                                        href={activeVideoModal.url}
+                                        download
+                                        className="fam-modal-download-link"
+                                        onClick={e => e.stopPropagation()}
+                                    >
+                                        Télécharger le PDF
+                                    </a>
+                                )}
+                            </div>
                             <button
                                 type="button"
                                 className="fam-modal-close"
                                 onClick={() => setActiveVideoModal(null)}
-                                aria-label="Fermer la vidéo"
+                                aria-label="Fermer le document"
                             >
-                                <X className="w-5 h-5" />
+                                <span>Fermer</span>
+                                <X className="w-5 h-5 stroke-[2.5]" />
                             </button>
                         </div>
-                        {activeVideoModal.isVideo
-                            ? <video controls autoPlay playsInline className="fam-modal-video" src={activeVideoModal.url} />
-                            : <iframe src={activeVideoModal.url} title={activeVideoModal.title} allow="autoplay" allowFullScreen className="fam-modal-video" style={{ aspectRatio: '16/9' }} />
-                        }
+                        <div className="fam-modal-body">
+                            {activeVideoModal.type === 'video' || activeVideoModal.isVideo ? (
+                                <video
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    className="fam-modal-video"
+                                    src={activeVideoModal.url}
+                                />
+                            ) : activeVideoModal.type === 'image' ? (
+                                <div className="fam-modal-img-wrap">
+                                    <img
+                                        src={activeVideoModal.url}
+                                        alt={activeVideoModal.title}
+                                    />
+                                </div>
+                            ) : (
+                                <iframe
+                                    src={activeVideoModal.url}
+                                    title={activeVideoModal.title}
+                                    className="fam-modal-doc-frame"
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             )}
