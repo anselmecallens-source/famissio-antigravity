@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play } from 'lucide-react';
+import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play, Tv, FileText, ExternalLink, X, BookOpen, Sparkles } from 'lucide-react';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -87,6 +87,26 @@ const Accueil = () => {
     // State pour la section "6 Temps Forts"
     const [activeMission, setActiveMission] = useState(null);
     const missionModalTriggerRef = useRef(null);
+
+    // State pour le modal vidéo média (ex: reportage France 3)
+    const [activeVideoModal, setActiveVideoModal] = useState(null);
+
+    useEffect(() => {
+        if (!activeVideoModal) return undefined;
+        const body = document.body;
+        const prevOverflow = body.style.overflow;
+        body.style.overflow = 'hidden';
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setActiveVideoModal(null);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            body.style.overflow = prevOverflow;
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [activeVideoModal]);
 
     const openMission = (block, event) => {
         missionModalTriggerRef.current = event.currentTarget;
@@ -695,43 +715,105 @@ const Accueil = () => {
             color: #666;
         }
 
-        /* SECTION MONSEIGNEUR BOZO */
-        .bozo-section {
+        /* ==========================================================================
+           SECTION MÉDIAS & REPORTAGES (À VOIR & À LIRE)
+           ========================================================================== */
+        .medias-section {
             background: #ffffff;
             padding: 100px 5%;
             position: relative;
-            scroll-margin-top: 100px;
+            scroll-margin-top: 90px;
         }
-        .bozo-section .title {
-            font-size: clamp(2rem, 3.8vw, 3.4rem);
-            line-height: 1.25;
-        }
-        .bozo-rcf {
-            display: inline-block;
-            font-size: 0.72em;
-            font-weight: 600;
-            color: var(--flame);
-            margin-left: 8px;
-            white-space: nowrap;
-        }
-        .bozo-frame {
-            max-width: 900px;
+
+        .medias-container {
+            max-width: 1240px;
             margin: 0 auto;
-            padding: 24px;
-            background: var(--cream);
-            border-radius: 32px;
-            border: 1px solid rgba(200, 41, 4, 0.12);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
         }
-        .bozo-video-box {
+
+        /* SPOTLIGHT 2 VIDÉOS PHARES */
+        .medias-spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 36px;
+        }
+
+        .media-video-card {
+            background: var(--cream);
+            border: 1px solid rgba(200, 41, 4, 0.12);
+            border-radius: 30px;
+            padding: 24px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            scroll-margin-top: 120px;
+        }
+
+        .media-video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 55px rgba(200, 41, 4, 0.09);
+            border-color: rgba(200, 41, 4, 0.22);
+        }
+
+        .media-video-card.highlight {
+            border-color: rgba(200, 41, 4, 0.2);
+            box-shadow: 0 18px 50px rgba(200, 41, 4, 0.07);
+        }
+
+        .media-card-badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .media-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .media-badge-kto {
+            background: linear-gradient(135deg, #c82904, #e63946);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(200, 41, 4, 0.25);
+        }
+
+        .media-badge-rcf {
+            background: linear-gradient(135deg, #f46a07, #ff8b6b);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(244, 106, 7, 0.25);
+        }
+
+        .media-meta-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #666;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 4px 12px;
+            border-radius: 9999px;
+        }
+
+        .media-player-wrap {
             position: relative;
             padding-bottom: 56.25%;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            background: #000;
+            background: #000000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 22px;
         }
-        .bozo-video-box iframe {
+
+        .media-player-wrap iframe {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -739,16 +821,369 @@ const Accueil = () => {
             border: none;
             border-radius: inherit;
         }
+
+        .media-card-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .media-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .media-card-desc {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #555555;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .media-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 0.88rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .media-source {
+            color: #777777;
+            font-weight: 500;
+        }
+
+        .media-link-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--flame);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .media-link-btn:hover {
+            color: var(--ember);
+            text-decoration: underline;
+        }
+
+        /* SECTION PRESSE ET ARTICLES */
+        .media-press-block {
+            background: #faf7f5;
+            border: 1px solid rgba(200, 41, 4, 0.08);
+            border-radius: 32px;
+            padding: 40px;
+            margin-top: 8px;
+        }
+
+        .media-press-header {
+            margin-bottom: 30px;
+        }
+
+        .media-press-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .media-press-icon-pill {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--flame), var(--ember));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(200, 41, 4, 0.22);
+            flex-shrink: 0;
+        }
+
+        .media-press-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin: 0 0 4px 0;
+        }
+
+        .media-press-subtitle {
+            font-size: 0.95rem;
+            color: #666666;
+            margin: 0;
+        }
+
+        .media-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .media-article-card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .media-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(200, 41, 4, 0.09);
+            border-color: rgba(200, 41, 4, 0.2);
+        }
+
+        .media-article-tag-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 8px;
+        }
+
+        .article-badge {
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .badge-tv {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-press {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        .badge-mag {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-web {
+            background: #e0f2fe;
+            color: #075985;
+        }
+
+        .article-year {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #888888;
+            white-space: nowrap;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #222222;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .article-snippet {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #666666;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .article-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(200, 41, 4, 0.2);
+            background: #fff8f4;
+            color: var(--flame);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .article-action-btn:hover {
+            background: var(--flame);
+            color: #ffffff;
+            border-color: var(--flame);
+        }
+
+        .medias-banner-cta {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.07);
+        }
+
+        .medias-banner-cta-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .medias-banner-cta-text {
+            font-size: 0.95rem;
+            color: #555555;
+            margin: 0;
+            max-width: 720px;
+            line-height: 1.6;
+        }
+
+        .medias-banner-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--flame), var(--ember));
+            color: #ffffff;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(200, 41, 4, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .medias-banner-cta-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(200, 41, 4, 0.35);
+        }
+
+        /* MODALE VIDÉO */
+        .media-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .media-modal-container {
+            background: #111111;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .media-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .media-modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f1f1;
+            margin: 0;
+        }
+
+        .media-modal-close {
+            background: transparent;
+            border: none;
+            color: #aaaaaa;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .media-modal-close:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .media-modal-body {
+            position: relative;
+            width: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .media-modal-video {
+            width: 100%;
+            max-height: 75vh;
+            outline: none;
+        }
+
+        @media (max-width: 992px) {
+            .medias-spotlight-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .media-articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
-            .bozo-section {
+            .medias-section {
                 padding: 70px 5%;
             }
-            .bozo-frame {
-                padding: 16px;
+            .media-press-block {
+                padding: 24px 20px;
                 border-radius: 24px;
             }
-            .bozo-video-box {
-                border-radius: 14px;
+            .media-video-card {
+                padding: 18px;
+                border-radius: 22px;
+            }
+            .media-card-title {
+                font-size: 1.25rem;
+            }
+            .media-press-title {
+                font-size: 1.35rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .media-articles-grid {
+                grid-template-columns: 1fr;
+            }
+            .medias-banner-cta-button {
+                width: 100%;
+                justify-content: center;
             }
         }
 
@@ -1625,12 +2060,12 @@ const Accueil = () => {
                         <div className="highlight-box">
                             <p><strong>Famissio est alors née.</strong> Le père Jean-Pierre en devenait l'aumônier. Monseigneur Bozo acceptait de suivre cette initiative.</p>
                             <a
-                                href="#mgr-bozo"
+                                href="#medias-reportages"
                                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '16px', fontSize: '0.95rem', fontWeight: 600, color: 'var(--flame)', textDecoration: 'none' }}
                                 className="hover:underline"
                             >
                                 <Play className="w-4 h-4 fill-current" />
-                                <span>Voir le témoignage en vidéo de Monseigneur Bozo ↓</span>
+                                <span>Voir les reportages et le témoignage de Monseigneur Bozo ↓</span>
                             </a>
                         </div>
                     </div>
@@ -1651,26 +2086,218 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* MONSEIGNEUR BOZO */}
-            <section id="mgr-bozo" className="bozo-section">
+            {/* SECTION MÉDIAS & REPORTAGES (À VOIR & À LIRE) */}
+            <section id="medias-reportages" className="medias-section">
                 <div className="section-head">
-                    <h2 className="title">
-                        Monseigneur Bozo présente Famissio <span className="bozo-rcf">(sur RCF)</span>
-                    </h2>
+                    <div className="eyebrow" style={{ color: 'var(--ember)' }}>
+                        <Sparkles className="w-4 h-4 inline-block mr-1.5" />
+                        Pour aller plus loin
+                    </div>
+                    <h2 className="title">À voir & à lire : la mission en immersion</h2>
                     <p className="subtitle">
-                        Monseigneur Pierre-Antoine Bozo accompagne Famissio depuis sa 1<sup>e</sup> édition en 2019
+                        Reportages télévisés, témoignages d'évêques et articles de presse : plongez au cœur de l'aventure vécue par nos familles dans les villages et les paroisses rurales.
                     </p>
                 </div>
 
-                <div className="bozo-frame">
-                    <div className="bozo-video-box">
-                        <iframe
-                            src="https://www.youtube.com/embed/SskypDiEr0c?start=878"
-                            title="Monseigneur Bozo présente Famissio sur RCF"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            loading="lazy"
-                        ></iframe>
+                <div className="medias-container">
+                    {/* SPOTLIGHT 2 VIDÉOS PHARES */}
+                    <div className="medias-spotlight-grid">
+                        {/* 1ère VIDÉO : REPORTAGE KTO */}
+                        <div className="media-video-card highlight">
+                            <div className="media-card-badge-row">
+                                <span className="media-badge media-badge-kto">
+                                    <Tv className="w-4 h-4 inline-block mr-1.5" />
+                                    1<sup>er</sup> • Reportage TV KTO
+                                </span>
+                                <span className="media-meta-tag">13 min</span>
+                            </div>
+                            <div className="media-player-wrap">
+                                <iframe
+                                    src="https://www.youtube-nocookie.com/embed/t0MmGWRAkzE"
+                                    title="Reportage KTO - Famissio : la mission en famille au rythme des rencontres"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                            <div className="media-card-body">
+                                <h3 className="media-card-title">
+                                    Famissio : la mission en famille au rythme des rencontres
+                                </h3>
+                                <p className="media-card-desc">
+                                    Grand reportage diffusé sur KTO Télévision Catholique : partez en immersion avec les familles, parents, enfants et prêtres venus annoncer le Christ et vivre des rencontres inoubliables au cœur des clochers ruraux.
+                                </p>
+                                <div className="media-card-footer">
+                                    <span className="media-source">Diffusé sur KTO Télévision Catholique</span>
+                                    <a
+                                        href="https://youtu.be/t0MmGWRAkzE?si=4-wxg7N_2NtO9Gcc"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="media-link-btn"
+                                    >
+                                        <span>Ouvrir sur YouTube</span>
+                                        <ExternalLink className="w-3.5 h-3.5 inline-block ml-1" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 2ème VIDÉO : MONSEIGNEUR BOZO SUR RCF */}
+                        <div id="mgr-bozo" className="media-video-card">
+                            <div className="media-card-badge-row">
+                                <span className="media-badge media-badge-rcf">
+                                    <Play className="w-4 h-4 inline-block mr-1.5 fill-current" />
+                                    2<sup>e</sup> • Témoignage Évêque sur RCF
+                                </span>
+                                <span className="media-meta-tag">Évêque accompagnateur</span>
+                            </div>
+                            <div className="media-player-wrap">
+                                <iframe
+                                    src="https://www.youtube-nocookie.com/embed/SskypDiEr0c?start=878"
+                                    title="Monseigneur Bozo présente Famissio sur RCF"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                            <div className="media-card-body">
+                                <h3 className="media-card-title">
+                                    Monseigneur Bozo présente Famissio
+                                </h3>
+                                <p className="media-card-desc">
+                                    Évêque accompagnateur de Famissio depuis sa première édition en 2019, Monseigneur Pierre-Antoine Bozo témoigne sur les ondes de RCF de cette aventure spirituelle et du soutien précieux apporté aux curés de campagne.
+                                </p>
+                                <div className="media-card-footer">
+                                    <span className="media-source">Entretien RCF Radio</span>
+                                    <a
+                                        href="https://www.youtube.com/watch?v=SskypDiEr0c&t=878s"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="media-link-btn"
+                                    >
+                                        <span>Ouvrir sur YouTube</span>
+                                        <ExternalLink className="w-3.5 h-3.5 inline-block ml-1" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SECTION ARTICLES & DANS LA PRESSE */}
+                    <div className="media-press-block">
+                        <div className="media-press-header">
+                            <div className="media-press-title-wrap">
+                                <span className="media-press-icon-pill">
+                                    <BookOpen className="w-5 h-5 text-white" />
+                                </span>
+                                <div>
+                                    <h3 className="media-press-title">Dans la presse & reportages locaux</h3>
+                                    <p className="media-press-subtitle">Retrouvez les articles et reportages consacrés aux Famissionnaires sur le terrain</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="media-articles-grid">
+                            {/* 1. FRANCE 3 */}
+                            <div className="media-article-card">
+                                <div className="media-article-tag-row">
+                                    <span className="article-badge badge-tv">France 3 Régions</span>
+                                    <span className="article-year">Mission 2025</span>
+                                </div>
+                                <h4 className="article-title">Reportage JT : Les familles missionnaires au cœur de nos villages</h4>
+                                <p className="article-snippet">
+                                    Le journal télévisé de France 3 a suivi le rassemblement des 380 Famissionnaires et leur départ vers les paroisses du Limousin et de Charente.
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() => setActiveVideoModal({
+                                        title: "Reportage France 3 - Mission Famissio 2025",
+                                        url: "/assets/Articles missions/France 3 - 2025.mp4",
+                                        isVideoFile: true
+                                    })}
+                                    className="article-action-btn"
+                                >
+                                    <Play className="w-4 h-4 fill-current mr-1.5" />
+                                    <span>Visionner le reportage</span>
+                                </button>
+                            </div>
+
+                            {/* 2. FAMILLE CHRÉTIENNE */}
+                            <div className="media-article-card">
+                                <div className="media-article-tag-row">
+                                    <span className="article-badge badge-press">Famille Chrétienne</span>
+                                    <span className="article-year">Dossier Spécial</span>
+                                </div>
+                                <h4 className="article-title">« Les vacances missionnaires des familles chrétiennes »</h4>
+                                <p className="article-snippet">
+                                    Grand reportage de plusieurs pages sur la dynamique des familles missionnaires, le témoignage des enfants et l'accueil reçu dans les presbytères.
+                                </p>
+                                <a
+                                    href="/assets/Articles%20missions/2024%2001%20Famille%20chr%C3%A9tienne.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="article-action-btn"
+                                >
+                                    <FileText className="w-4 h-4 mr-1.5" />
+                                    <span>Lire le dossier (PDF)</span>
+                                </a>
+                            </div>
+
+                            {/* 3. FRANCE CATHOLIQUE */}
+                            <div className="media-article-card">
+                                <div className="media-article-tag-row">
+                                    <span className="article-badge badge-mag">France Catholique</span>
+                                    <span className="article-year">Édition Toussaint</span>
+                                </div>
+                                <h4 className="article-title">Quand la joie de l'Évangile réveille nos clochers</h4>
+                                <p className="article-snippet">
+                                    Article de fond sur l'impact pastoral de Famissio, les bénédictions de tracteurs et fermes, et la communion fraternelle avec les chrétiens locaux.
+                                </p>
+                                <a
+                                    href="/assets/Articles%20missions/France%20Catholique%202025.webp"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="article-action-btn"
+                                >
+                                    <FileText className="w-4 h-4 mr-1.5" />
+                                    <span>Consulter l'article</span>
+                                </a>
+                            </div>
+
+                            {/* 4. ALETEIA */}
+                            <div className="media-article-card">
+                                <div className="media-article-tag-row">
+                                    <span className="article-badge badge-web">Aleteia</span>
+                                    <span className="article-year">Reportage</span>
+                                </div>
+                                <h4 className="article-title">« Dans l'Orne, la mission se vit aussi avec un verre de calva »</h4>
+                                <p className="article-snippet">
+                                    Récit vivant et chaleureux des visites au porte-à-porte, où simplicité, écoute fraternelle et verres partagés ouvrent le dialogue sur la foi.
+                                </p>
+                                <a
+                                    href="https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="article-action-btn"
+                                >
+                                    <ExternalLink className="w-4 h-4 mr-1.5" />
+                                    <span>Lire sur Aleteia</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* BANNIÈRE LIEN MISSIONS */}
+                        <div className="medias-banner-cta">
+                            <div className="medias-banner-cta-content">
+                                <p className="medias-banner-cta-text">
+                                    <strong>Envie d'en voir plus ?</strong> Retrouvez les galeries photos, les vidéos rétrospectives et les articles de presse complets de chaque mission depuis 2019.
+                                </p>
+                                <Link to="/missions#liste-missions" className="medias-banner-cta-button">
+                                    <span>Explorer toutes nos missions</span>
+                                    <ArrowRight className="w-4 h-4" />
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2821,6 +3448,50 @@ const Accueil = () => {
                     <ArrowRight className="w-5 h-5 inline-block" />
                 </Link>
             </div>
+
+            {/* MODALE VISIONNAGE VIDÉO (FRANCE 3 OU AUTRES) */}
+            {activeVideoModal && (
+                <div
+                    className="media-modal-backdrop"
+                    onClick={() => setActiveVideoModal(null)}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={activeVideoModal.title}
+                >
+                    <div className="media-modal-container" onClick={(e) => e.stopPropagation()}>
+                        <div className="media-modal-header">
+                            <h3 className="media-modal-title">{activeVideoModal.title}</h3>
+                            <button
+                                type="button"
+                                onClick={() => setActiveVideoModal(null)}
+                                className="media-modal-close"
+                                aria-label="Fermer la vidéo"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                        </div>
+                        <div className="media-modal-body">
+                            {activeVideoModal.isVideoFile ? (
+                                <video
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    className="media-modal-video"
+                                    src={activeVideoModal.url}
+                                />
+                            ) : (
+                                <iframe
+                                    src={activeVideoModal.url}
+                                    title={activeVideoModal.title}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="media-modal-iframe"
+                                />
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div >
     );
 };
