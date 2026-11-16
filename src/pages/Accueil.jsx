@@ -1948,9 +1948,9 @@ const Accueil = () => {
             <section id="medias-reportages" className="fam-medias-section">
                 <div className="fam-medias-container">
                     <div className="section-head">
-                        <div className="eyebrow">Ils parlent de nous</div>
-                        <h2 className="title">La mission à travers les médias</h2>
-                        <p className="subtitle">Reportages vidéo et articles dans la presse : découvrez l'aventure Famissio racontée de l'intérieur.</p>
+                        <div className="eyebrow">À voir & à lire</div>
+                        <h2 className="title">Pour aller plus loin</h2>
+                        <p className="subtitle">Le reportage KTO en immersion avec les familles, l'entretien de Monseigneur Bozo et les articles parus dans la presse.</p>
                     </div>
 
                     {/* GRILLE VIDÉOS (KTO & MGR BOZO) */}
