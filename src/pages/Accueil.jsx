@@ -715,7 +715,7 @@ const Accueil = () => {
             color: #666;
         }
 
-        /* SECTION REPORTAGES & PRESSE (ILS PARLENT DE NOUS) */
+        /* SECTION REPORTAGES & PRESSE */
         .fam-medias-section {
             background: var(--off-white-warm);
             padding: 95px 5%;
@@ -725,42 +725,6 @@ const Accueil = () => {
         .fam-medias-container {
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        /* Badges de chaînes & médias */
-        .fam-media-badge-kto,
-        .fam-media-badge-rcf {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .kto-pill {
-            background: #d32f2f;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 0.76rem;
-            padding: 2px 7px;
-            border-radius: 4px;
-            letter-spacing: 0.04em;
-            line-height: 1.2;
-        }
-        .kto-sub,
-        .rcf-sub {
-            font-size: 0.74rem;
-            font-weight: 600;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-        .rcf-pill {
-            background: #0a3d62;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 0.76rem;
-            padding: 2px 7px;
-            border-radius: 4px;
-            letter-spacing: 0.04em;
-            line-height: 1.2;
         }
 
         /* Grille des 2 vidéos */
@@ -784,23 +748,6 @@ const Accueil = () => {
         .fam-video-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-        }
-        .fam-video-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-bottom: 2px;
-        }
-        .fam-video-tag {
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--ember);
-            background: rgba(244, 106, 7, 0.08);
-            padding: 3px 10px;
-            border-radius: 100px;
         }
         .fam-video-player {
             position: relative;
@@ -908,10 +855,14 @@ const Accueil = () => {
         }
         .fam-press-media {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             justify-content: space-between;
             gap: 8px;
-            min-height: 28px;
+        }
+        .fam-press-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--charcoal);
         }
         .fam-press-date {
             font-size: 0.72rem;
@@ -920,9 +871,9 @@ const Accueil = () => {
         }
         .fam-press-title {
             font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1.45;
-            color: var(--charcoal);
+            font-weight: 500;
+            line-height: 1.5;
+            color: #444;
             margin: 0;
             flex-grow: 1;
         }
@@ -945,60 +896,6 @@ const Accueil = () => {
         .fam-press-action:hover {
             gap: 9px;
             color: var(--ember);
-        }
-
-        /* Logos typographiques de presse */
-        .fam-press-logo-fr3 {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .fr3-box {
-            background: #002B7F;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 0.78rem;
-            padding: 2px 7px;
-            border-radius: 4px;
-            letter-spacing: 0.02em;
-            line-height: 1.1;
-            display: inline-flex;
-            align-items: center;
-            gap: 2px;
-        }
-        .fr3-box span {
-            font-weight: 400;
-            font-size: 0.68rem;
-            opacity: 0.9;
-        }
-        .fr3-region {
-            font-size: 0.74rem;
-            font-weight: 600;
-            color: #555;
-        }
-        .fam-press-logo-fc {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #c82904;
-            font-style: italic;
-            letter-spacing: -0.01em;
-        }
-        .fam-press-logo-fcat {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 700;
-            font-size: 0.86rem;
-            color: #1b3b6f;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-        }
-        .fam-press-logo-aleteia {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 0.88rem;
-            color: #9e1b32;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
         }
 
         .fam-press-footer {
@@ -2058,15 +1955,8 @@ const Accueil = () => {
 
                     {/* GRILLE VIDÉOS (KTO & MGR BOZO) */}
                     <div className="fam-videos-grid">
-                        {/* KTO TÉLÉVISION */}
+                        {/* REPORTAGE KTO */}
                         <div className="fam-video-card">
-                            <div className="fam-video-header">
-                                <div className="fam-media-badge-kto">
-                                    <span className="kto-pill">KTO</span>
-                                    <span className="kto-sub">Télévision Catholique</span>
-                                </div>
-                                <span className="fam-video-tag">Grand Format</span>
-                            </div>
                             <div className="fam-video-player">
                                 <iframe
                                     src="https://www.youtube-nocookie.com/embed/t0MmGWRAkzE"
@@ -2077,9 +1967,9 @@ const Accueil = () => {
                                 />
                             </div>
                             <div className="fam-video-info">
-                                <h3 className="fam-video-title">Famissio : la mission en famille au rythme des rencontres</h3>
+                                <h3 className="fam-video-title">Reportage KTO : la mission en famille</h3>
                                 <p className="fam-video-desc">
-                                    Grand reportage de KTO au cœur des villages : une immersion avec les familles venues annoncer la joie de l'Évangile et soutenir les paroisses rurales.
+                                    Une immersion auprès des familles missionnaires venues annoncer la joie de l'Évangile et soutenir les paroisses rurales.
                                 </p>
                                 <a
                                     href="https://youtu.be/t0MmGWRAkzE"
@@ -2087,25 +1977,18 @@ const Accueil = () => {
                                     rel="noopener noreferrer"
                                     className="fam-video-link"
                                 >
-                                    <span>Regarder sur YouTube</span>
+                                    <span>Voir sur YouTube</span>
                                     <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
                         </div>
 
-                        {/* MGR BOZO / RCF */}
+                        {/* MGR BOZO */}
                         <div id="mgr-bozo" className="fam-video-card">
-                            <div className="fam-video-header">
-                                <div className="fam-media-badge-rcf">
-                                    <span className="rcf-pill">RCF<span style={{ color: '#f46a07' }}>.</span></span>
-                                    <span className="rcf-sub">Radio Chrétienne</span>
-                                </div>
-                                <span className="fam-video-tag">Témoignage</span>
-                            </div>
                             <div className="fam-video-player">
                                 <iframe
                                     src="https://www.youtube-nocookie.com/embed/SskypDiEr0c?start=878"
-                                    title="Monseigneur Bozo présente Famissio sur RCF"
+                                    title="Monseigneur Bozo présente Famissio"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                     loading="lazy"
@@ -2114,7 +1997,7 @@ const Accueil = () => {
                             <div className="fam-video-info">
                                 <h3 className="fam-video-title">Monseigneur Bozo présente Famissio</h3>
                                 <p className="fam-video-desc">
-                                    Évêque accompagnateur depuis la première édition en 2019, Monseigneur Pierre-Antoine Bozo partage sur RCF son regard de pasteur sur cette aventure féconde.
+                                    Évêque accompagnateur depuis la première édition en 2019, Monseigneur Pierre-Antoine Bozo partage son témoignage sur l'aventure Famissio.
                                 </p>
                                 <a
                                     href="https://www.youtube.com/watch?v=SskypDiEr0c&t=878s"
@@ -2122,7 +2005,7 @@ const Accueil = () => {
                                     rel="noopener noreferrer"
                                     className="fam-video-link"
                                 >
-                                    <span>Regarder sur YouTube</span>
+                                    <span>Voir sur YouTube</span>
                                     <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
@@ -2134,7 +2017,7 @@ const Accueil = () => {
                         <div className="fam-press-top">
                             <div>
                                 <h3 className="fam-press-heading">La presse en parle</h3>
-                                <span className="fam-press-subline">Articles de presse, reportages télévisés et échos de nos missions</span>
+                                <span className="fam-press-subline">Articles et reportages consacrés à nos missions</span>
                             </div>
                         </div>
 
@@ -2142,14 +2025,11 @@ const Accueil = () => {
                             {/* FRANCE 3 */}
                             <div className="fam-press-card">
                                 <div className="fam-press-media">
-                                    <div className="fam-press-logo-fr3">
-                                        <span className="fr3-box"><span>france</span>•3</span>
-                                        <span className="fr3-region">Régions</span>
-                                    </div>
-                                    <span className="fam-press-date">JT 2025</span>
+                                    <span className="fam-press-name">France 3</span>
+                                    <span className="fam-press-date">2025</span>
                                 </div>
                                 <p className="fam-press-title">
-                                    « Des familles missionnaires s'installent une semaine au cœur des villages »
+                                    Des familles missionnaires au cœur des villages
                                 </p>
                                 <button
                                     type="button"
@@ -2160,7 +2040,7 @@ const Accueil = () => {
                                         isVideo: true
                                     })}
                                 >
-                                    <span>Visionner l'extrait</span>
+                                    <span>Voir le reportage</span>
                                     <Play className="w-3.5 h-3.5 fill-current" />
                                 </button>
                             </div>
@@ -2168,11 +2048,11 @@ const Accueil = () => {
                             {/* FAMILLE CHRÉTIENNE */}
                             <div className="fam-press-card">
                                 <div className="fam-press-media">
-                                    <span className="fam-press-logo-fc">Famille Chrétienne</span>
-                                    <span className="fam-press-date">Janv. 2024</span>
+                                    <span className="fam-press-name">Famille Chrétienne</span>
+                                    <span className="fam-press-date">2024</span>
                                 </div>
                                 <p className="fam-press-title">
-                                    « En Creuse, la mission au rythme des familles et des paroissiens »
+                                    En Creuse, la mission au rythme des familles et des paroissiens
                                 </p>
                                 <a
                                     href="/assets/Articles%20missions/2024%2001%20Famille%20chr%C3%A9tienne.pdf"
@@ -2188,11 +2068,11 @@ const Accueil = () => {
                             {/* FRANCE CATHOLIQUE */}
                             <div className="fam-press-card">
                                 <div className="fam-press-media">
-                                    <span className="fam-press-logo-fcat">France Catholique</span>
+                                    <span className="fam-press-name">France Catholique</span>
                                     <span className="fam-press-date">2025</span>
                                 </div>
                                 <p className="fam-press-title">
-                                    « Famissio : une présence rayonnante au chevet des clochers ruraux »
+                                    Une présence rayonnante au chevet des clochers ruraux
                                 </p>
                                 <a
                                     href="/assets/Articles%20missions/France%20Catholique%202025.webp"
@@ -2200,7 +2080,7 @@ const Accueil = () => {
                                     rel="noopener noreferrer"
                                     className="fam-press-action"
                                 >
-                                    <span>Consulter le dossier</span>
+                                    <span>Consulter l'article</span>
                                     <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
@@ -2208,11 +2088,11 @@ const Accueil = () => {
                             {/* ALETEIA */}
                             <div className="fam-press-card">
                                 <div className="fam-press-media">
-                                    <span className="fam-press-logo-aleteia">Aleteia</span>
-                                    <span className="fam-press-date">Diocèse de Séez</span>
+                                    <span className="fam-press-name">Aleteia</span>
+                                    <span className="fam-press-date">Reportage</span>
                                 </div>
                                 <p className="fam-press-title">
-                                    « Dans l'Orne, la mission se vit aussi avec un verre de calva »
+                                    Dans l'Orne, la mission se vit aussi avec un verre de calva
                                 </p>
                                 <a
                                     href="https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/"
