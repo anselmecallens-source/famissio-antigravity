@@ -1950,7 +1950,7 @@ const Accueil = () => {
                     <div className="section-head">
                         <div className="eyebrow">À voir & à lire</div>
                         <h2 className="title">Pour aller plus loin</h2>
-                        <p className="subtitle">Le reportage KTO en immersion avec les familles, l'entretien de Monseigneur Bozo et les articles parus dans la presse.</p>
+                        <p className="subtitle">Retrouvez les reportages, témoignages et articles consacrés à nos missions.</p>
                     </div>
 
                     {/* GRILLE VIDÉOS (KTO & MGR BOZO) */}
