@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play, Tv, FileText, ExternalLink, X, BookOpen, Sparkles } from 'lucide-react';
+import { HelpingHand, Calendar, MapPin, Church, Megaphone, Crown, ArrowRight, Play, ExternalLink, X } from 'lucide-react';
 import HeroCarousel from '../components/HeroCarousel';
 import MobileHeroV2 from '../components/MobileHeroV2';
 
@@ -715,475 +715,435 @@ const Accueil = () => {
             color: #666;
         }
 
-        /* ==========================================================================
-           SECTION MÉDIAS & REPORTAGES (À VOIR & À LIRE)
-           ========================================================================== */
-        .medias-section {
-            background: #ffffff;
-            padding: 100px 5%;
+        /* SECTION REPORTAGES & PRESSE (ILS PARLENT DE NOUS) */
+        .fam-medias-section {
+            background: var(--off-white-warm);
+            padding: 95px 5%;
+            scroll-margin-top: 80px;
             position: relative;
-            scroll-margin-top: 90px;
         }
-
-        .medias-container {
-            max-width: 1240px;
+        .fam-medias-container {
+            max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 48px;
         }
 
-        /* SPOTLIGHT 2 VIDÉOS PHARES */
-        .medias-spotlight-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 36px;
-        }
-
-        .media-video-card {
-            background: var(--cream);
-            border: 1px solid rgba(200, 41, 4, 0.12);
-            border-radius: 30px;
-            padding: 24px;
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            scroll-margin-top: 120px;
-        }
-
-        .media-video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 55px rgba(200, 41, 4, 0.09);
-            border-color: rgba(200, 41, 4, 0.22);
-        }
-
-        .media-video-card.highlight {
-            border-color: rgba(200, 41, 4, 0.2);
-            box-shadow: 0 18px 50px rgba(200, 41, 4, 0.07);
-        }
-
-        .media-card-badge-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .media-badge {
+        /* Badges de chaînes & médias */
+        .fam-media-badge-kto,
+        .fam-media-badge-rcf {
             display: inline-flex;
             align-items: center;
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
+            gap: 8px;
         }
-
-        .media-badge-kto {
-            background: linear-gradient(135deg, #c82904, #e63946);
+        .kto-pill {
+            background: #d32f2f;
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(200, 41, 4, 0.25);
+            font-weight: 800;
+            font-size: 0.76rem;
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
         }
-
-        .media-badge-rcf {
-            background: linear-gradient(135deg, #f46a07, #ff8b6b);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(244, 106, 7, 0.25);
-        }
-
-        .media-meta-tag {
-            font-size: 0.8rem;
+        .kto-sub,
+        .rcf-sub {
+            font-size: 0.74rem;
             font-weight: 600;
-            color: #666;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 4px 12px;
-            border-radius: 9999px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .rcf-pill {
+            background: #0a3d62;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.76rem;
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
         }
 
-        .media-player-wrap {
+        /* Grille des 2 vidéos */
+        .fam-videos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            margin-bottom: 50px;
+        }
+        .fam-video-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .fam-video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+        .fam-video-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 2px;
+        }
+        .fam-video-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ember);
+            background: rgba(244, 106, 7, 0.08);
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+        .fam-video-player {
             position: relative;
             padding-bottom: 56.25%;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            background: #000000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            margin-bottom: 22px;
+            background: #0f0f0f;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
-
-        .media-player-wrap iframe {
+        .fam-video-player iframe {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: inherit;
         }
-
-        .media-card-body {
+        .fam-video-info {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .media-card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.45rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .media-card-desc {
-            font-size: 0.98rem;
-            line-height: 1.7;
-            color: #555555;
-            margin-bottom: 22px;
-            flex-grow: 1;
-        }
-
-        .media-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            font-size: 0.88rem;
-            flex-wrap: wrap;
             gap: 10px;
+            flex-grow: 1;
         }
-
-        .media-source {
-            color: #777777;
-            font-weight: 500;
-        }
-
-        .media-link-btn {
-            display: inline-flex;
-            align-items: center;
-            color: var(--flame);
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .media-link-btn:hover {
-            color: var(--ember);
-            text-decoration: underline;
-        }
-
-        /* SECTION PRESSE ET ARTICLES */
-        .media-press-block {
-            background: #faf7f5;
-            border: 1px solid rgba(200, 41, 4, 0.08);
-            border-radius: 32px;
-            padding: 40px;
-            margin-top: 8px;
-        }
-
-        .media-press-header {
-            margin-bottom: 30px;
-        }
-
-        .media-press-title-wrap {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .media-press-icon-pill {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--flame), var(--ember));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(200, 41, 4, 0.22);
-            flex-shrink: 0;
-        }
-
-        .media-press-title {
+        .fam-video-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.65rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--charcoal);
-            margin: 0 0 4px 0;
-        }
-
-        .media-press-subtitle {
-            font-size: 0.95rem;
-            color: #666666;
+            line-height: 1.35;
             margin: 0;
         }
+        .fam-video-desc {
+            font-size: 0.92rem;
+            line-height: 1.65;
+            color: #666;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .fam-video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--flame);
+            text-decoration: none;
+            align-self: flex-start;
+            margin-top: 6px;
+            transition: gap 0.2s ease, color 0.2s ease;
+        }
+        .fam-video-link:hover {
+            gap: 10px;
+            color: var(--ember);
+        }
 
-        .media-articles-grid {
+        /* Revue de Presse */
+        .fam-press-wrapper {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 34px 30px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+        .fam-press-top {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+            padding-bottom: 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .fam-press-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin: 0;
+        }
+        .fam-press-subline {
+            font-size: 0.86rem;
+            color: #777;
+        }
+        .fam-press-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
-
-        .media-article-card {
-            background: #ffffff;
-            border-radius: 22px;
-            padding: 24px;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+        .fam-press-card {
+            background: var(--off-white-warm);
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            gap: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            text-align: left;
+            transition: all 0.2s ease;
         }
-
-        .media-article-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 35px rgba(200, 41, 4, 0.09);
-            border-color: rgba(200, 41, 4, 0.2);
+        .fam-press-card:hover {
+            background: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+            border-color: rgba(200, 41, 4, 0.15);
         }
-
-        .media-article-tag-row {
+        .fam-press-media {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            justify-content: space-between;
             gap: 8px;
+            min-height: 28px;
         }
-
-        .article-badge {
-            font-size: 0.74rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-
-        .badge-tv {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .badge-press {
-            background: #ffedd5;
-            color: #9a3412;
-        }
-
-        .badge-mag {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-web {
-            background: #e0f2fe;
-            color: #075985;
-        }
-
-        .article-year {
-            font-size: 0.78rem;
+        .fam-press-date {
+            font-size: 0.72rem;
             font-weight: 600;
-            color: #888888;
-            white-space: nowrap;
+            color: #888;
         }
-
-        .article-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #222222;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .article-snippet {
-            font-size: 0.88rem;
-            line-height: 1.6;
-            color: #666666;
-            margin-bottom: 22px;
+        .fam-press-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.45;
+            color: var(--charcoal);
+            margin: 0;
             flex-grow: 1;
         }
-
-        .article-action-btn {
+        .fam-press-action {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
+            gap: 6px;
+            font-size: 0.82rem;
             font-weight: 600;
-            text-decoration: none;
-            border: 1px solid rgba(200, 41, 4, 0.2);
-            background: #fff8f4;
             color: var(--flame);
-            transition: all 0.2s ease;
+            text-decoration: none;
+            background: none;
+            border: none;
+            padding: 0;
             cursor: pointer;
+            font-family: inherit;
+            margin-top: auto;
+            transition: gap 0.2s;
+        }
+        .fam-press-action:hover {
+            gap: 9px;
+            color: var(--ember);
         }
 
-        .article-action-btn:hover {
-            background: var(--flame);
+        /* Logos typographiques de presse */
+        .fam-press-logo-fr3 {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fr3-box {
+            background: #002B7F;
             color: #ffffff;
-            border-color: var(--flame);
+            font-weight: 800;
+            font-size: 0.78rem;
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .fr3-box span {
+            font-weight: 400;
+            font-size: 0.68rem;
+            opacity: 0.9;
+        }
+        .fr3-region {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #555;
+        }
+        .fam-press-logo-fc {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #c82904;
+            font-style: italic;
+            letter-spacing: -0.01em;
+        }
+        .fam-press-logo-fcat {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: 0.86rem;
+            color: #1b3b6f;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .fam-press-logo-aleteia {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 0.88rem;
+            color: #9e1b32;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .medias-banner-cta {
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(0, 0, 0, 0.07);
-        }
-
-        .medias-banner-cta-content {
+        .fam-press-footer {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .fam-press-pills {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             flex-wrap: wrap;
         }
-
-        .medias-banner-cta-text {
-            font-size: 0.95rem;
-            color: #555555;
-            margin: 0;
-            max-width: 720px;
-            line-height: 1.6;
+        .fam-press-pills-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #999;
         }
-
-        .medias-banner-cta-button {
+        .fam-press-pill-link {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+            border-bottom: 1px dotted #ccc;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .fam-press-pill-link:hover {
+            color: var(--flame);
+            border-bottom-color: var(--flame);
+        }
+        .fam-press-all-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, var(--flame), var(--ember));
-            color: #ffffff;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--charcoal);
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(200, 41, 4, 0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            white-space: nowrap;
+            transition: color 0.2s, gap 0.2s;
+        }
+        .fam-press-all-link:hover {
+            color: var(--flame);
+            gap: 12px;
         }
 
-        .medias-banner-cta-button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(200, 41, 4, 0.35);
-        }
-
-        /* MODALE VIDÉO */
-        .media-modal-backdrop {
+        /* Modal Vidéo */
+        .fam-modal-overlay {
             position: fixed;
             inset: 0;
             z-index: 99999;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.82);
             backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-
-        .media-modal-container {
+        .fam-modal-container {
             background: #111111;
-            border-radius: 24px;
-            max-width: 900px;
+            border-radius: 20px;
+            max-width: 880px;
             width: 100%;
             overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            animation: modalFadeIn 0.25s ease-out;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: famModalIn 0.22s ease-out;
         }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes famModalIn {
+            from { opacity: 0; transform: scale(0.97) translateY(12px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        .media-modal-header {
+        .fam-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            padding: 16px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        .media-modal-title {
-            font-size: 1.1rem;
+        .fam-modal-title {
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #f1f1f1;
+            color: rgba(255, 255, 255, 0.9);
             margin: 0;
         }
-
-        .media-modal-close {
-            background: transparent;
+        .fam-modal-close {
+            background: rgba(255, 255, 255, 0.08);
             border: none;
-            color: #aaaaaa;
+            color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            transition: color 0.2s;
-            padding: 4px;
+            padding: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            transition: all 0.2s;
         }
-
-        .media-modal-close:hover {
+        .fam-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
         }
-
-        .media-modal-body {
-            position: relative;
+        .fam-modal-video {
             width: 100%;
-            background: #000000;
-            display: flex;
-            justify-content: center;
-        }
-
-        .media-modal-video {
-            width: 100%;
+            display: block;
             max-height: 75vh;
             outline: none;
+            background: #000;
         }
 
-        @media (max-width: 992px) {
-            .medias-spotlight-grid {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-            .media-articles-grid {
+        @media (max-width: 1024px) {
+            .fam-press-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
         @media (max-width: 768px) {
-            .medias-section {
-                padding: 70px 5%;
+            .fam-medias-section {
+                padding: 65px 5%;
             }
-            .media-press-block {
-                padding: 24px 20px;
-                border-radius: 24px;
-            }
-            .media-video-card {
-                padding: 18px;
-                border-radius: 22px;
-            }
-            .media-card-title {
-                font-size: 1.25rem;
-            }
-            .media-press-title {
-                font-size: 1.35rem;
-            }
-        }
-
-        @media (max-width: 580px) {
-            .media-articles-grid {
+            .fam-videos-grid {
                 grid-template-columns: 1fr;
+                gap: 28px;
+                margin-bottom: 35px;
             }
-            .medias-banner-cta-button {
-                width: 100%;
-                justify-content: center;
+            .fam-video-card {
+                padding: 18px;
+                border-radius: 20px;
+            }
+            .fam-press-wrapper {
+                padding: 24px 18px;
+                border-radius: 20px;
+            }
+            .fam-press-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .fam-press-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
             }
         }
 
@@ -2086,223 +2046,235 @@ const Accueil = () => {
                 </div>
             </section>
 
-            {/* SECTION MÉDIAS & REPORTAGES (À VOIR & À LIRE) */}
-            <section id="medias-reportages" className="medias-section">
-                <div className="section-head">
-                    <div className="eyebrow" style={{ color: 'var(--ember)' }}>
-                        <Sparkles className="w-4 h-4 inline-block mr-1.5" />
-                        Pour aller plus loin
-                    </div>
-                    <h2 className="title">À voir & à lire : la mission en immersion</h2>
-                    <p className="subtitle">
-                        Reportages télévisés, témoignages d'évêques et articles de presse : plongez au cœur de l'aventure vécue par nos familles dans les villages et les paroisses rurales.
-                    </p>
-                </div>
 
-                <div className="medias-container">
-                    {/* SPOTLIGHT 2 VIDÉOS PHARES */}
-                    <div className="medias-spotlight-grid">
-                        {/* 1ère VIDÉO : REPORTAGE KTO */}
-                        <div className="media-video-card highlight">
-                            <div className="media-card-badge-row">
-                                <span className="media-badge media-badge-kto">
-                                    <Tv className="w-4 h-4 inline-block mr-1.5" />
-                                    1<sup>er</sup> • Reportage TV KTO
-                                </span>
-                                <span className="media-meta-tag">13 min</span>
+            {/* REPORTAGES & PRESSE */}
+            <section id="medias-reportages" className="fam-medias-section">
+                <div className="fam-medias-container">
+                    <div className="section-head">
+                        <div className="eyebrow">Ils parlent de nous</div>
+                        <h2 className="title">La mission à travers les médias</h2>
+                        <p className="subtitle">Reportages vidéo et articles dans la presse : découvrez l'aventure Famissio racontée de l'intérieur.</p>
+                    </div>
+
+                    {/* GRILLE VIDÉOS (KTO & MGR BOZO) */}
+                    <div className="fam-videos-grid">
+                        {/* KTO TÉLÉVISION */}
+                        <div className="fam-video-card">
+                            <div className="fam-video-header">
+                                <div className="fam-media-badge-kto">
+                                    <span className="kto-pill">KTO</span>
+                                    <span className="kto-sub">Télévision Catholique</span>
+                                </div>
+                                <span className="fam-video-tag">Grand Format</span>
                             </div>
-                            <div className="media-player-wrap">
+                            <div className="fam-video-player">
                                 <iframe
                                     src="https://www.youtube-nocookie.com/embed/t0MmGWRAkzE"
-                                    title="Reportage KTO - Famissio : la mission en famille au rythme des rencontres"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    title="Famissio : la mission en famille — Reportage KTO"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                     loading="lazy"
-                                ></iframe>
+                                />
                             </div>
-                            <div className="media-card-body">
-                                <h3 className="media-card-title">
-                                    Famissio : la mission en famille au rythme des rencontres
-                                </h3>
-                                <p className="media-card-desc">
-                                    Grand reportage diffusé sur KTO Télévision Catholique : partez en immersion avec les familles, parents, enfants et prêtres venus annoncer le Christ et vivre des rencontres inoubliables au cœur des clochers ruraux.
+                            <div className="fam-video-info">
+                                <h3 className="fam-video-title">Famissio : la mission en famille au rythme des rencontres</h3>
+                                <p className="fam-video-desc">
+                                    Grand reportage de KTO au cœur des villages : une immersion avec les familles venues annoncer la joie de l'Évangile et soutenir les paroisses rurales.
                                 </p>
-                                <div className="media-card-footer">
-                                    <span className="media-source">Diffusé sur KTO Télévision Catholique</span>
-                                    <a
-                                        href="https://youtu.be/t0MmGWRAkzE?si=4-wxg7N_2NtO9Gcc"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="media-link-btn"
-                                    >
-                                        <span>Ouvrir sur YouTube</span>
-                                        <ExternalLink className="w-3.5 h-3.5 inline-block ml-1" />
-                                    </a>
-                                </div>
+                                <a
+                                    href="https://youtu.be/t0MmGWRAkzE"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="fam-video-link"
+                                >
+                                    <span>Regarder sur YouTube</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                </a>
                             </div>
                         </div>
 
-                        {/* 2ème VIDÉO : MONSEIGNEUR BOZO SUR RCF */}
-                        <div id="mgr-bozo" className="media-video-card">
-                            <div className="media-card-badge-row">
-                                <span className="media-badge media-badge-rcf">
-                                    <Play className="w-4 h-4 inline-block mr-1.5 fill-current" />
-                                    2<sup>e</sup> • Témoignage Évêque sur RCF
-                                </span>
-                                <span className="media-meta-tag">Évêque accompagnateur</span>
+                        {/* MGR BOZO / RCF */}
+                        <div id="mgr-bozo" className="fam-video-card">
+                            <div className="fam-video-header">
+                                <div className="fam-media-badge-rcf">
+                                    <span className="rcf-pill">RCF<span style={{ color: '#f46a07' }}>.</span></span>
+                                    <span className="rcf-sub">Radio Chrétienne</span>
+                                </div>
+                                <span className="fam-video-tag">Témoignage</span>
                             </div>
-                            <div className="media-player-wrap">
+                            <div className="fam-video-player">
                                 <iframe
                                     src="https://www.youtube-nocookie.com/embed/SskypDiEr0c?start=878"
                                     title="Monseigneur Bozo présente Famissio sur RCF"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                     loading="lazy"
-                                ></iframe>
+                                />
                             </div>
-                            <div className="media-card-body">
-                                <h3 className="media-card-title">
-                                    Monseigneur Bozo présente Famissio
-                                </h3>
-                                <p className="media-card-desc">
-                                    Évêque accompagnateur de Famissio depuis sa première édition en 2019, Monseigneur Pierre-Antoine Bozo témoigne sur les ondes de RCF de cette aventure spirituelle et du soutien précieux apporté aux curés de campagne.
+                            <div className="fam-video-info">
+                                <h3 className="fam-video-title">Monseigneur Bozo présente Famissio</h3>
+                                <p className="fam-video-desc">
+                                    Évêque accompagnateur depuis la première édition en 2019, Monseigneur Pierre-Antoine Bozo partage sur RCF son regard de pasteur sur cette aventure féconde.
                                 </p>
-                                <div className="media-card-footer">
-                                    <span className="media-source">Entretien RCF Radio</span>
-                                    <a
-                                        href="https://www.youtube.com/watch?v=SskypDiEr0c&t=878s"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="media-link-btn"
-                                    >
-                                        <span>Ouvrir sur YouTube</span>
-                                        <ExternalLink className="w-3.5 h-3.5 inline-block ml-1" />
-                                    </a>
-                                </div>
+                                <a
+                                    href="https://www.youtube.com/watch?v=SskypDiEr0c&t=878s"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="fam-video-link"
+                                >
+                                    <span>Regarder sur YouTube</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    {/* SECTION ARTICLES & DANS LA PRESSE */}
-                    <div className="media-press-block">
-                        <div className="media-press-header">
-                            <div className="media-press-title-wrap">
-                                <span className="media-press-icon-pill">
-                                    <BookOpen className="w-5 h-5 text-white" />
-                                </span>
-                                <div>
-                                    <h3 className="media-press-title">Dans la presse & reportages locaux</h3>
-                                    <p className="media-press-subtitle">Retrouvez les articles et reportages consacrés aux Famissionnaires sur le terrain</p>
-                                </div>
+                    {/* REVUE DE PRESSE */}
+                    <div className="fam-press-wrapper">
+                        <div className="fam-press-top">
+                            <div>
+                                <h3 className="fam-press-heading">La presse en parle</h3>
+                                <span className="fam-press-subline">Articles de presse, reportages télévisés et échos de nos missions</span>
                             </div>
                         </div>
 
-                        <div className="media-articles-grid">
-                            {/* 1. FRANCE 3 */}
-                            <div className="media-article-card">
-                                <div className="media-article-tag-row">
-                                    <span className="article-badge badge-tv">France 3 Régions</span>
-                                    <span className="article-year">Mission 2025</span>
+                        <div className="fam-press-grid">
+                            {/* FRANCE 3 */}
+                            <div className="fam-press-card">
+                                <div className="fam-press-media">
+                                    <div className="fam-press-logo-fr3">
+                                        <span className="fr3-box"><span>france</span>•3</span>
+                                        <span className="fr3-region">Régions</span>
+                                    </div>
+                                    <span className="fam-press-date">JT 2025</span>
                                 </div>
-                                <h4 className="article-title">Reportage JT : Les familles missionnaires au cœur de nos villages</h4>
-                                <p className="article-snippet">
-                                    Le journal télévisé de France 3 a suivi le rassemblement des 380 Famissionnaires et leur départ vers les paroisses du Limousin et de Charente.
+                                <p className="fam-press-title">
+                                    « Des familles missionnaires s'installent une semaine au cœur des villages »
                                 </p>
                                 <button
                                     type="button"
+                                    className="fam-press-action"
                                     onClick={() => setActiveVideoModal({
-                                        title: "Reportage France 3 - Mission Famissio 2025",
-                                        url: "/assets/Articles missions/France 3 - 2025.mp4",
-                                        isVideoFile: true
+                                        title: 'France 3 — Famissio 2025',
+                                        url: '/assets/Articles missions/France 3 - 2025.mp4',
+                                        isVideo: true
                                     })}
-                                    className="article-action-btn"
                                 >
-                                    <Play className="w-4 h-4 fill-current mr-1.5" />
-                                    <span>Visionner le reportage</span>
+                                    <span>Visionner l'extrait</span>
+                                    <Play className="w-3.5 h-3.5 fill-current" />
                                 </button>
                             </div>
 
-                            {/* 2. FAMILLE CHRÉTIENNE */}
-                            <div className="media-article-card">
-                                <div className="media-article-tag-row">
-                                    <span className="article-badge badge-press">Famille Chrétienne</span>
-                                    <span className="article-year">Dossier Spécial</span>
+                            {/* FAMILLE CHRÉTIENNE */}
+                            <div className="fam-press-card">
+                                <div className="fam-press-media">
+                                    <span className="fam-press-logo-fc">Famille Chrétienne</span>
+                                    <span className="fam-press-date">Janv. 2024</span>
                                 </div>
-                                <h4 className="article-title">« Les vacances missionnaires des familles chrétiennes »</h4>
-                                <p className="article-snippet">
-                                    Grand reportage de plusieurs pages sur la dynamique des familles missionnaires, le témoignage des enfants et l'accueil reçu dans les presbytères.
+                                <p className="fam-press-title">
+                                    « En Creuse, la mission au rythme des familles et des paroissiens »
                                 </p>
                                 <a
                                     href="/assets/Articles%20missions/2024%2001%20Famille%20chr%C3%A9tienne.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="article-action-btn"
+                                    className="fam-press-action"
                                 >
-                                    <FileText className="w-4 h-4 mr-1.5" />
-                                    <span>Lire le dossier (PDF)</span>
+                                    <span>Lire l'article (PDF)</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
 
-                            {/* 3. FRANCE CATHOLIQUE */}
-                            <div className="media-article-card">
-                                <div className="media-article-tag-row">
-                                    <span className="article-badge badge-mag">France Catholique</span>
-                                    <span className="article-year">Édition Toussaint</span>
+                            {/* FRANCE CATHOLIQUE */}
+                            <div className="fam-press-card">
+                                <div className="fam-press-media">
+                                    <span className="fam-press-logo-fcat">France Catholique</span>
+                                    <span className="fam-press-date">2025</span>
                                 </div>
-                                <h4 className="article-title">Quand la joie de l'Évangile réveille nos clochers</h4>
-                                <p className="article-snippet">
-                                    Article de fond sur l'impact pastoral de Famissio, les bénédictions de tracteurs et fermes, et la communion fraternelle avec les chrétiens locaux.
+                                <p className="fam-press-title">
+                                    « Famissio : une présence rayonnante au chevet des clochers ruraux »
                                 </p>
                                 <a
                                     href="/assets/Articles%20missions/France%20Catholique%202025.webp"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="article-action-btn"
+                                    className="fam-press-action"
                                 >
-                                    <FileText className="w-4 h-4 mr-1.5" />
-                                    <span>Consulter l'article</span>
+                                    <span>Consulter le dossier</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
 
-                            {/* 4. ALETEIA */}
-                            <div className="media-article-card">
-                                <div className="media-article-tag-row">
-                                    <span className="article-badge badge-web">Aleteia</span>
-                                    <span className="article-year">Reportage</span>
+                            {/* ALETEIA */}
+                            <div className="fam-press-card">
+                                <div className="fam-press-media">
+                                    <span className="fam-press-logo-aleteia">Aleteia</span>
+                                    <span className="fam-press-date">Diocèse de Séez</span>
                                 </div>
-                                <h4 className="article-title">« Dans l'Orne, la mission se vit aussi avec un verre de calva »</h4>
-                                <p className="article-snippet">
-                                    Récit vivant et chaleureux des visites au porte-à-porte, où simplicité, écoute fraternelle et verres partagés ouvrent le dialogue sur la foi.
+                                <p className="fam-press-title">
+                                    « Dans l'Orne, la mission se vit aussi avec un verre de calva »
                                 </p>
                                 <a
                                     href="https://fr.aleteia.org/2020/11/12/dans-lorne-la-mission-se-vit-aussi-avec-un-verre-de-calva/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="article-action-btn"
+                                    className="fam-press-action"
                                 >
-                                    <ExternalLink className="w-4 h-4 mr-1.5" />
                                     <span>Lire sur Aleteia</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                             </div>
                         </div>
 
-                        {/* BANNIÈRE LIEN MISSIONS */}
-                        <div className="medias-banner-cta">
-                            <div className="medias-banner-cta-content">
-                                <p className="medias-banner-cta-text">
-                                    <strong>Envie d'en voir plus ?</strong> Retrouvez les galeries photos, les vidéos rétrospectives et les articles de presse complets de chaque mission depuis 2019.
-                                </p>
-                                <Link to="/missions#liste-missions" className="medias-banner-cta-button">
-                                    <span>Explorer toutes nos missions</span>
-                                    <ArrowRight className="w-4 h-4" />
-                                </Link>
+                        <div className="fam-press-footer">
+                            <div className="fam-press-pills">
+                                <span className="fam-press-pills-label">Autres parutions :</span>
+                                <a href="/assets/Articles%20missions/Le%20Limousin%202025.png" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
+                                    Le Sillon Limousin (2025)
+                                </a>
+                                <a href="/assets/Articles%20missions/La%20Lozerre%20Nouvelle%202024.webp" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
+                                    La Lozère Nouvelle (2024)
+                                </a>
+                                <a href="/assets/Articles%20missions/La%20Nef%20(%20page%2042)%20-%202021.webp" target="_blank" rel="noopener noreferrer" className="fam-press-pill-link">
+                                    La Nef (2021)
+                                </a>
                             </div>
+                            <Link to="/missions#liste-missions" className="fam-press-all-link">
+                                <span>Consulter toutes les revues de presse par mission</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
                         </div>
                     </div>
                 </div>
             </section>
 
-
+            {/* MODAL VIDÉO FRANCE 3 */}
+            {activeVideoModal && (
+                <div
+                    className="fam-modal-overlay"
+                    onClick={() => setActiveVideoModal(null)}
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <div className="fam-modal-container" onClick={e => e.stopPropagation()}>
+                        <div className="fam-modal-header">
+                            <span className="fam-modal-title">{activeVideoModal.title}</span>
+                            <button
+                                type="button"
+                                className="fam-modal-close"
+                                onClick={() => setActiveVideoModal(null)}
+                                aria-label="Fermer la vidéo"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+                        {activeVideoModal.isVideo
+                            ? <video controls autoPlay playsInline className="fam-modal-video" src={activeVideoModal.url} />
+                            : <iframe src={activeVideoModal.url} title={activeVideoModal.title} allow="autoplay" allowFullScreen className="fam-modal-video" style={{ aspectRatio: '16/9' }} />
+                        }
+                    </div>
+                </div>
+            )}
 
             {/* LA MISSION EN PRATIQUE (SECTION GRISE AVEC TRIANGLE HAUT) */}
             <section id="mission" className="mission-section-gray">
@@ -3448,50 +3420,6 @@ const Accueil = () => {
                     <ArrowRight className="w-5 h-5 inline-block" />
                 </Link>
             </div>
-
-            {/* MODALE VISIONNAGE VIDÉO (FRANCE 3 OU AUTRES) */}
-            {activeVideoModal && (
-                <div
-                    className="media-modal-backdrop"
-                    onClick={() => setActiveVideoModal(null)}
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label={activeVideoModal.title}
-                >
-                    <div className="media-modal-container" onClick={(e) => e.stopPropagation()}>
-                        <div className="media-modal-header">
-                            <h3 className="media-modal-title">{activeVideoModal.title}</h3>
-                            <button
-                                type="button"
-                                onClick={() => setActiveVideoModal(null)}
-                                className="media-modal-close"
-                                aria-label="Fermer la vidéo"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-                        <div className="media-modal-body">
-                            {activeVideoModal.isVideoFile ? (
-                                <video
-                                    controls
-                                    autoPlay
-                                    playsInline
-                                    className="media-modal-video"
-                                    src={activeVideoModal.url}
-                                />
-                            ) : (
-                                <iframe
-                                    src={activeVideoModal.url}
-                                    title={activeVideoModal.title}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    className="media-modal-iframe"
-                                />
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div >
     );
 };
