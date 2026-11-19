@@ -1,30 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ANNOUNCED_MISSION } from '../data/announcedMission';
+import MissionsFranceMap from '../components/MissionsFranceMap';
+import '../components/MissionsFranceMap.css';
 
 // ─── Composant Prochaine Mission (DA Famissio, pleine largeur & animations) ──
-function ProchaineMissionSection() {
+function ProchaineMissionSection({ missions, onOpenMission }) {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const datesRef = useRef(null);
   const mapRef = useRef(null);
   const charsRef = useRef([]);
   const blobsRef = useRef([]);
-
-  // Injection Datawrapper embed script
-  useEffect(() => {
-    const container = document.getElementById('datawrapper-vis-otsD1');
-    if (!container) return;
-    if (container.querySelector('iframe') || document.getElementById('dw-script-otsD1')) return;
-
-    const s = document.createElement('script');
-    s.id = 'dw-script-otsD1';
-    s.src = 'https://datawrapper.dwcdn.net/otsD1/embed.js';
-    s.charset = 'utf-8';
-    s.defer = true;
-    s.setAttribute('data-target', '#datawrapper-vis-otsD1');
-    container.appendChild(s);
-  }, []);
 
   // Découpage du titre en lettres pour l'animation au hover & entrée
   useEffect(() => {
@@ -170,34 +158,32 @@ function ProchaineMissionSection() {
         {/* Surtitre éditorial épuré */}
         <div className="pm-eyebrow">
           <span className="pm-eyebrow-line" aria-hidden="true" />
-          <span className="pm-eyebrow-text">Prochaine mission · 2027</span>
+          <span className="pm-eyebrow-text">Prochaine mission · {ANNOUNCED_MISSION.year}</span>
           <span className="pm-eyebrow-line" aria-hidden="true" />
         </div>
 
         {/* Grand titre expressif */}
-        <h2 ref={titleRef} className="pm-title" aria-label="Laval nous accueille.">
-          <span className="ln" data-text="Laval">Laval</span>
-          <span className="ln" data-text="nous accueille.">nous accueille.</span>
+        <h2 ref={titleRef} className="pm-title" aria-label={`${ANNOUNCED_MISSION.place} ${ANNOUNCED_MISSION.titleLine}`}>
+          <span className="ln" data-text={ANNOUNCED_MISSION.place}>{ANNOUNCED_MISSION.place}</span>
+          <span className="ln" data-text={ANNOUNCED_MISSION.titleLine}>{ANNOUNCED_MISSION.titleLine}</span>
         </h2>
 
         {/* Info date & localisation */}
         <div className="pm-meta-bar">
           <div className="pm-meta-item">
             <Calendar size={18} className="pm-meta-icon" />
-            <span className="pm-meta-strong">30 octobre – 5 novembre</span>
+            <span className="pm-meta-strong">{ANNOUNCED_MISSION.dates}</span>
           </div>
           <span className="pm-meta-sep">·</span>
           <div className="pm-meta-item">
             <MapPin size={18} className="pm-meta-icon" />
-            <span>Diocèse de Laval (Mayenne)</span>
+            <span>{ANNOUNCED_MISSION.diocese}</span>
           </div>
         </div>
 
         {/* Texte d'annonce fort et aéré */}
         <p className="pm-description">
-          Pendant une semaine, des familles et des jeunes venus de toute la France se rassemblent en Mayenne au service
-          des paroisses locales. Une mission diocésaine vivante et fraternelle pour aller à la rencontre des habitants,
-          prier avec les communautés et témoigner ensemble de la joie de l'Évangile.
+          {ANNOUNCED_MISSION.description}
         </p>
 
         {/* CARTE PLEINE LARGEUR (sans superposition, espace dédié généreux) */}
@@ -206,17 +192,13 @@ function ProchaineMissionSection() {
             <div className="pm-map-header">
               <div className="pm-map-title-group">
                 <span className="pm-map-indicator" />
-                <span className="pm-map-header-title">Territoire de mission · Diocèse de Laval</span>
+                <span className="pm-map-header-title">{ANNOUNCED_MISSION.mapLabel}</span>
               </div>
-              <span className="pm-map-tag">Mayenne (53)</span>
+              <span className="pm-map-tag">{ANNOUNCED_MISSION.territory}</span>
             </div>
 
             <div className="pm-map-embed">
-              <div style={{ minHeight: '587px' }} id="datawrapper-vis-otsD1">
-                <noscript>
-                  <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
-                </noscript>
-              </div>
+              <MissionsFranceMap missions={missions} onOpenMission={onOpenMission} />
             </div>
           </div>
         </div>
@@ -909,7 +891,7 @@ const MissionsPage = () => {
       <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50" />
 
       {/* ══════════ PROCHAINE MISSION ══════════ */}
-      <ProchaineMissionSection />
+      <ProchaineMissionSection missions={missions} onOpenMission={handleOpenMission} />
 
       {/* ══════════ GALERIE ══════════ */}
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-16">
