@@ -24,12 +24,12 @@
 .mission-fr-map__department.is-visited { fill: var(--map-visited); }
 .mission-fr-map__department.is-year { fill: var(--map-current-dark); }
 .mission-fr-map__department.is-announced { fill: var(--map-current); }
-.mission-fr-map__department:hover, .mission-fr-map__department:focus-visible, .mission-fr-map__department.is-active { fill: #c34213; stroke: #fff; stroke-width: .4; filter: drop-shadow(0 2px 3px rgba(91, 45, 22, .26)); transform: scale(1.12); outline: none; }
-.mission-fr-map__department.is-announced { stroke: #fff; stroke-width: .33; filter: drop-shadow(0 0 5px rgba(244, 106, 7, .5)) drop-shadow(0 3px 4px rgba(91, 45, 22, .2)); transform: scale(1.18); }
-.mission-fr-map__department.is-announced:hover, .mission-fr-map__department.is-announced:focus-visible, .mission-fr-map__department.is-announced.is-active { fill: #d85406; stroke-width: .48; filter: drop-shadow(0 0 8px rgba(244, 106, 7, .62)) drop-shadow(0 4px 5px rgba(91, 45, 22, .23)); transform: scale(1.29); }
+.mission-fr-map__department:hover, .mission-fr-map__department:focus-visible, .mission-fr-map__department.is-active { fill: #c34213; stroke: #fff; stroke-width: .48; transform: scale(1.1); outline: none; }
+.mission-fr-map__department.is-announced { stroke: #fff; stroke-width: .42; transform: scale(1.16); }
+.mission-fr-map__department.is-announced:hover, .mission-fr-map__department.is-announced:focus-visible, .mission-fr-map__department.is-announced.is-active { fill: #d85406; stroke: #fff; stroke-width: .65; transform: scale(1.24); }
 .mission-fr-map__announced-label { overflow: visible; pointer-events: none; }
 .mission-fr-map__announced-label path { fill: none; stroke: #d85406; stroke-width: .045; stroke-linecap: round; }
-.mission-fr-map__announced-label rect { fill: #fffaf5; stroke: #f46a07; stroke-width: .035; filter: drop-shadow(0 1px 1.5px rgba(95, 49, 24, .2)); }
+.mission-fr-map__announced-label rect { fill: #fffaf5; stroke: #f46a07; stroke-width: .045; }
 .mission-fr-map__announced-label text { fill: #a53d15; font-family: Inter, sans-serif; font-size: .13px; font-weight: 800; letter-spacing: .02em; }
 .mission-fr-map__note { justify-content: center; gap: .45rem 1.3rem; padding: .3rem 0 .15rem; }
 .mission-fr-map__popup { position: absolute; z-index: 3; top: .65rem; right: .65rem; width: min(255px, calc(100% - 1.3rem)); padding: .72rem .85rem; border: 1px solid rgba(179, 111, 75, .22); border-radius: 13px; color: #43322a; background: rgba(255, 255, 255, .97); box-shadow: 0 12px 32px rgba(79, 46, 26, .13); backdrop-filter: blur(10px); animation: map-popup-in .16s ease-out both; }
