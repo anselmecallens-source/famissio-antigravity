@@ -1,4 +1,3 @@
-import { ExternalLink } from 'lucide-react';
 import { FACEBOOK_PAGE } from '../data/facebookPosts';
 
 const FACEBOOK_PAGE_URL = 'https://www.facebook.com/100064620877860/';
@@ -49,24 +48,6 @@ export default function FacebookFeed() {
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href={FACEBOOK_PAGE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#1264cf]"
-          >
-            Voir toutes les publications <ExternalLink className="h-4 w-4" />
-          </a>
-          <a
-            href="https://www.instagram.com/famissio/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-5 py-2.5 text-sm font-bold text-orange-800 transition hover:bg-orange-50"
-          >
-            Suivre Famissio sur Instagram <ExternalLink className="h-4 w-4" />
-          </a>
-        </div>
       </div>
     </section>
   );

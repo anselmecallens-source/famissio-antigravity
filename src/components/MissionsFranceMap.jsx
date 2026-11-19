@@ -20,17 +20,6 @@ function compareYears(a, b) {
   return Number(b.year.slice(0, 4)) - Number(a.year.slice(0, 4));
 }
 
-function enlargeDepartmentPath(path, scale = 1.12) {
-  const points = [...path.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)]
-    .map((match) => [Number(match[1]), Number(match[2])]);
-  if (!points.length) return path;
-  const centerX = (Math.min(...points.map(([x]) => x)) + Math.max(...points.map(([x]) => x))) / 2;
-  const centerY = (Math.min(...points.map(([, y]) => y)) + Math.max(...points.map(([, y]) => y))) / 2;
-  return path.replace(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g, (_, x, y) => (
-    `${(centerX + (Number(x) - centerX) * scale).toFixed(3)},${(centerY + (Number(y) - centerY) * scale).toFixed(3)}`
-  ));
-}
-
 function simplifyLine(points, tolerance) {
   if (points.length <= 2) return points;
   const [start, end] = [points[0], points[points.length - 1]];
@@ -114,15 +103,10 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
     .sort(compareYears)])), [missions]);
   const departmentsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map((department) => [department.code, department])), []);
-  const announcedDepartment = departmentsByCode.get(ANNOUNCED_MISSION.code);
   const announcedIsVisible = activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year;
-  const announcedPath = announcedDepartment && enlargeDepartmentPath(announcedDepartment.mapPath);
   // A clicked department stays pinned while the pointer crosses the map.
   const code = selectedCode || hoveredCode;
   const department = departmentsByCode.get(code);
-  const activePath = department && (department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year)
-    ? enlargeDepartmentPath(department.mapPath)
-    : department.mapPath);
   const pastMissions = code ? missionsByCode.get(code) || [] : [];
   const shownMissions = activeYear === 'all' ? pastMissions : pastMissions.filter((mission) => mission.year === activeYear);
   const isAnnouncedHere = code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year);
@@ -168,8 +152,8 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
           {MAINLAND_DEPARTMENTS.map((dept) => (
             <path
               key={dept.code}
-              d={dept.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? enlargeDepartmentPath(dept.mapPath) : dept.mapPath}
-              className={departmentClass(dept.code)}
+              d={dept.mapPath}
+              className={`${departmentClass(dept.code)}${dept.code === ANNOUNCED_MISSION.code && announcedIsVisible && !hasEnteredMap ? ' is-intro' : ''}`}
               role="button"
               tabIndex="0"
               aria-label={`${dept.name}, ${dept.code}${hasVisit(dept.code) ? ', mission Famissio' : ', pas encore visité'}`}
@@ -182,18 +166,6 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
-          {announcedIsVisible && announcedPath && !hasEnteredMap && (
-            <>
-              <path className="mission-fr-map__active-underlay is-announced is-intro" d={announcedPath} aria-hidden="true" />
-              <path className="mission-fr-map__active-outline is-announced is-intro" d={announcedPath} aria-hidden="true" />
-            </>
-          )}
-          {activePath && (hoveredCode || selectedCode) && (
-            <>
-              <path className={`mission-fr-map__active-underlay${department.code === ANNOUNCED_MISSION.code && announcedIsVisible ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
-              <path className={`mission-fr-map__active-outline${department.code === ANNOUNCED_MISSION.code && announcedIsVisible ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
-            </>
-          )}
         </svg>
 
         {department && (hoveredCode || selectedCode) && (

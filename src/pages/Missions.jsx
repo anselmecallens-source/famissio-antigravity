@@ -534,7 +534,7 @@ const MissionsPage = () => {
           position: relative;
           z-index: 1;
           max-width: 1080px;
-          padding-top: 10rem;
+          padding-top: 0;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
@@ -715,7 +715,7 @@ const MissionsPage = () => {
           .pm-section {
             padding: 70px 16px 90px;
           }
-          .pm-container { padding-top: 7.5rem; }
+          .pm-container { padding-top: 0; }
           .pm-map-card {
             border-radius: 20px;
           }
