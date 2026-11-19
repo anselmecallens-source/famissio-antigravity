@@ -161,16 +161,17 @@ function ProchaineMissionSection() {
       </div>
       <div className="pm-grain" />
 
-      {/* Dates géantes en arrière-plan parallaxe */}
+      {/* Texte géant filigrane en arrière-plan parallaxe */}
       <div ref={datesRef} className="pm-dates-ticker" aria-hidden="true">
-        30 OCTOBRE — 5 NOVEMBRE — DIOCÈSE DE LAVAL — TOUSSAINT — 30 OCTOBRE — 5 NOVEMBRE
+        NOUVELLE MISSION TOUSSAINT — NOUVELLE MISSION TOUSSAINT — NOUVELLE MISSION TOUSSAINT
       </div>
 
       <div className="pm-container">
-        {/* En-tête / Badge */}
-        <div className="pm-header-badge">
-          <span className="pm-badge-dot" />
-          <span>Prochaine mission · Toussaint</span>
+        {/* Surtitre éditorial épuré */}
+        <div className="pm-eyebrow">
+          <span className="pm-eyebrow-line" aria-hidden="true" />
+          <span className="pm-eyebrow-text">Prochaine mission · 2027</span>
+          <span className="pm-eyebrow-line" aria-hidden="true" />
         </div>
 
         {/* Grand titre expressif */}
@@ -660,15 +661,15 @@ const MissionsPage = () => {
         /* Dates géantes défilant en contour subtil en arrière-plan */
         .pm-dates-ticker {
           position: absolute;
-          top: 8%;
-          left: -15%;
-          width: 150%;
+          top: 6%;
+          left: -20%;
+          width: 160%;
           font-family: 'Bebas Neue', cursive;
-          font-size: clamp(5rem, 15vw, 13rem);
-          letter-spacing: 0.05em;
+          font-size: clamp(5.5rem, 14vw, 12rem);
+          letter-spacing: 0.08em;
           line-height: 1;
           color: transparent;
-          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.16);
+          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.14);
           white-space: nowrap;
           user-select: none;
           pointer-events: none;
@@ -680,7 +681,7 @@ const MissionsPage = () => {
         .pm-container {
           position: relative;
           z-index: 1;
-          max-width: 1100px;
+          max-width: 1080px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
@@ -688,54 +689,38 @@ const MissionsPage = () => {
           text-align: center;
         }
 
-        /* Badge d'en-tête */
-        .pm-header-badge {
+        /* Surtitre éditorial raffiné (sans pastille gadget) */
+        .pm-eyebrow {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          background: rgba(255, 255, 255, 0.85);
-          border: 1px solid #fed7aa;
-          border-radius: 9999px;
-          padding: 8px 18px;
-          font-size: 0.8rem;
+          gap: 16px;
+          margin-bottom: 20px;
+        }
+        .pm-eyebrow-line {
+          width: 32px;
+          height: 1.5px;
+          background: #f46a07;
+          opacity: 0.6;
+          border-radius: 2px;
+        }
+        .pm-eyebrow-text {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.85rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: 0.22em;
           color: #c82904;
-          margin-bottom: 24px;
-          box-shadow: 0 4px 14px rgba(244, 106, 7, 0.08);
-          backdrop-filter: blur(8px);
-        }
-        .pm-badge-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #f46a07;
-          position: relative;
-        }
-        .pm-badge-dot::after {
-          content: '';
-          position: absolute;
-          inset: -4px;
-          border-radius: 50%;
-          border: 2px solid #f46a07;
-          animation: pm-pulse 1.8s ease-out infinite;
-        }
-        @keyframes pm-pulse {
-          0% { transform: scale(0.9); opacity: 0.8; }
-          70% { transform: scale(2.2); opacity: 0; }
-          100% { transform: scale(0.9); opacity: 0; }
         }
 
         /* Grand titre expressif */
         .pm-title {
           font-family: 'Playfair Display', Georgia, serif;
-          font-size: clamp(3.2rem, 9vw, 7.5rem);
+          font-size: clamp(3rem, 8vw, 6.8rem);
           font-weight: 800;
-          line-height: 0.95;
+          line-height: 0.98;
           letter-spacing: -0.03em;
           color: #1a100a;
-          margin: 0 0 24px;
+          margin: 0 0 20px;
         }
         .pm-title .ln {
           display: block;
