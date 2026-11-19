@@ -7,152 +7,49 @@ import '../components/MissionsFranceMap.css';
 
 // ─── Composant Prochaine Mission (DA Famissio, pleine largeur & animations) ──
 function ProchaineMissionSection({ missions, onOpenMission }) {
-  const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const datesRef = useRef(null);
   const mapRef = useRef(null);
-  const charsRef = useRef([]);
-  const blobsRef = useRef([]);
+  const [titleEntered, setTitleEntered] = useState(false);
+  const [mapEntered, setMapEntered] = useState(false);
 
-  // Découpage du titre en lettres pour l'animation au hover & entrée
+  // Reveal Laval once when it enters the viewport; keep the rest of the title still.
   useEffect(() => {
-    const titleEl = titleRef.current;
-    if (!titleEl) return;
-    const lines = titleEl.querySelectorAll('.ln');
-    charsRef.current = [];
-    let k = 0;
-    lines.forEach((ln) => {
-      const text = ln.getAttribute('data-text') || ln.textContent;
-      ln.textContent = '';
-      [...text].forEach((c) => {
-        const span = document.createElement('span');
-        span.className = 'ch';
-        span.textContent = c === ' ' ? '\u00a0' : c;
-        span.style.setProperty('--k', k++);
-        ln.appendChild(span);
-        charsRef.current.push(span);
-      });
-    });
-  }, []);
+    const title = titleRef.current;
+    const map = mapRef.current;
+    if (!title || !map || !('IntersectionObserver' in window)) {
+      setTitleEntered(true);
+      setMapEntered(true);
+      return undefined;
+    }
 
-  // Interactions souris & scroll
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    // Effet sur les lettres au hover
-    const onPointerMove = (e) => {
-      if (rmq.matches || e.pointerType !== 'mouse') return;
-      const px = e.clientX;
-      const py = e.clientY;
-      charsRef.current.forEach((c) => {
-        const r = c.getBoundingClientRect();
-        const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
-        const factor = Math.max(0, 1 - d / 220);
-        c.style.transform = `scale(${1 + factor * 0.16}) translateY(${factor * -3}px)`;
-        c.style.fontWeight = Math.round(500 + 400 * factor);
-      });
-    };
-
-    const onPointerLeave = () => {
-      charsRef.current.forEach((c) => {
-        c.style.transform = '';
-        c.style.fontWeight = '';
-      });
-    };
-
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    section.addEventListener('pointerleave', onPointerLeave);
-
-    // Mouvement continu et fluide des blobs d'arrière-plan
-    let px = window.innerWidth / 2;
-    let py = window.innerHeight / 2;
-    let cx = px;
-    let cy = py;
-    let t = 0;
-    let active = true;
-
-    const onMovePos = (e) => {
-      px = e.clientX;
-      py = e.clientY;
-    };
-    window.addEventListener('pointermove', onMovePos, { passive: true });
-
-    const bl = blobsRef.current;
-    const tick = () => {
-      t += 0.005;
-      cx += (px - cx) * 0.04;
-      cy += (py - cy) * 0.04;
-      const ox = cx / window.innerWidth - 0.5;
-      const oy = cy / window.innerHeight - 0.5;
-      bl.forEach((b, i) => {
-        if (!b) return;
-        b.style.transform = `translate(${ox * (i + 1) * 55 + Math.sin(t * (i + 1.2)) * 40}px, ${oy * (i + 1) * 55 + Math.cos(t * (i + 0.9)) * 30}px)`;
-      });
-      if (active) requestAnimationFrame(tick);
-    };
-
-    const io = new IntersectionObserver((entries) => {
-      const v = entries[0].isIntersecting;
-      if (v && !active) {
-        active = true;
-        tick();
-      }
-      active = v;
-    });
-    io.observe(section);
-    tick();
-
-    // Défilement parallaxe des dates & révélation de la carte
-    const onScroll = () => {
-      if (rmq.matches) return;
-      const rect = section.getBoundingClientRect();
-      const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-      const clProgress = Math.min(1, Math.max(0, progress));
-
-      if (datesRef.current) {
-        const xOffset = (clProgress - 0.5) * -180;
-        datesRef.current.style.transform = `translateX(${xOffset}px)`;
-      }
-
-      if (mapRef.current) {
-        const mapRect = mapRef.current.getBoundingClientRect();
-        const mapVisible = mapRect.top < window.innerHeight * 0.92;
-        if (mapVisible) {
-          mapRef.current.classList.add('pm-map--inview');
-        }
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    const titleObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setTitleEntered(true);
+      titleObserver.disconnect();
+    }, { threshold: 0.5 });
+    const mapObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setMapEntered(true);
+      mapObserver.disconnect();
+    }, { threshold: 0.08 });
+    titleObserver.observe(title);
+    mapObserver.observe(map);
 
     return () => {
-      active = false;
-      io.disconnect();
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointermove', onMovePos);
-      section.removeEventListener('pointerleave', onPointerLeave);
-      window.removeEventListener('scroll', onScroll);
+      titleObserver.disconnect();
+      mapObserver.disconnect();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className="pm-section" id="nouvelle-mission">
+    <section className="pm-section" id="nouvelle-mission">
       {/* Nappes lumineuses ambrées douces */}
       <div className="pm-bg">
-        <i ref={(el) => (blobsRef.current[0] = el)} />
-        <i ref={(el) => (blobsRef.current[1] = el)} />
-        <i ref={(el) => (blobsRef.current[2] = el)} />
+        <i />
+        <i />
+        <i />
       </div>
       <div className="pm-grain" />
-
-      {/* Texte géant filigrane en arrière-plan parallaxe */}
-      <div ref={datesRef} className="pm-dates-ticker" aria-hidden="true">
-        NOUVELLE MISSION TOUSSAINT — NOUVELLE MISSION TOUSSAINT — NOUVELLE MISSION TOUSSAINT
-      </div>
 
       <div className="pm-container">
         {/* Surtitre éditorial épuré */}
@@ -163,9 +60,9 @@ function ProchaineMissionSection({ missions, onOpenMission }) {
         </div>
 
         {/* Grand titre expressif */}
-        <h2 ref={titleRef} className="pm-title" aria-label={`${ANNOUNCED_MISSION.place} ${ANNOUNCED_MISSION.titleLine}`}>
-          <span className="ln" data-text={ANNOUNCED_MISSION.place}>{ANNOUNCED_MISSION.place}</span>
-          <span className="ln" data-text={ANNOUNCED_MISSION.titleLine}>{ANNOUNCED_MISSION.titleLine}</span>
+        <h2 ref={titleRef} className={`pm-title${titleEntered ? ' is-visible' : ''}`} aria-label={`Le diocèse de ${ANNOUNCED_MISSION.place} ${ANNOUNCED_MISSION.titleLine}`}>
+          <span className="ln"><span className="pm-title-prefix">Le diocèse de </span><span className="pm-title-place">{ANNOUNCED_MISSION.place}</span></span>
+          <span className="ln">{ANNOUNCED_MISSION.titleLine}</span>
         </h2>
 
         {/* Info date & localisation */}
@@ -177,7 +74,7 @@ function ProchaineMissionSection({ missions, onOpenMission }) {
           <span className="pm-meta-sep">·</span>
           <div className="pm-meta-item">
             <MapPin size={18} className="pm-meta-icon" />
-            <span>{ANNOUNCED_MISSION.diocese}</span>
+            <span>{ANNOUNCED_MISSION.territory}</span>
           </div>
         </div>
 
@@ -187,16 +84,8 @@ function ProchaineMissionSection({ missions, onOpenMission }) {
         </p>
 
         {/* CARTE PLEINE LARGEUR (sans superposition, espace dédié généreux) */}
-        <div ref={mapRef} className="pm-map-wrapper">
+        <div ref={mapRef} className={`pm-map-wrapper${mapEntered ? ' pm-map--inview' : ''}`}>
           <div className="pm-map-card">
-            <div className="pm-map-header">
-              <div className="pm-map-title-group">
-                <span className="pm-map-indicator" />
-                <span className="pm-map-header-title">{ANNOUNCED_MISSION.mapLabel}</span>
-              </div>
-              <span className="pm-map-tag">{ANNOUNCED_MISSION.territory}</span>
-            </div>
-
             <div className="pm-map-embed">
               <MissionsFranceMap missions={missions} onOpenMission={onOpenMission} />
             </div>
@@ -640,25 +529,6 @@ const MissionsPage = () => {
           background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* Dates géantes défilant en contour subtil en arrière-plan */
-        .pm-dates-ticker {
-          position: absolute;
-          top: 6%;
-          left: -20%;
-          width: 160%;
-          font-family: 'Bebas Neue', cursive;
-          font-size: clamp(5.5rem, 14vw, 12rem);
-          letter-spacing: 0.08em;
-          line-height: 1;
-          color: transparent;
-          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.14);
-          white-space: nowrap;
-          user-select: none;
-          pointer-events: none;
-          z-index: 0;
-          will-change: transform;
-        }
-
         /* Conteneur principal centré */
         .pm-container {
           position: relative;
@@ -706,26 +576,24 @@ const MissionsPage = () => {
         }
         .pm-title .ln {
           display: block;
-          overflow: hidden;
           padding: 0.04em 0.1em;
+        }
+        .pm-title-place {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(0.24em);
+        }
+        .pm-title.is-visible .pm-title-place {
+          animation: pm-place-reveal 0.72s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes pm-place-reveal {
+          to { opacity: 1; transform: translateY(0); }
         }
         .pm-title .ln:nth-child(2) {
           background: linear-gradient(135deg, #c82904 0%, #f46a07 60%, #e05307 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
-        .ch {
-          display: inline-block;
-          transform: translateY(110%);
-          animation: fmr 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          animation-delay: calc(var(--k) * 45ms);
-          transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), font-weight 0.22s ease;
-          will-change: transform;
-        }
-        @keyframes fmr {
-          to { transform: none; }
-        }
-
         /* Métas : dates & lieu */
         .pm-meta-bar {
           display: flex;
@@ -769,13 +637,19 @@ const MissionsPage = () => {
           width: 100%;
           max-width: 1080px;
           margin: 0 auto;
-          opacity: 0;
-          transform: translateY(35px);
-          transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+          opacity: 1;
+          transform: none;
         }
         .pm-map-wrapper.pm-map--inview {
+          animation: pm-map-reveal 0.72s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+        @keyframes pm-map-reveal {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .pm-map-wrapper:not(.pm-map--inview) {
           opacity: 1;
-          transform: translateY(0);
+          transform: none;
         }
         .pm-map-card {
           position: relative;
@@ -794,42 +668,6 @@ const MissionsPage = () => {
             0 30px 60px -15px rgba(26, 16, 10, 0.12);
           transform: translateY(-4px);
         }
-        .pm-map-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 16px 24px;
-          background: #fffdf9;
-          border-bottom: 1px solid #ffedd5;
-        }
-        .pm-map-title-group {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .pm-map-indicator {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: #f46a07;
-          box-shadow: 0 0 10px rgba(244, 106, 7, 0.6);
-        }
-        .pm-map-header-title {
-          font-size: 0.9rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          color: #9a3412;
-        }
-        .pm-map-tag {
-          font-size: 0.78rem;
-          font-weight: 700;
-          padding: 4px 12px;
-          border-radius: 9999px;
-          background: #fff7ed;
-          color: #c2410c;
-          border: 1px solid #fed7aa;
-        }
         .pm-map-embed {
           width: 100%;
           background: transparent;
@@ -847,16 +685,13 @@ const MissionsPage = () => {
           .pm-map-card {
             border-radius: 20px;
           }
-          .pm-map-header {
-            padding: 12px 16px;
-          }
         }
         @media (prefers-reduced-motion: reduce) {
           .pm-section * {
             animation: none !important;
             transition: none !important;
           }
-          .ch { transform: none; }
+          .pm-title-place { opacity: 1; transform: none; }
           .pm-map-wrapper { opacity: 1; transform: none; }
         }
       `}</style>

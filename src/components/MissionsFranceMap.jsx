@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowUpRight, CalendarDays, X } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { ANNOUNCED_MISSION } from '../data/announcedMission';
 import { FRANCE_DEPARTMENTS, FRANCE_MAP_VIEWBOX } from '../data/franceDepartments';
 
@@ -29,7 +29,8 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
     .sort(compareYears)])), [missions]);
   const departmentsByCode = useMemo(() => new Map(FRANCE_DEPARTMENTS.map((department) => [department.code, department])), []);
-  const code = hoveredCode || selectedCode;
+  // A clicked department stays pinned while the pointer crosses the map.
+  const code = selectedCode || hoveredCode;
   const department = departmentsByCode.get(code);
   const announcedDepartment = departmentsByCode.get(ANNOUNCED_MISSION.code);
   const pastMissions = code ? missionsByCode.get(code) || [] : [];
@@ -55,8 +56,6 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
     <div className="mission-fr-map" aria-label="Carte interactive des missions Famissio">
       <div className="mission-fr-map__tools">
         <label className="mission-fr-map__filter">
-          <CalendarDays size={15} aria-hidden="true" />
-          <span>Afficher</span>
           <select aria-label="Filtrer les missions par année" value={activeYear} onChange={(event) => setActiveYear(event.target.value)}>
             <option value="all">Toutes les années</option>
             {yearOptions.map((year) => <option value={year} key={year}>Mission {year}</option>)}
@@ -83,14 +82,17 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               tabIndex="0"
               aria-label={`${dept.name}, ${dept.code}${hasVisit(dept.code) ? ', mission Famissio' : ', pas encore visité'}`}
               aria-pressed={selectedCode === dept.code}
-              onMouseEnter={() => setHoveredCode(dept.code)}
+              onMouseEnter={() => { if (!selectedCode) setHoveredCode(dept.code); }}
               onFocus={() => setHoveredCode(dept.code)}
-              onClick={() => setSelectedCode(dept.code)}
-              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedCode(dept.code); } }}
+              onClick={() => { setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); }}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); } }}
             >
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
+          {announcedDepartment && (
+            <path className="mission-fr-map__announced-outline" d={announcedDepartment.d} aria-hidden="true" />
+          )}
           {announcedDepartment && (
             <g className="mission-fr-map__announced-label" transform={`translate(${announcedDepartment.label[0]} ${announcedDepartment.label[1]})`} aria-hidden="true">
               <path d="M0,0 L0.12,-0.27" />
@@ -101,45 +103,40 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
         </svg>
 
         {department && (hoveredCode || selectedCode) && (
-          <section className={`mission-fr-map__popup${isExpanded ? ' is-expanded' : ''}`} aria-live="polite" aria-label={`Missions dans le département ${department.name}`}>
-            <div className="mission-fr-map__popup-title">
-              <div><strong>{department.name}</strong><span>{department.code} · {isAnnouncedHere ? `mission annoncée ${ANNOUNCED_MISSION.year}` : shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'à découvrir'}</span></div>
-              {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => setSelectedCode(null)}><X size={16} /></button>}
-            </div>
-            {isExpanded && (
-              <div className="mission-fr-map__popup-body">
-                {isAnnouncedHere && (
-                  <div className="mission-fr-map__announced">
-                    <span>PROCHAINE MISSION · {ANNOUNCED_MISSION.year}</span>
-                    <strong>{ANNOUNCED_MISSION.place}, Mayenne</strong>
-                    <small>{ANNOUNCED_MISSION.dates}</small>
-                    <a href="#liste-missions">Voir les missions <ArrowUpRight size={14} /></a>
-                  </div>
-                )}
-                {shownMissions.map((mission) => (
-                  <div className="mission-fr-map__past" key={mission.id}>
-                    <span>{mission.year} · {mission.location}</span>
-                    <button type="button" onClick={() => onOpenMission(mission)}>Voir cette mission <ArrowUpRight size={14} /></button>
-                  </div>
-                ))}
-                {!isAnnouncedHere && !shownMissions.length && (
-                  <p className="mission-fr-map__empty">Aucune mission Famissio recensée{activeYear !== 'all' ? ` en ${activeYear}` : ' ici pour le moment'}.</p>
-                )}
-                <a className="mission-fr-map__all" href="#liste-missions">Toutes les missions <ArrowUpRight size={14} /></a>
+          <section className={`mission-fr-map__popup${isExpanded ? ' is-expanded' : ''}${isAnnouncedHere ? ' is-announced' : ''}`} aria-live="polite" aria-label={`Missions dans le département ${department.name}`}>
+            {isAnnouncedHere ? (
+              <div className="mission-fr-map__popup-body mission-fr-map__popup-body--announced">
+                <div className="mission-fr-map__announced">
+                  <span>PROCHAINE MISSION · {ANNOUNCED_MISSION.year}</span>
+                  <strong>{ANNOUNCED_MISSION.place}, Mayenne</strong>
+                  <small>{ANNOUNCED_MISSION.dates}</small>
+                </div>
               </div>
+            ) : (
+              <>
+                <div className="mission-fr-map__popup-title">
+                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Une prochaine mission pourrait peut-être avoir lieu ici.'}</span></div>
+                  {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => { setSelectedCode(null); setHoveredCode(null); }}><X size={16} /></button>}
+                </div>
+                {isExpanded && (
+                  <div className="mission-fr-map__popup-body">
+                    {shownMissions.map((mission) => (
+                      <div className="mission-fr-map__past" key={mission.id}>
+                        <span><strong>{mission.year}</strong><span>{mission.location}</span></span>
+                        <button type="button" onClick={() => onOpenMission(mission)}>Voir cette mission <ArrowUpRight size={14} /></button>
+                      </div>
+                    ))}
+                    {!shownMissions.length && (
+                      <p className="mission-fr-map__empty">Pourquoi pas une future mission dans ce département ?</p>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </section>
         )}
       </div>
 
-      <div className="mission-fr-map__note">
-        {activeYear === 'all' ? (
-          <>
-            <span><i className="is-announced" /> {ANNOUNCED_MISSION.territory} · mission annoncée</span>
-            <span><i className="is-visited" /> Départements déjà visités</span>
-          </>
-        ) : <span><i className={activeYear === ANNOUNCED_MISSION.year ? 'is-announced' : 'is-year'} /> Départements de la mission {activeYear}</span>}
-      </div>
     </div>
   );
 }
