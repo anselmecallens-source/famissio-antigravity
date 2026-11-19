@@ -178,7 +178,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
           ))}
           {activePath && (hoveredCode || selectedCode) && (
             <>
-              <path className="mission-fr-map__active-underlay" d={activePath} aria-hidden="true" />
+              <path className={`mission-fr-map__active-underlay${department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
               <path className={`mission-fr-map__active-outline${department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
             </>
           )}

@@ -583,11 +583,11 @@ const MissionsPage = () => {
           position: relative;
           display: inline-block;
           z-index: 2;
-          margin-left: -0.055em;
-          font-size: 1.18em;
+          margin-left: -0.015em;
+          font-size: 1.12em;
           font-style: italic;
           opacity: 0;
-          transform: translateY(0.75em) rotate(-12deg) scale(0.48);
+          transform: translateY(0.42em) rotate(-7deg) scale(0.84);
           transform-origin: center 85%;
           filter: blur(8px);
           text-shadow: 0 0 0 rgba(244, 106, 7, 0);
@@ -609,20 +609,15 @@ const MissionsPage = () => {
           transform-origin: left;
         }
         .pm-title.is-visible .pm-title-place {
-          animation: pm-place-reveal 2.15s cubic-bezier(0.22, 1.5, 0.36, 1) forwards;
+          animation: pm-place-reveal 1.25s cubic-bezier(0.2, 1.2, 0.35, 1) forwards;
         }
         @keyframes pm-place-reveal {
-          0% { opacity: 0; transform: translateY(0.75em) rotate(-12deg) scale(0.48); filter: blur(10px); text-shadow: 0 0 0 rgba(244, 106, 7, 0); }
-          25% { opacity: 1; transform: translateY(-0.2em) rotate(4deg) scale(1.34); filter: blur(0); text-shadow: 0 0 0.35em rgba(244, 106, 7, 0.42); }
-          42% { transform: translateY(0.1em) rotate(-2deg) scale(0.91); text-shadow: 0 0 0.16em rgba(244, 106, 7, 0.2); }
-          58% { transform: translateY(-0.12em) rotate(1.5deg) scale(1.16); }
-          71% { transform: translateY(0.06em) rotate(-0.8deg) scale(0.96); }
-          83% { transform: translateY(-0.035em) rotate(0.4deg) scale(1.06); }
-          93% { transform: translateY(0.015em) rotate(0) scale(0.99); }
-          100% { opacity: 1; transform: translateY(-0.035em) rotate(-5deg) scale(1.12); filter: blur(0); text-shadow: 0 0.04em 0.08em rgba(26, 16, 10, 0.12); }
+          0% { opacity: 0; transform: translateY(0.42em) rotate(-7deg) scale(0.84); filter: blur(5px); text-shadow: 0 0 0 rgba(244, 106, 7, 0); }
+          68% { opacity: 1; transform: translateY(-0.045em) rotate(-3deg) scale(1.055); filter: blur(0); text-shadow: 0 0.04em 0.1em rgba(26, 16, 10, 0.12); }
+          100% { opacity: 1; transform: translateY(0) rotate(-4deg) scale(1.035); filter: blur(0); text-shadow: 0 0.03em 0.08em rgba(26, 16, 10, 0.1); }
         }
         .pm-title.is-visible .pm-title-place::after {
-          animation: pm-place-underline 0.9s 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: pm-place-underline 0.68s 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes pm-place-underline {
           to { transform: scaleX(1); }
@@ -730,7 +725,7 @@ const MissionsPage = () => {
             animation: none !important;
             transition: none !important;
           }
-          .pm-title-place { opacity: 1; transform: rotate(-5deg) scale(1.12); filter: none; }
+          .pm-title-place { opacity: 1; transform: rotate(-4deg) scale(1.035); filter: none; }
           .pm-title-place::after { display: none; }
           .pm-map-wrapper { opacity: 1; transform: none; }
         }

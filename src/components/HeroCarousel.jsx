@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Heart, ArrowRight, Music, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
+import { BookOpen, Heart, ArrowRight, Music, FileText, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 function IconDove(props) {
     return (
@@ -15,7 +15,7 @@ const HeroCarousel = () => {
     const originalSlides = [
         { id: 1, type: 'formation', link: '/formation' },
         { id: 2, type: 'priere', link: '/priere' },
-        { id: 3, type: 'mission2026', link: '/missions' }
+        { id: 3, type: 'mission2027', link: '/missions' }
     ];
     // Clone du dernier au début, et du premier à la fin
     const slides = [
@@ -137,7 +137,7 @@ const HeroCarousel = () => {
 
     // Détermination de la couleur de la nav
     const currentSlideData = slides[currentSlide];
-    const isDarkNav = currentSlideData.type === 'formation';
+    const isDarkNav = currentSlideData.type === 'formation' || currentSlideData.type === 'mission2027';
 
     return (
         <div className="famissio-container">
@@ -238,55 +238,42 @@ const HeroCarousel = () => {
                 }
                 .priere-infos span { display: flex; align-items: center; gap: 8px; }
 
-                /* --- SLIDE 3: MISSION 2026 --- */
-                .mission2026-slide {
-                    background: linear-gradient(135deg, var(--flame), var(--deep-red));
-                    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; color: white;
+                /* --- SLIDE 3: PROCHAINE MISSION --- */
+                .mission2027-slide {
+                    background: linear-gradient(125deg, #fffaf5 0%, #fff1e5 54%, #fce3d3 100%);
+                    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; color: #241812;
                 }
-                .mission2026-slide::before {
-                    content: ''; position: absolute; top: -20%; left: -10%; width: 50vw; height: 50vw;
-                    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
-                    border-radius: 50%; pointer-events: none;
+                .mission2027-slide::before {
+                    content: ''; position: absolute; top: -48%; right: -8%; width: min(70vw, 760px); aspect-ratio: 1;
+                    border: 1px solid rgba(200, 41, 4, .08); border-radius: 50%;
+                    box-shadow: 0 0 0 36px rgba(200, 41, 4, .025), 0 0 0 72px rgba(200, 41, 4, .02);
+                    pointer-events: none;
                 }
-                .mission2026-slide::after {
-                    content: ''; position: absolute; bottom: -20%; right: -10%; width: 60vh; height: 60vh;
-                    background: radial-gradient(circle, rgba(255, 200, 0, 0.15) 0%, transparent 70%);
-                    border-radius: 50%; pointer-events: none;
+                .mission2027-slide::after {
+                    content: ''; position: absolute; left: 12%; bottom: -20%; width: 34vw; aspect-ratio: 1;
+                    background: radial-gradient(circle, rgba(244, 106, 7, .12), transparent 70%); pointer-events: none;
                 }
-
-                .mission-overlap-container {
-                    position: relative; height: 165px; width: 100%; display: flex; align-items: center; justify-content: center;
-                    margin-bottom: 18px;
+                .mission2027-slide .slide-content-wrapper { gap: 14px; padding-bottom: 70px; }
+                .mission2027-kicker {
+                    display: inline-flex; align-items: center; gap: 8px; color: #a83b1a;
+                    font-size: .82rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
                 }
-                .mission-year-bg {
-                    font-family: 'Playfair Display', serif;
-                    font-size: clamp(7rem, 13vw, 11rem);
-                    font-weight: 900; color: rgba(255, 255, 255, 0.12);
-                    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    z-index: 1; user-select: none;
+                .mission2027-title {
+                    color: #241812; font-family: 'Playfair Display', Georgia, serif;
+                    font-size: clamp(2.4rem, 5.2vw, 4.8rem); font-weight: 700; line-height: 1.02;
+                    letter-spacing: -.035em; text-align: center;
                 }
-                .mission-main-title {
-                    font-family: 'Playfair Display', serif;
-                    font-size: clamp(2rem, 4.2vw, 3.8rem);
-                    font-weight: 700; color: white; position: relative; z-index: 2;
-                    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); white-space: nowrap;
+                .mission2027-title em { color: var(--flame); font-weight: 700; }
+                .mission2027-copy {
+                    max-width: 640px; color: #6a5144; font-size: clamp(1rem, 1.6vw, 1.2rem);
+                    line-height: 1.65; text-align: center; margin: 0;
                 }
-
-                .mission-dioceses {
-                    display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; z-index: 2;
-                }
-                .diocese-pill {
-                    background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);
-                    padding: 7px 20px; border-radius: 30px; color: white; font-weight: 600; font-size: 0.9rem;
-                    backdrop-filter: blur(5px);
-                }
-                
-                .mission-btn {
-                    background: white; color: var(--flame); padding: 14px 40px; border-radius: 50px;
+                .mission2027-btn {
+                    background: var(--flame); color: white; padding: 13px 30px; border-radius: 50px;
                     text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
-                    transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                    transition: all 0.25s ease; z-index: 10; box-shadow: 0 9px 22px rgba(200, 41, 4, 0.22);
                 }
-                .mission-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }
+                .mission2027-btn:hover { transform: translateY(-2px); box-shadow: 0 13px 28px rgba(200, 41, 4, 0.3); }
 
                 /* --- NAVIGATION --- */
                 .carousel-nav {
@@ -354,8 +341,10 @@ const HeroCarousel = () => {
                         padding-top: 5px !important;
                     }
                     .carousel-arrow { display: none; }
-                    .mission-year-bg { font-size: 6.5rem !important; }
-                    .formation-title, .priere-title, .mission-main-title { white-space: normal; }
+                    .formation-title, .priere-title, .mission2027-title { white-space: normal; }
+                    .mission2027-title { font-size: clamp(2rem, 8vw, 3rem); }
+                    .mission2027-slide .slide-content-wrapper { gap: 12px; }
+                    .mission2027-kicker { font-size: .68rem; letter-spacing: .12em; }
                     
                     /* Fix Prayer Info Overflow */
                     .priere-infos {
@@ -436,21 +425,15 @@ const HeroCarousel = () => {
                                     </div>
                                 )}
 
-                                {/* SLIDE 3: MISSION 2026 */}
-                                {slide.type === 'mission2026' && (
-                                    <div className="mission2026-slide">
+                                {/* SLIDE 3: MISSION DE LAVAL */}
+                                {slide.type === 'mission2027' && (
+                                    <div className="mission2027-slide">
                                         <div className="slide-content-wrapper">
-                                            <div className="mission-overlap-container">
-                                                <div className="mission-year-bg">2026</div>
-                                                <h2 className="mission-main-title">Mission Paroissiale</h2>
-                                            </div>
-                                            <div className="mission-dioceses">
-                                                <span className="diocese-pill">La Rochelle</span>
-                                                <span className="diocese-pill">Angoulême</span>
-                                                <span className="diocese-pill">Tulle</span>
-                                            </div>
-                                            <Link to={slide.link} className="mission-btn">
-                                                Rejoindre l'aventure <ArrowRight className="w-4 h-4 inline-block" />
+                                            <div className="mission2027-kicker"><Sparkles size={16} aria-hidden="true" /> Prochaine mission · Toussaint 2027</div>
+                                            <h2 className="mission2027-title">Le diocèse de <em>Laval</em><br />nous accueille</h2>
+                                            <p className="mission2027-copy">Une semaine de rencontres, de service et de joie partagée avec les paroissiens.</p>
+                                            <Link to={slide.link} className="mission2027-btn">
+                                                Découvrir la mission <ArrowRight className="w-4 h-4 inline-block" />
                                             </Link>
                                         </div>
                                     </div>
