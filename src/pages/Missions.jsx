@@ -1,120 +1,343 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// ─── Prochaine mission ───────────────────────────────────────────────────────
-const PROCHAINE_MISSION = {
-  year: '2027',
-  diocese: 'Laval',
-  department: 'Mayenne',
-  dateLabel: '30 octobre – 5 novembre',
-};
-
-// Hook scroll-reveal (IntersectionObserver)
-function useReveal() {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, visible];
-}
-
-// Haptic helper
-function haptic(pattern = [10]) {
-  if (navigator.vibrate) navigator.vibrate(pattern);
-}
-
-// ─── Composant Section Prochaine Mission ─────────────────────────────────────
+// ─── Composant Prochaine Mission (Chorégraphie & DA Famissio) ─────────────────
 function ProchaineMissionSection() {
-  const [sectionRef, sectionVisible] = useReveal();
-  const [mapRef, mapVisible] = useReveal();
-  const [pressed, setPressed] = useState(false);
+  const rootRef = useRef(null);
+  const trackRef = useRef(null);
+  const titleRef = useRef(null);
+  const datesRef = useRef(null);
+  const copyRef = useRef(null);
+  const mapRef = useRef(null);
+  const hintRef = useRef(null);
+  const railBarRef = useRef(null);
+  const charsRef = useRef([]);
+  const blobsRef = useRef([]);
 
-  const handleCtaDown = useCallback(() => {
-    setPressed(true);
-    haptic([8, 30, 8]);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  // Injection Datawrapper embed script
+  useEffect(() => {
+    const container = document.getElementById('datawrapper-vis-otsD1');
+    if (!container) return;
+    if (container.querySelector('iframe') || document.getElementById('dw-script-otsD1')) return;
+
+    const s = document.createElement('script');
+    s.id = 'dw-script-otsD1';
+    s.src = 'https://datawrapper.dwcdn.net/otsD1/embed.js';
+    s.charset = 'utf-8';
+    s.defer = true;
+    s.setAttribute('data-target', '#datawrapper-vis-otsD1');
+    container.appendChild(s);
   }, []);
-  const handleCtaUp = useCallback(() => {
-    setPressed(false);
+
+  // Découpage du titre en lettres pour l'animation au hover & entrée
+  useEffect(() => {
+    const titleEl = titleRef.current;
+    if (!titleEl) return;
+    const lines = titleEl.querySelectorAll('.ln');
+    charsRef.current = [];
+    let k = 0;
+    lines.forEach((ln) => {
+      const text = ln.getAttribute('data-text') || ln.textContent;
+      ln.textContent = '';
+      [...text].forEach((c) => {
+        const span = document.createElement('span');
+        span.className = 'ch';
+        span.textContent = c === ' ' ? '\u00a0' : c;
+        span.style.setProperty('--k', k++);
+        ln.appendChild(span);
+        charsRef.current.push(span);
+      });
+    });
   }, []);
+
+  // Animations Scroll, Pointer & Haptique
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mq = window.matchMedia('(max-width: 820px)');
+    const flat = () => mq.matches || rmq.matches;
+
+    // Haptique
+    const lab = document.createElement('label');
+    lab.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+    const sw = document.createElement('input');
+    sw.type = 'checkbox';
+    sw.setAttribute('switch', '');
+    lab.appendChild(sw);
+    root.appendChild(lab);
+
+    const buzz = (pattern) => {
+      if (rmq.matches) return;
+      if (navigator.vibrate) navigator.vibrate(pattern);
+      else {
+        try { lab.click(); } catch (_) {}
+      }
+    };
+
+    // Math helpers
+    const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+    const L = (a, b, t) => a + (b - a) * t;
+    const E = (t) => 1 - Math.pow(1 - t, 3);
+
+    // Pointer move pour effet de gonflement des lettres
+    const onPointerMove = (e) => {
+      if (flat() || e.pointerType !== 'mouse') return;
+      const px = e.clientX;
+      const py = e.clientY;
+      charsRef.current.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
+        const factor = Math.max(0, 1 - d / 240);
+        c.style.transform = `scale(${1 + factor * 0.18}) translateY(${factor * -2}px)`;
+        c.style.fontWeight = Math.round(400 + 400 * factor);
+      });
+    };
+
+    const onPointerLeave = () => {
+      charsRef.current.forEach((c) => {
+        c.style.transform = '';
+        c.style.fontWeight = '';
+      });
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    root.addEventListener('pointerleave', onPointerLeave);
+
+    // Loop RAF pour mouvement doux des blobs
+    let px = window.innerWidth / 2;
+    let py = window.innerHeight / 2;
+    let cx = px;
+    let cy = py;
+    let t = 0;
+    let active = true;
+
+    const onMovePos = (e) => {
+      px = e.clientX;
+      py = e.clientY;
+    };
+    window.addEventListener('pointermove', onMovePos, { passive: true });
+
+    const bl = blobsRef.current;
+    const tick = () => {
+      t += 0.005;
+      cx += (px - cx) * 0.04;
+      cy += (py - cy) * 0.04;
+      const ox = cx / window.innerWidth - 0.5;
+      const oy = cy / window.innerHeight - 0.5;
+      bl.forEach((b, i) => {
+        if (!b) return;
+        b.style.transform = `translate(${ox * (i + 1) * 70 + Math.sin(t * (i + 1.3)) * 50}px, ${oy * (i + 1) * 70 + Math.cos(t * (i + 0.9)) * 40}px)`;
+      });
+      if (active) requestAnimationFrame(tick);
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      const v = entries[0].isIntersecting;
+      if (v && !active) {
+        active = true;
+        tick();
+      }
+      active = v;
+    });
+    io.observe(root);
+    tick();
+
+    // Scroll choreography
+    let f1 = 0;
+    let f2 = 0;
+
+    const upd = () => {
+      const isFlat = flat();
+      root.classList.toggle('flat', isFlat);
+      if (isFlat) return;
+
+      const track = trackRef.current;
+      const title = titleRef.current;
+      const dates = datesRef.current;
+      const copy = copyRef.current;
+      const map = mapRef.current;
+      const hint = hintRef.current;
+      const railBar = railBarRef.current;
+      if (!track || !title || !dates || !copy || !map) return;
+
+      const r = track.getBoundingClientRect();
+      const p = cl(-r.top / (r.height - window.innerHeight));
+      root.style.setProperty('--p', p.toFixed(3));
+      if (railBar) {
+        railBar.style.transform = `scaleY(${p})`;
+      }
+
+      const a = E(cl((p - 0.1) / 0.35));
+      const c = E(cl((p - 0.32) / 0.25));
+      const m = E(cl((p - 0.42) / 0.3));
+      const s = Math.min(1, (window.innerHeight * 0.84) / 607);
+
+      title.style.transform = `translateY(calc(-50% + ${L(0, -37, a)}vh)) scale(${L(1, 0.44, a)})`;
+      dates.style.transform = `translate(${L(4, -62, p)}%, -50%)`;
+
+      copy.style.opacity = c;
+      copy.style.transform = `translateY(${L(40, 0, c)}px)`;
+
+      map.style.opacity = m > 0 ? 1 : 0;
+      map.style.clipPath = `circle(${L(0, 85, m)}% at 60% 50%)`;
+      map.style.transform = `translateY(-50%) translateX(${L(14, 0, m)}vw) scale(${s * L(0.9, 1, m)})`;
+      map.style.pointerEvents = m > 0.9 ? 'auto' : 'none';
+
+      if (hint) {
+        hint.style.opacity = p < 0.04 ? 1 : 0;
+      }
+
+      if (c > 0.5 && !f1) {
+        f1 = 1;
+        buzz(8);
+      }
+      if (c < 0.2) f1 = 0;
+
+      if (m > 0.6 && !f2) {
+        f2 = 1;
+        buzz([8, 40, 8]);
+      }
+      if (m < 0.3) f2 = 0;
+    };
+
+    window.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+
+    return () => {
+      active = false;
+      io.disconnect();
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointermove', onMovePos);
+      root.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('scroll', upd);
+      window.removeEventListener('resize', upd);
+      try { lab.remove(); } catch (_) {}
+    };
+  }, []);
+
+  const handleTagClick = (idx) => {
+    const next = expandedIndex === idx ? null : idx;
+    setExpandedIndex(next);
+    if (navigator.vibrate) {
+      navigator.vibrate(next === null ? 8 : [10, 30, 10]);
+    }
+  };
+
+  const handleTagPointerMove = (e) => {
+    if (e.pointerType !== 'mouse') return;
+    const b = e.currentTarget;
+    const r = b.getBoundingClientRect();
+    b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.04}px, ${(e.clientY - r.top - r.height / 2) * 0.12}px)`;
+  };
+
+  const handleTagPointerLeave = (e) => {
+    e.currentTarget.style.transform = '';
+  };
 
   return (
-    <section ref={sectionRef} className="pm-section">
-      {/* ── Fond : grand aplat crème avec bande diagonale flame ── */}
-      <div className="pm-diagonal-flame" aria-hidden="true" />
-      <div className="pm-grain" aria-hidden="true" />
+    <section ref={rootRef} className="fm" id="nouvelle-mission">
+      <div ref={trackRef} className="fm-track">
+        <div className="fm-stage">
+          {/* Nappes de couleur arrière-plan */}
+          <div className="fm-bg">
+            <i ref={(el) => (blobsRef.current[0] = el)} />
+            <i ref={(el) => (blobsRef.current[1] = el)} />
+            <i ref={(el) => (blobsRef.current[2] = el)} />
+          </div>
+          <div className="fm-grain" />
 
-      <div className="pm-inner">
-        {/* ══ BLOC GAUCHE : TEXTE ══ */}
-        <div className={`pm-text-col ${sectionVisible ? 'pm-reveal-left' : 'pm-hidden-left'}`}>
-
-          {/* Pré-titre animé */}
-          <div className="pm-eyebrow">
-            <span className="pm-dot-anim" />
-            Prochaine mission
+          {/* Dates géantes en contour */}
+          <div ref={datesRef} className="fm-dates" aria-hidden="true">
+            30 octobre — 5 novembre — Toussaint — 30 octobre — 5 novembre — Toussaint
           </div>
 
-          {/* SUPER TITRE */}
-          <h2 className="pm-year-text">{PROCHAINE_MISSION.year}</h2>
-
-          {/* NOM DU DIOCÈSE avec soulignement animé */}
-          <div className="pm-diocese-wrap">
-            <span className="pm-diocese-label">Diocèse de</span>
-            <span className="pm-diocese-city">{PROCHAINE_MISSION.diocese}</span>
-            <span className="pm-diocese-dept">{PROCHAINE_MISSION.department}</span>
-            <span className="pm-underline-anim" aria-hidden="true" />
-          </div>
-
-          {/* Date — grosse et lisible */}
-          <div className={`pm-date-block ${sectionVisible ? 'pm-reveal-up' : 'pm-hidden-up'}`} style={{ animationDelay: '0.3s' }}>
-            <Calendar size={18} strokeWidth={2.5} className="pm-date-icon" />
-            <span className="pm-date-text">{PROCHAINE_MISSION.dateLabel}</span>
-          </div>
-
-          {/* CTA avec retour haptique */}
-          <button
-            className={`pm-cta-btn ${pressed ? 'pm-cta-pressed' : ''}`}
-            onPointerDown={handleCtaDown}
-            onPointerUp={handleCtaUp}
-            onPointerLeave={handleCtaUp}
-            aria-label="Rejoindre la mission de Laval"
+          {/* Titre : lettres animées */}
+          <h2
+            ref={titleRef}
+            className="fm-title"
+            aria-label="Laval nous accueille."
           >
-            <span className="pm-cta-bg" aria-hidden="true" />
-            <span className="pm-cta-label">Rejoindre la mission</span>
-            <span className="pm-cta-arrow" aria-hidden="true">→</span>
-          </button>
-        </div>
+            <span className="ln" data-text="Laval">Laval</span>
+            <span className="ln" data-text="nous accueille.">nous accueille.</span>
+          </h2>
 
-        {/* ══ BLOC DROIT : CARTE ══ */}
-        <div ref={mapRef} className={`pm-map-col ${mapVisible ? 'pm-reveal-right' : 'pm-hidden-right'}`}>
-          <div className="pm-map-frame">
-            {/* Halo décoratif derrière la carte */}
-            <div className="pm-map-halo" aria-hidden="true" />
-            <div className="pm-map-card">
-              <div className="pm-map-header">
-                <span className="pm-map-dot" />
-                <span className="pm-map-title">Diocèse de {PROCHAINE_MISSION.diocese} · {PROCHAINE_MISSION.year}</span>
-              </div>
-              <div className="pm-map-embed">
-                <iframe
-                  title="Carte des diocèses de France – Mission Laval 2027"
-                  aria-label="Carte choroplèthe"
-                  src="https://datawrapper.dwcdn.net/otsD1/2/"
-                  scrolling="no"
-                  frameBorder="0"
-                  style={{ border: 'none', width: '100%', height: '100%', display: 'block' }}
-                  data-external="1"
-                />
-              </div>
+          {/* Texte court + accroches dépliables */}
+          <div ref={copyRef} className="fm-copy">
+            <p className="fm-sub">Mission de Toussaint · Diocèse de Laval</p>
+            <p className="fm-txt">
+              Pendant une semaine, des familles et des jeunes venus de toute la France se mettent au service
+              des paroisses de Mayenne. Une semaine pour aller à la rencontre, témoigner de la joie du Christ et
+              laisser des équipes prêtes à poursuivre l'élan.
+            </p>
+
+            <ul className="fm-tags">
+              <li>
+                <button
+                  type="button"
+                  className="fm-tag"
+                  aria-expanded={expandedIndex === 0}
+                  onClick={() => handleTagClick(0)}
+                  onPointerMove={handleTagPointerMove}
+                  onPointerLeave={handleTagPointerLeave}
+                >
+                  Dans les cimetières
+                  <em>
+                    <span>Le jour de la Toussaint, une prière et une présence fraternelle auprès de ceux qui viennent fleurir les tombes.</span>
+                  </em>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="fm-tag"
+                  aria-expanded={expandedIndex === 1}
+                  onClick={() => handleTagClick(1)}
+                  onPointerMove={handleTagPointerMove}
+                  onPointerLeave={handleTagPointerLeave}
+                >
+                  Dans la rue & sur les places
+                  <em>
+                    <span>Missions de quartier, rencontres sur les marchés mayennais, veillées de louange et visites dans les EHPAD.</span>
+                  </em>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="fm-tag"
+                  aria-expanded={expandedIndex === 2}
+                  onClick={() => handleTagClick(2)}
+                  onPointerMove={handleTagPointerMove}
+                  onPointerLeave={handleTagPointerLeave}
+                >
+                  À table avec les paroissiens
+                  <em>
+                    <span>Des repas partagés et des liens profonds tissés pour soutenir et dynamiser la mission locale.</span>
+                  </em>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Carte Datawrapper */}
+          <div ref={mapRef} className="fm-map">
+            <div style={{ minHeight: '587px' }} id="datawrapper-vis-otsD1">
+              <noscript>
+                <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe des diocèses de France" />
+              </noscript>
             </div>
+          </div>
+
+          {/* Indicateur scroll & rail vertical */}
+          <i ref={hintRef} className="fm-hint" />
+          <div className="fm-rail">
+            <b ref={railBarRef} />
           </div>
         </div>
       </div>
@@ -122,19 +345,17 @@ function ProchaineMissionSection() {
   );
 }
 
-// ─── Page principale ─────────────────────────────────────────────────────────
+// ─── Page principale ──────────────────────────────────────────────────────────
 const MissionsPage = () => {
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const isMissionModalOpen = Boolean(selectedMission);
 
-  // Fonction pour ouvrir une mission et reset la vidéo
   const handleOpenMission = (mission) => {
     setSelectedMission(mission);
     setIsVideoPlaying(false);
   };
 
-  // Fonction pour fermer
   const handleCloseMission = () => {
     setSelectedMission(null);
     setIsVideoPlaying(false);
@@ -142,7 +363,6 @@ const MissionsPage = () => {
 
   useEffect(() => {
     if (!isMissionModalOpen) return undefined;
-
     const scrollY = window.scrollY;
     const body = document.body;
     const root = document.documentElement;
@@ -153,12 +373,10 @@ const MissionsPage = () => {
     body.style.width = '100%';
     body.style.overflow = 'hidden';
     root.style.overflow = 'hidden';
-
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') handleCloseMission();
     };
     window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       body.classList.remove('modal-open');
@@ -177,33 +395,24 @@ const MissionsPage = () => {
     };
   }, [isMissionModalOpen]);
 
-  // Toggle vidéo
-  const toggleVideo = () => {
-    setIsVideoPlaying(!isVideoPlaying);
-  };
+  const toggleVideo = () => setIsVideoPlaying(!isVideoPlaying);
 
-  // Navigation entre missions
   const navigateMission = (direction, e) => {
     e.stopPropagation();
     if (!selectedMission) return;
-    setIsVideoPlaying(false); // On coupe la vidéo quand on change de mission
-
+    setIsVideoPlaying(false);
     const allVisible = [...toussaintMissions, ...yearMissions];
     const currentIndex = allVisible.findIndex(m => m.id === selectedMission.id);
-
     let nextIndex;
     if (direction === 'next') {
       nextIndex = (currentIndex + 1) % allVisible.length;
     } else {
       nextIndex = (currentIndex - 1 + allVisible.length) % allVisible.length;
     }
-
     setSelectedMission(allVisible[nextIndex]);
   };
 
-  // Données
   const missions = [
-    // --- MISSIONS TOUSSAINT ---
     {
       id: 10,
       category: 'toussaint',
@@ -408,7 +617,6 @@ const MissionsPage = () => {
       ],
       size: 'medium'
     },
-    // --- MISSIONS ANNÉE ---
     {
       id: 4,
       category: 'year',
@@ -469,368 +677,359 @@ const MissionsPage = () => {
         <meta property="og:image" content="https://famissio.pages.dev/assets/images/Carte_mission_2026.png" />
       </Helmet>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+        /* ── Utilitaires galerie ── */
         .mission-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .mission-card:hover { transform: translateY(-8px) scale(1.02); }
-        
         .year-tag { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
-        .location-text { font-family: 'Space Grotesk', sans-serif; }
-        
+
         .mission-eyebrow {
           font-size: 0.85rem; font-weight: 800; color: #f46a07;
           text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
           display: flex; align-items: center; justify-content: center; gap: 15px;
         }
-        .mission-eyebrow::before, .mission-eyebrow::after { 
-          content: ''; width: 40px; height: 2px; background: #f46a07; 
+        .mission-eyebrow::before, .mission-eyebrow::after {
+          content: ''; width: 40px; height: 2px; background: #f46a07;
         }
-
-        /* Villes : Style Pillule Lumineuse */
         .city-pill {
-            display: inline-flex;
-            align-items: center;
-            background-color: #fff7ed;
-            color: #c2410c;
-            border: 1px solid #ffedd5;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            margin-right: 0.35rem;
-            margin-bottom: 0.35rem;
+          display: inline-flex; align-items: center;
+          background-color: #fff7ed; color: #c2410c;
+          border: 1px solid #ffedd5;
+          font-size: 0.85rem; font-weight: 600;
+          padding: 0.25rem 0.75rem; border-radius: 9999px;
+          margin-right: 0.35rem; margin-bottom: 0.35rem;
         }
-
-        /* Animation reflet brillant sur les boutons */
         .btn-shine { position: relative; overflow: hidden; }
         .btn-shine::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-20deg); transition: 0s;
+          content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+          transform: skewX(-20deg); transition: 0s;
         }
-        .btn-shine:hover::after {
-            left: 200%; transition: 0.7s ease-in-out;
-        }
-        
-        .img-zoom-medium {
-            object-position: center;
-            transform: scale(1.15);
-        }
-        .group:hover .img-zoom-medium {
-            transform: scale(1.25) !important;
-        }
-
-        .img-zoom-large {
-            object-position: center;
-            transform: scale(1.55);
-        }
+        .btn-shine:hover::after { left: 200%; transition: 0.7s ease-in-out; }
+        .img-zoom-medium { object-position: center; transform: scale(1.15); }
+        .group:hover .img-zoom-medium { transform: scale(1.25) !important; }
+        .img-zoom-large { object-position: center; transform: scale(1.55); }
+        .group:hover .img-zoom-large { transform: scale(1.65) !important; }
         .mission-image-native {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none;
-            max-height: none;
-            object-fit: cover !important;
-            transform: none !important;
+          width: 100% !important; height: 100% !important;
+          max-width: none; max-height: none;
+          object-fit: cover !important; transform: none !important;
         }
-        .group:hover .img-zoom-large {
-            transform: scale(1.65) !important;
-        }
-
-        /* Suppression des scrollbars par défaut dans le modal si nécessaire */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* ═══ SECTION PROCHAINE MISSION ═══ */
-
-        /* Keyframes */
-        @keyframes pm-pulse-ring {
-          0%   { transform: scale(1);   opacity: 0.7; }
-          70%  { transform: scale(2);   opacity: 0;   }
-          100% { transform: scale(1);   opacity: 0;   }
-        }
-        @keyframes pm-reveal-left {
-          from { opacity: 0; transform: translateX(-48px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes pm-reveal-right {
-          from { opacity: 0; transform: translateX(48px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes pm-reveal-up {
-          from { opacity: 0; transform: translateY(28px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pm-underline-grow {
-          from { transform: scaleX(0); }
-          to   { transform: scaleX(1); }
-        }
-        @keyframes pm-cta-shine {
-          0%   { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        @keyframes pm-dot-pulse {
-          0%, 100% { transform: scale(1);   opacity: 1; }
-          50%       { transform: scale(1.3); opacity: 0.7; }
-        }
-        @keyframes pm-flame-flicker {
-          0%, 100% { transform: scaleY(1)   skewX(0deg); }
-          25%       { transform: scaleY(1.04) skewX(-1deg); }
-          75%       { transform: scaleY(0.97) skewX(1deg); }
-        }
-
-        /* Visibilité reveal */
-        .pm-hidden-left  { opacity: 0; transform: translateX(-48px); }
-        .pm-hidden-right { opacity: 0; transform: translateX(48px); }
-        .pm-hidden-up    { opacity: 0; transform: translateY(28px); }
-
-        .pm-reveal-left {
-          animation: pm-reveal-left 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .pm-reveal-right {
-          animation: pm-reveal-right 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-        }
-        .pm-reveal-up {
-          animation: pm-reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        /* Section */
-        .pm-section {
+        /* ══════════════════════════════════════════
+           SECTION PROCHAINE MISSION (DA FAMISSIO)
+        ══════════════════════════════════════════ */
+        .fm {
+          --night: #140b07;
+          --dusk: #271207;
+          --flame: #c82904;
+          --ember: #f46a07;
+          --coral: #ff8b6b;
+          --paper: #fff8f4;
+          --mist: rgba(255, 248, 244, 0.74);
+          --gold: #f6b24a;
+          --serif: 'Playfair Display', Georgia, serif;
+          --sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+          color: var(--paper);
+          font-family: var(--sans);
+          background: var(--night);
           position: relative;
-          overflow: hidden;
-          background: #fff8f4;
-          padding: 80px 0 100px;
-        }
-
-        /* Bande flame diagonale en arrière-plan */
-        .pm-diagonal-flame {
-          position: absolute;
-          top: 0; right: -5%;
-          width: 48%;
-          height: 100%;
-          background: linear-gradient(135deg, #fff3ec 0%, #ffe4d0 50%, #ffd0b0 100%);
-          clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
-          pointer-events: none;
-        }
-
-        /* Grain subtil */
-        .pm-grain {
-          position: absolute; inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-          pointer-events: none;
-        }
-
-        /* Inner layout */
-        .pm-inner {
-          position: relative;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 24px;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 64px;
-          align-items: center;
-        }
-        @media (max-width: 900px) {
-          .pm-inner { grid-template-columns: 1fr; gap: 48px; }
-          .pm-diagonal-flame { display: none; }
-        }
-
-        /* Texte col */
-        .pm-text-col { position: relative; }
-
-        /* Eyebrow / badge */
-        .pm-eyebrow {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-size: 0.72rem; font-weight: 800;
-          text-transform: uppercase; letter-spacing: 0.22em;
-          color: #c82904;
-          margin-bottom: 20px;
-        }
-        .pm-dot-anim {
-          display: inline-block;
-          width: 8px; height: 8px;
-          background: #f46a07;
-          border-radius: 50%;
-          position: relative;
-          animation: pm-dot-pulse 1.8s ease-in-out infinite;
-        }
-        .pm-dot-anim::after {
-          content: '';
-          position: absolute; inset: -4px;
-          border-radius: 50%;
-          border: 2px solid #f46a07;
-          animation: pm-pulse-ring 1.8s ease-out infinite;
-        }
-
-        /* Année */
-        .pm-year-text {
-          font-family: 'Bebas Neue', cursive;
-          font-size: clamp(6rem, 15vw, 12rem);
-          line-height: 0.82;
-          letter-spacing: 4px;
-          color: #c82904;
-          margin-bottom: 8px;
-          animation: pm-flame-flicker 3s ease-in-out infinite;
-          transform-origin: bottom center;
-        }
-
-        /* Diocèse wrap */
-        .pm-diocese-wrap {
-          position: relative;
-          margin-bottom: 32px;
-          padding-bottom: 18px;
-        }
-        .pm-diocese-label {
-          display: block;
-          font-size: 0.8rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.18em;
-          color: #9a3412;
-          margin-bottom: 4px;
-        }
-        .pm-diocese-city {
-          display: block;
-          font-family: 'Bebas Neue', cursive;
-          font-size: clamp(2.8rem, 7vw, 5rem);
-          letter-spacing: 3px;
-          line-height: 1;
-          color: #1a1a1a;
-        }
-        .pm-diocese-dept {
-          display: block;
-          font-size: 1rem; font-weight: 600;
-          color: #6b7280;
-          margin-top: 4px;
-          letter-spacing: 0.05em;
-        }
-        /* Soulignement animé déclenché par la classe reveal */
-        .pm-underline-anim {
-          position: absolute;
-          bottom: 0; left: 0;
-          height: 4px;
           width: 100%;
-          background: linear-gradient(90deg, #f46a07, #c82904);
-          border-radius: 2px;
-          transform-origin: left center;
-          transform: scaleX(0);
+          overflow: clip;
         }
-        .pm-reveal-left .pm-underline-anim {
-          animation: pm-underline-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
-        }
+        .fm * { box-sizing: border-box; }
+        .fm-track { position: relative; height: 340svh; }
+        .fm-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
 
-        /* Bloc date */
-        .pm-date-block {
-          display: inline-flex; align-items: center; gap: 10px;
-          background: white;
-          border: 1.5px solid #fed7aa;
-          border-radius: 14px;
-          padding: 12px 20px;
-          margin-bottom: 32px;
-          box-shadow: 0 4px 20px rgba(244,106,7,0.1);
-        }
-        .pm-date-icon { color: #f46a07; flex-shrink: 0; }
-        .pm-date-text {
-          font-size: 1.05rem; font-weight: 800;
-          color: #1a1a1a;
-          letter-spacing: 0.01em;
-        }
-
-        /* CTA button */
-        .pm-cta-btn {
-          position: relative;
-          display: inline-flex; align-items: center; gap: 14px;
-          padding: 16px 32px;
-          border-radius: 100px;
-          overflow: hidden;
-          cursor: pointer;
-          border: none;
-          transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
-          box-shadow: 0 8px 30px rgba(200,41,4,0.35), 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .pm-cta-btn:hover {
-          transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 16px 40px rgba(200,41,4,0.4), 0 4px 12px rgba(0,0,0,0.12);
-        }
-        .pm-cta-pressed {
-          transform: scale(0.96) !important;
-          box-shadow: 0 4px 15px rgba(200,41,4,0.25) !important;
-        }
-        .pm-cta-bg {
-          position: absolute; inset: 0;
-          background: linear-gradient(120deg, #c82904 0%, #f46a07 50%, #c82904 100%);
-          background-size: 250% 100%;
-          animation: pm-cta-shine 3s linear infinite;
-          border-radius: 100px;
-        }
-        .pm-cta-label {
-          position: relative; z-index: 1;
-          font-weight: 800; font-size: 1rem;
-          color: white;
-          letter-spacing: 0.04em;
-        }
-        .pm-cta-arrow {
-          position: relative; z-index: 1;
-          font-size: 1.2rem; color: white;
-          display: inline-block;
-          transition: transform 0.2s;
-        }
-        .pm-cta-btn:hover .pm-cta-arrow { transform: translateX(5px); }
-
-        /* Carte col */
-        .pm-map-col { position: relative; }
-        .pm-map-frame { position: relative; }
-        .pm-map-halo {
+        /* Fond : nappes de couleur en dégradé de flammes & braises */
+        .fm-bg {
           position: absolute;
-          inset: -30px;
-          background: radial-gradient(ellipse at 60% 50%, rgba(244,106,7,0.15) 0%, transparent 65%);
-          pointer-events: none;
+          inset: -10%;
+          z-index: -2;
+          background: linear-gradient(160deg, var(--night) 0%, var(--dusk) 55%, #381507 100%);
         }
-        .pm-map-card {
-          position: relative;
-          background: white;
-          border-radius: 24px;
-          overflow: hidden;
-          border: 1.5px solid #fed7aa;
-          box-shadow:
-            0 4px 24px rgba(244,106,7,0.08),
-            0 20px 60px rgba(0,0,0,0.08);
-        }
-        .pm-map-header {
-          display: flex; align-items: center; gap: 10px;
-          padding: 14px 20px 10px;
-          border-bottom: 1px solid #fff0e6;
-        }
-        .pm-map-dot {
-          width: 10px; height: 10px;
-          background: #f46a07;
+        .fm-bg i {
+          position: absolute;
           border-radius: 50%;
-          box-shadow: 0 0 10px rgba(244,106,7,0.6);
-          flex-shrink: 0;
-          animation: pm-dot-pulse 2s ease-in-out infinite;
+          filter: blur(80px);
+          will-change: transform;
         }
-        .pm-map-title {
-          font-size: 0.78rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.15em;
-          color: #9a3412;
+        .fm-bg i:nth-child(1) {
+          left: -8vmax;
+          top: -12vmax;
+          width: 60vmax;
+          height: 60vmax;
+          background: radial-gradient(circle, rgba(200, 41, 4, 0.52), transparent 65%);
+          opacity: 0.65;
         }
-        .pm-map-embed {
-          height: 440px;
+        .fm-bg i:nth-child(2) {
+          right: -14vmax;
+          bottom: -18vmax;
+          width: 60vmax;
+          height: 60vmax;
+          background: radial-gradient(circle, rgba(244, 106, 7, 0.48), transparent 62%);
+          opacity: 0.55;
+        }
+        .fm-bg i:nth-child(3) {
+          left: 38%;
+          top: 28%;
+          width: 36vmax;
+          height: 36vmax;
+          background: radial-gradient(circle, rgba(246, 178, 74, 0.35), transparent 65%);
+          opacity: 0.32;
+        }
+
+        .fm-grain {
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          opacity: 0.12;
+          mix-blend-mode: overlay;
+          pointer-events: none;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Dates géantes en contour défilant derrière */
+        .fm-dates {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          z-index: -1;
+          white-space: nowrap;
+          font: 700 clamp(8rem, 24vw, 24rem) / 1 var(--serif);
+          letter-spacing: -0.04em;
+          color: transparent;
+          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.24);
+          will-change: transform;
+          pointer-events: none;
+          user-select: none;
+        }
+
+        /* Titre : chaque lettre réagit au survol et à l'entrée */
+        .fm-title {
+          position: absolute;
+          left: 5vw;
+          top: 50%;
+          margin: 0;
+          transform: translateY(-50%);
+          transform-origin: 0 50%;
+          font: 700 clamp(3.4rem, 10.5vw, 9.5rem) / 0.95 var(--serif);
+          letter-spacing: -0.035em;
+          will-change: transform;
+          color: var(--paper);
+        }
+        .fm-title .ln {
+          display: block;
+          overflow: hidden;
+          padding: 0.04em 0.1em 0.12em 0;
+        }
+        .fm-title .ln:nth-child(2) {
+          color: var(--ember);
+          background: linear-gradient(135deg, #f46a07 0%, #ff8b6b 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .ch {
+          display: inline-block;
+          transform: translateY(110%);
+          animation: fmr 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          animation-delay: calc(var(--k) * 45ms);
+          transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), font-weight 0.22s ease;
+          will-change: transform;
+        }
+        @keyframes fmr {
+          to { transform: none; }
+        }
+
+        /* Texte court + trois accroches dépliables */
+        .fm-copy {
+          position: absolute;
+          left: 5vw;
+          bottom: 7vh;
+          width: min(520px, 40vw);
+          opacity: 0;
+          will-change: transform, opacity;
+        }
+        .fm-sub {
+          margin: 0 0 0.7rem;
+          font: 700 0.92rem var(--sans);
+          color: var(--ember);
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+        }
+        .fm-txt {
+          margin: 0 0 1.4rem;
+          font-size: clamp(0.98rem, 1.25vw, 1.15rem);
+          line-height: 1.65;
+          color: var(--mist);
+        }
+        .fm-tags {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          gap: 0.65rem;
+        }
+        .fm-tag {
+          all: unset;
+          display: block;
+          width: 100%;
+          cursor: pointer;
+          padding: 0.85rem 1.25rem;
+          border: 1px solid rgba(255, 248, 244, 0.18);
+          border-radius: 16px;
+          background: rgba(255, 248, 244, 0.05);
+          backdrop-filter: blur(12px);
+          font: 600 1.12rem var(--serif);
+          transition: transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.3s, background 0.3s;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .fm-tag::after {
+          content: "+";
+          float: right;
+          font-family: var(--sans);
+          font-weight: 400;
+          font-size: 1.2rem;
+          color: var(--ember);
+          transition: transform 0.35s ease;
+        }
+        .fm-tag:hover {
+          border-color: var(--ember);
+          background: rgba(244, 106, 7, 0.14);
+        }
+        .fm-tag:active {
+          transform: scale(0.97);
+        }
+        .fm-tag:focus-visible {
+          outline: 2px solid var(--ember);
+          outline-offset: 3px;
+        }
+        .fm-tag[aria-expanded="true"] {
+          border-color: var(--ember);
+          background: rgba(244, 106, 7, 0.16);
+        }
+        .fm-tag[aria-expanded="true"]::after {
+          transform: rotate(45deg);
+        }
+        .fm-tag em {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          font: 400 0.94rem / 1.55 var(--sans);
+          font-style: normal;
+          color: var(--mist);
+          transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, margin 0.4s;
+        }
+        .fm-tag em span {
           overflow: hidden;
         }
-        .pm-map-embed iframe {
-          width: 100%; height: 100%;
+        .fm-tag[aria-expanded="true"] em {
+          grid-template-rows: 1fr;
+          opacity: 1;
+          margin-top: 0.55rem;
+        }
+
+        /* Carte */
+        .fm-map {
+          position: absolute;
+          right: 4vw;
+          top: 50%;
+          width: min(52vw, 860px);
+          padding: 10px;
+          border: 1px solid rgba(244, 106, 7, 0.25);
+          border-radius: 28px;
+          background: rgba(255, 248, 244, 0.04);
+          backdrop-filter: blur(14px);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(244, 106, 7, 0.08) inset;
+          transform-origin: 100% 50%;
+          opacity: 0;
+          pointer-events: none;
+          will-change: transform, clip-path, opacity;
+        }
+        .fm-map iframe {
+          border: 0;
+          background: transparent;
+          width: 100%;
+          border-radius: 20px;
           display: block;
-          border: none;
+        }
+
+        .fm-hint {
+          position: absolute;
+          left: 50%;
+          bottom: 3vh;
+          width: 1px;
+          height: 48px;
+          background: linear-gradient(var(--paper), transparent);
+          transform-origin: top;
+          animation: fmh 1.8s infinite;
+          transition: opacity 0.4s;
+        }
+        @keyframes fmh {
+          0% { transform: scaleY(0); }
+          60%, 100% { transform: scaleY(1); }
+          100% { opacity: 0; }
+        }
+        .fm-rail {
+          position: absolute;
+          right: 1.2vw;
+          top: 30vh;
+          width: 2px;
+          height: 40vh;
+          background: rgba(255, 248, 244, 0.15);
+          border-radius: 2px;
+          overflow: hidden;
+        }
+        .fm-rail b {
+          display: block;
+          height: 100%;
+          background: linear-gradient(180deg, var(--ember), var(--flame));
+          transform-origin: top;
+          transform: scaleY(var(--p, 0));
+        }
+
+        /* Mobile / mouvement réduit : empilé, sans épinglage */
+        .fm.flat .fm-track { height: auto; }
+        .fm.flat .fm-stage {
+          position: relative;
+          height: auto;
+          display: grid;
+          gap: 2.5rem;
+          padding: 12vh 5vw 10vh;
+        }
+        .fm.flat .fm-title,
+        .fm.flat .fm-copy,
+        .fm.flat .fm-map {
+          position: static;
+          width: auto;
+          transform: none !important;
+          clip-path: none !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+        }
+        .fm.flat .fm-title {
+          font-size: clamp(3.2rem, 14vw, 6.5rem);
+        }
+        .fm.flat .fm-dates {
+          top: 8%;
+        }
+        .fm.flat .fm-hint,
+        .fm.flat .fm-rail {
+          display: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .fm * { animation: none !important; transition: none !important; }
+          .ch { transform: none; }
         }
       `}</style>
 
-      {/* ══════════ HERO SECTION ══════════ */}
+      {/* ══════════ HERO ══════════ */}
       <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-          .blob {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            animation: morph 8s ease-in-out infinite;
-          }
+          .blob { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation: morph 8s ease-in-out infinite; }
           @keyframes morph {
             0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
             50%       { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
@@ -856,10 +1055,10 @@ const MissionsPage = () => {
       {/* Bande décorative */}
       <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50" />
 
-      {/* ══════════ SECTION PROCHAINE MISSION ══════════ */}
+      {/* ══════════ PROCHAINE MISSION ══════════ */}
       <ProchaineMissionSection />
 
-      {/* ══════════ GALLERIE MISSIONS ══════════ */}
+      {/* ══════════ GALERIE ══════════ */}
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-16">
         <div className="text-center mb-12">
           <div className="mission-eyebrow">L'HISTORIQUE</div>
@@ -875,63 +1074,54 @@ const MissionsPage = () => {
           FAMISSIO TOUSSAINT
         </h3>
 
-        {/* GRILLE TOUSSAINT */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
           {toussaintMissions.map((mission, index) => {
-            // Seule la toute dernière mission est en grand format (large)
             const isLarge = index === 0;
             const cardSpan = isLarge
               ? 'col-span-2 row-span-2 h-[600px]'
               : mission.size === 'small'
                 ? 'col-span-1 row-span-1 h-[240px]'
                 : 'col-span-2 row-span-1 h-[300px]';
-
             return (
               <div
                 key={mission.id}
                 className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg ${cardSpan}`}
                 onClick={() => handleOpenMission(mission)}
               >
-              <div className="absolute inset-0 w-full h-full">
-                <img
-                  src={mission.image}
-                  alt={mission.year}
-                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 
-                    ${mission.imageZoom === 'large' ? 'img-zoom-large' :
-                      mission.imageZoom === 'medium' ? 'img-zoom-medium' :
-                        mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
-                />
-              </div>
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity"></div>
-
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <div className="transform transition-transform group-hover:translate-y-0 translate-y-2">
-                  <div className="text-5xl sm:text-7xl font-black mb-2 year-tag text-white">
-                    {mission.year}
-                  </div>
-                  <div className="flex items-center gap-2 text-orange-300 mb-2">
-                    <MapPin className="w-4 h-4" />
-                    <span className="text-sm font-semibold truncate">{mission.location}</span>
-                  </div>
-                  {mission.participants && (
-                    <div className="flex items-center gap-2 text-white/80">
-                      <Users className="w-4 h-4" />
-                      <span className="text-sm font-bold">{mission.participants} Famissionnaires</span>
+                <div className="absolute inset-0 w-full h-full">
+                  <img
+                    src={mission.image}
+                    alt={mission.year}
+                    className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110
+                      ${mission.imageZoom === 'large' ? 'img-zoom-large' :
+                        mission.imageZoom === 'medium' ? 'img-zoom-medium' :
+                          mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity" />
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <div className="transform transition-transform group-hover:translate-y-0 translate-y-2">
+                    <div className="text-5xl sm:text-7xl font-black mb-2 year-tag text-white">{mission.year}</div>
+                    <div className="flex items-center gap-2 text-orange-300 mb-2">
+                      <MapPin className="w-4 h-4" />
+                      <span className="text-sm font-semibold truncate">{mission.location}</span>
                     </div>
-                  )}
+                    {mission.participants && (
+                      <div className="flex items-center gap-2 text-white/80">
+                        <Users className="w-4 h-4" />
+                        <span className="text-sm font-bold">{mission.participants} Famissionnaires</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                  VOIR PLUS
                 </div>
               </div>
-
-              <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                VOIR PLUS
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
 
-        {/* TITRE MISSIONS ANNÉE */}
         <h3 className="text-3xl font-black mb-8 year-tag text-gray-800 border-b-2 border-orange-200 inline-block pb-2">
           MISSIONS À L'ANNÉE
         </h3>
@@ -947,24 +1137,20 @@ const MissionsPage = () => {
                 <img
                   src={mission.image}
                   alt={mission.year}
-                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 
+                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110
                     ${mission.imageZoom === 'large' ? 'img-zoom-large' :
                       mission.imageZoom === 'medium' ? 'img-zoom-medium' :
                         mission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity"></div>
-
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity" />
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <div className="text-5xl font-black mb-2 year-tag text-white">
-                  {mission.year}
-                </div>
+                <div className="text-5xl font-black mb-2 year-tag text-white">{mission.year}</div>
                 <div className="flex items-center gap-2 text-orange-300">
                   <MapPin className="w-4 h-4" />
                   <span className="text-lg font-semibold">{mission.location}</span>
                 </div>
               </div>
-
               <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
                 VOIR PLUS
               </div>
@@ -973,13 +1159,12 @@ const MissionsPage = () => {
         </div>
       </div>
 
-      {/* MISSION OVERLAY (POPUP) */}
+      {/* ══════════ MODAL ══════════ */}
       {selectedMission && (
         <div
           className="fixed inset-0 bg-black/70 backdrop-blur-md z-[10000] overflow-y-auto no-scrollbar flex items-center justify-center p-4 sm:p-6"
           onClick={handleCloseMission}
         >
-          {/* FLÈCHES NAVIGATION (Desktop) */}
           <button
             type="button"
             onClick={(e) => navigateMission('prev', e)}
@@ -987,7 +1172,6 @@ const MissionsPage = () => {
           >
             <ChevronLeft className="w-8 h-8 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.5} />
           </button>
-
           <button
             type="button"
             onClick={(e) => navigateMission('next', e)}
@@ -995,8 +1179,6 @@ const MissionsPage = () => {
           >
             <ChevronRight className="w-8 h-8 transition-transform group-hover:translate-x-0.5" strokeWidth={2.5} />
           </button>
-
-          {/* BOUTON FERMER */}
           <button
             type="button"
             onClick={handleCloseMission}
@@ -1005,27 +1187,20 @@ const MissionsPage = () => {
             <X className="w-6 h-6" strokeWidth={2.5} />
           </button>
 
-          {/* CARTE MODALE BLANCHE LUMINEUSE */}
           <div
             className="max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-orange-100 relative my-8 p-6 sm:p-10 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* GRILLE DU HAUT (Infos + Image) */}
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 items-center">
-              {/* COLONNE GAUCHE : INFOS */}
               <div className="flex flex-col justify-center">
                 <div className="text-7xl sm:text-9xl font-black mb-4 year-tag text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 leading-none">
                   {selectedMission.year}
                 </div>
-
                 <div className="space-y-4 mb-6">
-                  {/* DATE */}
                   <div className="flex items-center gap-3 text-orange-700 font-semibold bg-orange-50/80 px-4 py-2 rounded-xl border border-orange-100 inline-flex self-start">
                     <Calendar className="w-5 h-5 text-orange-600 flex-shrink-0" />
                     <span className="text-lg">{selectedMission.date}</span>
                   </div>
-
-                  {/* DIOCESE */}
                   <div className="text-gray-900">
                     <div className="flex items-start gap-3">
                       <div className="p-2 bg-orange-100 rounded-lg text-orange-600 flex-shrink-0 mt-0.5">
@@ -1033,20 +1208,14 @@ const MissionsPage = () => {
                       </div>
                       <span className="text-lg font-bold text-gray-800">{selectedMission.diocese}</span>
                     </div>
-
-                    {/* VILLES */}
                     {selectedMission.category !== 'year' && selectedMission.cities?.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-1.5 pl-10">
                         {selectedMission.cities.map((city, idx) => (
-                          <span key={idx} className="city-pill">
-                            {city}
-                          </span>
+                          <span key={idx} className="city-pill">{city}</span>
                         ))}
                       </div>
                     )}
                   </div>
-
-                  {/* PARTICIPANTS */}
                   {selectedMission.participants && (
                     <div className="flex items-center gap-3 text-gray-800 font-semibold">
                       <div className="p-2 bg-red-50 rounded-lg text-red-600 flex-shrink-0">
@@ -1057,13 +1226,11 @@ const MissionsPage = () => {
                   )}
                 </div>
               </div>
-
-              {/* COLONNE DROITE : IMAGE */}
               <div className={`rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[360px] border border-gray-100 relative group ${selectedMission.imageZoom === 'native' ? 'flex items-center justify-center' : ''}`}>
                 <img
                   src={selectedMission.image}
                   alt={selectedMission.year}
-                  className={`w-full h-full object-cover rounded-2xl 
+                  className={`w-full h-full object-cover rounded-2xl
                     ${selectedMission.imageZoom === 'native' ? 'mission-image-native' :
                       selectedMission.imageZoom === 'large' ? 'img-zoom-large' :
                       selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
@@ -1072,36 +1239,25 @@ const MissionsPage = () => {
               </div>
             </div>
 
-            {/* TEXTE HISTOIRE */}
             <div className="w-full bg-orange-50/40 rounded-2xl p-6 sm:p-8 mb-8 border border-orange-100/80">
               <p className="text-gray-800 text-base sm:text-lg leading-relaxed whitespace-pre-line text-justify">
                 {selectedMission.story}
               </p>
             </div>
 
-            {/* LIENS & BOUTONS */}
             <div className="flex flex-wrap gap-4 mb-4">
-              {/* Bouton Vidéo (Toggle) */}
               {selectedMission.video && (
                 <button
                   onClick={toggleVideo}
                   className="btn-shine flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-md"
                 >
                   {isVideoPlaying ? (
-                    <>
-                      <X className="w-5 h-5" />
-                      Fermer la vidéo
-                    </>
+                    <><X className="w-5 h-5" />Fermer la vidéo</>
                   ) : (
-                    <>
-                      <Play className="w-5 h-5 fill-current" />
-                      Voir la vidéo
-                    </>
+                    <><Play className="w-5 h-5 fill-current" />Voir la vidéo</>
                   )}
                 </button>
               )}
-
-              {/* Autres liens */}
               {selectedMission.links.map((link, idx) => (
                 <a
                   key={idx}
@@ -1116,9 +1272,8 @@ const MissionsPage = () => {
               ))}
             </div>
 
-            {/* LECTEUR VIDÉO (S'ouvre en bas) */}
             {isVideoPlaying && selectedMission.video && (
-              <div className="w-full mt-6 rounded-2xl overflow-hidden shadow-xl border border-gray-200 animate-in slide-in-from-bottom-10 fade-in duration-500">
+              <div className="w-full mt-6 rounded-2xl overflow-hidden shadow-xl border border-gray-200">
                 <div className="relative pt-[56.25%] bg-black">
                   <iframe
                     className="absolute inset-0 w-full h-full"
@@ -1126,7 +1281,7 @@ const MissionsPage = () => {
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                  ></iframe>
+                  />
                 </div>
               </div>
             )}
