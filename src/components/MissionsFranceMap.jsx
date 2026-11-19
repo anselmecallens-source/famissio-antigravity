@@ -99,18 +99,15 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   const [selectedCode, setSelectedCode] = useState(null);
   const mapCanvasRef = useRef(null);
   const [introStarted, setIntroStarted] = useState(false);
-  const [introFinished, setIntroFinished] = useState(false);
   useEffect(() => {
     const canvas = mapCanvasRef.current;
     if (!canvas) return undefined;
-    let timeout;
     const startIntro = () => {
       setIntroStarted(true);
-      timeout = window.setTimeout(() => setIntroFinished(true), 5200);
     };
     if (!('IntersectionObserver' in window)) {
       startIntro();
-      return () => window.clearTimeout(timeout);
+      return undefined;
     }
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
@@ -118,8 +115,9 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
       startIntro();
     }, { threshold: 0.15 });
     observer.observe(canvas);
-    return () => { observer.disconnect(); window.clearTimeout(timeout); };
+    return () => observer.disconnect();
   }, []);
+  const [hasSelectedOtherDepartment, setHasSelectedOtherDepartment] = useState(false);
   const yearOptions = useMemo(() => [...new Set([ANNOUNCED_MISSION.year, ...missions.map((mission) => mission.year)])], [missions]);
   const missionsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map(({ code }) => [code, missions
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
@@ -133,9 +131,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   const shownMissions = activeYear === 'all' ? pastMissions : pastMissions.filter((mission) => mission.year === activeYear);
   const isAnnouncedHere = code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year);
   const isExpanded = Boolean(selectedCode && selectedCode === code);
-  const introIsVisible = announcedIsVisible && introStarted && !introFinished;
-  const announcedPath = departmentsByCode.get(ANNOUNCED_MISSION.code)?.mapPath;
-  const activePath = department?.mapPath;
+  const introIsVisible = announcedIsVisible && introStarted && !hasSelectedOtherDepartment;
 
   const hasVisit = (deptCode) => {
     if (deptCode === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year)) return true;
@@ -177,30 +173,30 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             <path
               key={dept.code}
               d={dept.mapPath}
-              className={departmentClass(dept.code)}
+              className={`${departmentClass(dept.code)}${dept.code === ANNOUNCED_MISSION.code && introIsVisible ? ' is-intro' : ''}`}
               role="button"
               tabIndex="0"
               aria-label={`${dept.name}, ${dept.code}${hasVisit(dept.code) ? ', mission Famissio' : ', pas encore visité'}`}
               aria-pressed={selectedCode === dept.code}
               onMouseEnter={() => { if (!selectedCode) setHoveredCode(dept.code); }}
               onFocus={() => setHoveredCode(dept.code)}
-              onClick={() => { setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); }}
-              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); } }}
+              onClick={() => { if (dept.code !== ANNOUNCED_MISSION.code) setHasSelectedOtherDepartment(true); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); }}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (dept.code !== ANNOUNCED_MISSION.code) setHasSelectedOtherDepartment(true); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); } }}
             >
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
-          {introIsVisible && announcedPath && <>
-            <path className="mission-fr-map__active-underlay is-intro" d={announcedPath} fill="none" aria-hidden="true" />
-            <path className="mission-fr-map__active-outline is-intro" d={announcedPath} fill="none" aria-hidden="true" />
-          </>}
-          {activePath && (hoveredCode || selectedCode) && <>
-            <path className="mission-fr-map__active-underlay" d={activePath} fill="none" aria-hidden="true" />
-            <path className="mission-fr-map__active-outline" d={activePath} fill="none" aria-hidden="true" />
-          </>}
+          {announcedIsVisible && <g className="mission-fr-map__callout" aria-hidden="true">
+            <defs><linearGradient id="mission-callout-gradient" x1="0" x2="1"><stop stopColor="#c82904" /><stop offset="1" stopColor="#f46a07" /></linearGradient></defs>
+            <path className="mission-fr-map__callout-line" d="M2.63 2.27 C2.83 2.36 2.94 2.61 3.1 2.9" />
+            <path className="mission-fr-map__callout-arrow" d="M3.02 2.81 L3.1 2.9 L3.14 2.78" />
+            <rect className="mission-fr-map__callout-pill" x=".82" y="2.04" width="1.82" height=".43" rx=".215" />
+            <circle className="mission-fr-map__callout-spark" cx="1.08" cy="2.255" r=".1" />
+            <path className="mission-fr-map__callout-star" d="M1.08 2.18 V2.33 M1.005 2.255 H1.155" />
+            <text className="mission-fr-map__callout-text" x="1.83" y="2.30" textAnchor="middle">RDV ici en 2027</text>
+            {introIsVisible && <circle className="mission-fr-map__target-ring" cx="3.1" cy="2.9" r=".105" />}
+          </g>}
         </svg>
-
-        {announcedIsVisible && <div className="mission-fr-map__callout" aria-hidden="true"><span>Ça se passera ici</span><i /></div>}
 
         {department && (hoveredCode || selectedCode) && (
           <section className={`mission-fr-map__popup${isExpanded ? ' is-expanded' : ''}${isAnnouncedHere ? ' is-announced' : ''}`} aria-live="polite" aria-label={`Missions dans le département ${department.name}`}>
