@@ -66,7 +66,7 @@ function simplifyRing(points, tolerance) {
   return result.length >= 6 ? result : points;
 }
 
-function simplifyDepartmentPath(path, tolerance = 0.055) {
+function simplifyDepartmentPath(path, tolerance = 0.035) {
   const tokens = path.match(/[MLZ]|-?\d+(?:\.\d+)?/g) || [];
   const rings = [];
   let ring = [];
@@ -87,7 +87,16 @@ function simplifyDepartmentPath(path, tolerance = 0.055) {
   if (ring.length) rings.push([...ring, ring[0]]);
   return rings.map((points) => {
     const simplified = simplifyRing(points, tolerance);
-    return `M${simplified.map(([x, y]) => `${x.toFixed(3)},${y.toFixed(3)}`).join('L')}Z`;
+    const openRing = simplified.slice(0, -1);
+    if (openRing.length < 6) return `M${simplified.map(([x, y]) => `${x.toFixed(3)},${y.toFixed(3)}`).join('L')}Z`;
+    const midpoint = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+    const start = midpoint(openRing[openRing.length - 1], openRing[0]);
+    let rounded = `M${start[0].toFixed(3)},${start[1].toFixed(3)}`;
+    openRing.forEach((point, index) => {
+      const next = midpoint(point, openRing[(index + 1) % openRing.length]);
+      rounded += `Q${point[0].toFixed(3)},${point[1].toFixed(3)} ${next[0].toFixed(3)},${next[1].toFixed(3)}`;
+    });
+    return `${rounded}Z`;
   }).join('');
 }
 
@@ -107,6 +116,9 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   // A clicked department stays pinned while the pointer crosses the map.
   const code = selectedCode || hoveredCode;
   const department = departmentsByCode.get(code);
+  const activePath = department && (department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year)
+    ? enlargeDepartmentPath(department.mapPath)
+    : department.mapPath);
   const pastMissions = code ? missionsByCode.get(code) || [] : [];
   const shownMissions = activeYear === 'all' ? pastMissions : pastMissions.filter((mission) => mission.year === activeYear);
   const isAnnouncedHere = code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year);
@@ -164,6 +176,12 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
+          {activePath && (hoveredCode || selectedCode) && (
+            <>
+              <path className="mission-fr-map__active-underlay" d={activePath} aria-hidden="true" />
+              <path className="mission-fr-map__active-outline" d={activePath} aria-hidden="true" />
+            </>
+          )}
         </svg>
 
         {department && (hoveredCode || selectedCode) && (

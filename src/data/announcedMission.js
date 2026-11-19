@@ -7,5 +7,5 @@ export const ANNOUNCED_MISSION = Object.freeze({
   titleLine: 'nous accueille.',
   dates: '30 octobre – 5 novembre',
   territory: 'Mayenne (53)',
-  description: 'À la Toussaint 2027, nous nous retrouverons en Mayenne pour une semaine de rencontres, de service auprès des paroisses et de grande joie partagée.',
+  description: 'Nous sommes très heureux de rejoindre le diocèse de Laval à la Toussaint 2027 ! Avec les paroissiens, nous vivrons une semaine de rencontres, de prière et de service, pour aller à la rencontre des habitants et partager la joie de l’Évangile. Nous avons hâte de préparer et vivre cette belle mission avec vous.',
 });
