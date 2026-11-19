@@ -108,11 +108,15 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   const [activeYear, setActiveYear] = useState('all');
   const [hoveredCode, setHoveredCode] = useState(null);
   const [selectedCode, setSelectedCode] = useState(null);
+  const [hasEnteredMap, setHasEnteredMap] = useState(false);
   const yearOptions = useMemo(() => [...new Set([ANNOUNCED_MISSION.year, ...missions.map((mission) => mission.year)])], [missions]);
   const missionsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map(({ code }) => [code, missions
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
     .sort(compareYears)])), [missions]);
   const departmentsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map((department) => [department.code, department])), []);
+  const announcedDepartment = departmentsByCode.get(ANNOUNCED_MISSION.code);
+  const announcedIsVisible = activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year;
+  const announcedPath = announcedDepartment && enlargeDepartmentPath(announcedDepartment.mapPath);
   // A clicked department stays pinned while the pointer crosses the map.
   const code = selectedCode || hoveredCode;
   const department = departmentsByCode.get(code);
@@ -155,7 +159,9 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
 
       <div
         className="mission-fr-map__canvas"
+        onMouseEnter={() => setHasEnteredMap(true)}
         onMouseLeave={() => setHoveredCode(null)}
+        onFocusCapture={() => setHasEnteredMap(true)}
         onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHoveredCode(null); }}
       >
         <svg className="mission-fr-map__svg" viewBox={FRANCE_MAP_VIEWBOX} role="group" aria-label="Départements de France métropolitaine">
@@ -176,10 +182,16 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
+          {announcedIsVisible && announcedPath && !hasEnteredMap && (
+            <>
+              <path className="mission-fr-map__active-underlay is-announced is-intro" d={announcedPath} aria-hidden="true" />
+              <path className="mission-fr-map__active-outline is-announced is-intro" d={announcedPath} aria-hidden="true" />
+            </>
+          )}
           {activePath && (hoveredCode || selectedCode) && (
             <>
-              <path className={`mission-fr-map__active-underlay${department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
-              <path className={`mission-fr-map__active-outline${department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
+              <path className={`mission-fr-map__active-underlay${department.code === ANNOUNCED_MISSION.code && announcedIsVisible ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
+              <path className={`mission-fr-map__active-outline${department.code === ANNOUNCED_MISSION.code && announcedIsVisible ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
             </>
           )}
         </svg>
