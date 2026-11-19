@@ -129,7 +129,11 @@ const MissionsPage = () => {
       
       Gloire à Dieu. Et vive la mission !`,
       video: null,
-      links: [],
+      links: [
+        { name: 'La Montagne (Cosnac)', url: '/assets/Articles%20missions/La%20Montagne%20-%20Cosnac%202026.jpg' },
+        { name: 'La Montagne (Brive Holywins)', url: '/assets/Articles%20missions/La%20Montagne%20-%20Brive%20Holywins%202026.jpg' },
+        { name: 'La Montagne (Page Brive)', url: '/assets/Articles%20missions/La%20Montagne%20-%20Page%20Brive%202026.jpg' }
+      ],
       size: 'large'
     },
     {
@@ -157,7 +161,7 @@ const MissionsPage = () => {
         { name: 'Le Limousin', url: '/assets/Articles%20missions/Le%20Limousin%202025.png' },
         { name: 'France 3', url: '/assets/Articles%20missions/France%203%20-%202025.mp4' }
       ],
-      size: 'large'
+      size: 'medium'
     },
     {
       id: 2,
@@ -284,7 +288,7 @@ const MissionsPage = () => {
         { name: 'Famille chrétienne', url: 'https://drive.google.com/file/d/1tdEPm5ikAnjNR8g04BLUvvyXAafsVCxN/view' },
         { name: 'Communauté de l\'Emmanuel', url: 'https://emmanuel.info/missionnaire-en-famille-paroisses-rurales/' }
       ],
-      size: 'small'
+      size: 'medium'
     },
     {
       id: 9,
@@ -305,7 +309,7 @@ const MissionsPage = () => {
         { name: 'Alençon', url: 'https://drive.google.com/file/d/1rnzeg7o6F54K8yGfQRrl-2txe_faTfCr/view' },
         { name: 'Limoges (vidéo)', url: 'https://youtu.be/qnFAbNBbDOM' }
       ],
-      size: 'small'
+      size: 'medium'
     },
     // --- MISSIONS ANNÉE ---
     {
@@ -590,15 +594,21 @@ const MissionsPage = () => {
 
         {/* GRILLE TOUSSAINT */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
-          {toussaintMissions.map((mission) => (
-            <div
-              key={mission.id}
-              className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg 
-                ${mission.size === 'large' ? 'col-span-2 row-span-2 h-[600px]' :
-                  mission.size === 'medium' ? 'col-span-2 row-span-1 h-[300px]' :
-                    'col-span-1 row-span-1 h-[240px]'}`}
-              onClick={() => handleOpenMission(mission)}
-            >
+          {toussaintMissions.map((mission, index) => {
+            // Seule la toute dernière mission est en grand format (large)
+            const isLarge = index === 0;
+            const cardSpan = isLarge
+              ? 'col-span-2 row-span-2 h-[600px]'
+              : mission.size === 'small'
+                ? 'col-span-1 row-span-1 h-[240px]'
+                : 'col-span-2 row-span-1 h-[300px]';
+
+            return (
+              <div
+                key={mission.id}
+                className={`mission-card cursor-pointer group relative overflow-hidden rounded-2xl shadow-lg ${cardSpan}`}
+                onClick={() => handleOpenMission(mission)}
+              >
               <div className="absolute inset-0 w-full h-full">
                 <img
                   src={mission.image}
@@ -634,7 +644,8 @@ const MissionsPage = () => {
                 VOIR PLUS
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
 
         {/* TITRE MISSIONS ANNÉE */}
