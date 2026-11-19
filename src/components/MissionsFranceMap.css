@@ -27,11 +27,6 @@
 .mission-fr-map__department:hover, .mission-fr-map__department:focus-visible, .mission-fr-map__department.is-active { fill: #c34213; stroke: #fff; stroke-width: .48; outline: none; }
 .mission-fr-map__department.is-announced { stroke: #fff; stroke-width: .42; }
 .mission-fr-map__department.is-announced:hover, .mission-fr-map__department.is-announced:focus-visible, .mission-fr-map__department.is-announced.is-active { fill: #d85406; stroke: #fff; stroke-width: .65; }
-.mission-fr-map__announced-outline { fill: none; stroke: #f46a07; stroke-width: .055; stroke-linejoin: round; stroke-linecap: round; pointer-events: none; vector-effect: non-scaling-stroke; }
-.mission-fr-map__announced-label { overflow: visible; pointer-events: none; }
-.mission-fr-map__announced-label path { fill: none; stroke: #d85406; stroke-width: .045; stroke-linecap: round; }
-.mission-fr-map__announced-label rect { fill: #fffaf5; stroke: #f46a07; stroke-width: .045; }
-.mission-fr-map__announced-label text { fill: #a53d15; font-family: Inter, sans-serif; font-size: .13px; font-weight: 800; letter-spacing: .02em; }
 .mission-fr-map__popup { position: absolute; z-index: 3; top: .65rem; right: .65rem; width: min(255px, calc(100% - 1.3rem)); padding: .72rem .85rem; border: 1px solid rgba(179, 111, 75, .22); border-radius: 13px; color: #43322a; background: rgba(255, 255, 255, .97); box-shadow: 0 12px 32px rgba(79, 46, 26, .13); backdrop-filter: blur(10px); animation: map-popup-in .16s ease-out both; }
 .mission-fr-map__popup.is-expanded { width: min(310px, calc(100% - 1.3rem)); padding: .9rem; }
 .mission-fr-map__popup.is-announced { width: min(290px, calc(100% - 1.3rem)); padding: 0; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
@@ -43,9 +38,10 @@
 .mission-fr-map__close:hover { color: white; background: #bb4b20; }
 .mission-fr-map__popup-body { display: grid; gap: .42rem; margin-top: .65rem; padding-top: .6rem; border-top: 1px solid #f1e7df; }
 .mission-fr-map__popup-body--announced { margin: 0; padding: 0; border: 0; }
-.mission-fr-map__announced { display: grid; gap: .2rem; padding: .85rem 1rem; border: 1px solid #f2d2bc; border-left: 3px solid #c82904; border-radius: 10px; background: #fff7ef; text-align: center; }
+.mission-fr-map__announced { display: grid; gap: .25rem; padding: .85rem 1rem; border: 1px solid #f2d2bc; border-left: 3px solid #c82904; border-radius: 10px; background: #fff7ef; text-align: center; }
 .mission-fr-map__announced > span { color: #be571f; font-size: .56rem; font-weight: 800; letter-spacing: .08em; }
 .mission-fr-map__announced strong { color: #4b3428; font-family: 'Playfair Display', Georgia, serif; font-size: .97rem; }
+.mission-fr-map__announced > span:not(:first-child) { color: #765d4e; font-size: .66rem; font-weight: 500; letter-spacing: 0; }
 .mission-fr-map__announced small { color: #8e786b; font-size: .66rem; }
 .mission-fr-map__past { display: grid; justify-items: center; gap: .45rem; padding: .58rem .1rem; border-bottom: 1px solid #f2ece7; text-align: center; }
 .mission-fr-map__past > span { display: grid; gap: .1rem; color: #6f5d52; font-size: .69rem; line-height: 1.35; }

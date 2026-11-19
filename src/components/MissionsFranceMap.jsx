@@ -20,19 +20,93 @@ function compareYears(a, b) {
   return Number(b.year.slice(0, 4)) - Number(a.year.slice(0, 4));
 }
 
+function enlargeDepartmentPath(path, scale = 1.12) {
+  const points = [...path.matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)]
+    .map((match) => [Number(match[1]), Number(match[2])]);
+  if (!points.length) return path;
+  const centerX = (Math.min(...points.map(([x]) => x)) + Math.max(...points.map(([x]) => x))) / 2;
+  const centerY = (Math.min(...points.map(([, y]) => y)) + Math.max(...points.map(([, y]) => y))) / 2;
+  return path.replace(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g, (_, x, y) => (
+    `${(centerX + (Number(x) - centerX) * scale).toFixed(3)},${(centerY + (Number(y) - centerY) * scale).toFixed(3)}`
+  ));
+}
+
+function simplifyLine(points, tolerance) {
+  if (points.length <= 2) return points;
+  const [start, end] = [points[0], points[points.length - 1]];
+  const dx = end[0] - start[0];
+  const dy = end[1] - start[1];
+  let maxDistance = 0;
+  let farthestIndex = 0;
+  points.slice(1, -1).forEach((point, index) => {
+    const denominator = dx * dx + dy * dy;
+    const projected = denominator ? Math.max(0, Math.min(1, ((point[0] - start[0]) * dx + (point[1] - start[1]) * dy) / denominator)) : 0;
+    const distance = Math.hypot(point[0] - (start[0] + projected * dx), point[1] - (start[1] + projected * dy));
+    if (distance > maxDistance) { maxDistance = distance; farthestIndex = index + 1; }
+  });
+  if (maxDistance <= tolerance) return [start, end];
+  const left = simplifyLine(points.slice(0, farthestIndex + 1), tolerance);
+  const right = simplifyLine(points.slice(farthestIndex), tolerance);
+  return [...left.slice(0, -1), ...right];
+}
+
+function simplifyRing(points, tolerance) {
+  const openRing = points.slice(0, -1);
+  if (openRing.length < 15) return points;
+  const first = openRing[0];
+  let pivotIndex = 1;
+  let greatestDistance = 0;
+  openRing.forEach((point, index) => {
+    const distance = Math.hypot(point[0] - first[0], point[1] - first[1]);
+    if (distance > greatestDistance) { greatestDistance = distance; pivotIndex = index; }
+  });
+  const firstHalf = simplifyLine(openRing.slice(0, pivotIndex + 1), tolerance);
+  const secondHalf = simplifyLine([...openRing.slice(pivotIndex), first], tolerance);
+  const result = [...firstHalf.slice(0, -1), ...secondHalf];
+  return result.length >= 6 ? result : points;
+}
+
+function simplifyDepartmentPath(path, tolerance = 0.055) {
+  const tokens = path.match(/[MLZ]|-?\d+(?:\.\d+)?/g) || [];
+  const rings = [];
+  let ring = [];
+  let command = '';
+  for (let index = 0; index < tokens.length;) {
+    const token = tokens[index++];
+    if (token === 'M' || token === 'L') {
+      command = token;
+      const point = [Number(tokens[index++]), Number(tokens[index++])];
+      if (command === 'M' && ring.length) { rings.push(ring); ring = []; }
+      ring.push(point);
+    } else if (token === 'Z') {
+      if (ring.length) rings.push([...ring, ring[0]]);
+      ring = [];
+      command = '';
+    }
+  }
+  if (ring.length) rings.push([...ring, ring[0]]);
+  return rings.map((points) => {
+    const simplified = simplifyRing(points, tolerance);
+    return `M${simplified.map(([x, y]) => `${x.toFixed(3)},${y.toFixed(3)}`).join('L')}Z`;
+  }).join('');
+}
+
+const MAINLAND_DEPARTMENTS = FRANCE_DEPARTMENTS
+  .filter(({ code }) => code !== '2A' && code !== '2B')
+  .map((department) => ({ ...department, mapPath: simplifyDepartmentPath(department.d) }));
+
 export default function MissionsFranceMap({ missions, onOpenMission }) {
   const [activeYear, setActiveYear] = useState('all');
   const [hoveredCode, setHoveredCode] = useState(null);
   const [selectedCode, setSelectedCode] = useState(null);
   const yearOptions = useMemo(() => [...new Set([ANNOUNCED_MISSION.year, ...missions.map((mission) => mission.year)])], [missions]);
-  const missionsByCode = useMemo(() => new Map(FRANCE_DEPARTMENTS.map(({ code }) => [code, missions
+  const missionsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map(({ code }) => [code, missions
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
     .sort(compareYears)])), [missions]);
-  const departmentsByCode = useMemo(() => new Map(FRANCE_DEPARTMENTS.map((department) => [department.code, department])), []);
+  const departmentsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map((department) => [department.code, department])), []);
   // A clicked department stays pinned while the pointer crosses the map.
   const code = selectedCode || hoveredCode;
   const department = departmentsByCode.get(code);
-  const announcedDepartment = departmentsByCode.get(ANNOUNCED_MISSION.code);
   const pastMissions = code ? missionsByCode.get(code) || [] : [];
   const shownMissions = activeYear === 'all' ? pastMissions : pastMissions.filter((mission) => mission.year === activeYear);
   const isAnnouncedHere = code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year);
@@ -73,10 +147,10 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
         onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHoveredCode(null); }}
       >
         <svg className="mission-fr-map__svg" viewBox={FRANCE_MAP_VIEWBOX} role="group" aria-label="Départements de France métropolitaine">
-          {FRANCE_DEPARTMENTS.map((dept) => (
+          {MAINLAND_DEPARTMENTS.map((dept) => (
             <path
               key={dept.code}
-              d={dept.d}
+              d={dept.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? enlargeDepartmentPath(dept.mapPath) : dept.mapPath}
               className={departmentClass(dept.code)}
               role="button"
               tabIndex="0"
@@ -90,16 +164,6 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
-          {announcedDepartment && (
-            <path className="mission-fr-map__announced-outline" d={announcedDepartment.d} aria-hidden="true" />
-          )}
-          {announcedDepartment && (
-            <g className="mission-fr-map__announced-label" transform={`translate(${announcedDepartment.label[0]} ${announcedDepartment.label[1]})`} aria-hidden="true">
-              <path d="M0,0 L0.12,-0.27" />
-              <rect x="0.12" y="-0.69" width="1.48" height="0.34" rx="0.16" />
-              <text x="0.86" y="-0.46" textAnchor="middle">LAVAL · {ANNOUNCED_MISSION.year}</text>
-            </g>
-          )}
         </svg>
 
         {department && (hoveredCode || selectedCode) && (
@@ -108,14 +172,15 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <div className="mission-fr-map__popup-body mission-fr-map__popup-body--announced">
                 <div className="mission-fr-map__announced">
                   <span>PROCHAINE MISSION · {ANNOUNCED_MISSION.year}</span>
-                  <strong>{ANNOUNCED_MISSION.place}, Mayenne</strong>
+                  <strong>Le diocèse de Laval nous accueille</strong>
+                  <span>Une semaine de rencontres et de grande joie partagée.</span>
                   <small>{ANNOUNCED_MISSION.dates}</small>
                 </div>
               </div>
             ) : (
               <>
                 <div className="mission-fr-map__popup-title">
-                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Une prochaine mission pourrait peut-être avoir lieu ici.'}</span></div>
+                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Une prochaine mission ici ?'}</span></div>
                   {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => { setSelectedCode(null); setHoveredCode(null); }}><X size={16} /></button>}
                 </div>
                 {isExpanded && (
@@ -126,9 +191,6 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
                         <button type="button" onClick={() => onOpenMission(mission)}>Voir cette mission <ArrowUpRight size={14} /></button>
                       </div>
                     ))}
-                    {!shownMissions.length && (
-                      <p className="mission-fr-map__empty">Pourquoi pas une future mission dans ce département ?</p>
-                    )}
                   </div>
                 )}
               </>

@@ -579,15 +579,41 @@ const MissionsPage = () => {
           padding: 0.04em 0.1em;
         }
         .pm-title-place {
+          position: relative;
           display: inline-block;
           opacity: 0;
-          transform: translateY(0.24em);
+          transform: translateY(0.55em) rotateX(-55deg) scale(0.72);
+          transform-origin: center bottom;
+          filter: blur(8px);
+          text-shadow: 0 0 0.35em rgba(244, 106, 7, 0.24);
+          backface-visibility: hidden;
+        }
+        .pm-title-place::after {
+          position: absolute;
+          right: 0;
+          bottom: 0.02em;
+          left: 0;
+          height: 0.045em;
+          border-radius: 999px;
+          background: #f46a07;
+          content: '';
+          transform: scaleX(0);
+          transform-origin: left;
         }
         .pm-title.is-visible .pm-title-place {
-          animation: pm-place-reveal 0.72s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          animation: pm-place-reveal 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes pm-place-reveal {
-          to { opacity: 1; transform: translateY(0); }
+          0% { opacity: 0; transform: translateY(0.55em) rotateX(-55deg) scale(0.72); filter: blur(8px); }
+          58% { opacity: 1; transform: translateY(-0.07em) rotateX(7deg) scale(1.07); filter: blur(0); }
+          78% { transform: translateY(0.025em) rotateX(0) scale(0.99); text-shadow: 0 0 0.12em rgba(244, 106, 7, 0.18); }
+          100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); filter: blur(0); text-shadow: none; }
+        }
+        .pm-title.is-visible .pm-title-place::after {
+          animation: pm-place-underline 0.55s 0.58s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes pm-place-underline {
+          to { transform: scaleX(1); }
         }
         .pm-title .ln:nth-child(2) {
           background: linear-gradient(135deg, #c82904 0%, #f46a07 60%, #e05307 100%);
@@ -691,7 +717,8 @@ const MissionsPage = () => {
             animation: none !important;
             transition: none !important;
           }
-          .pm-title-place { opacity: 1; transform: none; }
+          .pm-title-place { opacity: 1; transform: none; filter: none; text-shadow: none; }
+          .pm-title-place::after { display: none; }
           .pm-map-wrapper { opacity: 1; transform: none; }
         }
       `}</style>
