@@ -582,35 +582,38 @@ const MissionsPage = () => {
           position: relative;
           display: inline-block;
           opacity: 0;
-          transform: translateY(0.55em) rotateX(-55deg) scale(0.72);
-          transform-origin: center bottom;
+          transform: translateY(0.7em) rotate(-9deg) scale(0.58);
+          transform-origin: center 85%;
           filter: blur(8px);
-          text-shadow: 0 0 0.35em rgba(244, 106, 7, 0.24);
-          backface-visibility: hidden;
+          text-shadow: 0 0 0 rgba(244, 106, 7, 0);
+          will-change: transform, opacity, filter;
         }
         .pm-title-place::after {
           position: absolute;
-          right: 0;
-          bottom: 0.02em;
-          left: 0;
-          height: 0.045em;
+          right: -0.06em;
+          bottom: -0.07em;
+          left: -0.06em;
+          height: 0.055em;
           border-radius: 999px;
-          background: #f46a07;
+          background: linear-gradient(90deg, #f46a07, #ffb347, #c82904);
+          box-shadow: 0 0.08em 0.22em rgba(244, 106, 7, 0.28);
           content: '';
           transform: scaleX(0);
           transform-origin: left;
         }
         .pm-title.is-visible .pm-title-place {
-          animation: pm-place-reveal 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: pm-place-reveal 1.18s cubic-bezier(0.25, 1.55, 0.45, 1) forwards;
         }
         @keyframes pm-place-reveal {
-          0% { opacity: 0; transform: translateY(0.55em) rotateX(-55deg) scale(0.72); filter: blur(8px); }
-          58% { opacity: 1; transform: translateY(-0.07em) rotateX(7deg) scale(1.07); filter: blur(0); }
-          78% { transform: translateY(0.025em) rotateX(0) scale(0.99); text-shadow: 0 0 0.12em rgba(244, 106, 7, 0.18); }
-          100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); filter: blur(0); text-shadow: none; }
+          0% { opacity: 0; transform: translateY(0.7em) rotate(-9deg) scale(0.58); filter: blur(8px); text-shadow: 0 0 0 rgba(244, 106, 7, 0); }
+          38% { opacity: 1; transform: translateY(-0.16em) rotate(3deg) scale(1.2); filter: blur(0); text-shadow: 0 0 0.25em rgba(244, 106, 7, 0.34); }
+          57% { transform: translateY(0.07em) rotate(-1.5deg) scale(0.92); text-shadow: 0 0 0.12em rgba(244, 106, 7, 0.2); }
+          75% { transform: translateY(-0.035em) rotate(0.5deg) scale(1.055); }
+          90% { transform: translateY(0.012em) rotate(0) scale(0.99); }
+          100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); filter: blur(0); text-shadow: none; }
         }
         .pm-title.is-visible .pm-title-place::after {
-          animation: pm-place-underline 0.55s 0.58s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: pm-place-underline 0.62s 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes pm-place-underline {
           to { transform: scaleX(1); }
