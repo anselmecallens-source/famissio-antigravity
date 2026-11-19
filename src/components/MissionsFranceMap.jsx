@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, Sparkles, X } from 'lucide-react';
 import { ANNOUNCED_MISSION } from '../data/announcedMission';
 import { FRANCE_DEPARTMENTS, FRANCE_MAP_VIEWBOX } from '../data/franceDepartments';
 
@@ -148,7 +148,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
           </select>
         </label>
         <div className="mission-fr-map__legend" aria-label="Légende de la carte">
-          <span><i className={activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year ? 'is-announced' : 'is-year'} /> {activeYear === 'all' ? `Mission ${ANNOUNCED_MISSION.year}` : `Mission ${activeYear}`}</span>
+          <span><i className={activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year ? 'is-announced' : 'is-year'} /> {activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year ? 'Prochaine mission' : `Mission ${activeYear}`}</span>
           {activeYear === 'all' && <span><i className="is-visited" /> Déjà visité</span>}
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
           {activePath && (hoveredCode || selectedCode) && (
             <>
               <path className="mission-fr-map__active-underlay" d={activePath} aria-hidden="true" />
-              <path className="mission-fr-map__active-outline" d={activePath} aria-hidden="true" />
+              <path className={`mission-fr-map__active-outline${department.code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year) ? ' is-announced' : ''}`} d={activePath} aria-hidden="true" />
             </>
           )}
         </svg>
@@ -189,7 +189,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             {isAnnouncedHere ? (
               <div className="mission-fr-map__popup-body mission-fr-map__popup-body--announced">
                 <div className="mission-fr-map__announced">
-                  <span>PROCHAINE MISSION · {ANNOUNCED_MISSION.year}</span>
+                  <span className="mission-fr-map__announced-kicker"><Sparkles size={13} aria-hidden="true" /> PROCHAINE MISSION · {ANNOUNCED_MISSION.year}</span>
                   <strong>Le diocèse de Laval nous accueille</strong>
                   <span>Une semaine de rencontres et de grande joie partagée.</span>
                   <small>{ANNOUNCED_MISSION.dates}</small>

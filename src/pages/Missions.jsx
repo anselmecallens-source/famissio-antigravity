@@ -61,8 +61,7 @@ function ProchaineMissionSection({ missions, onOpenMission }) {
 
         {/* Grand titre expressif */}
         <h2 ref={titleRef} className={`pm-title${titleEntered ? ' is-visible' : ''}`} aria-label={`Le diocèse de ${ANNOUNCED_MISSION.place} ${ANNOUNCED_MISSION.titleLine}`}>
-          <span className="ln">Le diocèse de</span>
-          <span className="ln pm-title-place-line"><span className="pm-title-place">{ANNOUNCED_MISSION.place}</span></span>
+          <span className="ln pm-title-first">Le diocèse de <span className="pm-title-place">{ANNOUNCED_MISSION.place}</span></span>
           <span className="ln pm-title-welcome">{ANNOUNCED_MISSION.titleLine}</span>
         </h2>
 
@@ -569,7 +568,7 @@ const MissionsPage = () => {
         /* Grand titre expressif */
         .pm-title {
           font-family: 'Playfair Display', Georgia, serif;
-          font-size: clamp(2.7rem, 7.6vw, 6.8rem);
+          font-size: clamp(2rem, 7.6vw, 6.8rem);
           font-weight: 800;
           line-height: 0.98;
           letter-spacing: -0.03em;
@@ -583,16 +582,18 @@ const MissionsPage = () => {
         .pm-title-place {
           position: relative;
           display: inline-block;
-          font-size: 1.26em;
+          z-index: 2;
+          margin-left: -0.055em;
+          font-size: 1.18em;
+          font-style: italic;
           opacity: 0;
           transform: translateY(0.75em) rotate(-12deg) scale(0.48);
           transform-origin: center 85%;
           filter: blur(8px);
           text-shadow: 0 0 0 rgba(244, 106, 7, 0);
           will-change: transform, opacity, filter;
-          background: linear-gradient(135deg, #c82904 0%, #f46a07 58%, #ffb347 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #1a100a;
+          -webkit-text-fill-color: #1a100a;
         }
         .pm-title-place::after {
           position: absolute;
@@ -618,7 +619,7 @@ const MissionsPage = () => {
           71% { transform: translateY(0.06em) rotate(-0.8deg) scale(0.96); }
           83% { transform: translateY(-0.035em) rotate(0.4deg) scale(1.06); }
           93% { transform: translateY(0.015em) rotate(0) scale(0.99); }
-          100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); filter: blur(0); text-shadow: none; }
+          100% { opacity: 1; transform: translateY(-0.035em) rotate(-5deg) scale(1.12); filter: blur(0); text-shadow: 0 0.04em 0.08em rgba(26, 16, 10, 0.12); }
         }
         .pm-title.is-visible .pm-title-place::after {
           animation: pm-place-underline 0.9s 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -729,7 +730,7 @@ const MissionsPage = () => {
             animation: none !important;
             transition: none !important;
           }
-          .pm-title-place { opacity: 1; transform: none; filter: none; text-shadow: none; }
+          .pm-title-place { opacity: 1; transform: rotate(-5deg) scale(1.12); filter: none; }
           .pm-title-place::after { display: none; }
           .pm-map-wrapper { opacity: 1; transform: none; }
         }
