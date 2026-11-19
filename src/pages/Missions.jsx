@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -7,161 +7,115 @@ const PROCHAINE_MISSION = {
   year: '2027',
   diocese: 'Laval',
   department: 'Mayenne',
-  departmentNumber: '53',
-  region: 'Pays de la Loire',
-  startDate: new Date('2027-10-30T00:00:00'),
-  endDate:   new Date('2027-11-05T23:59:59'),
-  dateLabel: '30 octobre – 5 novembre 2027',
-  description: 'La prochaine mission Famissio nous emmène en Mayenne, dans le diocèse de Laval. Une semaine de rencontres, d\'annonce et de joie au cœur des terres de l\'Ouest.',
+  dateLabel: '30 octobre – 5 novembre',
 };
 
-// Countdown hook
-function useCountdown(targetDate) {
-  const calc = () => {
-    const diff = targetDate - Date.now();
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    return {
-      days:    Math.floor(diff / 86400000),
-      hours:   Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000)  / 60000),
-      seconds: Math.floor((diff % 60000)    / 1000),
-    };
-  };
-  const [time, setTime] = useState(calc);
+// Hook scroll-reveal (IntersectionObserver)
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setTime(calc()), 1000);
-    return () => clearInterval(id);
-  }, [targetDate]);
-  return time;
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
 }
 
-// Animated number flip
-function FlipUnit({ value, label }) {
-  const [prev, setPrev] = useState(value);
-  const [flip, setFlip] = useState(false);
-  useEffect(() => {
-    if (value !== prev) {
-      setFlip(true);
-      const t = setTimeout(() => { setPrev(value); setFlip(false); }, 300);
-      return () => clearTimeout(t);
-    }
-  }, [value, prev]);
-  return (
-    <div className="flip-unit">
-      <div className={`flip-card ${flip ? 'flipping' : ''}`}>
-        <span className="flip-num">{String(value).padStart(2, '0')}</span>
-      </div>
-      <span className="flip-label">{label}</span>
-    </div>
-  );
+// Haptic helper
+function haptic(pattern = [10]) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
 }
 
-// ─── Composant Section Prochaine Mission ────────────────────────────────────
-function ProchaineMissionSection({ countdown }) {
-  const { days, hours, minutes, seconds } = countdown;
+// ─── Composant Section Prochaine Mission ─────────────────────────────────────
+function ProchaineMissionSection() {
+  const [sectionRef, sectionVisible] = useReveal();
+  const [mapRef, mapVisible] = useReveal();
+  const [pressed, setPressed] = useState(false);
+
+  const handleCtaDown = useCallback(() => {
+    setPressed(true);
+    haptic([8, 30, 8]);
+  }, []);
+  const handleCtaUp = useCallback(() => {
+    setPressed(false);
+  }, []);
+
   return (
-    <section className="pm-section py-16 sm:py-24">
-      <div className="pm-bg-blob-1" />
-      <div className="pm-bg-blob-2" />
-      <div className="pm-noise" />
+    <section ref={sectionRef} className="pm-section">
+      {/* ── Fond : grand aplat crème avec bande diagonale flame ── */}
+      <div className="pm-diagonal-flame" aria-hidden="true" />
+      <div className="pm-grain" aria-hidden="true" />
 
-      {/* Étoiles / sparks décoratifs */}
-      <span className="pm-spark text-orange-400 text-2xl" style={{ top:'12%', left:'8%',  animationDuration:'3.1s', animationDelay:'0s'   }}>✦</span>
-      <span className="pm-spark text-red-400 text-lg"    style={{ top:'70%', left:'5%',  animationDuration:'4.3s', animationDelay:'1.2s' }}>✦</span>
-      <span className="pm-spark text-orange-300 text-xl" style={{ top:'20%', right:'6%', animationDuration:'2.8s', animationDelay:'0.7s' }}>✦</span>
-      <span className="pm-spark text-orange-500 text-sm" style={{ top:'80%', right:'9%', animationDuration:'3.7s', animationDelay:'1.8s' }}>✦</span>
+      <div className="pm-inner">
+        {/* ══ BLOC GAUCHE : TEXTE ══ */}
+        <div className={`pm-text-col ${sectionVisible ? 'pm-reveal-left' : 'pm-hidden-left'}`}>
 
-      <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-14">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-
-          {/* ── COLONNE GAUCHE ── */}
-          <div>
-            {/* Badge */}
-            <div className="mb-6">
-              <span className="pm-live-badge">
-                <span className="pm-live-dot" />
-                Prochaine mission
-              </span>
-            </div>
-
-            {/* Année */}
-            <div className="pm-title">{PROCHAINE_MISSION.year}</div>
-
-            {/* Diocèse */}
-            <div className="pm-diocese-name mt-1">
-              Diocèse de {PROCHAINE_MISSION.diocese}
-            </div>
-
-            {/* Département */}
-            <p className="mt-3 text-orange-300/80 text-base font-semibold tracking-widest uppercase" style={{ animationDelay:'0.35s', animation:'pm-slide-up 0.8s ease 0.35s both' }}>
-              {PROCHAINE_MISSION.department} · {PROCHAINE_MISSION.departmentNumber}
-            </p>
-
-            {/* Description */}
-            <p className="mt-5 text-white/70 text-base sm:text-lg leading-relaxed max-w-md" style={{ animation:'pm-slide-up 0.8s ease 0.45s both' }}>
-              {PROCHAINE_MISSION.description}
-            </p>
-
-            {/* Date */}
-            <div className="mt-7">
-              <div className="pm-date-pill">
-                <Calendar size={16} className="text-orange-400 flex-shrink-0" />
-                <span className="text-sm font-bold text-white/90 tracking-wide">
-                  {PROCHAINE_MISSION.dateLabel}
-                </span>
-              </div>
-            </div>
-
-            {/* Countdown */}
-            <div className="pm-countdown-wrapper mt-8">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-4">Compte à rebours</p>
-              <div className="pm-countdown-grid">
-                <FlipUnit value={days}    label="jours"   />
-                <FlipUnit value={hours}   label="heures"  />
-                <FlipUnit value={minutes} label="minutes" />
-                <FlipUnit value={seconds} label="sec."    />
-              </div>
-            </div>
-
-            {/* Info chips */}
-            <div className="mt-8 flex flex-wrap gap-3" style={{ animation:'pm-slide-up 0.8s ease 0.6s both' }}>
-              <div className="pm-info-chip">
-                <MapPin size={15} />
-                {PROCHAINE_MISSION.region}
-              </div>
-              <div className="pm-info-chip">
-                <Calendar size={15} />
-                7 jours de mission
-              </div>
-            </div>
+          {/* Pré-titre animé */}
+          <div className="pm-eyebrow">
+            <span className="pm-dot-anim" />
+            Prochaine mission
           </div>
 
-          {/* ── COLONNE DROITE — Carte ── */}
-          <div className="pm-map-panel">
-            <div className="pm-map-glow" />
+          {/* SUPER TITRE */}
+          <h2 className="pm-year-text">{PROCHAINE_MISSION.year}</h2>
+
+          {/* NOM DU DIOCÈSE avec soulignement animé */}
+          <div className="pm-diocese-wrap">
+            <span className="pm-diocese-label">Diocèse de</span>
+            <span className="pm-diocese-city">{PROCHAINE_MISSION.diocese}</span>
+            <span className="pm-diocese-dept">{PROCHAINE_MISSION.department}</span>
+            <span className="pm-underline-anim" aria-hidden="true" />
+          </div>
+
+          {/* Date — grosse et lisible */}
+          <div className={`pm-date-block ${sectionVisible ? 'pm-reveal-up' : 'pm-hidden-up'}`} style={{ animationDelay: '0.3s' }}>
+            <Calendar size={18} strokeWidth={2.5} className="pm-date-icon" />
+            <span className="pm-date-text">{PROCHAINE_MISSION.dateLabel}</span>
+          </div>
+
+          {/* CTA avec retour haptique */}
+          <button
+            className={`pm-cta-btn ${pressed ? 'pm-cta-pressed' : ''}`}
+            onPointerDown={handleCtaDown}
+            onPointerUp={handleCtaUp}
+            onPointerLeave={handleCtaUp}
+            aria-label="Rejoindre la mission de Laval"
+          >
+            <span className="pm-cta-bg" aria-hidden="true" />
+            <span className="pm-cta-label">Rejoindre la mission</span>
+            <span className="pm-cta-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        {/* ══ BLOC DROIT : CARTE ══ */}
+        <div ref={mapRef} className={`pm-map-col ${mapVisible ? 'pm-reveal-right' : 'pm-hidden-right'}`}>
+          <div className="pm-map-frame">
+            {/* Halo décoratif derrière la carte */}
+            <div className="pm-map-halo" aria-hidden="true" />
             <div className="pm-map-card">
-              {/* Carte Datawrapper */}
-              <iframe
-                title="Carte choroplèthe des diocèses de France"
-                aria-label="Carte choroplèthe"
-                src="https://datawrapper.dwcdn.net/otsD1/2/"
-                scrolling="no"
-                frameBorder="0"
-                style={{ border: 'none', width: '100%', height: '420px' }}
-                data-external="1"
-              />
-              <div className="pm-map-footer">
-                <div className="flex items-center gap-2">
-                  <span style={{ width:10, height:10, borderRadius:'50%', background:'#f46a07', display:'inline-block', boxShadow:'0 0 8px #f46a07' }} />
-                  <span className="text-xs font-bold text-white/60 uppercase tracking-widest">
-                    Diocèse de {PROCHAINE_MISSION.diocese}
-                  </span>
-                </div>
-                <span className="text-xs text-white/30 font-semibold">{PROCHAINE_MISSION.year}</span>
+              <div className="pm-map-header">
+                <span className="pm-map-dot" />
+                <span className="pm-map-title">Diocèse de {PROCHAINE_MISSION.diocese} · {PROCHAINE_MISSION.year}</span>
+              </div>
+              <div className="pm-map-embed">
+                <iframe
+                  title="Carte des diocèses de France – Mission Laval 2027"
+                  aria-label="Carte choroplèthe"
+                  src="https://datawrapper.dwcdn.net/otsD1/2/"
+                  scrolling="no"
+                  frameBorder="0"
+                  style={{ border: 'none', width: '100%', height: '100%', display: 'block' }}
+                  data-external="1"
+                />
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -170,7 +124,6 @@ function ProchaineMissionSection({ countdown }) {
 
 // ─── Page principale ─────────────────────────────────────────────────────────
 const MissionsPage = () => {
-  const countdown = useCountdown(PROCHAINE_MISSION.startDate);
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const isMissionModalOpen = Boolean(selectedMission);
@@ -588,211 +541,285 @@ const MissionsPage = () => {
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* ═══ SECTION PROCHAINE MISSION ═══ */
-        @keyframes pm-blob-morph {
-          0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
-          33%       { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
-          66%       { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
-        }
+
+        /* Keyframes */
         @keyframes pm-pulse-ring {
-          0%   { transform: scale(0.9); opacity: 0.6; }
-          70%  { transform: scale(1.4); opacity: 0;   }
-          100% { transform: scale(0.9); opacity: 0;   }
+          0%   { transform: scale(1);   opacity: 0.7; }
+          70%  { transform: scale(2);   opacity: 0;   }
+          100% { transform: scale(1);   opacity: 0;   }
         }
-        @keyframes pm-float {
-          0%, 100% { transform: translateY(0px) rotate(-2deg); }
-          50%       { transform: translateY(-12px) rotate(2deg); }
+        @keyframes pm-reveal-left {
+          from { opacity: 0; transform: translateX(-48px); }
+          to   { opacity: 1; transform: translateX(0); }
         }
-        @keyframes pm-shimmer {
+        @keyframes pm-reveal-right {
+          from { opacity: 0; transform: translateX(48px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pm-reveal-up {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pm-underline-grow {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+        @keyframes pm-cta-shine {
           0%   { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
-        @keyframes pm-slide-up {
-          from { opacity: 0; transform: translateY(30px); }
-          to   { opacity: 1; transform: translateY(0); }
+        @keyframes pm-dot-pulse {
+          0%, 100% { transform: scale(1);   opacity: 1; }
+          50%       { transform: scale(1.3); opacity: 0.7; }
         }
-        @keyframes pm-counter-pop {
-          0%   { transform: translateY(100%); opacity: 0; }
-          60%  { transform: translateY(-5%); }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes pm-gradient-shift {
-          0%, 100% { background-position: 0% 50%;   }
-          50%       { background-position: 100% 50%; }
-        }
-        @keyframes pm-spark {
-          0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
-          50%       { opacity: 1;   transform: scale(1.3) rotate(180deg); }
+        @keyframes pm-flame-flicker {
+          0%, 100% { transform: scaleY(1)   skewX(0deg); }
+          25%       { transform: scaleY(1.04) skewX(-1deg); }
+          75%       { transform: scaleY(0.97) skewX(1deg); }
         }
 
+        /* Visibilité reveal */
+        .pm-hidden-left  { opacity: 0; transform: translateX(-48px); }
+        .pm-hidden-right { opacity: 0; transform: translateX(48px); }
+        .pm-hidden-up    { opacity: 0; transform: translateY(28px); }
+
+        .pm-reveal-left {
+          animation: pm-reveal-left 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .pm-reveal-right {
+          animation: pm-reveal-right 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+        }
+        .pm-reveal-up {
+          animation: pm-reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Section */
         .pm-section {
           position: relative;
           overflow: hidden;
-          background: linear-gradient(135deg, #1a0a00 0%, #2d1000 30%, #1a0505 60%, #0d0d0d 100%);
-          color: white;
+          background: #fff8f4;
+          padding: 80px 0 100px;
         }
-        .pm-bg-blob-1 {
-          position: absolute; top: -20%; left: -15%;
-          width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-          background: radial-gradient(circle, rgba(244,106,7,0.18) 0%, transparent 70%);
-          animation: pm-blob-morph 12s ease-in-out infinite;
+
+        /* Bande flame diagonale en arrière-plan */
+        .pm-diagonal-flame {
+          position: absolute;
+          top: 0; right: -5%;
+          width: 48%;
+          height: 100%;
+          background: linear-gradient(135deg, #fff3ec 0%, #ffe4d0 50%, #ffd0b0 100%);
+          clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
           pointer-events: none;
         }
-        .pm-bg-blob-2 {
-          position: absolute; bottom: -25%; right: -10%;
-          width: 45vw; height: 45vw; max-width: 580px; max-height: 580px;
-          background: radial-gradient(circle, rgba(200,41,4,0.15) 0%, transparent 70%);
-          animation: pm-blob-morph 15s ease-in-out infinite reverse;
-          pointer-events: none;
-        }
-        .pm-noise {
+
+        /* Grain subtil */
+        .pm-grain {
           position: absolute; inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-          pointer-events: none; opacity: 0.4;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+          pointer-events: none;
         }
 
-        /* Badge live */
-        .pm-live-badge {
-          display: inline-flex; align-items: center; gap: 8px;
-          background: rgba(244,106,7,0.15);
-          border: 1px solid rgba(244,106,7,0.4);
-          border-radius: 100px;
-          padding: 6px 16px;
-          font-size: 0.72rem; font-weight: 800;
-          text-transform: uppercase; letter-spacing: 0.18em;
-          color: #f46a07;
-          backdrop-filter: blur(10px);
-          animation: pm-slide-up 0.6s ease both;
-        }
-        .pm-live-dot {
-          position: relative; width: 8px; height: 8px;
-          background: #f46a07; border-radius: 50%;
-        }
-        .pm-live-dot::before {
-          content: ''; position: absolute; inset: -3px;
-          border-radius: 50%; border: 2px solid #f46a07;
-          animation: pm-pulse-ring 1.5s ease-out infinite;
-        }
-
-        /* Titre principal */
-        .pm-title {
-          font-family: 'Bebas Neue', cursive;
-          font-size: clamp(5rem, 14vw, 11rem);
-          line-height: 0.85;
-          letter-spacing: 4px;
-          background: linear-gradient(135deg, #ffffff 0%, #f46a07 40%, #c82904 70%, #ff9a56 100%);
-          background-size: 300% 300%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: pm-gradient-shift 5s ease infinite, pm-slide-up 0.8s ease 0.2s both;
-        }
-        .pm-diocese-name {
-          font-family: 'Bebas Neue', cursive;
-          font-size: clamp(2.5rem, 7vw, 5.5rem);
-          line-height: 1;
-          letter-spacing: 3px;
-          color: white;
-          animation: pm-slide-up 0.8s ease 0.3s both;
-        }
-
-        /* Date pill */
-        .pm-date-pill {
-          display: inline-flex; align-items: center; gap: 10px;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 100px;
-          padding: 10px 22px;
-          backdrop-filter: blur(12px);
-          animation: pm-slide-up 0.8s ease 0.4s both;
-        }
-
-        /* Countdown */
-        .pm-countdown-wrapper {
-          animation: pm-slide-up 0.8s ease 0.5s both;
-        }
-        .pm-countdown-grid {
-          display: flex; gap: 10px; flex-wrap: wrap;
-        }
-        .flip-unit {
-          display: flex; flex-direction: column; align-items: center; gap: 6px;
-        }
-        .flip-card {
-          position: relative; overflow: hidden;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(244,106,7,0.3);
-          border-radius: 14px;
-          padding: 14px 18px;
-          min-width: 70px;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
-          transition: border-color 0.3s;
-        }
-        .flip-card.flipping {
-          animation: pm-counter-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-          border-color: rgba(244,106,7,0.7);
-        }
-        .flip-num {
-          font-family: 'Bebas Neue', cursive;
-          font-size: 2.4rem;
-          letter-spacing: 2px;
-          color: #f46a07;
-          display: block;
-          line-height: 1;
-          text-align: center;
-        }
-        .flip-label {
-          font-size: 0.65rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 2px;
-          color: rgba(255,255,255,0.4);
-        }
-
-        /* Right panel — carte */
-        .pm-map-panel {
+        /* Inner layout */
+        .pm-inner {
           position: relative;
-          animation: pm-slide-up 0.9s ease 0.3s both;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 64px;
+          align-items: center;
         }
-        .pm-map-glow {
-          position: absolute; inset: -20px;
-          background: radial-gradient(ellipse at center, rgba(244,106,7,0.2) 0%, transparent 70%);
+        @media (max-width: 900px) {
+          .pm-inner { grid-template-columns: 1fr; gap: 48px; }
+          .pm-diagonal-flame { display: none; }
+        }
+
+        /* Texte col */
+        .pm-text-col { position: relative; }
+
+        /* Eyebrow / badge */
+        .pm-eyebrow {
+          display: inline-flex; align-items: center; gap: 8px;
+          font-size: 0.72rem; font-weight: 800;
+          text-transform: uppercase; letter-spacing: 0.22em;
+          color: #c82904;
+          margin-bottom: 20px;
+        }
+        .pm-dot-anim {
+          display: inline-block;
+          width: 8px; height: 8px;
+          background: #f46a07;
+          border-radius: 50%;
+          position: relative;
+          animation: pm-dot-pulse 1.8s ease-in-out infinite;
+        }
+        .pm-dot-anim::after {
+          content: '';
+          position: absolute; inset: -4px;
+          border-radius: 50%;
+          border: 2px solid #f46a07;
+          animation: pm-pulse-ring 1.8s ease-out infinite;
+        }
+
+        /* Année */
+        .pm-year-text {
+          font-family: 'Bebas Neue', cursive;
+          font-size: clamp(6rem, 15vw, 12rem);
+          line-height: 0.82;
+          letter-spacing: 4px;
+          color: #c82904;
+          margin-bottom: 8px;
+          animation: pm-flame-flicker 3s ease-in-out infinite;
+          transform-origin: bottom center;
+        }
+
+        /* Diocèse wrap */
+        .pm-diocese-wrap {
+          position: relative;
+          margin-bottom: 32px;
+          padding-bottom: 18px;
+        }
+        .pm-diocese-label {
+          display: block;
+          font-size: 0.8rem; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.18em;
+          color: #9a3412;
+          margin-bottom: 4px;
+        }
+        .pm-diocese-city {
+          display: block;
+          font-family: 'Bebas Neue', cursive;
+          font-size: clamp(2.8rem, 7vw, 5rem);
+          letter-spacing: 3px;
+          line-height: 1;
+          color: #1a1a1a;
+        }
+        .pm-diocese-dept {
+          display: block;
+          font-size: 1rem; font-weight: 600;
+          color: #6b7280;
+          margin-top: 4px;
+          letter-spacing: 0.05em;
+        }
+        /* Soulignement animé déclenché par la classe reveal */
+        .pm-underline-anim {
+          position: absolute;
+          bottom: 0; left: 0;
+          height: 4px;
+          width: 100%;
+          background: linear-gradient(90deg, #f46a07, #c82904);
+          border-radius: 2px;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .pm-reveal-left .pm-underline-anim {
+          animation: pm-underline-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+        }
+
+        /* Bloc date */
+        .pm-date-block {
+          display: inline-flex; align-items: center; gap: 10px;
+          background: white;
+          border: 1.5px solid #fed7aa;
+          border-radius: 14px;
+          padding: 12px 20px;
+          margin-bottom: 32px;
+          box-shadow: 0 4px 20px rgba(244,106,7,0.1);
+        }
+        .pm-date-icon { color: #f46a07; flex-shrink: 0; }
+        .pm-date-text {
+          font-size: 1.05rem; font-weight: 800;
+          color: #1a1a1a;
+          letter-spacing: 0.01em;
+        }
+
+        /* CTA button */
+        .pm-cta-btn {
+          position: relative;
+          display: inline-flex; align-items: center; gap: 14px;
+          padding: 16px 32px;
+          border-radius: 100px;
+          overflow: hidden;
+          cursor: pointer;
+          border: none;
+          transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+          box-shadow: 0 8px 30px rgba(200,41,4,0.35), 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .pm-cta-btn:hover {
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 16px 40px rgba(200,41,4,0.4), 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .pm-cta-pressed {
+          transform: scale(0.96) !important;
+          box-shadow: 0 4px 15px rgba(200,41,4,0.25) !important;
+        }
+        .pm-cta-bg {
+          position: absolute; inset: 0;
+          background: linear-gradient(120deg, #c82904 0%, #f46a07 50%, #c82904 100%);
+          background-size: 250% 100%;
+          animation: pm-cta-shine 3s linear infinite;
+          border-radius: 100px;
+        }
+        .pm-cta-label {
+          position: relative; z-index: 1;
+          font-weight: 800; font-size: 1rem;
+          color: white;
+          letter-spacing: 0.04em;
+        }
+        .pm-cta-arrow {
+          position: relative; z-index: 1;
+          font-size: 1.2rem; color: white;
+          display: inline-block;
+          transition: transform 0.2s;
+        }
+        .pm-cta-btn:hover .pm-cta-arrow { transform: translateX(5px); }
+
+        /* Carte col */
+        .pm-map-col { position: relative; }
+        .pm-map-frame { position: relative; }
+        .pm-map-halo {
+          position: absolute;
+          inset: -30px;
+          background: radial-gradient(ellipse at 60% 50%, rgba(244,106,7,0.15) 0%, transparent 65%);
           pointer-events: none;
         }
         .pm-map-card {
           position: relative;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: white;
           border-radius: 24px;
           overflow: hidden;
-          backdrop-filter: blur(20px);
-          box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+          border: 1.5px solid #fed7aa;
+          box-shadow:
+            0 4px 24px rgba(244,106,7,0.08),
+            0 20px 60px rgba(0,0,0,0.08);
         }
-        .pm-map-card iframe {
-          border-radius: 18px;
+        .pm-map-header {
+          display: flex; align-items: center; gap: 10px;
+          padding: 14px 20px 10px;
+          border-bottom: 1px solid #fff0e6;
+        }
+        .pm-map-dot {
+          width: 10px; height: 10px;
+          background: #f46a07;
+          border-radius: 50%;
+          box-shadow: 0 0 10px rgba(244,106,7,0.6);
+          flex-shrink: 0;
+          animation: pm-dot-pulse 2s ease-in-out infinite;
+        }
+        .pm-map-title {
+          font-size: 0.78rem; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.15em;
+          color: #9a3412;
+        }
+        .pm-map-embed {
+          height: 440px;
+          overflow: hidden;
+        }
+        .pm-map-embed iframe {
+          width: 100%; height: 100%;
           display: block;
-          filter: saturate(0.9) contrast(1.05);
-        }
-        .pm-map-footer {
-          padding: 14px 20px;
-          display: flex; align-items: center; justify-content: space-between; gap: 10px;
-          border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        /* Info chips */
-        .pm-info-chip {
-          display: inline-flex; align-items: center; gap: 8px;
-          background: rgba(255,255,255,0.07);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 10px;
-          padding: 8px 14px;
-          font-size: 0.82rem; font-weight: 600;
-          color: rgba(255,255,255,0.75);
-          backdrop-filter: blur(8px);
-        }
-        .pm-info-chip svg { color: #f46a07; flex-shrink: 0; }
-
-        /* Spark decorations */
-        .pm-spark {
-          position: absolute; pointer-events: none;
-          animation: pm-spark linear infinite;
+          border: none;
         }
       `}</style>
 
@@ -830,7 +857,7 @@ const MissionsPage = () => {
       <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50" />
 
       {/* ══════════ SECTION PROCHAINE MISSION ══════════ */}
-      <ProchaineMissionSection countdown={countdown} />
+      <ProchaineMissionSection />
 
       {/* ══════════ GALLERIE MISSIONS ══════════ */}
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-16">
