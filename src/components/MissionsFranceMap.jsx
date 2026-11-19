@@ -198,7 +198,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             ) : (
               <>
                 <div className="mission-fr-map__popup-title">
-                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Une prochaine mission ici ?'}</span></div>
+                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Nous espérons un jour aller à la rencontre des habitants d’ici.'}</span></div>
                   {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => { setSelectedCode(null); setHoveredCode(null); }}><X size={16} /></button>}
                 </div>
                 {isExpanded && (
