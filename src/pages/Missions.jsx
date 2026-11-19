@@ -2,20 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// ─── Composant Prochaine Mission (Chorégraphie & DA Famissio) ─────────────────
+// ─── Composant Prochaine Mission (DA Famissio, pleine largeur & animations) ──
 function ProchaineMissionSection() {
-  const rootRef = useRef(null);
-  const trackRef = useRef(null);
+  const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const datesRef = useRef(null);
-  const copyRef = useRef(null);
   const mapRef = useRef(null);
-  const hintRef = useRef(null);
-  const railBarRef = useRef(null);
   const charsRef = useRef([]);
   const blobsRef = useRef([]);
-
-  const [expandedIndex, setExpandedIndex] = useState(null);
 
   // Injection Datawrapper embed script
   useEffect(() => {
@@ -53,48 +47,24 @@ function ProchaineMissionSection() {
     });
   }, []);
 
-  // Animations Scroll, Pointer & Haptique
+  // Interactions souris & scroll
   useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
     const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mq = window.matchMedia('(max-width: 820px)');
-    const flat = () => mq.matches || rmq.matches;
 
-    // Haptique
-    const lab = document.createElement('label');
-    lab.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
-    const sw = document.createElement('input');
-    sw.type = 'checkbox';
-    sw.setAttribute('switch', '');
-    lab.appendChild(sw);
-    root.appendChild(lab);
-
-    const buzz = (pattern) => {
-      if (rmq.matches) return;
-      if (navigator.vibrate) navigator.vibrate(pattern);
-      else {
-        try { lab.click(); } catch (_) {}
-      }
-    };
-
-    // Math helpers
-    const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-    const L = (a, b, t) => a + (b - a) * t;
-    const E = (t) => 1 - Math.pow(1 - t, 3);
-
-    // Pointer move pour effet de gonflement des lettres
+    // Effet sur les lettres au hover
     const onPointerMove = (e) => {
-      if (flat() || e.pointerType !== 'mouse') return;
+      if (rmq.matches || e.pointerType !== 'mouse') return;
       const px = e.clientX;
       const py = e.clientY;
       charsRef.current.forEach((c) => {
         const r = c.getBoundingClientRect();
         const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
-        const factor = Math.max(0, 1 - d / 240);
-        c.style.transform = `scale(${1 + factor * 0.18}) translateY(${factor * -2}px)`;
-        c.style.fontWeight = Math.round(400 + 400 * factor);
+        const factor = Math.max(0, 1 - d / 220);
+        c.style.transform = `scale(${1 + factor * 0.16}) translateY(${factor * -3}px)`;
+        c.style.fontWeight = Math.round(500 + 400 * factor);
       });
     };
 
@@ -106,9 +76,9 @@ function ProchaineMissionSection() {
     };
 
     window.addEventListener('pointermove', onPointerMove, { passive: true });
-    root.addEventListener('pointerleave', onPointerLeave);
+    section.addEventListener('pointerleave', onPointerLeave);
 
-    // Loop RAF pour mouvement doux des blobs
+    // Mouvement continu et fluide des blobs d'arrière-plan
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     let cx = px;
@@ -131,7 +101,7 @@ function ProchaineMissionSection() {
       const oy = cy / window.innerHeight - 0.5;
       bl.forEach((b, i) => {
         if (!b) return;
-        b.style.transform = `translate(${ox * (i + 1) * 70 + Math.sin(t * (i + 1.3)) * 50}px, ${oy * (i + 1) * 70 + Math.cos(t * (i + 0.9)) * 40}px)`;
+        b.style.transform = `translate(${ox * (i + 1) * 55 + Math.sin(t * (i + 1.2)) * 40}px, ${oy * (i + 1) * 55 + Math.cos(t * (i + 0.9)) * 30}px)`;
       });
       if (active) requestAnimationFrame(tick);
     };
@@ -144,200 +114,109 @@ function ProchaineMissionSection() {
       }
       active = v;
     });
-    io.observe(root);
+    io.observe(section);
     tick();
 
-    // Scroll choreography
-    let f1 = 0;
-    let f2 = 0;
+    // Défilement parallaxe des dates & révélation de la carte
+    const onScroll = () => {
+      if (rmq.matches) return;
+      const rect = section.getBoundingClientRect();
+      const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      const clProgress = Math.min(1, Math.max(0, progress));
 
-    const upd = () => {
-      const isFlat = flat();
-      root.classList.toggle('flat', isFlat);
-      if (isFlat) return;
-
-      const track = trackRef.current;
-      const title = titleRef.current;
-      const dates = datesRef.current;
-      const copy = copyRef.current;
-      const map = mapRef.current;
-      const hint = hintRef.current;
-      const railBar = railBarRef.current;
-      if (!track || !title || !dates || !copy || !map) return;
-
-      const r = track.getBoundingClientRect();
-      const p = cl(-r.top / (r.height - window.innerHeight));
-      root.style.setProperty('--p', p.toFixed(3));
-      if (railBar) {
-        railBar.style.transform = `scaleY(${p})`;
+      if (datesRef.current) {
+        const xOffset = (clProgress - 0.5) * -180;
+        datesRef.current.style.transform = `translateX(${xOffset}px)`;
       }
 
-      const a = E(cl((p - 0.1) / 0.35));
-      const c = E(cl((p - 0.32) / 0.25));
-      const m = E(cl((p - 0.42) / 0.3));
-      const s = Math.min(1, (window.innerHeight * 0.84) / 607);
-
-      title.style.transform = `translateY(calc(-50% + ${L(0, -37, a)}vh)) scale(${L(1, 0.44, a)})`;
-      dates.style.transform = `translate(${L(4, -62, p)}%, -50%)`;
-
-      copy.style.opacity = c;
-      copy.style.transform = `translateY(${L(40, 0, c)}px)`;
-
-      map.style.opacity = m > 0 ? 1 : 0;
-      map.style.clipPath = `circle(${L(0, 85, m)}% at 60% 50%)`;
-      map.style.transform = `translateY(-50%) translateX(${L(14, 0, m)}vw) scale(${s * L(0.9, 1, m)})`;
-      map.style.pointerEvents = m > 0.9 ? 'auto' : 'none';
-
-      if (hint) {
-        hint.style.opacity = p < 0.04 ? 1 : 0;
+      if (mapRef.current) {
+        const mapRect = mapRef.current.getBoundingClientRect();
+        const mapVisible = mapRect.top < window.innerHeight * 0.92;
+        if (mapVisible) {
+          mapRef.current.classList.add('pm-map--inview');
+        }
       }
-
-      if (c > 0.5 && !f1) {
-        f1 = 1;
-        buzz(8);
-      }
-      if (c < 0.2) f1 = 0;
-
-      if (m > 0.6 && !f2) {
-        f2 = 1;
-        buzz([8, 40, 8]);
-      }
-      if (m < 0.3) f2 = 0;
     };
 
-    window.addEventListener('scroll', upd, { passive: true });
-    window.addEventListener('resize', upd);
-    upd();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
     return () => {
       active = false;
       io.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointermove', onMovePos);
-      root.removeEventListener('pointerleave', onPointerLeave);
-      window.removeEventListener('scroll', upd);
-      window.removeEventListener('resize', upd);
-      try { lab.remove(); } catch (_) {}
+      section.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('scroll', onScroll);
     };
   }, []);
 
-  const handleTagClick = (idx) => {
-    const next = expandedIndex === idx ? null : idx;
-    setExpandedIndex(next);
-    if (navigator.vibrate) {
-      navigator.vibrate(next === null ? 8 : [10, 30, 10]);
-    }
-  };
-
-  const handleTagPointerMove = (e) => {
-    if (e.pointerType !== 'mouse') return;
-    const b = e.currentTarget;
-    const r = b.getBoundingClientRect();
-    b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.04}px, ${(e.clientY - r.top - r.height / 2) * 0.12}px)`;
-  };
-
-  const handleTagPointerLeave = (e) => {
-    e.currentTarget.style.transform = '';
-  };
-
   return (
-    <section ref={rootRef} className="fm" id="nouvelle-mission">
-      <div ref={trackRef} className="fm-track">
-        <div className="fm-stage">
-          {/* Nappes de couleur arrière-plan */}
-          <div className="fm-bg">
-            <i ref={(el) => (blobsRef.current[0] = el)} />
-            <i ref={(el) => (blobsRef.current[1] = el)} />
-            <i ref={(el) => (blobsRef.current[2] = el)} />
+    <section ref={sectionRef} className="pm-section" id="nouvelle-mission">
+      {/* Nappes lumineuses ambrées douces */}
+      <div className="pm-bg">
+        <i ref={(el) => (blobsRef.current[0] = el)} />
+        <i ref={(el) => (blobsRef.current[1] = el)} />
+        <i ref={(el) => (blobsRef.current[2] = el)} />
+      </div>
+      <div className="pm-grain" />
+
+      {/* Dates géantes en arrière-plan parallaxe */}
+      <div ref={datesRef} className="pm-dates-ticker" aria-hidden="true">
+        30 OCTOBRE — 5 NOVEMBRE — DIOCÈSE DE LAVAL — TOUSSAINT — 30 OCTOBRE — 5 NOVEMBRE
+      </div>
+
+      <div className="pm-container">
+        {/* En-tête / Badge */}
+        <div className="pm-header-badge">
+          <span className="pm-badge-dot" />
+          <span>Prochaine mission · Toussaint</span>
+        </div>
+
+        {/* Grand titre expressif */}
+        <h2 ref={titleRef} className="pm-title" aria-label="Laval nous accueille.">
+          <span className="ln" data-text="Laval">Laval</span>
+          <span className="ln" data-text="nous accueille.">nous accueille.</span>
+        </h2>
+
+        {/* Info date & localisation */}
+        <div className="pm-meta-bar">
+          <div className="pm-meta-item">
+            <Calendar size={18} className="pm-meta-icon" />
+            <span className="pm-meta-strong">30 octobre – 5 novembre</span>
           </div>
-          <div className="fm-grain" />
-
-          {/* Dates géantes en contour */}
-          <div ref={datesRef} className="fm-dates" aria-hidden="true">
-            30 octobre — 5 novembre — Toussaint — 30 octobre — 5 novembre — Toussaint
+          <span className="pm-meta-sep">·</span>
+          <div className="pm-meta-item">
+            <MapPin size={18} className="pm-meta-icon" />
+            <span>Diocèse de Laval (Mayenne)</span>
           </div>
+        </div>
 
-          {/* Titre : lettres animées */}
-          <h2
-            ref={titleRef}
-            className="fm-title"
-            aria-label="Laval nous accueille."
-          >
-            <span className="ln" data-text="Laval">Laval</span>
-            <span className="ln" data-text="nous accueille.">nous accueille.</span>
-          </h2>
+        {/* Texte d'annonce fort et aéré */}
+        <p className="pm-description">
+          Pendant une semaine, des familles et des jeunes venus de toute la France se rassemblent en Mayenne au service
+          des paroisses locales. Une mission diocésaine vivante et fraternelle pour aller à la rencontre des habitants,
+          prier avec les communautés et témoigner ensemble de la joie de l'Évangile.
+        </p>
 
-          {/* Texte court + accroches dépliables */}
-          <div ref={copyRef} className="fm-copy">
-            <p className="fm-sub">Mission de Toussaint · Diocèse de Laval</p>
-            <p className="fm-txt">
-              Pendant une semaine, des familles et des jeunes venus de toute la France se mettent au service
-              des paroisses de Mayenne. Une semaine pour aller à la rencontre, témoigner de la joie du Christ et
-              laisser des équipes prêtes à poursuivre l'élan.
-            </p>
-
-            <ul className="fm-tags">
-              <li>
-                <button
-                  type="button"
-                  className="fm-tag"
-                  aria-expanded={expandedIndex === 0}
-                  onClick={() => handleTagClick(0)}
-                  onPointerMove={handleTagPointerMove}
-                  onPointerLeave={handleTagPointerLeave}
-                >
-                  Dans les cimetières
-                  <em>
-                    <span>Le jour de la Toussaint, une prière et une présence fraternelle auprès de ceux qui viennent fleurir les tombes.</span>
-                  </em>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="fm-tag"
-                  aria-expanded={expandedIndex === 1}
-                  onClick={() => handleTagClick(1)}
-                  onPointerMove={handleTagPointerMove}
-                  onPointerLeave={handleTagPointerLeave}
-                >
-                  Dans la rue & sur les places
-                  <em>
-                    <span>Missions de quartier, rencontres sur les marchés mayennais, veillées de louange et visites dans les EHPAD.</span>
-                  </em>
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="fm-tag"
-                  aria-expanded={expandedIndex === 2}
-                  onClick={() => handleTagClick(2)}
-                  onPointerMove={handleTagPointerMove}
-                  onPointerLeave={handleTagPointerLeave}
-                >
-                  À table avec les paroissiens
-                  <em>
-                    <span>Des repas partagés et des liens profonds tissés pour soutenir et dynamiser la mission locale.</span>
-                  </em>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Carte Datawrapper */}
-          <div ref={mapRef} className="fm-map">
-            <div style={{ minHeight: '587px' }} id="datawrapper-vis-otsD1">
-              <noscript>
-                <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe des diocèses de France" />
-              </noscript>
+        {/* CARTE PLEINE LARGEUR (sans superposition, espace dédié généreux) */}
+        <div ref={mapRef} className="pm-map-wrapper">
+          <div className="pm-map-card">
+            <div className="pm-map-header">
+              <div className="pm-map-title-group">
+                <span className="pm-map-indicator" />
+                <span className="pm-map-header-title">Territoire de mission · Diocèse de Laval</span>
+              </div>
+              <span className="pm-map-tag">Mayenne (53)</span>
             </div>
-          </div>
 
-          {/* Indicateur scroll & rail vertical */}
-          <i ref={hintRef} className="fm-hint" />
-          <div className="fm-rail">
-            <b ref={railBarRef} />
+            <div className="pm-map-embed">
+              <div style={{ minHeight: '587px' }} id="datawrapper-vis-otsD1">
+                <noscript>
+                  <img src="https://datawrapper.dwcdn.net/otsD1/full.png" alt="Carte choroplèthe" />
+                </noscript>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -722,113 +601,149 @@ const MissionsPage = () => {
         /* ══════════════════════════════════════════
            SECTION PROCHAINE MISSION (DA FAMISSIO)
         ══════════════════════════════════════════ */
-        .fm {
-          --night: #140b07;
-          --dusk: #271207;
-          --flame: #c82904;
-          --ember: #f46a07;
-          --coral: #ff8b6b;
-          --paper: #fff8f4;
-          --mist: rgba(255, 248, 244, 0.74);
-          --gold: #f6b24a;
-          --serif: 'Playfair Display', Georgia, serif;
-          --sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-          color: var(--paper);
-          font-family: var(--sans);
-          background: var(--night);
+        .pm-section {
           position: relative;
+          overflow: hidden;
+          /* Fond crème chaud Famissio (ni sombre, ni blanc pur) */
+          background: linear-gradient(175deg, #fdf6ee 0%, #faede0 45%, #fdf5ea 100%);
+          color: #1a100a;
+          padding: 100px 24px 120px;
+          font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
           width: 100%;
-          overflow: clip;
         }
-        .fm * { box-sizing: border-box; }
-        .fm-track { position: relative; height: 340svh; }
-        .fm-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
 
-        /* Fond : nappes de couleur en dégradé de flammes & braises */
-        .fm-bg {
+        /* Nappes de couleur douces et diffuses en arrière-plan */
+        .pm-bg {
           position: absolute;
           inset: -10%;
-          z-index: -2;
-          background: linear-gradient(160deg, var(--night) 0%, var(--dusk) 55%, #381507 100%);
+          z-index: 0;
+          pointer-events: none;
         }
-        .fm-bg i {
+        .pm-bg i {
           position: absolute;
           border-radius: 50%;
-          filter: blur(80px);
+          filter: blur(90px);
           will-change: transform;
         }
-        .fm-bg i:nth-child(1) {
-          left: -8vmax;
-          top: -12vmax;
-          width: 60vmax;
-          height: 60vmax;
-          background: radial-gradient(circle, rgba(200, 41, 4, 0.52), transparent 65%);
-          opacity: 0.65;
+        .pm-bg i:nth-child(1) {
+          left: -6vmax;
+          top: -6vmax;
+          width: 55vmax;
+          height: 55vmax;
+          background: radial-gradient(circle, rgba(244, 106, 7, 0.16), transparent 65%);
         }
-        .fm-bg i:nth-child(2) {
-          right: -14vmax;
-          bottom: -18vmax;
-          width: 60vmax;
-          height: 60vmax;
-          background: radial-gradient(circle, rgba(244, 106, 7, 0.48), transparent 62%);
-          opacity: 0.55;
+        .pm-bg i:nth-child(2) {
+          right: -10vmax;
+          top: 30%;
+          width: 52vmax;
+          height: 52vmax;
+          background: radial-gradient(circle, rgba(200, 41, 4, 0.13), transparent 65%);
         }
-        .fm-bg i:nth-child(3) {
-          left: 38%;
-          top: 28%;
-          width: 36vmax;
-          height: 36vmax;
-          background: radial-gradient(circle, rgba(246, 178, 74, 0.35), transparent 65%);
-          opacity: 0.32;
+        .pm-bg i:nth-child(3) {
+          left: 25%;
+          bottom: -10vmax;
+          width: 45vmax;
+          height: 45vmax;
+          background: radial-gradient(circle, rgba(246, 178, 74, 0.2), transparent 65%);
         }
 
-        .fm-grain {
+        .pm-grain {
           position: absolute;
           inset: 0;
-          z-index: -1;
-          opacity: 0.12;
-          mix-blend-mode: overlay;
+          z-index: 0;
+          opacity: 0.055;
+          mix-blend-mode: multiply;
           pointer-events: none;
-          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* Dates géantes en contour défilant derrière */
-        .fm-dates {
+        /* Dates géantes défilant en contour subtil en arrière-plan */
+        .pm-dates-ticker {
           position: absolute;
-          left: 0;
-          top: 50%;
-          z-index: -1;
-          white-space: nowrap;
-          font: 700 clamp(8rem, 24vw, 24rem) / 1 var(--serif);
-          letter-spacing: -0.04em;
+          top: 8%;
+          left: -15%;
+          width: 150%;
+          font-family: 'Bebas Neue', cursive;
+          font-size: clamp(5rem, 15vw, 13rem);
+          letter-spacing: 0.05em;
+          line-height: 1;
           color: transparent;
-          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.24);
-          will-change: transform;
-          pointer-events: none;
+          -webkit-text-stroke: 1.5px rgba(244, 106, 7, 0.16);
+          white-space: nowrap;
           user-select: none;
+          pointer-events: none;
+          z-index: 0;
+          will-change: transform;
         }
 
-        /* Titre : chaque lettre réagit au survol et à l'entrée */
-        .fm-title {
-          position: absolute;
-          left: 5vw;
-          top: 50%;
-          margin: 0;
-          transform: translateY(-50%);
-          transform-origin: 0 50%;
-          font: 700 clamp(3.4rem, 10.5vw, 9.5rem) / 0.95 var(--serif);
-          letter-spacing: -0.035em;
-          will-change: transform;
-          color: var(--paper);
+        /* Conteneur principal centré */
+        .pm-container {
+          position: relative;
+          z-index: 1;
+          max-width: 1100px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
-        .fm-title .ln {
+
+        /* Badge d'en-tête */
+        .pm-header-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(255, 255, 255, 0.85);
+          border: 1px solid #fed7aa;
+          border-radius: 9999px;
+          padding: 8px 18px;
+          font-size: 0.8rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          color: #c82904;
+          margin-bottom: 24px;
+          box-shadow: 0 4px 14px rgba(244, 106, 7, 0.08);
+          backdrop-filter: blur(8px);
+        }
+        .pm-badge-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #f46a07;
+          position: relative;
+        }
+        .pm-badge-dot::after {
+          content: '';
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          border: 2px solid #f46a07;
+          animation: pm-pulse 1.8s ease-out infinite;
+        }
+        @keyframes pm-pulse {
+          0% { transform: scale(0.9); opacity: 0.8; }
+          70% { transform: scale(2.2); opacity: 0; }
+          100% { transform: scale(0.9); opacity: 0; }
+        }
+
+        /* Grand titre expressif */
+        .pm-title {
+          font-family: 'Playfair Display', Georgia, serif;
+          font-size: clamp(3.2rem, 9vw, 7.5rem);
+          font-weight: 800;
+          line-height: 0.95;
+          letter-spacing: -0.03em;
+          color: #1a100a;
+          margin: 0 0 24px;
+        }
+        .pm-title .ln {
           display: block;
           overflow: hidden;
-          padding: 0.04em 0.1em 0.12em 0;
+          padding: 0.04em 0.1em;
         }
-        .fm-title .ln:nth-child(2) {
-          color: var(--ember);
-          background: linear-gradient(135deg, #f46a07 0%, #ff8b6b 100%);
+        .pm-title .ln:nth-child(2) {
+          background: linear-gradient(135deg, #c82904 0%, #f46a07 60%, #e05307 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -844,185 +759,138 @@ const MissionsPage = () => {
           to { transform: none; }
         }
 
-        /* Texte court + trois accroches dépliables */
-        .fm-copy {
-          position: absolute;
-          left: 5vw;
-          bottom: 7vh;
-          width: min(520px, 40vw);
-          opacity: 0;
-          will-change: transform, opacity;
+        /* Métas : dates & lieu */
+        .pm-meta-bar {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          margin-bottom: 24px;
+          font-size: clamp(1rem, 1.3vw, 1.2rem);
+          color: #442a1b;
+          font-weight: 600;
         }
-        .fm-sub {
-          margin: 0 0 0.7rem;
-          font: 700 0.92rem var(--sans);
-          color: var(--ember);
-          text-transform: uppercase;
-          letter-spacing: 0.14em;
+        .pm-meta-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
         }
-        .fm-txt {
-          margin: 0 0 1.4rem;
-          font-size: clamp(0.98rem, 1.25vw, 1.15rem);
-          line-height: 1.65;
-          color: var(--mist);
+        .pm-meta-icon {
+          color: #f46a07;
+          flex-shrink: 0;
         }
-        .fm-tags {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          gap: 0.65rem;
+        .pm-meta-strong {
+          color: #c82904;
+          font-weight: 800;
         }
-        .fm-tag {
-          all: unset;
-          display: block;
+        .pm-meta-sep {
+          color: #fed7aa;
+        }
+
+        /* Paragraphe descriptif */
+        .pm-description {
+          max-width: 740px;
+          font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+          line-height: 1.7;
+          color: #5c4436;
+          margin: 0 auto 52px;
+        }
+
+        /* Carte pleine largeur sans chevauchement */
+        .pm-map-wrapper {
           width: 100%;
-          cursor: pointer;
-          padding: 0.85rem 1.25rem;
-          border: 1px solid rgba(255, 248, 244, 0.18);
-          border-radius: 16px;
-          background: rgba(255, 248, 244, 0.05);
-          backdrop-filter: blur(12px);
-          font: 600 1.12rem var(--serif);
-          transition: transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.3s, background 0.3s;
-          -webkit-tap-highlight-color: transparent;
-        }
-        .fm-tag::after {
-          content: "+";
-          float: right;
-          font-family: var(--sans);
-          font-weight: 400;
-          font-size: 1.2rem;
-          color: var(--ember);
-          transition: transform 0.35s ease;
-        }
-        .fm-tag:hover {
-          border-color: var(--ember);
-          background: rgba(244, 106, 7, 0.14);
-        }
-        .fm-tag:active {
-          transform: scale(0.97);
-        }
-        .fm-tag:focus-visible {
-          outline: 2px solid var(--ember);
-          outline-offset: 3px;
-        }
-        .fm-tag[aria-expanded="true"] {
-          border-color: var(--ember);
-          background: rgba(244, 106, 7, 0.16);
-        }
-        .fm-tag[aria-expanded="true"]::after {
-          transform: rotate(45deg);
-        }
-        .fm-tag em {
-          display: grid;
-          grid-template-rows: 0fr;
+          max-width: 1080px;
+          margin: 0 auto;
           opacity: 0;
-          font: 400 0.94rem / 1.55 var(--sans);
-          font-style: normal;
-          color: var(--mist);
-          transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, margin 0.4s;
+          transform: translateY(35px);
+          transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .fm-tag em span {
-          overflow: hidden;
-        }
-        .fm-tag[aria-expanded="true"] em {
-          grid-template-rows: 1fr;
+        .pm-map-wrapper.pm-map--inview {
           opacity: 1;
-          margin-top: 0.55rem;
+          transform: translateY(0);
         }
-
-        /* Carte */
-        .fm-map {
-          position: absolute;
-          right: 4vw;
-          top: 50%;
-          width: min(52vw, 860px);
-          padding: 10px;
-          border: 1px solid rgba(244, 106, 7, 0.25);
-          border-radius: 28px;
-          background: rgba(255, 248, 244, 0.04);
-          backdrop-filter: blur(14px);
-          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(244, 106, 7, 0.08) inset;
-          transform-origin: 100% 50%;
-          opacity: 0;
-          pointer-events: none;
-          will-change: transform, clip-path, opacity;
-        }
-        .fm-map iframe {
-          border: 0;
-          background: transparent;
-          width: 100%;
-          border-radius: 20px;
-          display: block;
-        }
-
-        .fm-hint {
-          position: absolute;
-          left: 50%;
-          bottom: 3vh;
-          width: 1px;
-          height: 48px;
-          background: linear-gradient(var(--paper), transparent);
-          transform-origin: top;
-          animation: fmh 1.8s infinite;
-          transition: opacity 0.4s;
-        }
-        @keyframes fmh {
-          0% { transform: scaleY(0); }
-          60%, 100% { transform: scaleY(1); }
-          100% { opacity: 0; }
-        }
-        .fm-rail {
-          position: absolute;
-          right: 1.2vw;
-          top: 30vh;
-          width: 2px;
-          height: 40vh;
-          background: rgba(255, 248, 244, 0.15);
-          border-radius: 2px;
-          overflow: hidden;
-        }
-        .fm-rail b {
-          display: block;
-          height: 100%;
-          background: linear-gradient(180deg, var(--ember), var(--flame));
-          transform-origin: top;
-          transform: scaleY(var(--p, 0));
-        }
-
-        /* Mobile / mouvement réduit : empilé, sans épinglage */
-        .fm.flat .fm-track { height: auto; }
-        .fm.flat .fm-stage {
+        .pm-map-card {
           position: relative;
-          height: auto;
-          display: grid;
-          gap: 2.5rem;
-          padding: 12vh 5vw 10vh;
+          background: #ffffff;
+          border: 1.5px solid #fed7aa;
+          border-radius: 28px;
+          overflow: hidden;
+          box-shadow:
+            0 10px 30px -10px rgba(200, 41, 4, 0.1),
+            0 25px 50px -12px rgba(26, 16, 10, 0.08);
+          transition: box-shadow 0.3s, transform 0.3s;
         }
-        .fm.flat .fm-title,
-        .fm.flat .fm-copy,
-        .fm.flat .fm-map {
-          position: static;
-          width: auto;
-          transform: none !important;
-          clip-path: none !important;
-          opacity: 1 !important;
-          pointer-events: auto !important;
+        .pm-map-card:hover {
+          box-shadow:
+            0 15px 35px -8px rgba(200, 41, 4, 0.15),
+            0 30px 60px -15px rgba(26, 16, 10, 0.12);
+          transform: translateY(-4px);
         }
-        .fm.flat .fm-title {
-          font-size: clamp(3.2rem, 14vw, 6.5rem);
+        .pm-map-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 24px;
+          background: #fffdf9;
+          border-bottom: 1px solid #ffedd5;
         }
-        .fm.flat .fm-dates {
-          top: 8%;
+        .pm-map-title-group {
+          display: flex;
+          align-items: center;
+          gap: 10px;
         }
-        .fm.flat .fm-hint,
-        .fm.flat .fm-rail {
-          display: none;
+        .pm-map-indicator {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #f46a07;
+          box-shadow: 0 0 10px rgba(244, 106, 7, 0.6);
+        }
+        .pm-map-header-title {
+          font-size: 0.9rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: #9a3412;
+        }
+        .pm-map-tag {
+          font-size: 0.78rem;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 9999px;
+          background: #fff7ed;
+          color: #c2410c;
+          border: 1px solid #fed7aa;
+        }
+        .pm-map-embed {
+          width: 100%;
+          background: transparent;
+        }
+        .pm-map-embed iframe {
+          width: 100% !important;
+          border: 0 !important;
+          display: block;
+        }
+
+        @media (max-width: 640px) {
+          .pm-section {
+            padding: 70px 16px 90px;
+          }
+          .pm-map-card {
+            border-radius: 20px;
+          }
+          .pm-map-header {
+            padding: 12px 16px;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
-          .fm * { animation: none !important; transition: none !important; }
+          .pm-section * {
+            animation: none !important;
+            transition: none !important;
+          }
           .ch { transform: none; }
+          .pm-map-wrapper { opacity: 1; transform: none; }
         }
       `}</style>
 
