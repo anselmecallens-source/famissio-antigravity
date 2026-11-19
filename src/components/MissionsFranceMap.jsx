@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUpRight, Sparkles, X } from 'lucide-react';
 import { ANNOUNCED_MISSION } from '../data/announcedMission';
 import { FRANCE_DEPARTMENTS, FRANCE_MAP_VIEWBOX } from '../data/franceDepartments';
@@ -97,7 +97,29 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   const [activeYear, setActiveYear] = useState('all');
   const [hoveredCode, setHoveredCode] = useState(null);
   const [selectedCode, setSelectedCode] = useState(null);
-  const [hasEnteredMap, setHasEnteredMap] = useState(false);
+  const mapCanvasRef = useRef(null);
+  const [introStarted, setIntroStarted] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
+  useEffect(() => {
+    const canvas = mapCanvasRef.current;
+    if (!canvas) return undefined;
+    let timeout;
+    const startIntro = () => {
+      setIntroStarted(true);
+      timeout = window.setTimeout(() => setIntroFinished(true), 5200);
+    };
+    if (!('IntersectionObserver' in window)) {
+      startIntro();
+      return () => window.clearTimeout(timeout);
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      startIntro();
+    }, { threshold: 0.15 });
+    observer.observe(canvas);
+    return () => { observer.disconnect(); window.clearTimeout(timeout); };
+  }, []);
   const yearOptions = useMemo(() => [...new Set([ANNOUNCED_MISSION.year, ...missions.map((mission) => mission.year)])], [missions]);
   const missionsByCode = useMemo(() => new Map(MAINLAND_DEPARTMENTS.map(({ code }) => [code, missions
     .filter((mission) => (DEPARTMENTS_BY_MISSION[mission.id] || []).includes(code))
@@ -111,6 +133,9 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
   const shownMissions = activeYear === 'all' ? pastMissions : pastMissions.filter((mission) => mission.year === activeYear);
   const isAnnouncedHere = code === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year);
   const isExpanded = Boolean(selectedCode && selectedCode === code);
+  const introIsVisible = announcedIsVisible && introStarted && !introFinished;
+  const announcedPath = departmentsByCode.get(ANNOUNCED_MISSION.code)?.mapPath;
+  const activePath = department?.mapPath;
 
   const hasVisit = (deptCode) => {
     if (deptCode === ANNOUNCED_MISSION.code && (activeYear === 'all' || activeYear === ANNOUNCED_MISSION.year)) return true;
@@ -142,10 +167,9 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
       </div>
 
       <div
+        ref={mapCanvasRef}
         className="mission-fr-map__canvas"
-        onMouseEnter={() => setHasEnteredMap(true)}
         onMouseLeave={() => setHoveredCode(null)}
-        onFocusCapture={() => setHasEnteredMap(true)}
         onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHoveredCode(null); }}
       >
         <svg className="mission-fr-map__svg" viewBox={FRANCE_MAP_VIEWBOX} role="group" aria-label="Départements de France métropolitaine">
@@ -153,7 +177,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             <path
               key={dept.code}
               d={dept.mapPath}
-              className={`${departmentClass(dept.code)}${dept.code === ANNOUNCED_MISSION.code && announcedIsVisible && !hasEnteredMap ? ' is-intro' : ''}`}
+              className={departmentClass(dept.code)}
               role="button"
               tabIndex="0"
               aria-label={`${dept.name}, ${dept.code}${hasVisit(dept.code) ? ', mission Famissio' : ', pas encore visité'}`}
@@ -166,7 +190,17 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
+          {introIsVisible && announcedPath && <>
+            <path className="mission-fr-map__active-underlay is-intro" d={announcedPath} fill="none" aria-hidden="true" />
+            <path className="mission-fr-map__active-outline is-intro" d={announcedPath} fill="none" aria-hidden="true" />
+          </>}
+          {activePath && (hoveredCode || selectedCode) && <>
+            <path className="mission-fr-map__active-underlay" d={activePath} fill="none" aria-hidden="true" />
+            <path className="mission-fr-map__active-outline" d={activePath} fill="none" aria-hidden="true" />
+          </>}
         </svg>
+
+        {announcedIsVisible && <div className="mission-fr-map__callout" aria-hidden="true"><span>Ça se passera ici</span><i /></div>}
 
         {department && (hoveredCode || selectedCode) && (
           <section className={`mission-fr-map__popup${isExpanded ? ' is-expanded' : ''}${isAnnouncedHere ? ' is-announced' : ''}`} aria-live="polite" aria-label={`Missions dans le département ${department.name}`}>
