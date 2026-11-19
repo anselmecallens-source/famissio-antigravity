@@ -1,32 +1,176 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Square, StopCircle } from 'lucide-react';
+import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Carte locale des diocèses de la mission 2026.
-const CARTE_MISSION_2026_URL = '/assets/images/Carte_mission_2026.webp';
+// ─── Prochaine mission ───────────────────────────────────────────────────────
+const PROCHAINE_MISSION = {
+  year: '2027',
+  diocese: 'Laval',
+  department: 'Mayenne',
+  departmentNumber: '53',
+  region: 'Pays de la Loire',
+  startDate: new Date('2027-10-30T00:00:00'),
+  endDate:   new Date('2027-11-05T23:59:59'),
+  dateLabel: '30 octobre – 5 novembre 2027',
+  description: 'La prochaine mission Famissio nous emmène en Mayenne, dans le diocèse de Laval. Une semaine de rencontres, d\'annonce et de joie au cœur des terres de l\'Ouest.',
+};
 
-const diocesesMission2026 = [
-  {
-    name: 'La Rochelle',
-    department: 'Charente-Maritime',
-    number: '17',
-    bishop: 'Mgr Pierre-Antoine Bozo'
-  },
-  {
-    name: 'Angoulême',
-    department: 'Charente',
-    number: '16',
-    bishop: 'Mgr Hervé Gosselin'
-  },
-  {
-    name: 'Tulle',
-    department: 'Corrèze',
-    number: '19',
-    bishop: 'Mgr Éric Bidot'
-  }
-];
+// Countdown hook
+function useCountdown(targetDate) {
+  const calc = () => {
+    const diff = targetDate - Date.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return {
+      days:    Math.floor(diff / 86400000),
+      hours:   Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000)  / 60000),
+      seconds: Math.floor((diff % 60000)    / 1000),
+    };
+  };
+  const [time, setTime] = useState(calc);
+  useEffect(() => {
+    const id = setInterval(() => setTime(calc()), 1000);
+    return () => clearInterval(id);
+  }, [targetDate]);
+  return time;
+}
 
+// Animated number flip
+function FlipUnit({ value, label }) {
+  const [prev, setPrev] = useState(value);
+  const [flip, setFlip] = useState(false);
+  useEffect(() => {
+    if (value !== prev) {
+      setFlip(true);
+      const t = setTimeout(() => { setPrev(value); setFlip(false); }, 300);
+      return () => clearTimeout(t);
+    }
+  }, [value, prev]);
+  return (
+    <div className="flip-unit">
+      <div className={`flip-card ${flip ? 'flipping' : ''}`}>
+        <span className="flip-num">{String(value).padStart(2, '0')}</span>
+      </div>
+      <span className="flip-label">{label}</span>
+    </div>
+  );
+}
+
+// ─── Composant Section Prochaine Mission ────────────────────────────────────
+function ProchaineMissionSection({ countdown }) {
+  const { days, hours, minutes, seconds } = countdown;
+  return (
+    <section className="pm-section py-16 sm:py-24">
+      <div className="pm-bg-blob-1" />
+      <div className="pm-bg-blob-2" />
+      <div className="pm-noise" />
+
+      {/* Étoiles / sparks décoratifs */}
+      <span className="pm-spark text-orange-400 text-2xl" style={{ top:'12%', left:'8%',  animationDuration:'3.1s', animationDelay:'0s'   }}>✦</span>
+      <span className="pm-spark text-red-400 text-lg"    style={{ top:'70%', left:'5%',  animationDuration:'4.3s', animationDelay:'1.2s' }}>✦</span>
+      <span className="pm-spark text-orange-300 text-xl" style={{ top:'20%', right:'6%', animationDuration:'2.8s', animationDelay:'0.7s' }}>✦</span>
+      <span className="pm-spark text-orange-500 text-sm" style={{ top:'80%', right:'9%', animationDuration:'3.7s', animationDelay:'1.8s' }}>✦</span>
+
+      <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+
+          {/* ── COLONNE GAUCHE ── */}
+          <div>
+            {/* Badge */}
+            <div className="mb-6">
+              <span className="pm-live-badge">
+                <span className="pm-live-dot" />
+                Prochaine mission
+              </span>
+            </div>
+
+            {/* Année */}
+            <div className="pm-title">{PROCHAINE_MISSION.year}</div>
+
+            {/* Diocèse */}
+            <div className="pm-diocese-name mt-1">
+              Diocèse de {PROCHAINE_MISSION.diocese}
+            </div>
+
+            {/* Département */}
+            <p className="mt-3 text-orange-300/80 text-base font-semibold tracking-widest uppercase" style={{ animationDelay:'0.35s', animation:'pm-slide-up 0.8s ease 0.35s both' }}>
+              {PROCHAINE_MISSION.department} · {PROCHAINE_MISSION.departmentNumber}
+            </p>
+
+            {/* Description */}
+            <p className="mt-5 text-white/70 text-base sm:text-lg leading-relaxed max-w-md" style={{ animation:'pm-slide-up 0.8s ease 0.45s both' }}>
+              {PROCHAINE_MISSION.description}
+            </p>
+
+            {/* Date */}
+            <div className="mt-7">
+              <div className="pm-date-pill">
+                <Calendar size={16} className="text-orange-400 flex-shrink-0" />
+                <span className="text-sm font-bold text-white/90 tracking-wide">
+                  {PROCHAINE_MISSION.dateLabel}
+                </span>
+              </div>
+            </div>
+
+            {/* Countdown */}
+            <div className="pm-countdown-wrapper mt-8">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-4">Compte à rebours</p>
+              <div className="pm-countdown-grid">
+                <FlipUnit value={days}    label="jours"   />
+                <FlipUnit value={hours}   label="heures"  />
+                <FlipUnit value={minutes} label="minutes" />
+                <FlipUnit value={seconds} label="sec."    />
+              </div>
+            </div>
+
+            {/* Info chips */}
+            <div className="mt-8 flex flex-wrap gap-3" style={{ animation:'pm-slide-up 0.8s ease 0.6s both' }}>
+              <div className="pm-info-chip">
+                <MapPin size={15} />
+                {PROCHAINE_MISSION.region}
+              </div>
+              <div className="pm-info-chip">
+                <Calendar size={15} />
+                7 jours de mission
+              </div>
+            </div>
+          </div>
+
+          {/* ── COLONNE DROITE — Carte ── */}
+          <div className="pm-map-panel">
+            <div className="pm-map-glow" />
+            <div className="pm-map-card">
+              {/* Carte Datawrapper */}
+              <iframe
+                title="Carte choroplèthe des diocèses de France"
+                aria-label="Carte choroplèthe"
+                src="https://datawrapper.dwcdn.net/otsD1/2/"
+                scrolling="no"
+                frameBorder="0"
+                style={{ border: 'none', width: '100%', height: '420px' }}
+                data-external="1"
+              />
+              <div className="pm-map-footer">
+                <div className="flex items-center gap-2">
+                  <span style={{ width:10, height:10, borderRadius:'50%', background:'#f46a07', display:'inline-block', boxShadow:'0 0 8px #f46a07' }} />
+                  <span className="text-xs font-bold text-white/60 uppercase tracking-widest">
+                    Diocèse de {PROCHAINE_MISSION.diocese}
+                  </span>
+                </div>
+                <span className="text-xs text-white/30 font-semibold">{PROCHAINE_MISSION.year}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Page principale ─────────────────────────────────────────────────────────
 const MissionsPage = () => {
+  const countdown = useCountdown(PROCHAINE_MISSION.startDate);
   const [selectedMission, setSelectedMission] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const isMissionModalOpen = Boolean(selectedMission);
@@ -415,8 +559,6 @@ const MissionsPage = () => {
             left: 200%; transition: 0.7s ease-in-out;
         }
         
-        /* Zoom spécifique pour les photos avec bandes noires */
-        /* Zoom spécifique pour les photos avec bandes noires */
         .img-zoom-medium {
             object-position: center;
             transform: scale(1.15);
@@ -441,37 +583,236 @@ const MissionsPage = () => {
             transform: scale(1.65) !important;
         }
 
-        /* Datawrapper transparency */
-        #datawrapper-vis-otsD1, #datawrapper-vis-otsD1 iframe { background: transparent !important; }
-
         /* Suppression des scrollbars par défaut dans le modal si nécessaire */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ═══ SECTION PROCHAINE MISSION ═══ */
+        @keyframes pm-blob-morph {
+          0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+          33%       { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
+          66%       { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
+        }
+        @keyframes pm-pulse-ring {
+          0%   { transform: scale(0.9); opacity: 0.6; }
+          70%  { transform: scale(1.4); opacity: 0;   }
+          100% { transform: scale(0.9); opacity: 0;   }
+        }
+        @keyframes pm-float {
+          0%, 100% { transform: translateY(0px) rotate(-2deg); }
+          50%       { transform: translateY(-12px) rotate(2deg); }
+        }
+        @keyframes pm-shimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes pm-slide-up {
+          from { opacity: 0; transform: translateY(30px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pm-counter-pop {
+          0%   { transform: translateY(100%); opacity: 0; }
+          60%  { transform: translateY(-5%); }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pm-gradient-shift {
+          0%, 100% { background-position: 0% 50%;   }
+          50%       { background-position: 100% 50%; }
+        }
+        @keyframes pm-spark {
+          0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+          50%       { opacity: 1;   transform: scale(1.3) rotate(180deg); }
+        }
+
+        .pm-section {
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(135deg, #1a0a00 0%, #2d1000 30%, #1a0505 60%, #0d0d0d 100%);
+          color: white;
+        }
+        .pm-bg-blob-1 {
+          position: absolute; top: -20%; left: -15%;
+          width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
+          background: radial-gradient(circle, rgba(244,106,7,0.18) 0%, transparent 70%);
+          animation: pm-blob-morph 12s ease-in-out infinite;
+          pointer-events: none;
+        }
+        .pm-bg-blob-2 {
+          position: absolute; bottom: -25%; right: -10%;
+          width: 45vw; height: 45vw; max-width: 580px; max-height: 580px;
+          background: radial-gradient(circle, rgba(200,41,4,0.15) 0%, transparent 70%);
+          animation: pm-blob-morph 15s ease-in-out infinite reverse;
+          pointer-events: none;
+        }
+        .pm-noise {
+          position: absolute; inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+          pointer-events: none; opacity: 0.4;
+        }
+
+        /* Badge live */
+        .pm-live-badge {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: rgba(244,106,7,0.15);
+          border: 1px solid rgba(244,106,7,0.4);
+          border-radius: 100px;
+          padding: 6px 16px;
+          font-size: 0.72rem; font-weight: 800;
+          text-transform: uppercase; letter-spacing: 0.18em;
+          color: #f46a07;
+          backdrop-filter: blur(10px);
+          animation: pm-slide-up 0.6s ease both;
+        }
+        .pm-live-dot {
+          position: relative; width: 8px; height: 8px;
+          background: #f46a07; border-radius: 50%;
+        }
+        .pm-live-dot::before {
+          content: ''; position: absolute; inset: -3px;
+          border-radius: 50%; border: 2px solid #f46a07;
+          animation: pm-pulse-ring 1.5s ease-out infinite;
+        }
+
+        /* Titre principal */
+        .pm-title {
+          font-family: 'Bebas Neue', cursive;
+          font-size: clamp(5rem, 14vw, 11rem);
+          line-height: 0.85;
+          letter-spacing: 4px;
+          background: linear-gradient(135deg, #ffffff 0%, #f46a07 40%, #c82904 70%, #ff9a56 100%);
+          background-size: 300% 300%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: pm-gradient-shift 5s ease infinite, pm-slide-up 0.8s ease 0.2s both;
+        }
+        .pm-diocese-name {
+          font-family: 'Bebas Neue', cursive;
+          font-size: clamp(2.5rem, 7vw, 5.5rem);
+          line-height: 1;
+          letter-spacing: 3px;
+          color: white;
+          animation: pm-slide-up 0.8s ease 0.3s both;
+        }
+
+        /* Date pill */
+        .pm-date-pill {
+          display: inline-flex; align-items: center; gap: 10px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 100px;
+          padding: 10px 22px;
+          backdrop-filter: blur(12px);
+          animation: pm-slide-up 0.8s ease 0.4s both;
+        }
+
+        /* Countdown */
+        .pm-countdown-wrapper {
+          animation: pm-slide-up 0.8s ease 0.5s both;
+        }
+        .pm-countdown-grid {
+          display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .flip-unit {
+          display: flex; flex-direction: column; align-items: center; gap: 6px;
+        }
+        .flip-card {
+          position: relative; overflow: hidden;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(244,106,7,0.3);
+          border-radius: 14px;
+          padding: 14px 18px;
+          min-width: 70px;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+          transition: border-color 0.3s;
+        }
+        .flip-card.flipping {
+          animation: pm-counter-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          border-color: rgba(244,106,7,0.7);
+        }
+        .flip-num {
+          font-family: 'Bebas Neue', cursive;
+          font-size: 2.4rem;
+          letter-spacing: 2px;
+          color: #f46a07;
+          display: block;
+          line-height: 1;
+          text-align: center;
+        }
+        .flip-label {
+          font-size: 0.65rem; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 2px;
+          color: rgba(255,255,255,0.4);
+        }
+
+        /* Right panel — carte */
+        .pm-map-panel {
+          position: relative;
+          animation: pm-slide-up 0.9s ease 0.3s both;
+        }
+        .pm-map-glow {
+          position: absolute; inset: -20px;
+          background: radial-gradient(ellipse at center, rgba(244,106,7,0.2) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .pm-map-card {
+          position: relative;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 24px;
+          overflow: hidden;
+          backdrop-filter: blur(20px);
+          box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .pm-map-card iframe {
+          border-radius: 18px;
+          display: block;
+          filter: saturate(0.9) contrast(1.05);
+        }
+        .pm-map-footer {
+          padding: 14px 20px;
+          display: flex; align-items: center; justify-content: space-between; gap: 10px;
+          border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Info chips */
+        .pm-info-chip {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 10px;
+          padding: 8px 14px;
+          font-size: 0.82rem; font-weight: 600;
+          color: rgba(255,255,255,0.75);
+          backdrop-filter: blur(8px);
+        }
+        .pm-info-chip svg { color: #f46a07; flex-shrink: 0; }
+
+        /* Spark decorations */
+        .pm-spark {
+          position: absolute; pointer-events: none;
+          animation: pm-spark linear infinite;
+        }
       `}</style>
 
-      {/* HERO SECTION */}
+      {/* ══════════ HERO SECTION ══════════ */}
       <div className="relative bg-gray-50 text-gray-900 overflow-hidden">
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600&display=swap');
-          
           .blob {
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             animation: morph 8s ease-in-out infinite;
           }
-          
           @keyframes morph {
             0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            50%       { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
           }
         `}</style>
-
-        {/* Fond animé avec Blobs */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200 blob opacity-20" />
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-red-200 blob opacity-20" style={{ animationDelay: '2s' }} />
         </div>
-
-        {/* Contenu */}
         <div className="relative max-w-4xl mx-auto px-6 py-12 sm:py-16">
           <h1
             className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-tight leading-tight text-center text-orange-600"
@@ -479,107 +820,22 @@ const MissionsPage = () => {
           >
             Nos Missions
           </h1>
-
           <p className="text-base sm:text-lg md:text-xl text-center max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
             Chaque année à la Toussaint, nous organisons une mission diocésaine. Elle se prépare sur un an avec les paroisses pour adapter le programme à leurs besoins spécifiques.
           </p>
         </div>
-
       </div>
 
-      {/* Bande orange décorative en bas (Style harmonisé) */}
-      <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50"></div>
+      {/* Bande décorative */}
+      <div className="bg-gradient-to-r from-orange-100 via-orange-300 to-orange-100 h-2 border-y border-orange-200/50" />
 
-      {/* MISSION 2026 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#fff8f4] via-white to-orange-50 text-gray-900">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-red-100/70 blur-3xl" />
+      {/* ══════════ SECTION PROCHAINE MISSION ══════════ */}
+      <ProchaineMissionSection countdown={countdown} />
 
-        <div className="relative mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 py-12 md:py-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-            <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/90 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#c82904] shadow-sm">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#f46a07]" />
-                Prochaine mission
-              </div>
-
-              <h2 className="mb-4 text-6xl font-black leading-none tracking-tight text-[#c82904] sm:text-7xl">
-                2026
-              </h2>
-              <p className="mb-7 max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-                Trois diocèses de l'Ouest nous accueillent pour une semaine de mission et de rencontre.
-              </p>
-
-              <div className="mb-8 inline-flex items-center gap-3 rounded-2xl bg-white px-5 py-4 shadow-md ring-1 ring-orange-100">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-[#c82904]">
-                  <Calendar className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span>
-                  <span className="block text-xs font-bold uppercase tracking-wider text-gray-500">Dates de la mission</span>
-                  <span className="block text-lg font-extrabold text-gray-900">24–30 octobre 2026</span>
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                <h3 className="text-sm font-extrabold uppercase tracking-[0.16em] text-gray-500">
-                  Les diocèses qui nous accueillent
-                </h3>
-                {diocesesMission2026.map((diocese) => (
-                  <article
-                    key={diocese.number}
-                    className="flex items-center gap-4 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f46a07] to-[#c82904] text-sm font-black text-white shadow-sm">
-                      {diocese.number}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                        <h4 className="font-extrabold text-gray-900">Diocèse de {diocese.name}</h4>
-                        <span className="text-sm font-semibold text-[#c2410c]">{diocese.department}</span>
-                      </div>
-                      <p className="mt-1 text-sm text-gray-500">{diocese.bishop}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-xl">
-              <div className="absolute -inset-3 rotate-2 rounded-[2rem] bg-gradient-to-br from-orange-200 to-red-100 opacity-70" />
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-orange-100 bg-white p-4 shadow-2xl sm:p-7">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <span className="text-sm font-extrabold text-gray-800">Nos territoires de mission</span>
-                  <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-[#c2410c]">2026</span>
-                </div>
-                <img
-                  src={CARTE_MISSION_2026_URL}
-                  alt="Carte de France avec les diocèses de La Rochelle, Angoulême et Tulle mis en évidence"
-                  width="494"
-                  height="505"
-                  loading="lazy"
-                  decoding="async"
-                  className="mx-auto h-auto w-full max-w-md object-contain"
-                />
-                <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-orange-100 pt-4 text-xs font-semibold text-gray-600 sm:text-sm">
-                  {diocesesMission2026.map((diocese) => (
-                    <span key={diocese.number} className="inline-flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#f46a07]" />
-                      {diocese.number} · {diocese.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GALLERIE MISSIONS */}
+      {/* ══════════ GALLERIE MISSIONS ══════════ */}
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-14 py-16">
         <div className="text-center mb-12">
-          <div className="mission-eyebrow">
-            L'HISTORIQUE
-          </div>
+          <div className="mission-eyebrow">L'HISTORIQUE</div>
           <h2 id="liste-missions" className="text-4xl sm:text-5xl font-black mb-3 year-tag text-gray-900 scroll-mt-32">
             {missions.length} MISSIONS
           </h2>
