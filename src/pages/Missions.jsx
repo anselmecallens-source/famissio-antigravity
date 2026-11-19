@@ -108,6 +108,31 @@ const MissionsPage = () => {
   const missions = [
     // --- MISSIONS TOUSSAINT ---
     {
+      id: 10,
+      category: 'toussaint',
+      year: '2026',
+      date: 'Toussaint',
+      location: 'Charente-Maritime, Charente & Corrèze',
+      diocese: 'La Rochelle, Angoulême, Tulle',
+      participants: '400',
+      image: '/assets/images/Groupe vue du haut.webp',
+      cities: ['Saintes', 'Surgères', 'Fouras', 'Île Madame', 'Jarnac', 'Brive-la-Gaillarde'],
+      story: `Pour cette édition, ce sont 400 Famissionnaires qui se sont retrouvés à Saintes autour de Monseigneur Bozo pour une consécration aux coeurs immaculés de Jésus et de Marie et pour un envoi en mission. Ils se sont ensuite répartis entre 6 paroisses du diocèse de La Rochelle, 1 paroisse à Jarnac dans celui d'Angoulême et 1 dernière à Brive-La-Gaillarde dans le diocèse de Tulle.
+      
+      Quelques temps forts ont aussi marqué cette semaine : des processions des saints Holywin, un pèlerinage à l'Ile Madame (en mémoire des prêtres martyrs déportés), des spectacles de théâtre sur les saints ou sur l'au-delà, un grand jeu de "Chasse aux saints" avec la complicité des commerçants de Surgères, une procession eucharistique, la confection de sacrés-coeurs en métal retourné, des tournois de foot, les inscriptions sur le sable "Jésus t'aime" sur les plages de Fouras...
+      
+      Sans compter toutes les démarches habituelles de Famissio : les visitations, les porte-à-porte, les rencontres dans les cimetières, dans les EHPAD, sur les marchés, dans les fermes, sur les places publiques...
+      
+      Les beaux temps d'adoration, de louanges, de chapelet, laudes, complies rythmaient et nourrissaient chacune de nos journées. Se remplir du Seigneur pour mieux le donner ! Monseigneur Bozo nous rappelait les paroles du Curé d'Ars : "être missionnaire, c'est laisser déborder son coeur".
+      
+      Famissionnaires comme paroissiens accueillants, nous rentrons tous le coeur en joie, avec l'irrésistible envie de vivre la mission dans notre quotidien.
+      
+      Gloire à Dieu. Et vive la mission !`,
+      video: null,
+      links: [],
+      size: 'large'
+    },
+    {
       id: 1,
       category: 'toussaint',
       year: '2025',
@@ -552,7 +577,7 @@ const MissionsPage = () => {
             L'HISTORIQUE
           </div>
           <h2 id="liste-missions" className="text-4xl sm:text-5xl font-black mb-3 year-tag text-gray-900 scroll-mt-32">
-            9 MISSIONS
+            {missions.length} MISSIONS
           </h2>
           <p className="text-xl text-gray-600">
             De 2019 à aujourd'hui, cliquez pour découvrir chaque aventure
