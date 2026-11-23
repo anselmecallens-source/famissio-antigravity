@@ -222,7 +222,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             ) : (
               <>
                 <div className="mission-fr-map__popup-title">
-                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Et si on venait vous voir une prochaine année ? On garde l’idée au chaud !'}</span></div>
+                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Pas encore de mission Famissio par ici… On note l’idée pour une prochaine aventure !'}</span></div>
                   {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => { setSelectedCode(null); setHoveredCode(null); }}><X size={16} /></button>}
                 </div>
                 {isExpanded && (
