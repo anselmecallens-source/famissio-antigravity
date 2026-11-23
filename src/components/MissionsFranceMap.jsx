@@ -186,15 +186,22 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               <title>{dept.name} ({dept.code})</title>
             </path>
           ))}
+          {introIsVisible && departmentsByCode.get(ANNOUNCED_MISSION.code)?.mapPath && <>
+            <path className="mission-fr-map__department-halo mission-fr-map__department-halo-underlay is-intro" d={departmentsByCode.get(ANNOUNCED_MISSION.code).mapPath} fill="none" aria-hidden="true" />
+            <path className="mission-fr-map__department-halo mission-fr-map__department-halo-outline is-intro" d={departmentsByCode.get(ANNOUNCED_MISSION.code).mapPath} fill="none" aria-hidden="true" />
+          </>}
+          {department?.mapPath && (hoveredCode || selectedCode) && <>
+            <path className="mission-fr-map__department-halo mission-fr-map__department-halo-underlay" d={department.mapPath} fill="none" aria-hidden="true" />
+            <path className="mission-fr-map__department-halo mission-fr-map__department-halo-outline" d={department.mapPath} fill="none" aria-hidden="true" />
+          </>}
           {announcedIsVisible && <g className="mission-fr-map__callout" aria-hidden="true">
             <defs><linearGradient id="mission-callout-gradient" x1="0" x2="1"><stop stopColor="#c82904" /><stop offset="1" stopColor="#f46a07" /></linearGradient></defs>
-            <path className="mission-fr-map__callout-line" d="M2.63 2.27 C2.83 2.36 2.94 2.61 3.1 2.9" />
+            <path className="mission-fr-map__callout-line" d="M2.68 2.29 C2.84 2.38 2.96 2.65 3.1 2.9" />
             <path className="mission-fr-map__callout-arrow" d="M3.02 2.81 L3.1 2.9 L3.14 2.78" />
-            <rect className="mission-fr-map__callout-pill" x=".82" y="2.04" width="1.82" height=".43" rx=".215" />
-            <circle className="mission-fr-map__callout-spark" cx="1.08" cy="2.255" r=".1" />
-            <path className="mission-fr-map__callout-star" d="M1.08 2.18 V2.33 M1.005 2.255 H1.155" />
-            <text className="mission-fr-map__callout-text" x="1.83" y="2.30" textAnchor="middle">RDV ici en 2027</text>
-            {introIsVisible && <circle className="mission-fr-map__target-ring" cx="3.1" cy="2.9" r=".105" />}
+            <path className="mission-fr-map__callout-card" d="M.78 1.98 H2.36 Q2.53 1.98 2.53 2.15 V2.23 L2.7 2.29 L2.53 2.37 V2.44 Q2.53 2.61 2.36 2.61 H.78 Q.61 2.61 .61 2.44 V2.15 Q.61 1.98 .78 1.98Z" />
+            <path className="mission-fr-map__callout-accent" d="M.78 2.13 V2.46" />
+            <text className="mission-fr-map__callout-caption" x="1.72" y="2.20" textAnchor="middle">PROCHAINE MISSION</text>
+            <text className="mission-fr-map__callout-text" x="1.72" y="2.43" textAnchor="middle">RDV ici · 2027</text>
           </g>}
         </svg>
 

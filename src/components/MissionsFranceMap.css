@@ -30,16 +30,19 @@
 .mission-fr-map__department.is-announced { transform-box: fill-box; transform-origin: center; transform: scale(1.08); filter: drop-shadow(0 2px 5px rgba(200, 41, 4, .3)); }
 .mission-fr-map__department.is-announced.is-intro { animation: mission-mayenne-pulse 1s ease-in-out infinite alternate; }
 .mission-fr-map__department.is-announced:hover, .mission-fr-map__department.is-announced:focus-visible { animation: mission-mayenne-pulse .9s ease-in-out infinite alternate; }
+.mission-fr-map__department-halo { fill: none !important; stroke-linejoin: round; stroke-linecap: round; pointer-events: none; vector-effect: non-scaling-stroke; }
+.mission-fr-map__department-halo-underlay { stroke: rgba(244,106,7,.42); stroke-width: 8px; filter: blur(5px); }
+.mission-fr-map__department-halo-outline { stroke: #fff; stroke-width: 3px; filter: drop-shadow(0 0 5px rgba(200,41,4,.48)); }
+.mission-fr-map__department-halo.is-intro { animation: mission-department-halo .85s ease-in-out infinite alternate; }
+@keyframes mission-department-halo { from { opacity: .56; } to { opacity: 1; } }
 @keyframes mission-mayenne-pulse { from { filter: drop-shadow(0 1px 3px rgba(200, 41, 4, .24)); } to { filter: drop-shadow(0 5px 12px rgba(200, 41, 4, .62)); } }
 .mission-fr-map__callout { pointer-events: none; }
 .mission-fr-map__callout-line { fill: none; stroke: #c82904; stroke-width: .035; stroke-linecap: round; stroke-dasharray: .08 .045; animation: mission-callout-flow 1.8s linear infinite; }
 .mission-fr-map__callout-arrow { fill: none; stroke: #c82904; stroke-width: .045; stroke-linecap: round; stroke-linejoin: round; }
-.mission-fr-map__callout-pill { fill: url(#mission-callout-gradient); stroke: #fff; stroke-width: .035; filter: drop-shadow(0 .035px .07px rgba(90, 30, 7, .28)); }
-.mission-fr-map__callout-spark { fill: rgba(255,255,255,.2); stroke: rgba(255,255,255,.62); stroke-width: .018; }
-.mission-fr-map__callout-star { fill: none; stroke: #fff; stroke-width: .025; stroke-linecap: round; }
+.mission-fr-map__callout-card { fill: url(#mission-callout-gradient); stroke: #fff; stroke-width: .035; filter: drop-shadow(0 .04px .07px rgba(90, 30, 7, .32)); }
+.mission-fr-map__callout-accent { stroke: rgba(255,255,255,.9); stroke-width: .04; stroke-linecap: round; }
+.mission-fr-map__callout-caption { fill: rgba(255,255,255,.8); font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: .075px; font-weight: 700; letter-spacing: .012px; }
 .mission-fr-map__callout-text { fill: white; font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: .18px; font-weight: 800; letter-spacing: .003px; }
-.mission-fr-map__target-ring { fill: none; stroke: #c82904; stroke-width: .035; transform-box: fill-box; transform-origin: center; animation: mission-target-ring 1.15s ease-out infinite; }
-@keyframes mission-target-ring { 0% { opacity: .9; transform: scale(.55); } 100% { opacity: 0; transform: scale(2.6); } }
 @keyframes mission-callout-flow { to { stroke-dashoffset: -.25; } }
 .mission-fr-map__popup { position: absolute; z-index: 3; top: .65rem; right: .65rem; width: min(255px, calc(100% - 1.3rem)); padding: .72rem .85rem; border: 1px solid rgba(179, 111, 75, .22); border-radius: 13px; color: #43322a; background: rgba(255, 255, 255, .97); box-shadow: 0 12px 32px rgba(79, 46, 26, .13); backdrop-filter: blur(10px); animation: map-popup-in .16s ease-out both; }
 .mission-fr-map__popup.is-expanded { width: min(310px, calc(100% - 1.3rem)); padding: .9rem; }
@@ -73,6 +76,6 @@
   .mission-fr-map__legend, .mission-fr-map__note { font-size: .62rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mission-fr-map__department, .mission-fr-map__target-ring, .mission-fr-map__callout-line { transition: none; animation: none !important; }
+  .mission-fr-map__department, .mission-fr-map__department-halo, .mission-fr-map__callout-line { transition: none; animation: none !important; }
   .mission-fr-map__popup { animation: none; }
 }
