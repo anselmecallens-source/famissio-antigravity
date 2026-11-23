@@ -602,7 +602,7 @@ const MissionsPage = () => {
           left: -0.06em;
           height: 0.06em;
           border-radius: 999px;
-          background: linear-gradient(90deg, #f46a07, #ffb347, #c82904);
+          background: #f46a07;
           box-shadow: 0 0.08em 0.22em rgba(244, 106, 7, 0.28);
           content: '';
           transform: scaleX(0);

@@ -179,6 +179,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
               aria-label={`${dept.name}, ${dept.code}${hasVisit(dept.code) ? ', mission Famissio' : ', pas encore visité'}`}
               aria-pressed={selectedCode === dept.code}
               onMouseEnter={() => { if (!selectedCode) setHoveredCode(dept.code); }}
+              onMouseLeave={() => { if (!selectedCode) setHoveredCode(null); }}
               onFocus={() => setHoveredCode(dept.code)}
               onClick={() => { if (dept.code !== ANNOUNCED_MISSION.code) setHasSelectedOtherDepartment(true); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); }}
               onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (dept.code !== ANNOUNCED_MISSION.code) setHasSelectedOtherDepartment(true); setSelectedCode((current) => current === dept.code ? null : dept.code); setHoveredCode(null); } }}
@@ -195,13 +196,15 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             <path className="mission-fr-map__department-halo mission-fr-map__department-halo-outline" d={department.mapPath} fill="none" aria-hidden="true" />
           </>}
           {announcedIsVisible && <g className="mission-fr-map__callout" aria-hidden="true">
-            <path className="mission-fr-map__callout-line" d="M2.68 2.29 C2.84 2.38 2.96 2.65 3.1 2.9" />
+            <path className="mission-fr-map__callout-line" d="M2.68 2.10 C2.84 2.27 2.96 2.65 3.1 2.9" />
             <path className="mission-fr-map__callout-arrow" d="M3.02 2.81 L3.1 2.9 L3.14 2.78" />
-            <path className="mission-fr-map__callout-shadow" d="M.75 2.03 C.91 1.95 1.05 2.04 1.19 2.01 C1.54 1.96 1.92 2.06 2.25 2.02 C2.43 2 2.56 2.1 2.52 2.24 C2.49 2.32 2.61 2.39 2.53 2.47 C2.43 2.57 2.27 2.53 2.09 2.56 C1.72 2.6 1.38 2.52 1.05 2.57 C.86 2.6 .65 2.55 .65 2.42 C.65 2.3 .56 2.22 .65 2.14 C.68 2.1 .69 2.07 .75 2.03Z" />
-            <path className="mission-fr-map__callout-card" d="M.75 1.98 C.91 1.9 1.05 1.99 1.19 1.96 C1.54 1.91 1.92 2.01 2.25 1.97 C2.43 1.95 2.56 2.05 2.52 2.19 C2.49 2.27 2.61 2.34 2.53 2.42 C2.43 2.52 2.27 2.48 2.09 2.51 C1.72 2.55 1.38 2.47 1.05 2.52 C.86 2.55 .65 2.5 .65 2.37 C.65 2.25 .56 2.17 .65 2.09 C.68 2.05 .69 2.02 .75 1.98Z" />
-            <path className="mission-fr-map__callout-accent" d="M.83 2.04 C1.18 2.01 1.56 2.04 1.92 2.03" />
-            <path className="mission-fr-map__callout-detail" d="M2.32 2.22 c.045 -.035 .1 -.005 .09 .04 -.01 .05 -.07 .08 -.12 .04 -.035 -.025 -.01 -.06 .03 -.08Z" />
-            <text className="mission-fr-map__callout-text" x="1.59" y="2.34" textAnchor="middle">RDV ici en 2027</text>
+            <g transform="translate(-.03 -.18) translate(1.6 2.25) scale(1.08 1.15) translate(-1.6 -2.25)">
+              <path className="mission-fr-map__callout-shadow" d="M.75 2.03 C.91 1.95 1.05 2.04 1.19 2.01 C1.54 1.96 1.92 2.06 2.25 2.02 C2.43 2 2.56 2.1 2.52 2.24 C2.49 2.32 2.61 2.39 2.53 2.47 C2.43 2.57 2.27 2.53 2.09 2.56 C1.72 2.6 1.38 2.52 1.05 2.57 C.86 2.6 .65 2.55 .65 2.42 C.65 2.3 .56 2.22 .65 2.14 C.68 2.1 .69 2.07 .75 2.03Z" />
+              <path className="mission-fr-map__callout-card" d="M.75 1.98 C.91 1.9 1.05 1.99 1.19 1.96 C1.54 1.91 1.92 2.01 2.25 1.97 C2.43 1.95 2.56 2.05 2.52 2.19 C2.49 2.27 2.61 2.34 2.53 2.42 C2.43 2.52 2.27 2.48 2.09 2.51 C1.72 2.55 1.38 2.47 1.05 2.52 C.86 2.55 .65 2.5 .65 2.37 C.65 2.25 .56 2.17 .65 2.09 C.68 2.05 .69 2.02 .75 1.98Z" />
+              <path className="mission-fr-map__callout-accent" d="M.83 2.04 C1.18 2.01 1.56 2.04 1.92 2.03" />
+              <path className="mission-fr-map__callout-detail" d="M2.32 2.22 c.045 -.035 .1 -.005 .09 .04 -.01 .05 -.07 .08 -.12 .04 -.035 -.025 -.01 -.06 .03 -.08Z" />
+              <text className="mission-fr-map__callout-text" x="1.59" y="2.34" textAnchor="middle">RDV ici en 2027 !</text>
+            </g>
           </g>}
         </svg>
 
@@ -219,7 +222,7 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             ) : (
               <>
                 <div className="mission-fr-map__popup-title">
-                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Nous espérons un jour aller à la rencontre des habitants d’ici.'}</span></div>
+                  <div><strong>{department.name}</strong><span>{shownMissions.length ? `${shownMissions.length} mission${shownMissions.length > 1 ? 's' : ''}` : 'Et si on venait vous voir une prochaine année ? On garde l’idée au chaud !'}</span></div>
                   {isExpanded && <button type="button" className="mission-fr-map__close" aria-label="Fermer les détails" onClick={() => { setSelectedCode(null); setHoveredCode(null); }}><X size={16} /></button>}
                 </div>
                 {isExpanded && (
