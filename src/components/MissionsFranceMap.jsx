@@ -198,10 +198,11 @@ export default function MissionsFranceMap({ missions, onOpenMission }) {
             <defs><linearGradient id="mission-callout-gradient" x1="0" x2="1"><stop stopColor="#c82904" /><stop offset="1" stopColor="#f46a07" /></linearGradient></defs>
             <path className="mission-fr-map__callout-line" d="M2.68 2.29 C2.84 2.38 2.96 2.65 3.1 2.9" />
             <path className="mission-fr-map__callout-arrow" d="M3.02 2.81 L3.1 2.9 L3.14 2.78" />
-            <path className="mission-fr-map__callout-card" d="M.78 1.98 H2.36 Q2.53 1.98 2.53 2.15 V2.23 L2.7 2.29 L2.53 2.37 V2.44 Q2.53 2.61 2.36 2.61 H.78 Q.61 2.61 .61 2.44 V2.15 Q.61 1.98 .78 1.98Z" />
-            <path className="mission-fr-map__callout-accent" d="M.78 2.13 V2.46" />
-            <text className="mission-fr-map__callout-caption" x="1.72" y="2.20" textAnchor="middle">PROCHAINE MISSION</text>
-            <text className="mission-fr-map__callout-text" x="1.72" y="2.43" textAnchor="middle">RDV ici · 2027</text>
+            <path className="mission-fr-map__callout-shadow" d="M.8 2.04 H2.27 L2.58 2.23 V2.42 L2.4 2.57 H.8 Q.61 2.57 .61 2.38 V2.23 Q.61 2.04 .8 2.04Z" />
+            <path className="mission-fr-map__callout-card" d="M.8 1.98 H2.27 L2.58 2.17 V2.36 L2.4 2.51 H.8 Q.61 2.51 .61 2.32 V2.17 Q.61 1.98 .8 1.98Z" />
+            <path className="mission-fr-map__callout-accent" d="M.82 2.08 H2.24" />
+            <path className="mission-fr-map__callout-detail" d="M2.38 2.25 l.045 .045 -.045 .045 -.045 -.045Z" />
+            <text className="mission-fr-map__callout-text" x="1.58" y="2.34" textAnchor="middle">RDV ici en 2027</text>
           </g>}
         </svg>
 

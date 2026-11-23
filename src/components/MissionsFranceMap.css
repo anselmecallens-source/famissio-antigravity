@@ -39,10 +39,11 @@
 .mission-fr-map__callout { pointer-events: none; }
 .mission-fr-map__callout-line { fill: none; stroke: #c82904; stroke-width: .035; stroke-linecap: round; stroke-dasharray: .08 .045; animation: mission-callout-flow 1.8s linear infinite; }
 .mission-fr-map__callout-arrow { fill: none; stroke: #c82904; stroke-width: .045; stroke-linecap: round; stroke-linejoin: round; }
-.mission-fr-map__callout-card { fill: url(#mission-callout-gradient); stroke: #fff; stroke-width: .035; filter: drop-shadow(0 .04px .07px rgba(90, 30, 7, .32)); }
-.mission-fr-map__callout-accent { stroke: rgba(255,255,255,.9); stroke-width: .04; stroke-linecap: round; }
-.mission-fr-map__callout-caption { fill: rgba(255,255,255,.8); font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: .075px; font-weight: 700; letter-spacing: .012px; }
-.mission-fr-map__callout-text { fill: white; font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: .18px; font-weight: 800; letter-spacing: .003px; }
+.mission-fr-map__callout-shadow { fill: #7f230e; opacity: .22; }
+.mission-fr-map__callout-card { fill: url(#mission-callout-gradient); stroke: #fff; stroke-width: .035; filter: drop-shadow(0 .045px .07px rgba(90, 30, 7, .3)); transition: filter .2s ease; }
+.mission-fr-map__callout-accent { stroke: rgba(255,255,255,.4); stroke-width: .018; stroke-linecap: round; }
+.mission-fr-map__callout-detail { fill: rgba(255,255,255,.82); }
+.mission-fr-map__callout-text { fill: white; font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: .19px; font-weight: 800; letter-spacing: .002px; }
 @keyframes mission-callout-flow { to { stroke-dashoffset: -.25; } }
 .mission-fr-map__popup { position: absolute; z-index: 3; top: .65rem; right: .65rem; width: min(255px, calc(100% - 1.3rem)); padding: .72rem .85rem; border: 1px solid rgba(179, 111, 75, .22); border-radius: 13px; color: #43322a; background: rgba(255, 255, 255, .97); box-shadow: 0 12px 32px rgba(79, 46, 26, .13); backdrop-filter: blur(10px); animation: map-popup-in .16s ease-out both; }
 .mission-fr-map__popup.is-expanded { width: min(310px, calc(100% - 1.3rem)); padding: .9rem; }
