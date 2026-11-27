@@ -1,240 +1,282 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { FACEBOOK_PAGE, FACEBOOK_POSTS } from '../data/facebookPosts';
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Helpers
-───────────────────────────────────────────────────────────────────────────── */
+/* ─── Helpers ─────────────────────────────────────────────────────────────── */
 
-/** Extrait l'ID numérique d'une URL Facebook (post ou reel) */
-function extractFbId(url = '') {
-  // /videos/123456  ou  /reels/123456  ou  /posts/123456
-  const m = url.match(/\/(videos|reels|posts)\/(\d+)/);
-  return m ? m[2] : null;
+function buildEmbedUrl(url) {
+  if (!url) return null;
+  return (
+    'https://www.facebook.com/plugins/video.php?' +
+    new URLSearchParams({ href: url, show_text: 'false', width: '560', allowfullscreen: 'true' })
+  );
 }
 
-/** Renvoie l'URL embed Facebook correcte selon le type */
-function buildEmbedUrl(post) {
-  const id = extractFbId(post.url);
-  if (!id) return null;
+/* ─── Lightbox ────────────────────────────────────────────────────────────── */
 
-  if (post.type === 'reel' || post.type === 'video') {
-    // Embed vidéo Facebook (fonctionne pour Reels et vidéos)
-    return `https://www.facebook.com/plugins/video.php?${new URLSearchParams({
-      href: post.url,
-      show_text: 'false',
-      width: '560',
-      allowfullscreen: 'true',
-    })}`;
-  }
-  return null;
-}
+function Lightbox({ images, startIndex, onClose }) {
+  const [idx, setIdx] = useState(startIndex);
+  const n = images.length;
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Sous-composants
-───────────────────────────────────────────────────────────────────────────── */
-
-/** Galerie d'images cliquable (miniatures + lightbox) */
-function ImageGallery({ images, postId }) {
-  const [lightbox, setLightbox] = useState(null);
-  const count = images.length;
-  const preview = images.slice(0, 4);
-
-  // Lightbox keyboard nav
   useEffect(() => {
-    if (lightbox === null) return;
-    const handler = (e) => {
-      if (e.key === 'Escape') setLightbox(null);
-      if (e.key === 'ArrowRight') setLightbox((i) => (i + 1) % count);
-      if (e.key === 'ArrowLeft') setLightbox((i) => (i - 1 + count) % count);
+    const h = (e) => {
+      if (e.key === 'Escape')      onClose();
+      if (e.key === 'ArrowRight')  setIdx((i) => (i + 1) % n);
+      if (e.key === 'ArrowLeft')   setIdx((i) => (i - 1 + n) % n);
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [lightbox, count]);
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [n, onClose]);
 
-  const gridCls =
-    count === 1
-      ? 'grid-cols-1'
-      : count === 2
-      ? 'grid-cols-2'
-      : count === 3
-      ? 'grid-cols-2'
-      : 'grid-cols-2';
+  const btn = (extra, label, onClick, children) => (
+    <button onClick={onClick} aria-label={label} style={{
+      position: 'absolute', border: 'none', cursor: 'pointer',
+      background: 'rgba(255,255,255,0.15)', color: '#fff',
+      borderRadius: '50%', width: 42, height: 42,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontSize: 22, lineHeight: 1, ...extra,
+    }}>{children}</button>
+  );
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 99999,
+        background: 'rgba(0,0,0,0.92)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 16,
+      }}
+    >
+      {btn({ top: 14, right: 14 }, 'Fermer', onClose, '✕')}
+      {n > 1 && btn({ left: 14, top: '50%', transform: 'translateY(-50%)' }, 'Précédent',
+        (e) => { e.stopPropagation(); setIdx((i) => (i - 1 + n) % n); }, '‹')}
+      {n > 1 && btn({ right: 14, top: '50%', transform: 'translateY(-50%)' }, 'Suivant',
+        (e) => { e.stopPropagation(); setIdx((i) => (i + 1) % n); }, '›')}
+
+      <img
+        src={images[idx]}
+        alt=""
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: '100%', maxHeight: '90vh',
+          objectFit: 'contain', borderRadius: 10,
+          boxShadow: '0 20px 60px rgba(0,0,0,0.6)', display: 'block',
+        }}
+      />
+      {n > 1 && (
+        <span style={{
+          position: 'absolute', bottom: 14,
+          color: 'rgba(255,255,255,0.55)', fontSize: 12,
+        }}>{idx + 1} / {n}</span>
+      )}
+    </div>
+  );
+}
+
+/* ─── Galerie d'images ────────────────────────────────────────────────────── */
+
+function ImageGallery({ images, postId }) {
+  const [lb, setLb] = useState(null);
+  const all     = images;
+  const count   = all.length;
+  const preview = all.slice(0, Math.min(count, 4));
+
+  /*
+   * Layouts :
+   *  1 img  → pleine largeur 16/9
+   *  2 imgs → 2 colonnes égales, chaque cellule carrée
+   *  3 imgs → grande à gauche (2 lignes) + 2 petites empilées à droite
+   *  4+     → grille 2×2, dernière cellule peut afficher "+N"
+   */
+  const getGridStyle = () => {
+    if (count === 1) return { gridTemplateColumns: '1fr' };
+    if (count === 2) return { gridTemplateColumns: '1fr 1fr' };
+    if (count === 3) return {
+      gridTemplateColumns: '1fr 1fr',
+      gridTemplateAreas: '"a b" "a c"',
+    };
+    return { gridTemplateColumns: '1fr 1fr' };
+  };
+
+  const getItemStyle = (i) => {
+    const base = {
+      display: 'block', position: 'relative',
+      border: 'none', padding: 0, cursor: 'pointer',
+      overflow: 'hidden', background: '#e5e7eb',
+    };
+    if (count === 1)  return { ...base, aspectRatio: '16/9' };
+    if (count === 3) {
+      if (i === 0) return { ...base, gridArea: 'a' };   // grande à gauche, hauteur définie par les 2 voisines
+      if (i === 1) return { ...base, gridArea: 'b', aspectRatio: '1/1' };
+      if (i === 2) return { ...base, gridArea: 'c', aspectRatio: '1/1' };
+    }
+    return { ...base, aspectRatio: '1/1' }; // 2 ou 4+
+  };
 
   return (
     <>
-      {/* Miniatures */}
-      <div className={`grid gap-1 ${gridCls}`}>
-        {preview.map((src, idx) => {
-          const isLast = idx === 3 && count > 4;
+      <div style={{
+        display: 'grid', gap: 3, borderRadius: 10, overflow: 'hidden',
+        ...getGridStyle(),
+      }}>
+        {preview.map((src, i) => {
+          const isLast = i === 3 && count > 4;
           return (
             <button
-              key={`${postId}-img-${idx}`}
-              className={`relative overflow-hidden rounded-lg bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
-                count === 3 && idx === 0 ? 'row-span-2' : ''
-              }`}
-              style={{ aspectRatio: count === 1 ? '16/9' : '1/1' }}
-              onClick={() => setLightbox(idx)}
-              aria-label={`Voir la photo ${idx + 1}`}
+              key={`${postId}-${i}`}
+              aria-label={`Agrandir photo ${i + 1}`}
+              onClick={() => setLb(i)}
+              style={getItemStyle(i)}
             >
               <img
-                src={src}
-                alt=""
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                loading="lazy"
+                src={src} alt="" loading="lazy"
+                style={{
+                  position: 'absolute', inset: 0,
+                  width: '100%', height: '100%',
+                  objectFit: 'cover', transition: 'transform 0.3s',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.06)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
               />
               {isLast && (
-                <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">+{count - 4}</span>
-                </div>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'rgba(0,0,0,0.55)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontSize: 22, fontWeight: 700,
+                }}>+{count - 4}</div>
               )}
             </button>
           );
         })}
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white/80 hover:text-white bg-black/40 rounded-full w-10 h-10 flex items-center justify-center text-xl"
-            onClick={() => setLightbox(null)}
-            aria-label="Fermer"
-          >
-            ✕
-          </button>
-          {count > 1 && (
-            <>
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-black/40 rounded-full w-10 h-10 flex items-center justify-center text-xl"
-                onClick={(e) => { e.stopPropagation(); setLightbox((i) => (i - 1 + count) % count); }}
-                aria-label="Photo précédente"
-              >
-                ‹
-              </button>
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-black/40 rounded-full w-10 h-10 flex items-center justify-center text-xl"
-                onClick={(e) => { e.stopPropagation(); setLightbox((i) => (i + 1) % count); }}
-                aria-label="Photo suivante"
-              >
-                ›
-              </button>
-            </>
-          )}
-          <img
-            src={images[lightbox]}
-            alt=""
-            className="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <span className="absolute bottom-4 text-white/60 text-sm">
-            {lightbox + 1} / {count}
-          </span>
-        </div>
+      {lb !== null && (
+        <Lightbox images={all} startIndex={lb} onClose={() => setLb(null)} />
       )}
     </>
   );
 }
 
-/** Lecteur vidéo / Reel Facebook intégré (pas de redirect) */
+/* ─── Lecteur vidéo / Réel Facebook ──────────────────────────────────────── */
+
 function FbVideoPlayer({ post }) {
   const [playing, setPlaying] = useState(false);
-  const embedUrl = buildEmbedUrl(post);
-
-  if (!embedUrl) {
-    // Fallback: lien externe élégant
-    return (
-      <a
-        href={post.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-800 transition-colors"
-      >
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-orange-100">▶</span>
-        Voir le Réel sur Facebook
-      </a>
-    );
-  }
+  const embedUrl = buildEmbedUrl(post.url);
+  const isReel   = post.type === 'reel';
 
   if (!playing) {
     return (
-      <div className="relative rounded-xl overflow-hidden bg-gray-900 cursor-pointer group" style={{ aspectRatio: '9/16', maxHeight: '480px' }}>
-        {/* Miniature / placeholder */}
-        {post.thumbnail ? (
+      <div
+        style={{
+          position: 'relative', width: '100%',
+          aspectRatio: isReel ? '9/16' : '16/9',
+          maxHeight: 420,
+          borderRadius: 10, overflow: 'hidden',
+          background: '#1a1a2e', cursor: 'pointer',
+        }}
+      >
+        {/* Miniature */}
+        {post.thumbnail && (
           <img
-            src={post.thumbnail}
-            alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
+            src={post.thumbnail} alt="" loading="lazy"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center">
-            <svg className="w-16 h-16 text-white/40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-            </svg>
-          </div>
         )}
-        {/* Overlay play */}
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex flex-col items-center justify-center gap-3">
+        {/* Overlay + bouton play */}
+        <div style={{
+          position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.38)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10,
+        }}>
           <button
-            className="w-16 h-16 rounded-full bg-white/90 hover:bg-white hover:scale-110 transition-all shadow-xl flex items-center justify-center"
             onClick={() => setPlaying(true)}
-            aria-label="Lire la vidéo"
+            aria-label="Lire"
+            style={{
+              width: 60, height: 60, borderRadius: '50%',
+              background: 'rgba(255,255,255,0.92)', border: 'none', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 6px 20px rgba(0,0,0,0.3)', transition: 'transform 0.2s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
           >
-            <svg className="w-7 h-7 text-blue-600 ml-1" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#1877f2" style={{ marginLeft: 4 }}>
               <path d="M8 5v14l11-7z"/>
             </svg>
           </button>
-          <span className="text-white text-xs font-semibold tracking-wide uppercase opacity-80">
-            {post.type === 'reel' ? '🎬 Réel Facebook' : '▶ Vidéo Facebook'}
+          <span style={{
+            color: 'rgba(255,255,255,0.85)', fontSize: 11,
+            fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em',
+          }}>
+            {isReel ? '🎬 Réel Facebook' : '▶ Vidéo Facebook'}
           </span>
         </div>
       </div>
     );
   }
 
-  // iframe embed (sans redirection)
+  /* Lecture inline — pas de redirection */
   return (
-    <div
-      className="relative rounded-xl overflow-hidden bg-black"
-      style={{ aspectRatio: post.type === 'reel' ? '9/16' : '16/9', maxHeight: '480px' }}
-    >
+    <div style={{
+      position: 'relative', width: '100%',
+      aspectRatio: isReel ? '9/16' : '16/9',
+      maxHeight: 420,
+      borderRadius: 10, overflow: 'hidden', background: '#000',
+    }}>
       <iframe
         src={embedUrl}
-        className="absolute inset-0 w-full h-full border-0"
+        title={post.text?.slice(0, 60) || 'Vidéo Facebook'}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         allowFullScreen
-        title={post.text?.slice(0, 60) || 'Vidéo Facebook'}
       />
     </div>
   );
 }
 
-/** Carte d'un post Facebook */
+/* ─── Carte ───────────────────────────────────────────────────────────────── */
+
 function FbPostCard({ post }) {
-  const hasVideo = post.type === 'reel' || post.type === 'video';
-  const hasImages = post.images?.length > 0;
+  const isVideo  = post.type === 'reel' || post.type === 'video';
+  const hasImages = !isVideo && Array.isArray(post.images) && post.images.length > 0;
 
   return (
-    <article className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col transition-shadow hover:shadow-md">
-      {/* En-tête */}
-      <div className="flex items-center gap-3 px-4 pt-4 pb-3">
+    <article
+      style={{
+        background: '#fff', borderRadius: 14,
+        border: '1px solid #efefef',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+        display: 'flex', flexDirection: 'column',
+        overflow: 'hidden', transition: 'box-shadow 0.2s',
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 22px rgba(0,0,0,0.1)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)'; }}
+    >
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px 8px' }}>
         <img
-          src={FACEBOOK_PAGE.avatar}
-          alt="Famissio"
-          className="w-10 h-10 rounded-full object-contain bg-orange-50 p-0.5 ring-1 ring-orange-100 flex-shrink-0"
-          width="40"
-          height="40"
+          src={FACEBOOK_PAGE.avatar} alt="Famissio" loading="lazy"
+          style={{
+            width: 38, height: 38, borderRadius: '50%',
+            objectFit: 'contain', background: '#fff8f4',
+            padding: 3, border: '1px solid #ffe4d6', flexShrink: 0,
+          }}
         />
-        <div className="min-w-0">
-          <p className="text-sm font-bold text-gray-900 leading-tight truncate">{FACEBOOK_PAGE.name}</p>
-          <time className="text-xs text-gray-400" dateTime={post.isoDate}>{post.date}</time>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#111', lineHeight: 1.3 }}>
+            {FACEBOOK_PAGE.name}
+          </p>
+          <time style={{ fontSize: 11, color: '#9ca3af' }} dateTime={post.isoDate}>
+            {post.date}
+          </time>
         </div>
-        {/* Badge type */}
-        {hasVideo && (
-          <span className="ml-auto flex-shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-blue-600 bg-blue-50 rounded-full px-2 py-0.5">
+        {isVideo && (
+          <span style={{
+            flexShrink: 0, fontSize: 10, fontWeight: 700,
+            textTransform: 'uppercase', letterSpacing: '0.07em',
+            color: '#1877f2', background: '#eff6ff',
+            borderRadius: 999, padding: '2px 8px',
+          }}>
             {post.type === 'reel' ? '🎬 Réel' : '▶ Vidéo'}
           </span>
         )}
@@ -242,27 +284,37 @@ function FbPostCard({ post }) {
 
       {/* Texte */}
       {post.text && (
-        <p className="px-4 pb-3 text-sm text-gray-700 leading-relaxed line-clamp-4">{post.text}</p>
+        <p style={{
+          margin: '0 14px 10px', fontSize: 13, lineHeight: 1.55, color: '#374151',
+          display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+        }}>
+          {post.text}
+        </p>
       )}
 
       {/* Média */}
-      <div className="px-4 pb-4 flex-1 flex flex-col justify-end">
-        {hasVideo ? (
-          <FbVideoPlayer post={post} />
-        ) : hasImages ? (
-          <ImageGallery images={post.images} postId={post.id} />
-        ) : null}
-      </div>
+      {(isVideo || hasImages) && (
+        <div style={{ padding: '0 10px 10px' }}>
+          {isVideo
+            ? <FbVideoPlayer post={post} />
+            : <ImageGallery images={post.images} postId={post.id} />
+          }
+        </div>
+      )}
 
-      {/* Footer */}
-      <div className="border-t border-gray-50 px-4 py-3">
+      {/* Footer lien */}
+      <div style={{ marginTop: 'auto', borderTop: '1px solid #f5f5f5', padding: '8px 14px' }}>
         <a
-          href={post.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-blue-600 transition-colors"
+          href={post.url} target="_blank" rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 5,
+            fontSize: 11, fontWeight: 600, color: '#9ca3af',
+            textDecoration: 'none', transition: 'color 0.15s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#1877f2'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#9ca3af'; }}
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
           </svg>
           Voir sur Facebook
@@ -272,74 +324,115 @@ function FbPostCard({ post }) {
   );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Composant principal
-───────────────────────────────────────────────────────────────────────────── */
+/* ─── Composant principal ─────────────────────────────────────────────────── */
+
 export default function FacebookFeed() {
   const [visibleCount, setVisibleCount] = useState(6);
-  const postsToShow = FACEBOOK_POSTS.slice(0, visibleCount);
+  const posts   = FACEBOOK_POSTS.slice(0, visibleCount);
   const hasMore = visibleCount < FACEBOOK_POSTS.length;
 
   return (
     <section
-      className="border-t border-gray-100 bg-gradient-to-b from-gray-50 to-orange-50/20 py-14 sm:py-20"
       aria-label="Actualités de Famissio sur Facebook"
+      style={{
+        borderTop: '1px solid #f0f0f0',
+        background: 'linear-gradient(to bottom, #f9fafb, #fff8f4)',
+        padding: '60px 0',
+      }}
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <style>{`
+        .fb-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        @media (min-width: 640px)  { .fb-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .fb-grid { grid-template-columns: repeat(3, 1fr); } }
+      `}</style>
 
-        {/* En-tête de section */}
-        <div className="mb-10 text-center">
-          <div className="mb-4 inline-flex items-center gap-3">
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
+
+        {/* En-tête section */}
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
             <img
-              src={FACEBOOK_PAGE.avatar}
-              alt=""
-              className="h-11 w-11 rounded-full bg-white p-1 object-contain shadow-sm ring-1 ring-orange-100"
-              width="44"
-              height="44"
-              loading="lazy"
+              src={FACEBOOK_PAGE.avatar} alt="" loading="lazy"
+              style={{
+                width: 42, height: 42, borderRadius: '50%',
+                objectFit: 'contain', background: '#fff',
+                padding: 4, border: '1px solid #ffe4d6',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+              }}
             />
-            <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-orange-700">
+            <span style={{
+              fontSize: 11, fontWeight: 800, textTransform: 'uppercase',
+              letterSpacing: '0.17em', color: '#c2410c',
+            }}>
               Famissio sur Facebook
             </span>
           </div>
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(1.7rem, 3.5vw, 2.6rem)',
+            fontWeight: 700, color: '#111', margin: '0 0 8px',
+          }}>
             Les dernières nouvelles
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-gray-500 sm:text-base">
-            Publications, photos et vidéos récentes directement issues de notre page Facebook.
+          <p style={{ fontSize: 14, color: '#6b7280', maxWidth: 500, margin: '0 auto' }}>
+            Publications, photos et réels directement issus de notre page Facebook.
           </p>
         </div>
 
-        {/* Grille de posts (3 col desktop / 2 tablette / 1 mobile) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-min">
-          {postsToShow.map((post) => (
+        {/* Grille */}
+        <div className="fb-grid">
+          {posts.map((post) => (
             <FbPostCard key={post.id} post={post} />
           ))}
         </div>
 
-        {/* Boutons bas de section */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* Actions */}
+        <div style={{
+          marginTop: 32, display: 'flex', flexWrap: 'wrap',
+          alignItems: 'center', justifyContent: 'center', gap: 12,
+        }}>
           {hasMore && (
             <button
               onClick={() => setVisibleCount((n) => n + 3)}
-              className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-6 py-2.5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-orange-50 hover:border-orange-200 hover:text-orange-700 transition-all"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 7,
+                borderRadius: 999, background: '#fff',
+                border: '1px solid #e5e7eb',
+                padding: '9px 20px', fontSize: 13, fontWeight: 600,
+                color: '#374151', cursor: 'pointer',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#fed7aa'; e.currentTarget.style.color = '#c2410c'; e.currentTarget.style.background = '#fff8f4'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e5e7eb'; e.currentTarget.style.color = '#374151'; e.currentTarget.style.background = '#fff'; }}
             >
               Voir plus de publications
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           )}
           <a
-            href={FACEBOOK_PAGE.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+            href={FACEBOOK_PAGE.url} target="_blank" rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              borderRadius: 999, background: '#1877f2',
+              padding: '9px 20px', fontSize: 13, fontWeight: 600,
+              color: '#fff', textDecoration: 'none',
+              boxShadow: '0 2px 8px rgba(24,119,242,0.25)',
+              transition: 'background 0.2s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = '#1558b0'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = '#1877f2'; }}
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
             </svg>
-            Suivre la page Facebook
+            Voir toute la page Facebook
           </a>
         </div>
       </div>
