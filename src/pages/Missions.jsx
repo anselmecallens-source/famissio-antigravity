@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, MapPin, Users, Calendar, ExternalLink, Play, ChevronLeft, ChevronRight, Film, Clapperboard } from 'lucide-react';
 import { ANNOUNCED_MISSION } from '../data/announcedMission';
 import MissionsFranceMap from '../components/MissionsFranceMap';
 import '../components/MissionsFranceMap.css';
@@ -186,6 +186,7 @@ const MissionsPage = () => {
       
       Gloire à Dieu. Et vive la mission !`,
       video: null,
+      videoPending: true,
       links: [
         { name: 'La Montagne (Cosnac)', url: '/assets/Articles%20missions/La%20Montagne%20-%20Cosnac%202026.jpg' },
         { name: 'La Montagne (Brive Holywins)', url: '/assets/Articles%20missions/La%20Montagne%20-%20Brive%20Holywins%202026.jpg' },
@@ -804,6 +805,18 @@ const MissionsPage = () => {
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity" />
+                {mission.videoPending && (
+                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 pointer-events-none">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-black/65 backdrop-blur-md border border-amber-400/40 text-amber-200 shadow-xl text-xs font-semibold tracking-wide">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                      </span>
+                      <Clapperboard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span>Vidéo en cours de réalisation ✨</span>
+                    </div>
+                  </div>
+                )}
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
                   <div className="transform transition-transform group-hover:translate-y-0 translate-y-2">
                     <div className="text-5xl sm:text-7xl font-black mb-2 year-tag text-white">{mission.year}</div>
@@ -849,6 +862,18 @@ const MissionsPage = () => {
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity" />
+              {mission.videoPending && (
+                <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 pointer-events-none">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-black/65 backdrop-blur-md border border-amber-400/40 text-amber-200 shadow-xl text-xs font-semibold tracking-wide">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                    </span>
+                    <Clapperboard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <span>Vidéo en cours de réalisation ✨</span>
+                  </div>
+                </div>
+              )}
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <div className="text-5xl font-black mb-2 year-tag text-white">{mission.year}</div>
                 <div className="flex items-center gap-2 text-orange-300">
@@ -941,6 +966,20 @@ const MissionsPage = () => {
                       selectedMission.imageZoom === 'medium' ? 'img-zoom-medium' :
                         selectedMission.imageZoom === true ? 'img-zoom-medium' : ''}`}
                 />
+                {selectedMission.videoPending && (
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-10 pointer-events-none">
+                    <div className="flex items-center gap-2.5 px-3.5 py-2 sm:py-2.5 rounded-xl bg-black/75 backdrop-blur-md border border-amber-400/40 text-amber-200 shadow-xl text-xs sm:text-sm font-medium">
+                      <span className="relative flex h-2 w-2 shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                      </span>
+                      <Clapperboard className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span className="leading-snug">
+                        Vidéo en cours de réalisation · Revenez dans quelques instants !
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -949,6 +988,27 @@ const MissionsPage = () => {
                 {selectedMission.story}
               </p>
             </div>
+
+            {selectedMission.videoPending && (
+              <div className="w-full bg-gradient-to-r from-amber-50/90 via-orange-50/80 to-amber-50/90 border border-amber-200/90 rounded-2xl p-5 sm:p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-orange-500/20">
+                  <Film className="w-6 h-6 animate-pulse" />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200 mb-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
+                    En plein montage
+                  </div>
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-1 flex items-center justify-center sm:justify-start gap-2">
+                    <span>La vidéo est en cours de réalisation !</span>
+                    <span>🎬</span>
+                  </h4>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    Le film souvenir de la mission est actuellement en cours de finalisation. Revenez dans quelques instants pour revivre tous ces beaux moments en vidéo !
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-4 mb-4">
               {selectedMission.video && (
@@ -962,6 +1022,12 @@ const MissionsPage = () => {
                     <><Play className="w-5 h-5 fill-current" />Voir la vidéo</>
                   )}
                 </button>
+              )}
+              {selectedMission.videoPending && (
+                <div className="inline-flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-bold text-sm shadow-md shadow-orange-500/20 select-none">
+                  <Clapperboard className="w-4 h-4" />
+                  <span>Vidéo disponible dans quelques instants</span>
+                </div>
               )}
               {selectedMission.links.map((link, idx) => (
                 <a
