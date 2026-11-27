@@ -813,7 +813,7 @@ const MissionsPage = () => {
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
                       </span>
                       <Clapperboard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                      <span>Vidéo en cours de réalisation ✨</span>
+                      <span>Vidéo en cours de réalisation</span>
                     </div>
                   </div>
                 )}
@@ -870,7 +870,7 @@ const MissionsPage = () => {
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
                     </span>
                     <Clapperboard className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span>Vidéo en cours de réalisation ✨</span>
+                    <span>Vidéo en cours de réalisation</span>
                   </div>
                 </div>
               )}
@@ -975,7 +975,7 @@ const MissionsPage = () => {
                       </span>
                       <Clapperboard className="w-4 h-4 text-amber-400 shrink-0" />
                       <span className="leading-snug">
-                        Vidéo en cours de réalisation · Revenez dans quelques instants !
+                        Vidéo en cours de réalisation · Revenez dans quelques semaines !
                       </span>
                     </div>
                   </div>
@@ -1004,7 +1004,7 @@ const MissionsPage = () => {
                     <span>🎬</span>
                   </h4>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    Le film souvenir de la mission est actuellement en cours de finalisation. Revenez dans quelques instants pour revivre tous ces beaux moments en vidéo !
+                    Le film souvenir de la mission est actuellement en cours de finalisation. Revenez dans quelques semaines pour revivre tous ces beaux moments en vidéo !
                   </p>
                 </div>
               </div>
@@ -1026,7 +1026,7 @@ const MissionsPage = () => {
               {selectedMission.videoPending && (
                 <div className="inline-flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-bold text-sm shadow-md shadow-orange-500/20 select-none">
                   <Clapperboard className="w-4 h-4" />
-                  <span>Vidéo disponible dans quelques instants</span>
+                  <span>Vidéo disponible dans quelques semaines</span>
                 </div>
               )}
               {selectedMission.links.map((link, idx) => (
